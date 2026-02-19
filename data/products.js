@@ -1,0 +1,54 @@
+export const product = {
+    id: 'dtht-capsule-001',
+    name: 'Viên Nang Đông Trùng Hạ Thảo',
+    brand: 'maldalladuyduc',
+    tagline: 'Tinh Hoa Thiên Nhiên — Sức Khỏe Trường Thọ',
+    shortDescription: 'Viên nang con nhộng Đông Trùng Hạ Thảo nguyên chất, bào chế trực tiếp từ quy trình sản xuất khép kín, đảm bảo giữ trọn dưỡng chất quý giá.',
+    description: `Sản phẩm Viên Nang Đông Trùng Hạ Thảo maldalladuyduc được bào chế từ 100% con nhộng Đông Trùng Hạ Thảo (Cordyceps militaris) nuôi cấy trong môi trường chuẩn GMP. Quy trình sản xuất khép kín từ khâu nuôi cấy, thu hoạch, sấy khô đến đóng viên nang, đảm bảo giữ nguyên hàm lượng Cordycepin và Adenosine — hai hoạt chất quý nhất của Đông Trùng Hạ Thảo.`,
+    price: 850000,
+    priceFormatted: '850.000₫',
+    unit: 'hộp',
+    capsuleCount: 60,
+    capsuleUnit: 'viên/hộp',
+    ingredients: [
+        'Bột nhộng trùng thảo (Cordyceps militaris) — 500mg/viên',
+        'Vỏ nang thực vật (HPMC)',
+        'Không chất bảo quản, không phẩm màu',
+    ],
+    benefits: [
+        {
+            icon: '🛡️',
+            title: 'Tăng Cường Miễn Dịch',
+            desc: 'Cordycepin giúp kích hoạt hệ miễn dịch tự nhiên, bảo vệ cơ thể trước tác nhân gây bệnh.',
+        },
+        {
+            icon: '⚡',
+            title: 'Bồi Bổ Sức Khỏe',
+            desc: 'Cung cấp năng lượng bền bỉ, giảm mệt mỏi, tăng cường thể lực cho người lao động và vận động viên.',
+        },
+        {
+            icon: '🫁',
+            title: 'Hỗ Trợ Hô Hấp',
+            desc: 'Cải thiện chức năng phổi, giảm ho, hen suyễn, viêm phế quản mãn tính.',
+        },
+        {
+            icon: '❤️',
+            title: 'Bảo Vệ Tim Mạch',
+            desc: 'Giúp điều hòa huyết áp, giảm cholesterol xấu, phòng ngừa xơ vữa động mạch.',
+        },
+        {
+            icon: '🧠',
+            title: 'Tăng Cường Trí Não',
+            desc: 'Adenosine cải thiện tuần hoàn não, tăng khả năng tập trung và trí nhớ.',
+        },
+        {
+            icon: '🌿',
+            title: 'Chống Lão Hóa',
+            desc: 'Chất chống oxy hóa mạnh giúp làm chậm quá trình lão hóa, giữ làn da tươi trẻ.',
+        },
+    ],
+    usage: 'Uống 2 viên/ngày (sáng và tối), trước bữa ăn 30 phút. Dùng liên tục trong 2-3 tháng để đạt hiệu quả tốt nhất.',
+    storage: 'Bảo quản nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp. Nhiệt độ dưới 30°C.',
+    certification: 'Đạt tiêu chuẩn GMP — WHO',
+    origin: 'Việt Nam',
+};
