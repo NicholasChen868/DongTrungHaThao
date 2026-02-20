@@ -659,11 +659,35 @@
 
             <!-- PRODUCTS SECTION -->
             <div class="admin-section" id="section-products">
+                <!-- PRICING -->
                 <div class="admin-panel">
-                    <h3>🧪 Sản Phẩm</h3>
-                    <div id="allProducts">
-                        <div class="admin-empty">Quản lý sản phẩm qua Supabase Dashboard</div>
+                    <h3>💰 Bảng Giá Sản Phẩm <button class="btn-refresh" onclick="refreshSection('products')">🔄 Làm
+                            mới</button></h3>
+                    <div id="pricingEditor">
+                        <div class="admin-loading">
+                            <div class="spinner"></div> Đang tải...
+                        </div>
                     </div>
+                </div>
+                <!-- HERO CONTENT -->
+                <div class="admin-panel">
+                    <h3>🎨 Nội Dung Trang Chủ</h3>
+                    <div id="heroEditor"></div>
+                </div>
+                <!-- CONTACT INFO -->
+                <div class="admin-panel">
+                    <h3>📞 Thông Tin Liên Hệ</h3>
+                    <div id="contactEditor"></div>
+                </div>
+                <!-- CTV CONFIG -->
+                <div class="admin-panel">
+                    <h3>👥 Cấu Hình CTV</h3>
+                    <div id="ctvConfigEditor"></div>
+                </div>
+                <!-- ANNOUNCEMENT -->
+                <div class="admin-panel">
+                    <h3>📢 Thông Báo Site</h3>
+                    <div id="announcementEditor"></div>
                 </div>
             </div>
 
@@ -841,6 +865,7 @@
                 case 'orders': await loadOrders(); break;
                 case 'ctv': await loadCTVList(); break;
                 case 'testimonials': await loadTestimonials(); break;
+                case 'products': await loadProductSettings(); break;
                 case 'contacts': await loadContacts(); break;
                 case 'posts': await loadPosts(); break;
                 case 'withdrawals': await loadAdminWithdrawals(); break;
@@ -1216,6 +1241,235 @@
             } catch (err) {
                 showAdminToast('Lỗi: ' + err.message, 'error');
             }
+        };
+        // ===== PRODUCTS / SITE SETTINGS =====
+        let allSettings = {};
+        async function loadProductSettings() {
+            try {
+                const { data, error } = await supabase.rpc('admin_get_settings', { p_admin_hash: getAdminHash() });
+                if (error) throw error;
+                allSettings = {};
+                (data || []).forEach(s => { allSettings[s.key] = s.value; });
+
+                // --- Pricing Editor ---
+                const pricing = allSettings.product_pricing || {};
+                document.getElementById('pricingEditor').innerHTML = `
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">Tên sản phẩm</label>
+                            <input class="admin-input" id="sp_name" value="${escapeHTML(pricing.product_name || '')}" />
+                        </div>
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">Mô tả ngắn</label>
+                            <input class="admin-input" id="sp_subtitle" value="${escapeHTML(pricing.product_subtitle || '')}" />
+                        </div>
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">💰 Đơn giá (VNĐ)</label>
+                            <input class="admin-input" type="number" id="sp_price" value="${pricing.unit_price || 850000}" step="10000" min="0" />
+                        </div>
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">🚚 Free ship từ (hộp)</label>
+                            <input class="admin-input" type="number" id="sp_freeship" value="${pricing.free_shipping_min || 3}" min="1" />
+                        </div>
+                    </div>
+                    <div style="margin-bottom:16px">
+                        <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:8px">📊 Giảm giá theo số lượng (%)</label>
+                        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px">
+                            ${(pricing.quantity_options || [1, 2, 3, 5, 10]).map(q => `
+                                <div style="text-align:center">
+                                    <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">${q} hộp</div>
+                                    <input class="admin-input" type="number" id="sp_disc_${q}" value="${(pricing.discounts || {})[q] || 0}" min="0" max="50" step="1" style="text-align:center" />
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <button class="btn-action btn-approve" onclick="savePricing()" style="padding:10px 24px;font-size:14px">💾 Lưu Bảng Giá</button>
+                `;
+
+                // --- Hero Editor ---
+                const hero = allSettings.hero_content || {};
+                document.getElementById('heroEditor').innerHTML = `
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">Tiêu đề Hero</label>
+                            <input class="admin-input" id="hero_title" value="${escapeHTML(hero.title || '')}" />
+                        </div>
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">Subtitle</label>
+                            <input class="admin-input" id="hero_subtitle" value="${escapeHTML(hero.subtitle || '')}" />
+                        </div>
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">Nút CTA</label>
+                            <input class="admin-input" id="hero_cta" value="${escapeHTML(hero.cta_text || '')}" />
+                        </div>
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">Badge text</label>
+                            <input class="admin-input" id="hero_badge" value="${escapeHTML(hero.badge_text || '')}" />
+                        </div>
+                    </div>
+                    <button class="btn-action btn-approve" onclick="saveHero()" style="padding:10px 24px;font-size:14px">💾 Lưu Hero</button>
+                `;
+
+                // --- Contact Editor ---
+                const contact = allSettings.contact_info || {};
+                document.getElementById('contactEditor').innerHTML = `
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">📱 Số điện thoại</label>
+                            <input class="admin-input" id="ct_phone" value="${escapeHTML(contact.phone || '')}" />
+                        </div>
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">💬 Zalo</label>
+                            <input class="admin-input" id="ct_zalo" value="${escapeHTML(contact.zalo || '')}" />
+                        </div>
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">📍 Địa chỉ</label>
+                            <input class="admin-input" id="ct_address" value="${escapeHTML(contact.address || '')}" />
+                        </div>
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">🕐 Giờ làm việc</label>
+                            <input class="admin-input" id="ct_hours" value="${escapeHTML(contact.working_hours || '')}" />
+                        </div>
+                    </div>
+                    <button class="btn-action btn-approve" onclick="saveContact()" style="padding:10px 24px;font-size:14px">💾 Lưu Liên Hệ</button>
+                `;
+
+                // --- CTV Config ---
+                const ctv = allSettings.ctv_config || {};
+                const rates = ctv.commission_rates || { silver: 8, gold: 12, diamond: 15 };
+                document.getElementById('ctvConfigEditor').innerHTML = `
+                    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px">
+                        <div style="text-align:center">
+                            <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">🥈 Silver (%)</div>
+                            <input class="admin-input" type="number" id="ctv_silver" value="${rates.silver}" min="0" max="50" style="text-align:center" />
+                        </div>
+                        <div style="text-align:center">
+                            <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">🥇 Gold (%)</div>
+                            <input class="admin-input" type="number" id="ctv_gold" value="${rates.gold}" min="0" max="50" style="text-align:center" />
+                        </div>
+                        <div style="text-align:center">
+                            <div style="font-size:12px;color:var(--text-muted);margin-bottom:4px">💎 Diamond (%)</div>
+                            <input class="admin-input" type="number" id="ctv_diamond" value="${rates.diamond}" min="0" max="50" style="text-align:center" />
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">Rút tối thiểu (VNĐ)</label>
+                            <input class="admin-input" type="number" id="ctv_minwd" value="${ctv.min_withdrawal || 200000}" step="50000" />
+                        </div>
+                        <div style="display:flex;align-items:end;gap:8px;padding-bottom:2px">
+                            <label style="font-size:13px;color:var(--text-sec)">
+                                <input type="checkbox" id="ctv_open" ${ctv.registration_enabled !== false ? 'checked' : ''} /> Cho phép đăng ký CTV
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn-action btn-approve" onclick="saveCtvConfig()" style="padding:10px 24px;font-size:14px">💾 Lưu CTV</button>
+                `;
+
+                // --- Announcement ---
+                const ann = allSettings.site_announcement || {};
+                document.getElementById('announcementEditor').innerHTML = `
+                    <div style="margin-bottom:14px">
+                        <label style="font-size:13px;color:var(--text-sec)">
+                            <input type="checkbox" id="ann_enabled" ${ann.enabled ? 'checked' : ''} /> Hiển thị thông báo
+                        </label>
+                    </div>
+                    <div style="margin-bottom:14px">
+                        <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">Nội dung</label>
+                        <input class="admin-input" id="ann_msg" value="${escapeHTML(ann.message || '')}" placeholder="VD: 🎉 Khuyến mãi mua 3 tặng 1!" />
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+                        <div>
+                            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">Loại</label>
+                            <select class="admin-input" id="ann_type">
+                                <option value="info" ${ann.type === 'info' ? 'selected' : ''}>ℹ️ Info</option>
+                                <option value="success" ${ann.type === 'success' ? 'selected' : ''}>✅ Thành công</option>
+                                <option value="warning" ${ann.type === 'warning' ? 'selected' : ''}>⚠️ Cảnh báo</option>
+                                <option value="promo" ${ann.type === 'promo' ? 'selected' : ''}>🔥 Khuyến mãi</option>
+                            </select>
+                        </div>
+                        <div style="display:flex;align-items:end;gap:8px;padding-bottom:2px">
+                            <label style="font-size:13px;color:var(--text-sec)">
+                                <input type="checkbox" id="ann_dismiss" ${ann.dismissible !== false ? 'checked' : ''} /> Cho phép đóng
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn-action btn-approve" onclick="saveAnnouncement()" style="padding:10px 24px;font-size:14px">💾 Lưu Thông Báo</button>
+                `;
+            } catch (err) { showAdminToast('Lỗi tải settings: ' + err.message, 'error'); }
+        }
+
+        // --- Save helpers ---
+        async function saveSetting(key, value) {
+            const { error } = await supabase.rpc('admin_update_setting', {
+                p_admin_hash: getAdminHash(), p_key: key, p_value: value
+            });
+            if (error) throw error;
+            showAdminToast('Đã lưu thành công! ✅');
+        }
+
+        window.savePricing = async function () {
+            try {
+                const pricing = allSettings.product_pricing || {};
+                pricing.product_name = document.getElementById('sp_name').value;
+                pricing.product_subtitle = document.getElementById('sp_subtitle').value;
+                pricing.unit_price = parseInt(document.getElementById('sp_price').value) || 850000;
+                pricing.free_shipping_min = parseInt(document.getElementById('sp_freeship').value) || 3;
+                (pricing.quantity_options || [1, 2, 3, 5, 10]).forEach(q => {
+                    const el = document.getElementById('sp_disc_' + q);
+                    if (el) pricing.discounts[q] = parseInt(el.value) || 0;
+                });
+                await saveSetting('product_pricing', pricing);
+            } catch (err) { showAdminToast('Lỗi lưu giá: ' + err.message, 'error'); }
+        };
+
+        window.saveHero = async function () {
+            try {
+                await saveSetting('hero_content', {
+                    title: document.getElementById('hero_title').value,
+                    subtitle: document.getElementById('hero_subtitle').value,
+                    cta_text: document.getElementById('hero_cta').value,
+                    cta_link: '#contact',
+                    badge_text: document.getElementById('hero_badge').value,
+                });
+            } catch (err) { showAdminToast('Lỗi lưu hero: ' + err.message, 'error'); }
+        };
+
+        window.saveContact = async function () {
+            try {
+                await saveSetting('contact_info', {
+                    phone: document.getElementById('ct_phone').value,
+                    zalo: document.getElementById('ct_zalo').value,
+                    address: document.getElementById('ct_address').value,
+                    working_hours: document.getElementById('ct_hours').value,
+                });
+            } catch (err) { showAdminToast('Lỗi lưu liên hệ: ' + err.message, 'error'); }
+        };
+
+        window.saveCtvConfig = async function () {
+            try {
+                await saveSetting('ctv_config', {
+                    commission_rates: {
+                        silver: parseInt(document.getElementById('ctv_silver').value) || 8,
+                        gold: parseInt(document.getElementById('ctv_gold').value) || 12,
+                        diamond: parseInt(document.getElementById('ctv_diamond').value) || 15,
+                    },
+                    min_withdrawal: parseInt(document.getElementById('ctv_minwd').value) || 200000,
+                    registration_enabled: document.getElementById('ctv_open').checked,
+                    auto_approve: false,
+                });
+            } catch (err) { showAdminToast('Lỗi lưu CTV: ' + err.message, 'error'); }
+        };
+
+        window.saveAnnouncement = async function () {
+            try {
+                await saveSetting('site_announcement', {
+                    enabled: document.getElementById('ann_enabled').checked,
+                    message: document.getElementById('ann_msg').value,
+                    type: document.getElementById('ann_type').value,
+                    dismissible: document.getElementById('ann_dismiss').checked,
+                });
+            } catch (err) { showAdminToast('Lỗi lưu thông báo: ' + err.message, 'error'); }
         };
 
         async function loadAnalytics() {
