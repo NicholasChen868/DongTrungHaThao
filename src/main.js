@@ -332,9 +332,11 @@ function initOrderForm() {
   const discounts = { 1: 0, 2: 0, 3: 0.05, 5: 0.10, 10: 0.15 };
 
   qtySelect.addEventListener('change', () => {
+    const p = window.__product;
+    if (!p) return;
     const qty = parseInt(qtySelect.value);
     const discount = discounts[qty] || 0;
-    const subtotal = qty * product.price;
+    const subtotal = qty * p.price;
     const total = subtotal * (1 - discount);
 
     subtotalEl.textContent = subtotal.toLocaleString('vi-VN') + '₫';
