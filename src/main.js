@@ -11,7 +11,7 @@ const contactGuard = createSubmitGuard(5000);
 // DYNAMIC PRICING
 // ===================================
 let PRICING = {
-  unit_price: 850000,
+  unit_price: 1450000,
   discounts: { 1: 0, 2: 0, 3: 5, 5: 10, 10: 15 },
   free_shipping_min: 3
 };
@@ -352,7 +352,7 @@ function initQuantitySelector(product) {
   if (!minusBtn || !plusBtn || !product) return;
 
   let qty = 1;
-  const unitPrice = PRICING.unit_price || product.price || 850000;
+  const unitPrice = PRICING.unit_price || product.price || 1450000;
 
   function updateQty(newQty) {
     qty = Math.max(1, Math.min(99, newQty));
@@ -380,7 +380,7 @@ function initOrderForm() {
 
   qtySelect.addEventListener('change', () => {
     const qty = parseInt(qtySelect.value);
-    const unitPrice = PRICING.unit_price || 850000;
+    const unitPrice = PRICING.unit_price || 1450000;
     const discountPercent = PRICING.discounts[qty] || 0;
     const subtotal = qty * unitPrice;
     const total = Math.round(subtotal * (1 - discountPercent / 100));
@@ -412,7 +412,7 @@ function initOrderForm() {
     }
 
     // Calculate total using dynamic pricing
-    const unitPrice = PRICING.unit_price || 850000;
+    const unitPrice = PRICING.unit_price || 1450000;
     const discountPercent = PRICING.discounts[qty] || 0;
     const subtotal = qty * unitPrice;
     const total = Math.round(subtotal * (1 - discountPercent / 100));
