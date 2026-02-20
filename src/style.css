@@ -2554,6 +2554,23 @@ textarea {
 }
 
 /* ===================================
+   STORY & PROCESS IMAGES
+   =================================== */
+.visual-img {
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: none;
+}
+
+.visual-img img {
+  border-radius: 8px;
+}
+
+.mt-48 {
+  margin-top: 48px;
+}
+
+/* ===================================
    PERFORMANCE — Reduce motion for
    users who prefer it or weak GPUs
    =================================== */
