@@ -269,6 +269,32 @@
             gap: 4px;
         }
 
+        .btn-like {
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+        .btn-like:hover {
+            border-color: rgba(212, 168, 83, 0.4);
+            color: var(--gold);
+        }
+
+        .btn-like.liked {
+            background: rgba(212, 168, 83, 0.12);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
         .btn-share {
             margin-left: auto;
             padding: 6px 14px;
@@ -455,10 +481,10 @@
     <!-- NAV -->
     <nav class="cs-nav">
         <a href="/">← Trang chủ</a>
-        <span class="brand">✍️ Chia Sẻ Yêu Thương</span>
+        <span class="brand">Chia Sẻ Yêu Thương</span>
         <div class="nav-right">
-            <a href="/thanh-vien.html">💛 Thành Viên</a>
-            <button class="btn-write" onclick="openWrite()">✏️ Viết bài</button>
+            <a href="/thanh-vien.html">Thành Viên</a>
+            <button class="btn-write" onclick="openWrite()">Viết bài</button>
         </div>
     </nav>
 
@@ -470,11 +496,11 @@
 
     <!-- CATEGORIES -->
     <div class="categories">
-        <button class="cat-btn active" onclick="filterCat('all')">🌟 Tất cả</button>
-        <button class="cat-btn" onclick="filterCat('suc-khoe')">💚 Sức khỏe</button>
-        <button class="cat-btn" onclick="filterCat('cuoc-song')">🏡 Cuộc sống</button>
-        <button class="cat-btn" onclick="filterCat('trai-nghiem')">🌿 Trải nghiệm</button>
-        <button class="cat-btn" onclick="filterCat('meo-hay')">💡 Mẹo hay</button>
+        <button class="cat-btn active" onclick="filterCat('all')">Tất cả</button>
+        <button class="cat-btn" onclick="filterCat('suc-khoe')">Sức khỏe</button>
+        <button class="cat-btn" onclick="filterCat('cuoc-song')">Cuộc sống</button>
+        <button class="cat-btn" onclick="filterCat('trai-nghiem')">Trải nghiệm</button>
+        <button class="cat-btn" onclick="filterCat('meo-hay')">Mẹo hay</button>
     </div>
 
     <!-- POSTS -->
@@ -570,10 +596,10 @@
             }
 
             const catMap = {
-                'suc-khoe': ['💚 Sức khỏe', 'badge-suc-khoe'],
-                'cuoc-song': ['🏡 Cuộc sống', 'badge-cuoc-song'],
-                'trai-nghiem': ['🌿 Trải nghiệm', 'badge-trai-nghiem'],
-                'meo-hay': ['💡 Mẹo hay', 'badge-meo-hay'],
+                'suc-khoe': ['Sức khỏe', 'badge-suc-khoe'],
+                'cuoc-song': ['Cuộc sống', 'badge-cuoc-song'],
+                'trai-nghiem': ['Trải nghiệm', 'badge-trai-nghiem'],
+                'meo-hay': ['Mẹo hay', 'badge-meo-hay'],
             };
 
             container.innerHTML = posts.map(p => {
@@ -595,9 +621,11 @@
                     <h2 class="post-title">${escapeHTML(p.title)}</h2>
                     <p class="post-excerpt">${escapeHTML(rawExcerpt)}</p>
                     <div class="post-actions">
-                        <span class="post-stat">👁️ ${parseInt(p.views) || 0}</span>
-                        <span class="post-stat">❤️ ${parseInt(p.likes) || 0}</span>
-                        <button class="btn-share" data-id="${parseInt(p.id)}" data-title="${escapeHTML(shareTitle)}" data-url="${escapeHTML(shareUrl)}" onclick="sharePost(+this.dataset.id, this.dataset.title, this.dataset.url)">📤 Chia sẻ</button>
+                        <span class="post-stat">${parseInt(p.views) || 0} luot xem</span>
+                        <button class="btn-like ${isLiked(p.id) ? 'liked' : ''}" data-id="${parseInt(p.id)}" onclick="likePost(this, ${parseInt(p.id)})">
+                            <span class="like-count">${parseInt(p.likes) || 0}</span> thich
+                        </button>
+                        <button class="btn-share" data-id="${parseInt(p.id)}" data-title="${escapeHTML(shareTitle)}" data-url="${escapeHTML(shareUrl)}" onclick="sharePost(+this.dataset.id, this.dataset.title, this.dataset.url)">Chia se</button>
                     </div>
                 </article>`;
             }).join('');
@@ -607,6 +635,35 @@
                 supabase.rpc('increment_post_views', { p_post_id: p.id }).then(() => { });
             });
         }
+
+        // --- Like ---
+        function isLiked(postId) {
+            try {
+                const liked = JSON.parse(localStorage.getItem('mdd_liked_posts') || '[]');
+                return liked.includes(postId);
+            } catch (e) { return false; }
+        }
+
+        window.likePost = async function (btn, postId) {
+            if (isLiked(postId)) return;
+
+            btn.classList.add('liked');
+            const countEl = btn.querySelector('.like-count');
+            const current = parseInt(countEl.textContent) || 0;
+            countEl.textContent = current + 1;
+
+            try {
+                const liked = JSON.parse(localStorage.getItem('mdd_liked_posts') || '[]');
+                liked.push(postId);
+                localStorage.setItem('mdd_liked_posts', JSON.stringify(liked));
+            } catch (e) { /* quota */ }
+
+            try {
+                await supabase.rpc('like_post', { p_post_id: postId });
+            } catch (e) {
+                console.warn('Like RPC error:', e);
+            }
+        };
 
         // --- Share ---
         window.sharePost = async function (id, title, url) {
