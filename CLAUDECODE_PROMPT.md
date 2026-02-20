@@ -1,41 +1,98 @@
-# ClaudeCode — Phase 6 Sprint 4: BTV Gamification & Giá Mới
+# ClaudeCode — Phase 7: Backend Hoàn Thiện Vòng Lặp Kinh Doanh
 
-> Copy prompt bên dưới vào ClaudeCode terminal hoặc dán cho Assistant khác để code chức năng.
+> Copy toàn bộ nội dung bên dưới vào terminal ClaudeCode để chạy.
 
 ---
 
-## PROMPT BẮT ĐẦU:
+## PROMPT:
 
-Bạn đang phối hợp xây dựng hệ thống "Kênh Kép" cho website DongTrungHaThao.
-Project sử dụng: HTML, CSS, Vanilla JS, Supabase.
+Bạn đang tiếp tục phát triển hệ thống DongTrungHaThao (HTML, CSS, Vanilla JS, Supabase).
+Phase 6 đã hoàn thành toàn bộ Frontend. Giờ cần Backend bổ sung 3 module còn thiếu.
 
-### 🎯 CONTEXT & REQUIREMENT
-Khách hàng muốn chốt lại giá sản phẩm: **1,450,000 VNĐ / Hộp 60 Viên**. (Antigravity đã update các file text tĩnh).
-Khách hàng vừa duyệt **Chiến lược Nhuận bút Game Hóa** (trong `docs/DE_XUAT_BIEN_TAP_VIEN_NHUAN_BUT.md`), cụ thể:
-1. Không trả tiền mặt ngay kiểu báo chí (Tránh rủi ro).
-2. Trả nhuận bút cơ bản bằng **"Điểm"** (Khoảng 30-50 ngàn điểm, 1 điểm = 1 VNĐ) cộng vào Ví tài khoản khi được duyệt bài.
-3. Khi BTV có điểm, có thể đổi làm thẻ mua hàng, hoặc rút tiền y hệt CTV Bán Hàng.
-4. Có cơ chế thưởng tương tác (View/Like) và nhận chiết khấu (Affiliate Sale 10-25%).
+### CONTEXT
+- Giá sản phẩm: 1,450,000 VNĐ / hộp 60 viên
+- Database Supabase đang có: `ctv_accounts`, `member_posts`, `members`, `orders`, `point_transactions`, `rate_limit_tracker`
+- Migration 014 đã chạy: cột `reward_points_granted` trong `member_posts`, RPC `approve_post_and_reward`, `get_btv_posts`, `admin_list_posts`
+- CTV Onboarding Wizard UI đã có ở `ctv-dashboard.html` (3 bước: Copy link > 3 khách > Rút tiền)
 
-### 🛠️ NHIỆM VỤ CỦA CLAUDECODE / ASSISTANT CODE
-Nhiệm vụ của bạn là tích hợp cơ chế Ví & Game hoá cho BTV. Dựa vào codebase hiện có:
+### NHIỆM VỤ 1: Lưu Onboarding Step vào Database
+**File:** `supabase/migrations/015_ctv_onboarding.sql`
 
-**[Bước 1] Database** (Tạo/Cập nhật file `supabase/migration.sql` hoặc Migration mới)
-- Bảng `ctv_users`: Thêm cột `wallet_balance` (Hoặc nếu đã có, gộp chung điểm CTV và Điểm Nhuận bút thành 1 đồng tiền duy nhất: Ví Số Dư).
-- Bảng `posts` (Câu Chuyện): Cần lưu trữ User ID người viết `author_id`. Thêm cột `reward_points_granted` (boolean) để ghi nhận bài đã được trả nhuận bút chưa.
-- Tạo RPC function `approve_post_and_reward`: Đánh dấu `approved = true` + Cộng điểm thưởng `+30000` vào `wallet_balance` của User tạo bài. Ghi Transaction Log nếu được.
+Thêm cột `onboarding_step INTEGER DEFAULT 0` vào bảng `ctv_accounts`.
 
-**[Bước 2] Logic UI: Góc Câu Chuyện (chia-se.html)**
-- Khi user gửi bài (Góc Nộp Bài), gắn `author_id` từ auth session (Nếu chưa có session, yêu cầu login).
-- Hiển thị bài viết kèm tên tác giả (Nếu là BTV). Cập nhật tính năng Like post có tracking.
+Tạo RPC:
+```sql
+update_onboarding_step(p_ref_code TEXT, p_step INTEGER)
+```
+- Validate ref_code tồn tại
+- Chỉ cho phép tăng step (không cho giảm)
+- Rate limit 10 calls / 5 phút
+- SECURITY DEFINER
 
-**[Bước 3] Logic UI: CTV Dashboard (ctv-dashboard.html)**
-- Tích hợp thêm Tab: "Viết Câu Chuyện" hoặc "Quản lý Bài Viết" vào chung Dashboard CTV. (Gắn kết CTV và BTV thành 1 tài khoản Kênh kép - vừa bán hàng, vừa viết bài cày điểm).
-- Hiện "Số Điểm Dư" / Lịch sử rút tiền - quy đổi từ số dư tài khoản.
+Cập nhật file `ctv-dashboard.html`:
+- Khi load dashboard, đọc `onboarding_step` từ data trả về (cần update RPC `get_ctv_dashboard` để trả thêm field `onboarding_step`)
+- Khi user hoàn thành 1 bước, gọi RPC `update_onboarding_step` để lưu vào DB (thay vì chỉ localStorage)
 
-### QUY TẮC BẮT BUỘC:
-- **Tất cả UI/Text/Commit phải là Tiếng Việt rõ ràng**.
-- Commit message phải có `Trước khi sửa:` và `Sau khi sửa:` (Xem `.cursorrules`).
-- Không thêm emoji nếu không cần thiết.
+### NHIỆM VỤ 2: Thông Báo Đơn Hàng Cho CTV (Order Notification)
+**File:** `supabase/migrations/016_order_notifications.sql`
 
-Bắt đầu đọc kĩ lại docs và triển khai `migration` Supabase cho ví tiền và bài viết trước nhé!
+Tạo bảng `ctv_notifications`:
+```sql
+CREATE TABLE ctv_notifications (
+    id SERIAL PRIMARY KEY,
+    ctv_id INTEGER REFERENCES ctv_accounts(id),
+    type TEXT NOT NULL, -- 'new_order', 'commission', 'withdrawal_approved', 'post_reward'
+    title TEXT NOT NULL,
+    message TEXT,
+    is_read BOOLEAN DEFAULT false,
+    created_at TIMESTAMPTZ DEFAULT now()
+);
+```
+
+Tạo RPC:
+- `get_ctv_notifications(p_ref_code TEXT)` — Lấy 20 thông báo mới nhất, rate limit
+- `mark_notification_read(p_ref_code TEXT, p_notification_id INTEGER)` — Đánh dấu đã đọc
+
+Tạo Trigger trên bảng `orders`:
+- Khi có đơn hàng mới với `ref_code` khớp CTV → Tự động INSERT vào `ctv_notifications` với type='new_order'
+
+Cập nhật `ctv-dashboard.html`:
+- Thêm icon chuông thông báo ở header (hiện số chưa đọc)
+- Dropdown danh sách thông báo khi click
+- Gọi `get_ctv_notifications` khi load dashboard
+
+### NHIỆM VỤ 3: Lưu & Chia Sẻ Kết Quả Ngũ Hành
+**File:** `supabase/migrations/017_health_map_shares.sql`
+
+Tạo bảng `health_map_results`:
+```sql
+CREATE TABLE health_map_results (
+    id SERIAL PRIMARY KEY,
+    share_code TEXT UNIQUE NOT NULL, -- 8 ký tự random
+    name TEXT NOT NULL,
+    birth_year INTEGER NOT NULL,
+    element TEXT NOT NULL, -- Kim, Mộc, Thủy, Hỏa, Thổ
+    ref_code TEXT, -- CTV referral nếu có
+    created_at TIMESTAMPTZ DEFAULT now()
+);
+```
+
+Tạo RPC:
+- `save_health_map(p_name TEXT, p_birth_year INTEGER, p_element TEXT, p_ref_code TEXT DEFAULT NULL)` — Lưu kết quả, trả về share_code. Rate limit 20/giờ
+- `get_health_map(p_share_code TEXT)` — Lấy kết quả theo share_code (public, cho phép xem không cần login)
+
+Cập nhật `ban-do-suc-khoe.html`:
+- Sau khi phân tích xong, tự động gọi `save_health_map` để lưu kết quả
+- Hiển thị nút "Chia Sẻ Kết Quả" với link dạng: `/ban-do-suc-khoe.html?share=ABC12345`
+- Khi URL có `?share=...` → Load kết quả từ DB thay vì yêu cầu nhập lại
+- Nếu URL có `?ref=...` → Lưu ref_code vào kết quả (tracking CTV)
+
+### QUY TẮC BẮT BUỘC
+1. Tất cả UI/Text/Commit phải là **Tiếng Việt**
+2. Commit message phải có `Trước khi sửa:` và `Sau khi sửa:`
+3. Mọi RPC phải có `SECURITY DEFINER` + rate limiting
+4. Không lộ `password_hash` trong response
+5. Tạo file migration SQL riêng cho mỗi nhiệm vụ (015, 016, 017)
+6. Test RPC bằng cách gọi trực tiếp trong SQL Editor nếu được
+
+Bắt đầu từ Nhiệm vụ 1 (đơn giản nhất) rồi tiến dần lên nhé!
