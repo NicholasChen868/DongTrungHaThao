@@ -423,12 +423,12 @@
             <p class="subtitle">Đăng nhập để theo dõi đơn hàng, tích điểm<br>và nhận ưu đãi dành riêng cho bạn</p>
 
             <div class="auth-tabs">
-                <button class="auth-tab active" onclick="switchTab('login')">Đăng Nhập</button>
-                <button class="auth-tab" onclick="switchTab('register')">Đăng Ký</button>
+                <button class="auth-tab active" data-tab="login">Đăng Nhập</button>
+                <button class="auth-tab" data-tab="register">Đăng Ký</button>
             </div>
 
             <!-- LOGIN FORM -->
-            <form class="auth-form" id="loginForm" onsubmit="handleLogin(event)">
+            <form class="auth-form" id="loginForm">
                 <input class="form-input" type="tel" id="loginPhone" placeholder="Số điện thoại *" required />
                 <input class="form-input" type="password" id="loginPassword" placeholder="Mật khẩu *" required />
                 <button type="submit" class="btn-primary" id="loginBtn">Đăng Nhập</button>
@@ -436,7 +436,7 @@
             </form>
 
             <!-- REGISTER FORM -->
-            <form class="auth-form hidden" id="registerForm" onsubmit="handleRegister(event)">
+            <form class="auth-form hidden" id="registerForm">
                 <input class="form-input" type="text" id="regName" placeholder="Họ và tên *" required />
                 <input class="form-input" type="tel" id="regPhone" placeholder="Số điện thoại *" required />
                 <input class="form-input" type="email" id="regEmail" placeholder="Email (tùy chọn)" />
@@ -502,14 +502,23 @@
             setTimeout(() => t.classList.remove('show'), 3000);
         }
 
-        // --- Tab switch ---
-        window.switchTab = function (tab) {
+        // --- Tab switch (via addEventListener, no inline onclick) ---
+        function switchTab(tab) {
             document.querySelectorAll('.auth-tab').forEach((t, i) => {
                 t.classList.toggle('active', (tab === 'login' && i === 0) || (tab === 'register' && i === 1));
             });
             document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
             document.getElementById('registerForm').classList.toggle('hidden', tab !== 'register');
-        };
+        }
+
+        // Bind tab buttons
+        document.querySelectorAll('.auth-tab[data-tab]').forEach(btn => {
+            btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+        });
+
+        // Bind form submissions
+        document.getElementById('loginForm').addEventListener('submit', (e) => handleLogin(e));
+        document.getElementById('registerForm').addEventListener('submit', (e) => handleRegister(e));
 
         // --- Simple hash ---
         async function sha256(str) {
