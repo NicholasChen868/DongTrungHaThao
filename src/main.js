@@ -251,7 +251,7 @@ function renderHealthStories(stories) {
   grid.innerHTML = stories.map((s, i) => `
     <div class="story-card animate-on-scroll" style="transition-delay: ${i * 0.15}s">
       <div class="story-header">
-        <div class="story-avatar">${s.avatar}</div>
+        <div class="story-avatar">${s.avatar.startsWith('/') ? `<img src="${s.avatar}" alt="${s.name}" loading="lazy">` : s.avatar}</div>
         <div class="story-meta">
           <div class="story-name">${s.name}, ${s.age} tuổi</div>
           <div class="story-location">${s.location}</div>

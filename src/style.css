@@ -64,7 +64,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 16px;
+  font-size: 18px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -112,7 +112,7 @@ img {
   padding: 14px 32px;
   border-radius: 50px;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
   border: none;
@@ -172,7 +172,7 @@ img {
   display: inline-block;
   padding: 6px 20px;
   border-radius: 50px;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -192,10 +192,11 @@ img {
 }
 
 .section-subtitle {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
+  line-height: 1.7;
 }
 
 /* --- Animations --- */
@@ -279,7 +280,7 @@ img {
 
 .nav-link {
   padding: 8px 16px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--text-secondary);
   border-radius: 50px;
@@ -369,7 +370,7 @@ img {
   padding: 8px 24px;
   border: 1px solid var(--border-color);
   border-radius: 50px;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--gold-primary);
   background: var(--bg-glass);
@@ -459,7 +460,7 @@ img {
 
 .hero-stat-label {
   display: block;
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   color: var(--text-secondary);
   margin-top: 4px;
 }
@@ -472,7 +473,7 @@ img {
   z-index: 2;
   text-align: center;
   color: var(--text-muted);
-  font-size: 0.75rem;
+  font-size: 1.05rem;
   letter-spacing: 0.1em;
 }
 
@@ -543,7 +544,7 @@ img {
 }
 
 .benefit-desc {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -630,7 +631,7 @@ img {
 }
 
 .process-step-num {
-  font-size: 0.75rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--gold-primary);
   text-transform: uppercase;
@@ -653,7 +654,7 @@ img {
 }
 
 .process-duration {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--gold-primary);
   font-weight: 500;
 }
@@ -730,7 +731,7 @@ img {
   padding: 8px 16px;
   background: var(--gold-gradient);
   color: #0a0a0a;
-  font-size: 0.75rem;
+  font-size: 1.05rem;
   font-weight: 700;
   border-radius: 50px;
   z-index: 2;
@@ -745,7 +746,7 @@ img {
 
 .product-desc {
   color: var(--text-secondary);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   margin-bottom: 24px;
 }
 
@@ -764,7 +765,7 @@ img {
   background: var(--bg-glass);
   border: 1px solid var(--border-color);
   border-radius: 50px;
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   color: var(--text-secondary);
 }
 
@@ -779,7 +780,7 @@ img {
 
 .product-ingredients h4,
 .product-usage h4 {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--gold-primary);
   margin-bottom: 8px;
@@ -938,24 +939,31 @@ img {
 }
 
 .testimonial-avatar {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  background: var(--bg-glass);
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--gold-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.testimonial-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .testimonial-name {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
 }
 
 .testimonial-location {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--text-secondary);
 }
 
@@ -1040,14 +1048,21 @@ img {
 }
 
 .story-avatar {
-  font-size: 2rem;
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-glass);
   border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--gold-primary);
+  flex-shrink: 0;
+}
+
+.story-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .story-meta {
@@ -1061,7 +1076,7 @@ img {
 }
 
 .story-location {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--text-muted);
 }
 
@@ -1070,7 +1085,7 @@ img {
   color: var(--gold-primary);
   padding: 4px 12px;
   border-radius: 20px;
-  font-size: 0.75rem;
+  font-size: 1.05rem;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -1093,7 +1108,7 @@ img {
 .story-phase {
   padding: 16px 20px;
   border-radius: 12px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--text-secondary);
 }
@@ -1110,7 +1125,7 @@ img {
 
 .phase-label {
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   margin-bottom: 8px;
   color: var(--text-primary);
 }
@@ -1126,7 +1141,7 @@ img {
 .story-arrow {
   text-align: center;
   padding: 8px 0;
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   color: var(--gold-primary);
   font-weight: 600;
 }
@@ -1134,7 +1149,7 @@ img {
 .story-quote {
   font-family: var(--font-quote);
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--gold-light);
   padding: 16px 20px;
   border-left: 3px solid var(--quote-border);
@@ -1201,7 +1216,7 @@ img {
 }
 
 .step-desc {
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   color: var(--text-secondary);
 }
 
@@ -1256,7 +1271,7 @@ img {
 }
 
 .tier-range {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--text-secondary);
   margin-bottom: 16px;
 }
@@ -1269,7 +1284,7 @@ img {
 }
 
 .tier-commission-label {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--text-secondary);
   margin-bottom: 20px;
 }
@@ -1336,7 +1351,7 @@ img {
 
 .form-label {
   display: block;
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   color: var(--text-secondary);
   margin-bottom: 6px;
 }
@@ -1351,7 +1366,7 @@ textarea {
   border-radius: 12px;
   color: var(--text-primary);
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 1rem;
   transition: all var(--transition-fast);
   outline: none;
 }
@@ -1407,7 +1422,7 @@ textarea {
 .ctv-tier {
   padding: 4px 12px;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
   background: rgba(212, 168, 83, 0.1);
   color: var(--gold-primary);
@@ -1436,7 +1451,7 @@ textarea {
 }
 
 .ctv-stat-label {
-  font-size: 0.75rem;
+  font-size: 1.05rem;
   color: var(--text-muted);
 }
 
@@ -1448,7 +1463,7 @@ textarea {
   background: var(--bg-glass);
   border-radius: 8px;
   margin-bottom: 12px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-secondary);
 }
 
@@ -1469,7 +1484,7 @@ textarea {
   padding: 4px 12px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 .ctv-copy-btn:hover {
@@ -1478,7 +1493,7 @@ textarea {
 }
 
 .ctv-dash-info {
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   color: var(--text-muted);
   text-align: center;
 }
@@ -1497,7 +1512,7 @@ textarea {
   border: 1px solid var(--border-color);
   border-radius: 8px;
   color: var(--gold-primary);
-  font-size: 0.85rem;
+  font-size: 1.05rem;
   font-weight: 500;
   cursor: pointer;
   text-align: center;
@@ -1558,7 +1573,7 @@ textarea {
   display: flex;
   justify-content: space-between;
   padding: 6px 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-secondary);
 }
 
@@ -1589,7 +1604,7 @@ textarea {
 
 .contact-item strong {
   display: block;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin-bottom: 2px;
 }
 
@@ -1603,7 +1618,7 @@ textarea {
 }
 
 .contact-social h4 {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   margin-bottom: 12px;
 }
 
@@ -1664,7 +1679,7 @@ textarea {
 }
 
 .footer-links h4 {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 16px;
 }
@@ -1688,7 +1703,7 @@ textarea {
 }
 
 .footer-bottom p {
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--text-muted);
 }
 
@@ -1724,7 +1739,7 @@ textarea {
 }
 
 .toast-message {
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 /* ===================================
@@ -1819,7 +1834,7 @@ textarea {
   }
 
   .hero-description {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
   }
 
   .hero-stats {
@@ -1831,7 +1846,7 @@ textarea {
   }
 
   .hero-stat-label {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .hero-scroll-indicator {
@@ -1844,7 +1859,7 @@ textarea {
   }
 
   .section-subtitle {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   /* Benefits */
@@ -1916,7 +1931,7 @@ textarea {
   }
 
   .product-meta-item {
-    font-size: 0.8rem;
+    font-size: 1rem;
     padding: 6px 12px;
   }
 
@@ -2012,7 +2027,7 @@ textarea {
   }
 
   .toast-message {
-    font-size: 0.85rem;
+    font-size: 1.05rem;
   }
 }
 
@@ -2050,7 +2065,7 @@ textarea {
   }
 
   .hero-subtitle {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .hero-description {
@@ -2099,7 +2114,7 @@ textarea {
   }
 
   .benefit-desc {
-    font-size: 0.85rem;
+    font-size: 1.05rem;
   }
 
   /* Process */
@@ -2116,7 +2131,7 @@ textarea {
     left: 16px;
     width: 32px;
     height: 32px;
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .process-timeline::before {
@@ -2169,7 +2184,7 @@ textarea {
   }
 
   .product-meta-item {
-    font-size: 0.75rem;
+    font-size: 1.05rem;
     padding: 5px 10px;
   }
 
@@ -2242,7 +2257,7 @@ textarea {
   }
 
   .step-desc {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .tier-card {
@@ -2298,7 +2313,7 @@ textarea {
   }
 
   .footer-bottom p {
-    font-size: 0.75rem;
+    font-size: 1.05rem;
   }
 
   .social-link {
