@@ -903,6 +903,60 @@ img {
 }
 
 /* ===================================
+   PRODUCT GALLERY
+   =================================== */
+.section-gallery {
+  background: var(--bg-secondary);
+}
+
+.product-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-gold);
+  border-color: var(--border-hover);
+}
+
+.gallery-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-caption {
+  padding: 20px 24px;
+}
+
+.gallery-caption h4 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  margin-bottom: 6px;
+}
+
+.gallery-caption p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ===================================
    TESTIMONIALS
    =================================== */
 .section-testimonials {
@@ -1901,6 +1955,12 @@ textarea {
   /* Benefits */
   .benefits-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Gallery */
+  .product-gallery {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   /* Stories */
