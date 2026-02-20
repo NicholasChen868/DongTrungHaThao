@@ -1760,17 +1760,8 @@ textarea {
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
-}
 
-/* ===================================
-   RESPONSIVE — TABLET PORTRAIT
-   =================================== */
-@media (max-width: 768px) {
-  :root {
-    --section-padding: 64px;
-  }
-
-  /* Mobile navbar */
+  /* Hamburger menu for tablets and below */
   .nav-links {
     position: fixed;
     top: 0;
@@ -1779,7 +1770,6 @@ textarea {
     height: 100vh;
     height: 100dvh;
     background: rgba(6, 6, 6, 0.98);
-    /* backdrop-filter removed for GPU perf */
     flex-direction: column;
     padding: 80px 32px 32px;
     gap: 4px;
@@ -1802,6 +1792,15 @@ textarea {
     font-size: 1rem;
     padding: 14px 20px;
     border-radius: 12px;
+  }
+}
+
+/* ===================================
+   RESPONSIVE — TABLET PORTRAIT
+   =================================== */
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 64px;
   }
 
   /* Hero mobile */

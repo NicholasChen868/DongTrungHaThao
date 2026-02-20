@@ -7,6 +7,7 @@ export default defineConfig({
             input: {
                 main: resolve(__dirname, 'index.html'),
                 'ctv-dashboard': resolve(__dirname, 'ctv-dashboard.html'),
+                admin: resolve(__dirname, 'admin.html'),
             },
         },
     },

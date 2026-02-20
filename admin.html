@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard — Đông Trùng Hạ Thảo maldalladuyduc</title>
+    <meta name="description" content="Bảng quản trị toàn bộ hệ thống maldalladuyduc" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #060606;
+            --bg-sidebar: #0c0c0c;
+            --bg-card: #111111;
+            --bg-card-hover: #1a1a1a;
+            --gold-primary: #d4a853;
+            --gold-light: #e8c97a;
+            --text-primary: #f5f0e8;
+            --text-secondary: #a09888;
+            --text-muted: #665e52;
+            --border-color: rgba(212, 168, 83, 0.15);
+            --success: #4ade80;
+            --error: #f87171;
+            --warning: #fbbf24;
+            --info: #60a5fa;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            font-size: 15px;
+            line-height: 1.5;
+            display: flex;
+        }
+
+        /* ===== LOGIN SCREEN ===== */
+        .admin-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .admin-login-box {
+            max-width: 400px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .admin-login-box h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .admin-login-box p {
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+
+        .admin-login-box form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .admin-login-box input {
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: inherit;
+        }
+
+        .admin-login-box input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+        }
+
+        .admin-login-box button {
+            padding: 14px;
+            background: var(--gold-primary);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .admin-login-box button:hover {
+            background: var(--gold-light);
+        }
+
+        .admin-login-error {
+            color: var(--error);
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .admin-sidebar {
+            width: 240px;
+            min-height: 100vh;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-logo {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--gold-light);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 16px 12px;
+            flex: 1;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 2px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 14px;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+        }
+
+        .sidebar-item:hover,
+        .sidebar-item.active {
+            background: rgba(212, 168, 83, 0.1);
+            color: var(--gold-light);
+        }
+
+        .sidebar-bottom {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .sidebar-bottom a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .sidebar-bottom button {
+            display: block;
+            width: 100%;
+            margin-top: 8px;
+            padding: 8px;
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .sidebar-bottom button:hover {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .admin-main {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        .admin-topbar {
+            background: linear-gradient(180deg, #141414 0%, #0e0e0e 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .admin-topbar h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .admin-topbar-meta {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .admin-content {
+            padding: 28px;
+        }
+
+        /* ===== OVERVIEW CARDS ===== */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .overview-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .overview-card .label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .overview-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        .overview-card .change {
+            margin-top: 4px;
+            font-size: 12px;
+        }
+
+        .change-up {
+            color: var(--success);
+        }
+
+        .change-down {
+            color: var(--error);
+        }
+
+        /* ===== DATA TABLES ===== */
+        .admin-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .admin-panel h3 {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .admin-table th {
+            text-align: left;
+            padding: 10px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .admin-table td {
+            padding: 12px 12px;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+        }
+
+        .admin-table tbody tr:hover td {
+            background: rgba(212, 168, 83, 0.03);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: rgba(74, 222, 128, 0.12);
+            color: var(--success);
+        }
+
+        .badge-warning {
+            background: rgba(251, 191, 36, 0.12);
+            color: var(--warning);
+        }
+
+        .badge-danger {
+            background: rgba(248, 113, 113, 0.12);
+            color: var(--error);
+        }
+
+        .badge-info {
+            background: rgba(96, 165, 250, 0.12);
+            color: var(--info);
+        }
+
+        /* ===== SECTION VIEWS ===== */
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        /* Loading */
+        .admin-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            color: var(--text-muted);
+            gap: 10px;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border-color);
+            border-top-color: var(--gold-primary);
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Empty state */
+        .admin-empty {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .admin-sidebar {
+                width: 100%;
+                min-height: auto;
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .sidebar-menu {
+                display: flex;
+                padding: 8px;
+                gap: 4px;
+            }
+
+            .sidebar-logo {
+                padding: 12px 16px;
+                border-bottom: none;
+                border-right: 1px solid var(--border-color);
+            }
+
+            .sidebar-bottom {
+                display: none;
+            }
+
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .admin-content {
+                padding: 16px;
+            }
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOGIN -->
+    <div class="admin-login" id="adminLogin">
+        <div class="admin-login-box">
+            <h1>🔒 Admin Panel</h1>
+            <p>Đông Trùng Hạ Thảo — maldalladuyduc</p>
+            <form id="adminLoginForm">
+                <input type="password" id="adminPassword" placeholder="Mật khẩu quản trị" required />
+                <button type="submit">Đăng Nhập</button>
+            </form>
+            <div class="admin-login-error" id="adminLoginError">Mật khẩu không đúng</div>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <nav class="admin-sidebar hidden" id="adminSidebar">
+        <div class="sidebar-logo">🍄 Admin Panel</div>
+        <ul class="sidebar-menu">
+            <li><button class="sidebar-item active" data-section="overview">📊 Tổng Quan</button></li>
+            <li><button class="sidebar-item" data-section="orders">📦 Đơn Hàng</button></li>
+            <li><button class="sidebar-item" data-section="ctv">👥 CTV</button></li>
+            <li><button class="sidebar-item" data-section="testimonials">⭐ Đánh Giá</button></li>
+            <li><button class="sidebar-item" data-section="products">🧪 Sản Phẩm</button></li>
+            <li><button class="sidebar-item" data-section="contacts">📞 Liên Hệ</button></li>
+            <li><button class="sidebar-item" data-section="analytics">📈 Analytics</button></li>
+        </ul>
+        <div class="sidebar-bottom">
+            <a href="/">← Về trang chính</a>
+            <button id="adminLogout">Đăng xuất</button>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="admin-main hidden" id="adminMain">
+        <!-- TOPBAR -->
+        <div class="admin-topbar">
+            <h2 id="topbarTitle">📊 Tổng Quan</h2>
+            <span class="admin-topbar-meta" id="topbarMeta"></span>
+        </div>
+
+        <div class="admin-content">
+
+            <!-- OVERVIEW -->
+            <div class="admin-section active" id="section-overview">
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <div class="label">Tổng Đơn Hàng</div>
+                        <div class="value" id="ovOrders">—</div>
+                        <div class="change change-up" id="ovOrdersChange"></div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="label">Doanh Thu</div>
+                        <div class="value" id="ovRevenue">—</div>
+                        <div class="change change-up" id="ovRevenueChange"></div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="label">CTV Hoạt Động</div>
+                        <div class="value" id="ovCTV">—</div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="label">Liên Hệ Mới</div>
+                        <div class="value" id="ovContacts">—</div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="admin-panel">
+                    <h3>📦 Đơn Hàng Mới Nhất</h3>
+                    <div id="recentOrders">
+                        <div class="admin-loading">
+                            <div class="spinner"></div> Đang tải...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent CTV -->
+                <div class="admin-panel">
+                    <h3>👥 CTV Mới Đăng Ký</h3>
+                    <div id="recentCTV">
+                        <div class="admin-loading">
+                            <div class="spinner"></div> Đang tải...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ORDERS SECTION -->
+            <div class="admin-section" id="section-orders">
+                <div class="admin-panel">
+                    <h3>📦 Tất Cả Đơn Hàng</h3>
+                    <div id="allOrders">
+                        <div class="admin-loading">
+                            <div class="spinner"></div> Đang tải...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTV SECTION -->
+            <div class="admin-section" id="section-ctv">
+                <div class="admin-panel">
+                    <h3>👥 Danh Sách CTV</h3>
+                    <div id="allCTV">
+                        <div class="admin-loading">
+                            <div class="spinner"></div> Đang tải...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TESTIMONIALS SECTION -->
+            <div class="admin-section" id="section-testimonials">
+                <div class="admin-panel">
+                    <h3>⭐ Đánh Giá Khách Hàng</h3>
+                    <div id="allTestimonials">
+                        <div class="admin-loading">
+                            <div class="spinner"></div> Đang tải...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTS SECTION -->
+            <div class="admin-section" id="section-products">
+                <div class="admin-panel">
+                    <h3>🧪 Sản Phẩm</h3>
+                    <div id="allProducts">
+                        <div class="admin-empty">Quản lý sản phẩm qua Supabase Dashboard</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACTS SECTION -->
+            <div class="admin-section" id="section-contacts">
+                <div class="admin-panel">
+                    <h3>📞 Yêu Cầu Liên Hệ</h3>
+                    <div id="allContacts">
+                        <div class="admin-loading">
+                            <div class="spinner"></div> Đang tải...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ANALYTICS SECTION -->
+            <div class="admin-section" id="section-analytics">
+                <div class="admin-panel">
+                    <h3>📈 Thống Kê Truy Cập</h3>
+                    <div class="admin-empty">Analytics dashboard — sắp ra mắt</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script type="module">
+        import { supabase } from './src/supabase.js';
+
+        // --- Config ---
+        const ADMIN_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'; // sha256 of 'password' — CHANGE THIS
+        const loginScreen = document.getElementById('adminLogin');
+        const sidebar = document.getElementById('adminSidebar');
+        const main = document.getElementById('adminMain');
+
+        // --- Simple hash ---
+        async function sha256(str) {
+            const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // --- Check session ---
+        if (sessionStorage.getItem('admin_auth') === 'true') {
+            showDashboard();
+        }
+
+        // --- Login ---
+        document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const pw = document.getElementById('adminPassword').value;
+            const hash = await sha256(pw);
+
+            if (hash === ADMIN_HASH) {
+                sessionStorage.setItem('admin_auth', 'true');
+                showDashboard();
+            } else {
+                document.getElementById('adminLoginError').style.display = 'block';
+            }
+        });
+
+        // --- Logout ---
+        document.getElementById('adminLogout').addEventListener('click', () => {
+            sessionStorage.removeItem('admin_auth');
+            location.reload();
+        });
+
+        // --- Sidebar navigation ---
+        document.querySelectorAll('.sidebar-item').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const section = btn.dataset.section;
+                document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+                document.getElementById(`section-${section}`).classList.add('active');
+                document.getElementById('topbarTitle').textContent = btn.textContent;
+
+                // Lazy load data
+                loadSection(section);
+            });
+        });
+
+        function showDashboard() {
+            loginScreen.classList.add('hidden');
+            sidebar.classList.remove('hidden');
+            main.classList.remove('hidden');
+
+            const now = new Date();
+            document.getElementById('topbarMeta').textContent =
+                now.toLocaleDateString('vi-VN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            loadSection('overview');
+        }
+
+        // Track loaded sections
+        const loaded = {};
+
+        async function loadSection(name) {
+            if (loaded[name]) return;
+            loaded[name] = true;
+
+            switch (name) {
+                case 'overview': await loadOverview(); break;
+                case 'orders': await loadOrders(); break;
+                case 'ctv': await loadCTVList(); break;
+                case 'testimonials': await loadTestimonials(); break;
+                case 'contacts': await loadContacts(); break;
+            }
+        }
+
+        // --- OVERVIEW ---
+        async function loadOverview() {
+            try {
+                // Count orders
+                const { count: orderCount } = await supabase
+                    .from('orders').select('*', { count: 'exact', head: true });
+                document.getElementById('ovOrders').textContent = orderCount || 0;
+
+                // Revenue
+                const { data: orders } = await supabase
+                    .from('orders').select('total_amount');
+                const revenue = (orders || []).reduce((sum, o) => sum + (o.total_amount || 0), 0);
+                document.getElementById('ovRevenue').textContent = revenue.toLocaleString('vi-VN') + '₫';
+
+                // CTV count
+                const { count: ctvCount } = await supabase
+                    .from('ctv_accounts').select('*', { count: 'exact', head: true });
+                document.getElementById('ovCTV').textContent = ctvCount || 0;
+
+                // Contact count
+                const { count: contactCount } = await supabase
+                    .from('contact_submissions').select('*', { count: 'exact', head: true });
+                document.getElementById('ovContacts').textContent = contactCount || 0;
+
+                // Recent orders
+                const { data: recentOrders } = await supabase
+                    .from('orders')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(5);
+                renderTable('recentOrders', recentOrders, ['id', 'customer_name', 'phone', 'total_amount', 'status', 'created_at'],
+                    ['ID', 'Khách hàng', 'SĐT', 'Tổng tiền', 'Trạng thái', 'Ngày tạo']);
+
+                // Recent CTV
+                const { data: recentCTV } = await supabase
+                    .from('ctv_accounts')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(5);
+                renderTable('recentCTV', recentCTV, ['referral_code', 'name', 'phone', 'tier', 'total_points', 'created_at'],
+                    ['Mã CTV', 'Tên', 'SĐT', 'Hạng', 'Điểm', 'Ngày ĐK']);
+
+            } catch (err) {
+                console.error('Overview load error:', err);
+            }
+        }
+
+        // --- ORDERS ---
+        async function loadOrders() {
+            const { data } = await supabase.from('orders')
+                .select('*').order('created_at', { ascending: false }).limit(50);
+            renderTable('allOrders', data, ['id', 'customer_name', 'phone', 'address', 'total_amount', 'status', 'created_at'],
+                ['ID', 'Khách hàng', 'SĐT', 'Địa chỉ', 'Tổng tiền', 'Trạng thái', 'Ngày tạo']);
+        }
+
+        // --- CTV LIST ---
+        async function loadCTVList() {
+            const { data } = await supabase.from('ctv_accounts')
+                .select('*').order('created_at', { ascending: false }).limit(50);
+            renderTable('allCTV', data, ['referral_code', 'name', 'phone', 'email', 'tier', 'total_points', 'available_vnd', 'created_at'],
+                ['Mã CTV', 'Tên', 'SĐT', 'Email', 'Hạng', 'Điểm', 'VNĐ', 'Ngày ĐK']);
+        }
+
+        // --- TESTIMONIALS ---
+        async function loadTestimonials() {
+            const { data } = await supabase.from('company_testimonials')
+                .select('*').order('created_at', { ascending: false }).limit(50);
+            renderTable('allTestimonials', data, ['id', 'author_name', 'location', 'rating', 'quote', 'created_at'],
+                ['ID', 'Tên', 'Địa điểm', 'Sao', 'Nội dung', 'Ngày tạo']);
+        }
+
+        // --- CONTACTS ---
+        async function loadContacts() {
+            const { data } = await supabase.from('contact_submissions')
+                .select('*').order('created_at', { ascending: false }).limit(50);
+            renderTable('allContacts', data, ['id', 'name', 'phone', 'email', 'message', 'created_at'],
+                ['ID', 'Tên', 'SĐT', 'Email', 'Nội dung', 'Ngày gửi']);
+        }
+
+        // --- Render table helper ---
+        function renderTable(containerId, data, fields, headers) {
+            const container = document.getElementById(containerId);
+            if (!data?.length) {
+                container.innerHTML = '<div class="admin-empty">Chưa có dữ liệu</div>';
+                return;
+            }
+
+            container.innerHTML = `
+        <table class="admin-table">
+          <thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+          <tbody>
+            ${data.map(row => `<tr>${fields.map(f => {
+                let val = row[f];
+                // Format special fields
+                if (f === 'created_at' && val) {
+                    val = new Date(val).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' });
+                }
+                if (f === 'total_amount' && val) val = Number(val).toLocaleString('vi-VN') + '₫';
+                if (f === 'available_vnd' && val) val = Number(val).toLocaleString('vi-VN') + '₫';
+                if (f === 'status') {
+                    const cls = val === 'completed' ? 'badge-success' : val === 'pending' ? 'badge-warning' : val === 'cancelled' ? 'badge-danger' : 'badge-info';
+                    val = `<span class="badge ${cls}">${val || '—'}</span>`;
+                }
+                if (f === 'tier') {
+                    const map = { silver: '🥈 Bạc', gold: '🥇 Vàng', diamond: '💎 Kim Cương' };
+                    val = map[val] || val || '—';
+                }
+                if (f === 'rating') val = '⭐'.repeat(val || 0);
+                if (f === 'quote' || f === 'message' || f === 'address') {
+                    val = String(val || '').substring(0, 60) + (String(val || '').length > 60 ? '...' : '');
+                }
+                return `<td>${val ?? '—'}</td>`;
+            }).join('')}</tr>`).join('')}
+          </tbody>
+        </table>
+      `;
+        }
+    </script>
+</body>
+
+</html>
