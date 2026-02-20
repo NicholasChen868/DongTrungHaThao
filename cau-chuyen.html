@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Câu Chuyện Sản Phẩm — Đông Trùng Hạ Thảo maldalladuyduc</title>
+    <meta name="description"
+        content="Khám phá hành trình từ phòng nuôi cấy đến viên nang vàng — câu chuyện về chất lượng, tâm huyết và sức khỏe." />
+    <link rel="canonical" href="https://dong-trung-ha-thao.vercel.app/cau-chuyen.html" />
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍄</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #060606;
+            --bg-card: #111111;
+            --gold: #d4a853;
+            --gold-light: #e8c97a;
+            --text: #f5f0e8;
+            --text-sec: #a09888;
+            --text-muted: #665e52;
+            --border: rgba(212, 168, 83, 0.15);
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        .story-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(6, 6, 6, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .story-nav a {
+            color: var(--text-sec);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .story-nav a:hover {
+            color: var(--gold-light);
+        }
+
+        .story-nav .brand {
+            font-weight: 700;
+            color: var(--gold-light);
+            font-size: 1rem;
+        }
+
+        .story-nav .nav-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Hero */
+        .story-hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(212, 168, 83, 0.08) 0%, transparent 70%);
+        }
+
+        .story-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
+        }
+
+        .story-hero .tagline {
+            font-size: 14px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .story-hero h1 {
+            font-family: 'Lora', serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .story-hero h1 .highlight {
+            color: var(--gold-light);
+        }
+
+        .story-hero .lead {
+            font-size: 1.1rem;
+            color: var(--text-sec);
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* Sections */
+        .story-section {
+            padding: 80px 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .story-section.alt {
+            background: var(--bg-card);
+            max-width: 100%;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .story-section.alt .inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .story-section h2 {
+            font-family: 'Lora', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .story-section p {
+            color: var(--text-sec);
+            font-size: 15px;
+            margin-bottom: 16px;
+        }
+
+        /* Timeline */
+        .timeline {
+            margin-top: 40px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-marker {
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            background: rgba(212, 168, 83, 0.1);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .timeline-content p {
+            color: var(--text-sec);
+            font-size: 14px;
+        }
+
+        /* Values grid */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 32px;
+        }
+
+        .value-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+        }
+
+        .value-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .value-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .value-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* CTA */
+        .story-cta {
+            text-align: center;
+            padding: 80px 24px;
+        }
+
+        .story-cta h2 {
+            font-family: 'Lora', serif;
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .story-cta p {
+            color: var(--text-sec);
+            font-size: 15px;
+            margin-bottom: 28px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #0a0a0a;
+            border: none;
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-light);
+        }
+
+        .btn-outline {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-sec);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold-light);
+        }
+
+        /* Footer */
+        .story-footer {
+            text-align: center;
+            padding: 32px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .story-footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .story-hero h1 {
+                font-size: 2rem;
+            }
+
+            .story-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .story-nav {
+                padding: 12px 16px;
+            }
+
+            .timeline-item {
+                gap: 16px;
+            }
+
+            .timeline-marker {
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- NAV -->
+    <nav class="story-nav">
+        <a href="/">← Trang chủ</a>
+        <span class="brand">🍄 Câu Chuyện Sản Phẩm</span>
+        <div class="nav-right">
+            <a href="/thanh-vien.html">💛 Thành Viên</a>
+            <a href="/ctv-dashboard.html">👥 CTV</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="story-hero">
+        <div class="story-hero-content">
+            <div class="tagline">Từ phòng nuôi cấy đến bàn ăn gia đình</div>
+            <h1>Hành Trình Của <span class="highlight">Đông Trùng Hạ Thảo</span> Nguyên Chất</h1>
+            <p class="lead">Mỗi viên nang mang trong mình câu chuyện về tâm huyết, khoa học và tình yêu với sức khỏe
+                cộng đồng</p>
+        </div>
+    </section>
+
+    <!-- ORIGIN STORY -->
+    <section class="story-section">
+        <span class="section-badge">🌱 Khởi Nguồn</span>
+        <h2>Tại sao chúng tôi bắt đầu?</h2>
+        <p>
+            Đông Trùng Hạ Thảo (Cordyceps militaris) từ lâu được xem là "thần dược" trong y học cổ truyền.
+            Tuy nhiên, sản phẩm trên thị trường thường bị pha trộn, thiếu kiểm soát chất lượng, hoặc
+            giá quá cao so với giá trị thực.
+        </p>
+        <p>
+            Chúng tôi tin rằng mọi gia đình Việt đều xứng đáng được tiếp cận sản phẩm Đông Trùng Hạ Thảo
+            <strong>nguyên chất, an toàn, và giá hợp lý</strong>. Đó là lý do maldalladuyduc ra đời.
+        </p>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="story-section alt">
+        <div class="inner">
+            <span class="section-badge">🔬 Quy Trình</span>
+            <h2>Từ bào tử đến viên nang vàng</h2>
+            <p>Mỗi hộp sản phẩm trải qua quy trình sản xuất khép kín 45 ngày, tuân thủ tiêu chuẩn GMP — WHO.</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">🧬</div>
+                    <div class="timeline-content">
+                        <h3>Chọn giống & nhân cấy</h3>
+                        <p>Giống Cordyceps militaris từ viện nghiên cứu, kiểm tra hoạt tính sinh học trước khi đưa vào
+                            nuôi cấy.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">🌡️</div>
+                    <div class="timeline-content">
+                        <h3>Nuôi cấy trong phòng sạch</h3>
+                        <p>Nhiệt độ 18–22°C, độ ẩm 80–85%, ánh sáng chu kỳ 12/12h. Kiểm soát 24/7 hoàn toàn tự động.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">🍄</div>
+                    <div class="timeline-content">
+                        <h3>Thu hoạch đúng thời điểm</h3>
+                        <p>Sau 40–45 ngày, khi quả thể đạt chiều cao 5–7cm và hàm lượng Cordycepin cao nhất.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">🏭</div>
+                    <div class="timeline-content">
+                        <h3>Sấy lạnh & nghiền mịn</h3>
+                        <p>Sấy thăng hoa ở nhiệt độ thấp giữ nguyên 100% dưỡng chất. Nghiền siêu mịn nano để tăng khả
+                            năng hấp thu.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">💊</div>
+                    <div class="timeline-content">
+                        <h3>Đóng viên nang & kiểm nghiệm</h3>
+                        <p>Mỗi viên 500mg, hàng dạng con nhộng. Kiểm nghiệm Cordycepin, adenosine, kim loại nặng trước
+                            khi xuất xưởng.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="story-section">
+        <span class="section-badge">💎 Giá Trị</span>
+        <h2>Điều làm nên sự khác biệt</h2>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="icon">🌿</div>
+                <h4>100% Nguyên Chất</h4>
+                <p>Không pha trộn, không chất bảo quản, không phụ gia. Chỉ tinh chất Đông Trùng Hạ Thảo thuần khiết.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">🔬</div>
+                <h4>Kiểm Nghiệm Độc Lập</h4>
+                <p>Mỗi lô hàng được kiểm tra tại phòng thí nghiệm đạt chuẩn ISO 17025.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">❤️</div>
+                <h4>Tâm Huyết</h4>
+                <p>Đội ngũ kỹ sư sinh học với 10+ năm kinh nghiệm, tận tâm vì sức khỏe cộng đồng.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">💰</div>
+                <h4>Giá Hợp Lý</h4>
+                <p>Từ nhà máy đến tay bạn — không qua trung gian, tiết kiệm 40% so với thị trường.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="story-section alt">
+        <div class="inner">
+            <span class="section-badge">🏆 Công Dụng</span>
+            <h2>Tại sao nên sử dụng mỗi ngày?</h2>
+            <p>Đông Trùng Hạ Thảo không phải thuốc, nhưng là thực phẩm chức năng quý giá giúp cơ thể khỏe mạnh từ bên
+                trong:</p>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="icon">🛡️</div>
+                    <h4>Tăng Miễn Dịch</h4>
+                    <p>Polysaccharide trong Cordyceps kích thích hệ miễn dịch, giúp cơ thể chống lại bệnh tật.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">⚡</div>
+                    <h4>Tăng Năng Lượng</h4>
+                    <p>Cải thiện khả năng sử dụng oxy, giảm mệt mỏi, tăng cường sức bền thể chất.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">🫁</div>
+                    <h4>Hỗ Trợ Hô Hấp</h4>
+                    <p>Bổ phế, tăng dung tích phổi, hỗ trợ người bị hen suyễn, viêm phế quản mãn tính.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon">💪</div>
+                    <h4>Bồi Bổ Sức Khỏe</h4>
+                    <p>Giàu amino acid, vitamin, khoáng chất thiết yếu. Phù hợp cho người trung niên và cao tuổi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="story-cta">
+        <h2>Sẵn sàng trải nghiệm?</h2>
+        <p>Đặt hàng ngay hôm nay và cảm nhận sự khác biệt từ Đông Trùng Hạ Thảo nguyên chất.</p>
+        <div class="cta-buttons">
+            <a href="/#contact" class="btn btn-gold">🛒 Đặt Hàng Ngay</a>
+            <a href="/thanh-vien.html" class="btn btn-outline">💛 Trở Thành Thành Viên</a>
+            <a href="/ctv-dashboard.html" class="btn btn-outline">👥 Trở Thành CTV</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="story-footer">
+        <p>© 2026 <a href="/">maldalladuyduc</a> — Đông Trùng Hạ Thảo Nguyên Chất</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thành Viên Thân Thiết — Đông Trùng Hạ Thảo maldalladuyduc</title>
+    <meta name="description"
+        content="Đăng nhập tài khoản Thành Viên Thân Thiết — theo dõi đơn hàng, tích điểm, nhận ưu đãi đặc biệt." />
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍄</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #060606;
+            --bg-card: #111111;
+            --gold: #d4a853;
+            --gold-light: #e8c97a;
+            --text: #f5f0e8;
+            --text-sec: #a09888;
+            --text-muted: #665e52;
+            --border: rgba(212, 168, 83, 0.15);
+            --success: #4ade80;
+            --error: #f87171;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Top bar */
+        .top-bar {
+            width: 100%;
+            padding: 16px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .top-bar a {
+            color: var(--text-sec);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .top-bar a:hover {
+            color: var(--gold-light);
+        }
+
+        .top-bar .brand {
+            font-weight: 700;
+            color: var(--gold-light);
+            font-size: 1rem;
+        }
+
+        /* Container */
+        .member-container {
+            max-width: 480px;
+            width: 100%;
+            padding: 40px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Auth box */
+        .auth-box {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+        }
+
+        .auth-icon {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+
+        .auth-box h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .auth-box .subtitle {
+            color: var(--text-sec);
+            font-size: 14px;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        /* Tabs */
+        .auth-tabs {
+            display: flex;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            padding: 4px;
+            margin-bottom: 24px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            background: none;
+            color: var(--text-sec);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .auth-tab.active {
+            background: rgba(212, 168, 83, 0.15);
+            color: var(--gold-light);
+        }
+
+        /* Form */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .auth-form.hidden {
+            display: none;
+        }
+
+        .form-input {
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 15px;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .btn-primary {
+            padding: 14px;
+            background: var(--gold);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            margin-top: 8px;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .auth-error {
+            color: var(--error);
+            font-size: 13px;
+            display: none;
+            margin-top: 4px;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Dashboard (shown after login) */
+        .member-dashboard {
+            width: 100%;
+            max-width: 800px;
+            padding: 32px 20px;
+            display: none;
+        }
+
+        .member-dashboard.active {
+            display: block;
+        }
+
+        .member-header {
+            text-align: center;
+            padding: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
+        .member-header .greeting {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .member-header .greeting span {
+            color: var(--gold-light);
+        }
+
+        .member-header .member-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            background: rgba(212, 168, 83, 0.12);
+            color: var(--gold);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .member-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-card .label {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .stat-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        .member-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .member-panel h3 {
+            font-size: 1rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-id {
+            font-weight: 600;
+            color: var(--gold-light);
+        }
+
+        .order-date {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-warning {
+            background: rgba(251, 191, 36, 0.12);
+            color: #fbbf24;
+        }
+
+        .badge-success {
+            background: rgba(74, 222, 128, 0.12);
+            color: var(--success);
+        }
+
+        .badge-info {
+            background: rgba(96, 165, 250, 0.12);
+            color: #60a5fa;
+        }
+
+        .btn-outline {
+            padding: 10px 20px;
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-sec);
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 32px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--success);
+            border-radius: 10px;
+            padding: 14px 20px;
+            font-size: 14px;
+            color: var(--text);
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+            max-width: 360px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast.error {
+            border-left-color: var(--error);
+        }
+
+        @media (max-width: 600px) {
+            .member-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-box {
+                padding: 28px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <a href="/">← Trang chính</a>
+        <span class="brand">🍄 Thành Viên Thân Thiết</span>
+        <a href="/ctv-dashboard.html">CTV →</a>
+    </div>
+
+    <!-- AUTH BOX -->
+    <div class="member-container" id="authScreen">
+        <div class="auth-box">
+            <div class="auth-icon">💛</div>
+            <h1>Xin Chào Quý Khách</h1>
+            <p class="subtitle">Đăng nhập để theo dõi đơn hàng, tích điểm<br>và nhận ưu đãi dành riêng cho bạn</p>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchTab('login')">Đăng Nhập</button>
+                <button class="auth-tab" onclick="switchTab('register')">Đăng Ký</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form class="auth-form" id="loginForm" onsubmit="handleLogin(event)">
+                <input class="form-input" type="tel" id="loginPhone" placeholder="Số điện thoại *" required />
+                <input class="form-input" type="password" id="loginPassword" placeholder="Mật khẩu *" required />
+                <button type="submit" class="btn-primary" id="loginBtn">Đăng Nhập</button>
+                <div class="auth-error" id="loginError">Sai thông tin đăng nhập</div>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form class="auth-form hidden" id="registerForm" onsubmit="handleRegister(event)">
+                <input class="form-input" type="text" id="regName" placeholder="Họ và tên *" required />
+                <input class="form-input" type="tel" id="regPhone" placeholder="Số điện thoại *" required />
+                <input class="form-input" type="email" id="regEmail" placeholder="Email (tùy chọn)" />
+                <input class="form-input" type="password" id="regPassword" placeholder="Tạo mật khẩu *" required />
+                <button type="submit" class="btn-primary" id="regBtn">Tạo Tài Khoản</button>
+                <div class="auth-error" id="regError"></div>
+            </form>
+
+            <div class="auth-divider">hoặc</div>
+            <p style="font-size:13px;color:var(--text-muted)">Tra cứu đơn hàng nhanh bằng số điện thoại khi đặt hàng</p>
+        </div>
+    </div>
+
+    <!-- MEMBER DASHBOARD (after login) -->
+    <div class="member-dashboard" id="memberDashboard">
+        <div class="member-header">
+            <div class="greeting">Chào mừng, <span id="memberName">—</span>!</div>
+            <p style="color:var(--text-sec);font-size:14px;margin-top:4px">Cảm ơn bạn đã là Thành Viên Thân Thiết của
+                chúng tôi</p>
+            <div class="member-badge">💛 Thành Viên Thân Thiết</div>
+        </div>
+
+        <div class="member-stats">
+            <div class="stat-card">
+                <div class="label">Tổng đơn hàng</div>
+                <div class="value" id="mTotalOrders">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Đã hoàn thành</div>
+                <div class="value" id="mCompleted">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Tổng chi tiêu</div>
+                <div class="value" id="mTotalSpent">0₫</div>
+            </div>
+        </div>
+
+        <div class="member-panel">
+            <h3>📦 Đơn Hàng Gần Đây</h3>
+            <div id="memberOrders">
+                <div class="empty-state">Đang tải...</div>
+            </div>
+        </div>
+
+        <div style="text-align:center;margin-top:16px">
+            <button class="btn-outline" onclick="memberLogout()">Đăng Xuất</button>
+        </div>
+    </div>
+
+    <div class="toast" id="memberToast"></div>
+
+    <script type="module">
+        import { supabase } from './src/supabase.js';
+
+        // --- Toast ---
+        function showToast(msg, isError = false) {
+            const t = document.getElementById('memberToast');
+            t.textContent = msg;
+            t.className = `toast show ${isError ? 'error' : ''}`;
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        // --- Tab switch ---
+        window.switchTab = function (tab) {
+            document.querySelectorAll('.auth-tab').forEach((t, i) => {
+                t.classList.toggle('active', (tab === 'login' && i === 0) || (tab === 'register' && i === 1));
+            });
+            document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
+            document.getElementById('registerForm').classList.toggle('hidden', tab !== 'register');
+        };
+
+        // --- Simple hash ---
+        async function sha256(str) {
+            const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // --- Register ---
+        window.handleRegister = async function (e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const email = document.getElementById('regEmail').value.trim() || null;
+            const password = document.getElementById('regPassword').value;
+            const errEl = document.getElementById('regError');
+            const btn = document.getElementById('regBtn');
+
+            if (!name || !phone || !password) { errEl.textContent = 'Vui lòng điền đầy đủ'; errEl.style.display = 'block'; return; }
+            if (password.length < 4) { errEl.textContent = 'Mật khẩu tối thiểu 4 ký tự'; errEl.style.display = 'block'; return; }
+
+            btn.disabled = true;
+            btn.textContent = 'Đang tạo...';
+            errEl.style.display = 'none';
+
+            try {
+                // Check if phone exists
+                const { data: existing } = await supabase.from('members').select('id').eq('phone', phone).maybeSingle();
+                if (existing) { errEl.textContent = 'Số điện thoại đã được đăng ký'; errEl.style.display = 'block'; return; }
+
+                const pwHash = await sha256(password);
+                const { data, error } = await supabase.from('members').insert({
+                    name, phone, email, password_hash: pwHash
+                }).select().single();
+
+                if (error) throw error;
+
+                showToast(`Chào mừng ${name}! Tài khoản đã được tạo 💛`);
+                sessionStorage.setItem('member_id', data.id);
+                sessionStorage.setItem('member_name', data.name);
+                sessionStorage.setItem('member_phone', data.phone);
+                showDashboard(data);
+            } catch (err) {
+                errEl.textContent = 'Lỗi: ' + (err.message || 'Thử lại sau');
+                errEl.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Tạo Tài Khoản';
+            }
+        };
+
+        // --- Login ---
+        window.handleLogin = async function (e) {
+            e.preventDefault();
+            const phone = document.getElementById('loginPhone').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errEl = document.getElementById('loginError');
+            const btn = document.getElementById('loginBtn');
+
+            btn.disabled = true;
+            btn.textContent = 'Đang đăng nhập...';
+            errEl.style.display = 'none';
+
+            try {
+                const pwHash = await sha256(password);
+                const { data, error } = await supabase.from('members')
+                    .select('*').eq('phone', phone).eq('password_hash', pwHash).maybeSingle();
+
+                if (error) throw error;
+                if (!data) { errEl.style.display = 'block'; return; }
+
+                sessionStorage.setItem('member_id', data.id);
+                sessionStorage.setItem('member_name', data.name);
+                sessionStorage.setItem('member_phone', data.phone);
+                showToast(`Chào ${data.name}! 💛`);
+                showDashboard(data);
+            } catch (err) {
+                errEl.textContent = 'Lỗi hệ thống';
+                errEl.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Đăng Nhập';
+            }
+        };
+
+        // --- Session check ---
+        const savedId = sessionStorage.getItem('member_id');
+        if (savedId) {
+            (async () => {
+                const { data } = await supabase.from('members').select('*').eq('id', savedId).maybeSingle();
+                if (data) showDashboard(data);
+            })();
+        }
+
+        // --- Show dashboard ---
+        async function showDashboard(member) {
+            document.getElementById('authScreen').style.display = 'none';
+            const dash = document.getElementById('memberDashboard');
+            dash.classList.add('active');
+            document.getElementById('memberName').textContent = member.name;
+
+            // Load orders by phone
+            const { data: orders } = await supabase.from('orders')
+                .select('*').eq('phone', member.phone)
+                .order('created_at', { ascending: false }).limit(10);
+
+            const total = orders?.length || 0;
+            const completed = orders?.filter(o => o.status === 'completed').length || 0;
+            const spent = orders?.filter(o => o.status === 'completed').reduce((s, o) => s + (o.total_amount || 0), 0) || 0;
+
+            document.getElementById('mTotalOrders').textContent = total;
+            document.getElementById('mCompleted').textContent = completed;
+            document.getElementById('mTotalSpent').textContent = spent.toLocaleString('vi-VN') + '₫';
+
+            const container = document.getElementById('memberOrders');
+            if (!orders?.length) {
+                container.innerHTML = '<div class="empty-state">Chưa có đơn hàng nào. <a href="/#contact" style="color:var(--gold)">Đặt hàng ngay!</a></div>';
+                return;
+            }
+
+            const statusMap = {
+                pending: ['⏳ Chờ duyệt', 'badge-warning'],
+                confirmed: ['✅ Đã duyệt', 'badge-info'],
+                shipping: ['🚚 Đang giao', 'badge-info'],
+                completed: ['✓ Hoàn thành', 'badge-success'],
+                cancelled: ['✗ Đã hủy', 'badge-warning'],
+            };
+
+            container.innerHTML = orders.map(o => {
+                const [statusText, statusCls] = statusMap[o.status] || ['—', 'badge-info'];
+                const date = new Date(o.created_at).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: '2-digit' });
+                return `<div class="order-item">
+                    <div>
+                        <div class="order-id">#${o.id} — ${o.quantity} hộp</div>
+                        <div class="order-date">${date} · ${Number(o.total_amount || 0).toLocaleString('vi-VN')}₫</div>
+                    </div>
+                    <span class="badge ${statusCls}">${statusText}</span>
+                </div>`;
+            }).join('');
+        }
+
+        // --- Logout ---
+        window.memberLogout = function () {
+            sessionStorage.removeItem('member_id');
+            sessionStorage.removeItem('member_name');
+            sessionStorage.removeItem('member_phone');
+            location.reload();
+        };
+    </script>
+</body>
+
+</html>

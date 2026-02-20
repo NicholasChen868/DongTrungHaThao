@@ -554,6 +554,7 @@
             <li><button class="sidebar-item" data-section="testimonials">⭐ Đánh Giá</button></li>
             <li><button class="sidebar-item" data-section="products">🧪 Sản Phẩm</button></li>
             <li><button class="sidebar-item" data-section="contacts">📞 Liên Hệ</button></li>
+            <li><button class="sidebar-item" data-section="posts">✍️ Bài Viết</button></li>
             <li><button class="sidebar-item" data-section="analytics">📈 Analytics</button></li>
         </ul>
         <div class="sidebar-bottom">
@@ -670,6 +671,19 @@
                 <div class="admin-panel">
                     <h3>📞 Yêu Cầu Liên Hệ</h3>
                     <div id="allContacts">
+                        <div class="admin-loading">
+                            <div class="spinner"></div> Đang tải...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POSTS SECTION -->
+            <div class="admin-section" id="section-posts">
+                <div class="admin-panel">
+                    <h3>✍️ Bài Viết Chia Sẻ <button class="btn-refresh" onclick="refreshSection('posts')">🔄 Làm
+                            mới</button></h3>
+                    <div id="allPosts">
                         <div class="admin-loading">
                             <div class="spinner"></div> Đang tải...
                         </div>
@@ -797,6 +811,7 @@
                 case 'ctv': await loadCTVList(); break;
                 case 'testimonials': await loadTestimonials(); break;
                 case 'contacts': await loadContacts(); break;
+                case 'posts': await loadPosts(); break;
                 case 'analytics': await loadAnalytics(); break;
             }
         }
@@ -1055,6 +1070,69 @@
             renderTable('allContacts', data, ['id', 'name', 'phone', 'email', 'message', 'created_at'],
                 ['ID', 'Tên', 'SĐT', 'Email', 'Nội dung', 'Ngày gửi']);
         }
+
+        // --- POSTS ---
+        async function loadPosts() {
+            try {
+                const { data } = await supabase.from('member_posts')
+                    .select('*').order('created_at', { ascending: false });
+
+                const container = document.getElementById('allPosts');
+                if (!data?.length) {
+                    container.innerHTML = '<div class="admin-empty">Chưa có bài viết</div>';
+                    return;
+                }
+
+                const fmtDate = (d) => new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+                const catMap = { 'suc-khoe': '💚 Sức khỏe', 'cuoc-song': '🏡 Cuộc sống', 'trai-nghiem': '🍄 Trải nghiệm', 'meo-hay': '💡 Mẹo hay' };
+
+                container.innerHTML = `<table class="admin-table">
+                    <thead><tr><th>ID</th><th>Tác giả</th><th>Tiêu đề</th><th>Chuyên mục</th><th>👁️</th><th>❤️</th><th>Trạng thái</th><th>Ngày</th><th>Thao tác</th></tr></thead>
+                    <tbody>
+                        ${data.map(p => {
+                    const status = p.is_approved
+                        ? '<span class="badge badge-success">✓ Đã duyệt</span>'
+                        : '<span class="badge badge-warning">⏳ Chờ duyệt</span>';
+                    const actions = !p.is_approved
+                        ? `<button class="btn-action btn-approve" onclick="approvePost(${p.id},true)">✓ Duyệt</button><button class="btn-action btn-reject" onclick="approvePost(${p.id},false)">✗ Xóa</button>`
+                        : `<button class="btn-action btn-reject" onclick="approvePost(${p.id},false)">Ẩn</button>`;
+                    return `<tr>
+                                <td>#${p.id}</td>
+                                <td>${p.member_name}</td>
+                                <td>${(p.title || '').substring(0, 40)}</td>
+                                <td>${catMap[p.category] || p.category}</td>
+                                <td>${p.views || 0}</td>
+                                <td>${p.likes || 0}</td>
+                                <td>${status}</td>
+                                <td>${fmtDate(p.created_at)}</td>
+                                <td>${actions}</td>
+                            </tr>`;
+                }).join('')}
+                    </tbody>
+                </table>`;
+            } catch (err) {
+                console.error('Posts load error:', err);
+            }
+        }
+
+        window.approvePost = async function (id, approve) {
+            const action = approve ? 'duyệt' : 'ẩn';
+            if (!confirm(`Xác nhận ${action} bài #${id}?`)) return;
+            try {
+                if (approve) {
+                    const { error } = await supabase.from('member_posts').update({ is_approved: true }).eq('id', id);
+                    if (error) throw error;
+                } else {
+                    const { error } = await supabase.from('member_posts').update({ is_approved: false }).eq('id', id);
+                    if (error) throw error;
+                }
+                showAdminToast(`Bài #${id} → ${action}`);
+                loaded.posts = false;
+                await loadPosts();
+            } catch (err) {
+                showAdminToast('Lỗi: ' + err.message, 'error');
+            }
+        };
 
         // --- ANALYTICS ---
         async function loadAnalytics() {
