@@ -148,16 +148,48 @@ export async function fetchAffiliateSteps() {
 }
 
 /**
+ * Fetch health stories from Supabase
+ */
+export async function fetchHealthStories() {
+    try {
+        const { data, error } = await supabase
+            .from('health_stories')
+            .select('*')
+            .order('sort_order');
+
+        if (error) throw error;
+        return data.map(s => ({
+            id: s.id,
+            name: s.customer_name,
+            age: s.age,
+            location: s.location,
+            avatar: s.avatar,
+            condition: s.condition,
+            title: s.story_title,
+            before: s.before_text,
+            after: s.after_text,
+            duration: s.duration,
+            quote: s.quote,
+            rating: s.rating,
+        }));
+    } catch (err) {
+        console.warn('⚠️ Supabase fetch failed for health_stories, using empty fallback:', err.message);
+        return [];
+    }
+}
+
+/**
  * Fetch ALL data at once
  */
 export async function fetchAllData() {
-    const [product, testimonials, processSteps, affiliateTiers, affiliateSteps] = await Promise.all([
+    const [product, testimonials, processSteps, affiliateTiers, affiliateSteps, healthStories] = await Promise.all([
         fetchProduct(),
         fetchTestimonials(),
         fetchProcessSteps(),
         fetchAffiliateTiers(),
         fetchAffiliateSteps(),
+        fetchHealthStories(),
     ]);
 
-    return { product, testimonials, processSteps, affiliateTiers, affiliateSteps };
+    return { product, testimonials, processSteps, affiliateTiers, affiliateSteps, healthStories };
 }

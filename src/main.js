@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initCountUp();
 
   // Fetch all data from Supabase (falls back to local data)
-  const { product, testimonials, processSteps, affiliateTiers, affiliateSteps } = await fetchAllData();
+  const { product, testimonials, processSteps, affiliateTiers, affiliateSteps, healthStories } = await fetchAllData();
 
   // Store globally for quantity selector / order form
   window.__product = product;
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderProcess(processSteps);
   renderProduct(product);
   renderTestimonials(testimonials);
+  renderHealthStories(healthStories);
   renderAffiliateSteps(affiliateSteps);
   renderAffiliateTiers(affiliateTiers);
   initCarousel(testimonials);
@@ -254,6 +255,41 @@ function initCarousel(testimonials) {
   track.closest('.testimonials-carousel').addEventListener('mouseleave', () => {
     interval = setInterval(() => goTo(current + 1), 5000);
   });
+}
+
+// ===================================
+// HEALTH STORIES
+// ===================================
+function renderHealthStories(stories) {
+  const grid = document.getElementById('storiesGrid');
+  if (!grid || !stories || stories.length === 0) return;
+
+  grid.innerHTML = stories.map((s, i) => `
+    <div class="story-card animate-on-scroll" style="transition-delay: ${i * 0.15}s">
+      <div class="story-header">
+        <div class="story-avatar">${s.avatar}</div>
+        <div class="story-meta">
+          <div class="story-name">${s.name}, ${s.age} tuổi</div>
+          <div class="story-location">${s.location}</div>
+        </div>
+        <div class="story-condition">${s.condition}</div>
+      </div>
+      <h3 class="story-title">${s.title}</h3>
+      <div class="story-timeline">
+        <div class="story-phase story-before">
+          <div class="phase-label">😔 Trước khi dùng</div>
+          <p>${s.before}</p>
+        </div>
+        <div class="story-arrow">⬇️ Sau ${s.duration}</div>
+        <div class="story-phase story-after">
+          <div class="phase-label">😊 Sau khi dùng</div>
+          <p>${s.after}</p>
+        </div>
+      </div>
+      <blockquote class="story-quote">"${s.quote}"</blockquote>
+      <div class="story-rating">${'★'.repeat(s.rating)}${'☆'.repeat(5 - s.rating)}</div>
+    </div>
+  `).join('');
 }
 
 // ===================================
