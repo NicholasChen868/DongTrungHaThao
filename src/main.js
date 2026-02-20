@@ -1,5 +1,6 @@
 import { fetchAllData } from './data.js';
 import { initCTVSystem, registerCTV } from './ctv.js';
+import { supabase } from './supabase.js';
 
 // ===================================
 // INITIALIZATION
@@ -363,19 +364,59 @@ function initOrderForm() {
     totalEl.textContent = total.toLocaleString('vi-VN') + '₫';
   });
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const name = document.getElementById('orderName').value;
-    const phone = document.getElementById('orderPhone').value;
+    const name = document.getElementById('orderName').value.trim();
+    const phone = document.getElementById('orderPhone').value.trim();
+    const address = document.getElementById('orderAddress').value.trim();
+    const qty = parseInt(qtySelect.value);
+    const ctvCode = document.getElementById('orderCtvCode')?.value.trim() || null;
+    const note = document.getElementById('orderNote')?.value.trim() || null;
 
-    if (!name || !phone) {
+    if (!name || !phone || !address) {
       showToast('Vui lòng điền đầy đủ thông tin!', false);
       return;
     }
 
-    showToast(`Cảm ơn ${name}! Đơn hàng đã được ghi nhận. Chúng tôi sẽ liên hệ qua ${phone} sớm nhất.`);
-    form.reset();
-    qtySelect.dispatchEvent(new Event('change'));
+    // Calculate total
+    const p = window.__product;
+    const unitPrice = p?.price || 850000;
+    const discount = discounts[qty] || 0;
+    const subtotal = qty * unitPrice;
+    const total = Math.round(subtotal * (1 - discount));
+
+    // Disable button while submitting
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const origText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Đang xử lý...';
+
+    try {
+      const { data, error } = await supabase.from('orders').insert({
+        customer_name: name,
+        phone: phone,
+        address: address,
+        quantity: qty,
+        unit_price: unitPrice,
+        discount_percent: discount * 100,
+        total_amount: total,
+        ctv_code: ctvCode,
+        note: note,
+        status: 'pending',
+      }).select().single();
+
+      if (error) throw error;
+
+      showToast(`Cảm ơn ${name}! Đơn hàng #${data.id} đã được ghi nhận. Chúng tôi sẽ liên hệ qua ${phone} sớm nhất.`);
+      form.reset();
+      qtySelect.dispatchEvent(new Event('change'));
+    } catch (err) {
+      console.error('Order submit error:', err);
+      showToast('Đặt hàng thất bại. Vui lòng gọi Hotline hoặc thử lại!', false);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = origText;
+    }
   });
 }
 

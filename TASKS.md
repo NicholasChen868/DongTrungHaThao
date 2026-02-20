@@ -1,5 +1,5 @@
 # 📋 Implementation Tasks — Đông Trùng Hạ Thảo (maldalladuyduc)
-> Cập nhật lần cuối: **2026-02-20 11:31**
+> Cập nhật lần cuối: **2026-02-20 11:49**
 
 ---
 
@@ -65,11 +65,13 @@
 - [x] Login bằng password (SHA-256)
 - [x] Sidebar navigation (7 sections)
 - [x] Overview: tổng đơn hàng, doanh thu, CTV, liên hệ
-- [x] Bảng đơn hàng (50 items)
-- [x] Danh sách CTV (50 items)
+- [x] Bảng đơn hàng (50 items) + **nút duyệt/từ chối/giao/hoàn thành**
+- [x] Danh sách CTV (50 items) + **nút nâng hạng**
 - [x] Đánh giá khách hàng
 - [x] Yêu cầu liên hệ
 - [x] Responsive mobile (sidebar thành tab bar)
+- [x] Toast notifications
+- [x] Nút 🔄 Làm mới data
 
 ### 🗄️ Database (Supabase)
 - [x] Bảng `company_testimonials`
@@ -86,9 +88,9 @@
 ## 🔄 ĐANG TIẾN HÀNH
 
 ### 🔐 Admin Dashboard — Nâng cấp
+- [x] Thêm chức năng duyệt/từ chối đơn hàng
+- [x] Thêm chức năng nâng hạng CTV
 - [ ] Đổi password mặc định → password riêng
-- [ ] Thêm chức năng duyệt/từ chối đơn hàng
-- [ ] Thêm chức năng duyệt điểm CTV
 - [ ] Export dữ liệu CSV
 - [ ] Thêm biểu đồ doanh thu (chart)
 
@@ -102,7 +104,9 @@
 ## 📌 TODO — Chưa Bắt Đầu
 
 ### 🛒 Đặt Hàng
-- [ ] Form đặt hàng hoàn chỉnh (tên, SĐT, địa chỉ, sản phẩm, số lượng)
+- [x] Form đặt hàng hoàn chỉnh (tên, SĐT, địa chỉ, sản phẩm, số lượng)
+- [x] Lưu đơn hàng vào Supabase (bảng `orders`)
+- [x] SQL migration cho bảng `orders` (003_orders_table.sql)
 - [ ] Xác nhận đơn hàng bằng SMS/Zalo
 - [ ] Email thông báo đơn hàng mới cho admin
 - [ ] Trang theo dõi đơn hàng cho khách

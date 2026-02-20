@@ -388,6 +388,100 @@
             color: var(--text-muted);
         }
 
+        /* Action buttons */
+        .btn-action {
+            padding: 4px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            margin-right: 4px;
+        }
+
+        .btn-approve {
+            background: rgba(74, 222, 128, 0.15);
+            color: var(--success);
+        }
+
+        .btn-approve:hover {
+            background: rgba(74, 222, 128, 0.3);
+        }
+
+        .btn-reject {
+            background: rgba(248, 113, 113, 0.15);
+            color: var(--error);
+        }
+
+        .btn-reject:hover {
+            background: rgba(248, 113, 113, 0.3);
+        }
+
+        .btn-ship {
+            background: rgba(96, 165, 250, 0.15);
+            color: var(--info);
+        }
+
+        .btn-ship:hover {
+            background: rgba(96, 165, 250, 0.3);
+        }
+
+        .btn-refresh {
+            padding: 6px 14px;
+            background: rgba(212, 168, 83, 0.1);
+            color: var(--gold-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            margin-left: auto;
+        }
+
+        .btn-refresh:hover {
+            background: rgba(212, 168, 83, 0.2);
+        }
+
+        /* Panel header flex */
+        .admin-panel h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Toast */
+        .admin-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1a1a1a;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 20px;
+            font-size: 14px;
+            color: var(--text-primary);
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+            max-width: 400px;
+        }
+
+        .admin-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .admin-toast.success {
+            border-left: 3px solid var(--success);
+        }
+
+        .admin-toast.error {
+            border-left: 3px solid var(--error);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             body {
@@ -523,7 +617,8 @@
             <!-- ORDERS SECTION -->
             <div class="admin-section" id="section-orders">
                 <div class="admin-panel">
-                    <h3>📦 Tất Cả Đơn Hàng</h3>
+                    <h3>📦 Tất Cả Đơn Hàng <button class="btn-refresh" onclick="refreshSection('orders')">🔄 Làm
+                            mới</button></h3>
                     <div id="allOrders">
                         <div class="admin-loading">
                             <div class="spinner"></div> Đang tải...
@@ -535,7 +630,8 @@
             <!-- CTV SECTION -->
             <div class="admin-section" id="section-ctv">
                 <div class="admin-panel">
-                    <h3>👥 Danh Sách CTV</h3>
+                    <h3>👥 Danh Sách CTV <button class="btn-refresh" onclick="refreshSection('ctv')">🔄 Làm mới</button>
+                    </h3>
                     <div id="allCTV">
                         <div class="admin-loading">
                             <div class="spinner"></div> Đang tải...
@@ -589,6 +685,9 @@
         </div>
     </main>
 
+    <!-- Toast -->
+    <div class="admin-toast" id="adminToast"></div>
+
     <script type="module">
         import { supabase } from './src/supabase.js';
 
@@ -602,6 +701,14 @@
         async function sha256(str) {
             const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
             return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // --- Toast ---
+        function showAdminToast(msg, type = 'success') {
+            const toast = document.getElementById('adminToast');
+            toast.textContent = msg;
+            toast.className = `admin-toast ${type} show`;
+            setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
         // --- Check session ---
@@ -640,7 +747,6 @@
                 document.getElementById(`section-${section}`).classList.add('active');
                 document.getElementById('topbarTitle').textContent = btn.textContent;
 
-                // Lazy load data
                 loadSection(section);
             });
         });
@@ -673,45 +779,39 @@
             }
         }
 
+        // Refresh section (force reload)
+        window.refreshSection = async function (name) {
+            loaded[name] = false;
+            await loadSection(name);
+            showAdminToast('Đã làm mới dữ liệu');
+        };
+
         // --- OVERVIEW ---
         async function loadOverview() {
             try {
-                // Count orders
                 const { count: orderCount } = await supabase
                     .from('orders').select('*', { count: 'exact', head: true });
                 document.getElementById('ovOrders').textContent = orderCount || 0;
 
-                // Revenue
                 const { data: orders } = await supabase
-                    .from('orders').select('total_amount');
+                    .from('orders').select('total_amount').eq('status', 'completed');
                 const revenue = (orders || []).reduce((sum, o) => sum + (o.total_amount || 0), 0);
                 document.getElementById('ovRevenue').textContent = revenue.toLocaleString('vi-VN') + '₫';
 
-                // CTV count
                 const { count: ctvCount } = await supabase
                     .from('ctv_accounts').select('*', { count: 'exact', head: true });
                 document.getElementById('ovCTV').textContent = ctvCount || 0;
 
-                // Contact count
                 const { count: contactCount } = await supabase
                     .from('contact_submissions').select('*', { count: 'exact', head: true });
                 document.getElementById('ovContacts').textContent = contactCount || 0;
 
-                // Recent orders
                 const { data: recentOrders } = await supabase
-                    .from('orders')
-                    .select('*')
-                    .order('created_at', { ascending: false })
-                    .limit(5);
-                renderTable('recentOrders', recentOrders, ['id', 'customer_name', 'phone', 'total_amount', 'status', 'created_at'],
-                    ['ID', 'Khách hàng', 'SĐT', 'Tổng tiền', 'Trạng thái', 'Ngày tạo']);
+                    .from('orders').select('*').order('created_at', { ascending: false }).limit(5);
+                renderOrderTable('recentOrders', recentOrders, true);
 
-                // Recent CTV
                 const { data: recentCTV } = await supabase
-                    .from('ctv_accounts')
-                    .select('*')
-                    .order('created_at', { ascending: false })
-                    .limit(5);
+                    .from('ctv_accounts').select('*').order('created_at', { ascending: false }).limit(5);
                 renderTable('recentCTV', recentCTV, ['referral_code', 'name', 'phone', 'tier', 'total_points', 'created_at'],
                     ['Mã CTV', 'Tên', 'SĐT', 'Hạng', 'Điểm', 'Ngày ĐK']);
 
@@ -720,21 +820,154 @@
             }
         }
 
-        // --- ORDERS ---
+        // --- ORDERS with action buttons ---
         async function loadOrders() {
             const { data } = await supabase.from('orders')
                 .select('*').order('created_at', { ascending: false }).limit(50);
-            renderTable('allOrders', data, ['id', 'customer_name', 'phone', 'address', 'total_amount', 'status', 'created_at'],
-                ['ID', 'Khách hàng', 'SĐT', 'Địa chỉ', 'Tổng tiền', 'Trạng thái', 'Ngày tạo']);
+            renderOrderTable('allOrders', data, false);
         }
 
-        // --- CTV LIST ---
+        function renderOrderTable(containerId, data, compact) {
+            const container = document.getElementById(containerId);
+            if (!data?.length) {
+                container.innerHTML = '<div class="admin-empty">Chưa có đơn hàng</div>';
+                return;
+            }
+
+            const fmtDate = (d) => new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+            const fmtMoney = (v) => Number(v || 0).toLocaleString('vi-VN') + '₫';
+            const statusBadge = (s) => {
+                const map = {
+                    pending: ['⏳ Chờ duyệt', 'badge-warning'],
+                    confirmed: ['✅ Đã duyệt', 'badge-info'],
+                    shipping: ['🚚 Đang giao', 'badge-info'],
+                    completed: ['✓ Hoàn thành', 'badge-success'],
+                    cancelled: ['✗ Đã hủy', 'badge-danger'],
+                };
+                const [text, cls] = map[s] || ['—', 'badge-info'];
+                return `<span class="badge ${cls}">${text}</span>`;
+            };
+
+            const headers = compact
+                ? '<th>ID</th><th>Khách hàng</th><th>Tổng</th><th>Trạng thái</th><th>Thao tác</th>'
+                : '<th>ID</th><th>Khách hàng</th><th>SĐT</th><th>Địa chỉ</th><th>SL</th><th>Tổng</th><th>CTV</th><th>Trạng thái</th><th>Ngày</th><th>Thao tác</th>';
+
+            container.innerHTML = `
+                <table class="admin-table">
+                    <thead><tr>${headers}</tr></thead>
+                    <tbody>
+                        ${data.map(o => {
+                const actions = o.status === 'pending'
+                    ? `<button class="btn-action btn-approve" onclick="updateOrder(${o.id},'confirmed')">✓ Duyệt</button><button class="btn-action btn-reject" onclick="updateOrder(${o.id},'cancelled')">✗ Hủy</button>`
+                    : o.status === 'confirmed'
+                        ? `<button class="btn-action btn-ship" onclick="updateOrder(${o.id},'shipping')">🚚 Giao</button>`
+                        : o.status === 'shipping'
+                            ? `<button class="btn-action btn-approve" onclick="updateOrder(${o.id},'completed')">✓ Xong</button>`
+                            : '—';
+                if (compact) {
+                    return `<tr>
+                                    <td>#${o.id}</td>
+                                    <td>${o.customer_name}</td>
+                                    <td>${fmtMoney(o.total_amount)}</td>
+                                    <td>${statusBadge(o.status)}</td>
+                                    <td>${actions}</td>
+                                </tr>`;
+                }
+                return `<tr>
+                                <td>#${o.id}</td>
+                                <td>${o.customer_name}</td>
+                                <td>${o.phone}</td>
+                                <td>${String(o.address || '').substring(0, 40)}${(o.address || '').length > 40 ? '...' : ''}</td>
+                                <td>${o.quantity || 1}</td>
+                                <td>${fmtMoney(o.total_amount)}</td>
+                                <td>${o.ctv_code || '—'}</td>
+                                <td>${statusBadge(o.status)}</td>
+                                <td>${fmtDate(o.created_at)}</td>
+                                <td>${actions}</td>
+                            </tr>`;
+            }).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // --- Update order status ---
+        window.updateOrder = async function (id, newStatus) {
+            const labels = { confirmed: 'duyệt', shipping: 'giao hàng', completed: 'hoàn thành', cancelled: 'hủy' };
+            if (!confirm(`Xác nhận ${labels[newStatus]} đơn #${id}?`)) return;
+
+            try {
+                const { error } = await supabase.from('orders').update({ status: newStatus }).eq('id', id);
+                if (error) throw error;
+                showAdminToast(`Đơn #${id} → ${labels[newStatus]}`);
+                // Refresh
+                loaded.orders = false;
+                loaded.overview = false;
+                await loadOrders();
+                await loadOverview();
+            } catch (err) {
+                showAdminToast('Lỗi cập nhật: ' + err.message, 'error');
+            }
+        };
+
+        // --- CTV LIST with tier upgrade ---
         async function loadCTVList() {
             const { data } = await supabase.from('ctv_accounts')
                 .select('*').order('created_at', { ascending: false }).limit(50);
-            renderTable('allCTV', data, ['referral_code', 'name', 'phone', 'email', 'tier', 'total_points', 'available_vnd', 'created_at'],
-                ['Mã CTV', 'Tên', 'SĐT', 'Email', 'Hạng', 'Điểm', 'VNĐ', 'Ngày ĐK']);
+            renderCTVTable('allCTV', data);
         }
+
+        function renderCTVTable(containerId, data) {
+            const container = document.getElementById(containerId);
+            if (!data?.length) {
+                container.innerHTML = '<div class="admin-empty">Chưa có CTV</div>';
+                return;
+            }
+
+            const tierMap = { silver: '🥈 Bạc', gold: '🥇 Vàng', diamond: '💎 Kim Cương' };
+            const fmtDate = (d) => new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: '2-digit' });
+
+            container.innerHTML = `
+                <table class="admin-table">
+                    <thead><tr><th>Mã CTV</th><th>Tên</th><th>SĐT</th><th>Email</th><th>Hạng</th><th>Điểm</th><th>VNĐ</th><th>Ngày ĐK</th><th>Nâng hạng</th></tr></thead>
+                    <tbody>
+                        ${data.map(c => {
+                const nextTier = c.tier === 'silver' ? 'gold' : c.tier === 'gold' ? 'diamond' : null;
+                const upgradeBtn = nextTier
+                    ? `<button class="btn-action btn-approve" onclick="upgradeCTV('${c.referral_code}','${nextTier}')">${tierMap[nextTier]}</button>`
+                    : '<span style="color:var(--text-muted)">Max</span>';
+                return `<tr>
+                                <td><code>${c.referral_code}</code></td>
+                                <td>${c.name}</td>
+                                <td>${c.phone}</td>
+                                <td>${c.email || '—'}</td>
+                                <td>${tierMap[c.tier] || c.tier}</td>
+                                <td>${c.total_points || 0}</td>
+                                <td>${Number(c.available_vnd || 0).toLocaleString('vi-VN')}₫</td>
+                                <td>${fmtDate(c.created_at)}</td>
+                                <td>${upgradeBtn}</td>
+                            </tr>`;
+            }).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // --- Upgrade CTV tier ---
+        window.upgradeCTV = async function (refCode, newTier) {
+            const tierMap = { gold: 'Vàng', diamond: 'Kim Cương' };
+            if (!confirm(`Nâng hạng ${refCode} lên ${tierMap[newTier]}?`)) return;
+
+            try {
+                const { error } = await supabase.from('ctv_accounts').update({ tier: newTier }).eq('referral_code', refCode);
+                if (error) throw error;
+                showAdminToast(`${refCode} → ${tierMap[newTier]}`);
+                loaded.ctv = false;
+                await loadCTVList();
+            } catch (err) {
+                showAdminToast('Lỗi nâng hạng: ' + err.message, 'error');
+            }
+        };
 
         // --- TESTIMONIALS ---
         async function loadTestimonials() {
@@ -752,7 +985,7 @@
                 ['ID', 'Tên', 'SĐT', 'Email', 'Nội dung', 'Ngày gửi']);
         }
 
-        // --- Render table helper ---
+        // --- Generic render table helper ---
         function renderTable(containerId, data, fields, headers) {
             const container = document.getElementById(containerId);
             if (!data?.length) {
@@ -761,12 +994,11 @@
             }
 
             container.innerHTML = `
-        <table class="admin-table">
-          <thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
-          <tbody>
-            ${data.map(row => `<tr>${fields.map(f => {
+                <table class="admin-table">
+                    <thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+                    <tbody>
+                        ${data.map(row => `<tr>${fields.map(f => {
                 let val = row[f];
-                // Format special fields
                 if (f === 'created_at' && val) {
                     val = new Date(val).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' });
                 }
@@ -786,9 +1018,9 @@
                 }
                 return `<td>${val ?? '—'}</td>`;
             }).join('')}</tr>`).join('')}
-          </tbody>
-        </table>
-      `;
+                    </tbody>
+                </table>
+            `;
         }
     </script>
 </body>
