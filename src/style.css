@@ -136,20 +136,8 @@ img {
   position: relative;
 }
 
-.btn-glow::after {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 52px;
-  background: var(--gold-gradient);
-  opacity: 0;
-  z-index: -1;
-  filter: blur(15px);
-  transition: opacity var(--transition-base);
-}
-
-.btn-glow:hover::after {
-  opacity: 0.6;
+.btn-glow:hover {
+  border-color: var(--gold-primary);
 }
 
 .btn-secondary {
@@ -220,6 +208,8 @@ img {
   opacity: 1;
 }
 
+/* All GPU-heavy keyframes removed (float, pulse-gold, scroll-down)
+   Only shimmer kept for text gradient */
 @keyframes shimmer {
   0% {
     background-position: -200% center;
@@ -227,47 +217,6 @@ img {
 
   100% {
     background-position: 200% center;
-  }
-}
-
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes pulse-gold {
-
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(212, 168, 83, 0.4);
-  }
-
-  50% {
-    box-shadow: 0 0 0 15px rgba(212, 168, 83, 0);
-  }
-}
-
-@keyframes scroll-down {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  50% {
-    transform: translateY(8px);
-    opacity: 0.5;
-  }
-
-  100% {
-    transform: translateY(0);
-    opacity: 1;
   }
 }
 
@@ -534,7 +483,6 @@ img {
   border-bottom: 2px solid var(--text-muted);
   transform: rotate(45deg);
   margin: 8px auto 0;
-  animation: scroll-down 2s infinite;
 }
 
 /* ===================================

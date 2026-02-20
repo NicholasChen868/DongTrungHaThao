@@ -63,28 +63,8 @@ function initNavbar() {
 // HERO PARTICLES
 // ===================================
 function initHeroParticles() {
-  const container = document.getElementById('heroParticles');
-  if (!container) return;
-
-  // Reduced from 30 to 12 particles for performance
-  for (let i = 0; i < 12; i++) {
-    const particle = document.createElement('div');
-    const size = Math.random() * 3 + 1;
-    const opacity = Math.random() * 0.3 + 0.1;
-    particle.style.cssText = `
-      position: absolute;
-      width: ${size}px;
-      height: ${size}px;
-      background: rgba(212, 168, 83, ${opacity});
-      border-radius: 50%;
-      left: ${Math.random() * 100}%;
-      top: ${Math.random() * 100}%;
-      animation: float ${Math.random() * 8 + 6}s ease-in-out infinite;
-      animation-delay: ${Math.random() * 4}s;
-      will-change: transform;
-    `;
-    container.appendChild(particle);
-  }
+  // Disabled for GPU performance — no particles created
+  return;
 }
 
 // ===================================
