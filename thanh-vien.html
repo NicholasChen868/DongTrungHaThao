@@ -482,7 +482,7 @@
         </div>
 
         <div style="text-align:center;margin-top:16px">
-            <button class="btn-outline" onclick="memberLogout()">Đăng Xuất</button>
+            <button class="btn-outline" id="logoutBtn">Đăng Xuất</button>
         </div>
     </div>
 
@@ -550,16 +550,20 @@
             errEl.style.display = 'none';
 
             try {
-                // Check if phone exists (via RPC)
-                const { data: existing } = await supabase.rpc('check_phone_exists', { p_phone: phone });
-                if (existing) { errEl.textContent = 'Số điện thoại đã được đăng ký'; errEl.style.display = 'block'; return; }
-
                 const pwHash = await sha256(password);
-                const { data, error } = await supabase.from('members').insert({
-                    name, phone, email, password_hash: pwHash
-                }).select().single();
+                const { data, error } = await supabase.rpc('register_member', {
+                    p_name: name,
+                    p_phone: phone,
+                    p_email: email || null,
+                    p_password_hash: pwHash
+                });
 
                 if (error) throw error;
+                if (!data || !data.ok) {
+                    errEl.textContent = data?.error || 'Số điện thoại đã được đăng ký';
+                    errEl.style.display = 'block';
+                    return;
+                }
 
                 showToast(`Chào mừng ${name}! Tài khoản đã được tạo.`);
                 sessionStorage.setItem('member_id', data.id);
@@ -711,13 +715,14 @@
         }
 
         // --- Logout ---
-        window.memberLogout = function () {
+        function memberLogout() {
             sessionStorage.removeItem('member_id');
             sessionStorage.removeItem('member_name');
             sessionStorage.removeItem('member_phone');
             sessionStorage.removeItem('member_hash');
             location.reload();
-        };
+        }
+        document.getElementById('logoutBtn').addEventListener('click', memberLogout);
     </script>
 </body>
 

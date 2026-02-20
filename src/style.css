@@ -2611,7 +2611,7 @@ textarea {
 }
 
 .greeting-text strong {
-  color: var(--primary-gold);
+  color: var(--gold-primary);
   font-weight: 600;
 }
 
@@ -2629,8 +2629,8 @@ textarea {
 }
 
 .greeting-dismiss:hover {
-  border-color: var(--primary-gold);
-  color: var(--primary-gold);
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
 }
 
 /* Reorder reminder */
@@ -2680,7 +2680,7 @@ textarea {
   transform: translateX(-50%);
   width: 120px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
 }
 
 .cta-journey-icon {
@@ -2716,7 +2716,7 @@ textarea {
   align-items: center;
   gap: 8px;
   padding: 14px 24px;
-  background: linear-gradient(135deg, var(--primary-gold), #c49540);
+  background: linear-gradient(135deg, var(--gold-primary), #c49540);
   color: #0a0a0a;
   text-decoration: none;
   font-weight: 700;
