@@ -786,6 +786,19 @@
                 </div>
             </div>
 
+            <!-- Bài Viết Của Tôi -->
+            <div class="ctv-transactions">
+                <h3>Bài Viết Của Tôi</h3>
+                <div id="btvPostsBody">
+                    <div class="ctv-loading">
+                        <div class="spinner"></div> Đang tải...
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:12px">
+                    <a href="/chia-se.html#write" class="ctv-ref-copy-btn" style="display:inline-block;text-decoration:none">Viết Bài Mới</a>
+                </div>
+            </div>
+
             <!-- Withdrawal Form -->
             <div class="ctv-withdraw">
                 <h3>Yêu Cầu Rút Tiền</h3>
@@ -1132,9 +1145,10 @@
                 // Referral link
                 document.getElementById('refLinkInput').value = `${window.location.origin}/?ref=${data.referral_code}`;
 
-                // Load recent transactions + withdrawals
+                // Load recent transactions + withdrawals + BTV posts
                 loadTransactions(refCode);
                 loadWithdrawals(data.referral_code, data.name);
+                loadBtvPosts(refCode);
 
                 // Store for withdrawal form
                 window._ctvData = data;
@@ -1212,6 +1226,72 @@
             } catch (err) {
                 container.innerHTML = '<div class="ctv-empty">Lỗi tải dữ liệu</div>';
                 console.error('Transactions load error:', err);
+            }
+        }
+
+        // --- BTV Posts ---
+        async function loadBtvPosts(refCode) {
+            const container = document.getElementById('btvPostsBody');
+            try {
+                const { data, error } = await supabase.rpc('get_btv_posts', {
+                    p_ref_code: refCode
+                });
+
+                if (error) throw error;
+
+                const posts = data?.posts || [];
+                if (!posts.length) {
+                    container.innerHTML = '<div class="ctv-empty">Bạn chưa có bài viết nào. Viết bài để nhận 30,000đ nhuận bút khi được duyệt!</div>';
+                    return;
+                }
+
+                const catMap = {
+                    'suc-khoe': 'Sức khỏe',
+                    'cuoc-song': 'Cuộc sống',
+                    'trai-nghiem': 'Trải nghiệm',
+                    'meo-hay': 'Mẹo hay',
+                };
+
+                container.innerHTML = `
+          <table class="ctv-table">
+            <thead>
+              <tr>
+                <th>Tiêu đề</th>
+                <th>Chuyên mục</th>
+                <th>Ngày gửi</th>
+                <th>Trạng thái</th>
+                <th>Nhuận bút</th>
+                <th>👁️</th>
+                <th>❤️</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${posts.map(p => {
+                    const date = new Date(p.created_at).toLocaleDateString('vi-VN', {
+                        day: '2-digit', month: '2-digit'
+                    });
+                    const status = p.is_approved
+                        ? '<span class="badge-approved">✓ Đã duyệt</span>'
+                        : '<span class="badge-pending">⏳ Chờ duyệt</span>';
+                    const reward = p.reward_points_granted
+                        ? '<span class="badge-approved">✓ 30K</span>'
+                        : '<span style="color:var(--text-muted)">—</span>';
+                    return `<tr>
+                  <td>${escapeHTML((p.title || '').substring(0, 30))}</td>
+                  <td>${catMap[p.category] || escapeHTML(p.category)}</td>
+                  <td>${date}</td>
+                  <td>${status}</td>
+                  <td>${reward}</td>
+                  <td>${parseInt(p.views) || 0}</td>
+                  <td>${parseInt(p.likes) || 0}</td>
+                </tr>`;
+                }).join('')}
+            </tbody>
+          </table>
+        `;
+            } catch (err) {
+                container.innerHTML = '<div class="ctv-empty">Lỗi tải bài viết</div>';
+                console.error('BTV posts load error:', err);
             }
         }
 

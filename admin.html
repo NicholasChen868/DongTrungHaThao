@@ -1164,15 +1164,18 @@
                         const catMap = {'suc-khoe': '💚 Sức khỏe', 'cuoc-song': '🏡 Cuộc sống', 'trai-nghiem': '🌿 Trải nghiệm', 'meo-hay': '💡 Mẹo hay' };
 
                         container.innerHTML = `<table class="admin-table">
-                            <thead><tr><th>ID</th><th>Tác giả</th><th>Tiêu đề</th><th>Chuyên mục</th><th>👁️</th><th>❤️</th><th>Trạng thái</th><th>Ngày</th><th>Thao tác</th></tr></thead>
+                            <thead><tr><th>ID</th><th>Tác giả</th><th>Tiêu đề</th><th>Chuyên mục</th><th>👁️</th><th>❤️</th><th>Nhuận bút</th><th>Trạng thái</th><th>Ngày</th><th>Thao tác</th></tr></thead>
                             <tbody>
                                 ${data.map(p => {
                                     const status = p.is_approved
                                         ? '<span class="badge badge-success">✓ Đã duyệt</span>'
                                         : '<span class="badge badge-warning">⏳ Chờ duyệt</span>';
+                                    const reward = p.reward_points_granted
+                                        ? '<span class="badge badge-success">✓ 30K</span>'
+                                        : '<span style="color:var(--text-muted)">—</span>';
                                     const actions = !p.is_approved
-                                        ? `<button class="btn-action btn-approve" onclick="approvePost(${p.id},true)">✓ Duyệt</button><button class="btn-action btn-reject" onclick="approvePost(${p.id},false)">✗ Xóa</button>`
-                                        : `<button class="btn-action btn-reject" onclick="approvePost(${p.id},false)">Ẩn</button>`;
+                                        ? `<button class="btn-action btn-approve" data-id="${parseInt(p.id)}" onclick="approvePostReward(+this.dataset.id)">✓ Duyệt</button><button class="btn-action btn-reject" data-id="${parseInt(p.id)}" onclick="rejectPost(+this.dataset.id)">✗ Xóa</button>`
+                                        : `<button class="btn-action btn-reject" data-id="${parseInt(p.id)}" onclick="rejectPost(+this.dataset.id)">Ẩn</button>`;
                                     return `<tr>
                                 <td>#${parseInt(p.id)}</td>
                                 <td>${escapeHTML(p.member_name)}</td>
@@ -1180,6 +1183,7 @@
                                 <td>${catMap[p.category] || escapeHTML(p.category)}</td>
                                 <td>${parseInt(p.views) || 0}</td>
                                 <td>${parseInt(p.likes) || 0}</td>
+                                <td>${reward}</td>
                                 <td>${status}</td>
                                 <td>${fmtDate(p.created_at)}</td>
                                 <td>${actions}</td>
@@ -1192,19 +1196,39 @@
             }
         }
 
-                        window.approvePost = async function (id, approve) {
-            const action = approve ? 'duyệt' : 'ẩn';
-                        if (!confirm(`Xác nhận ${action} bài #${id}?`)) return;
-                        try {
-                const {error} = await supabase.rpc('admin_update_post_status', {
-                            p_admin_hash: getAdminHash(), p_post_id: id, p_approve: approve
+                        window.approvePostReward = async function (id) {
+            if (!confirm(`Duyệt bài #${id} và cộng nhuận bút 30,000đ?`)) return;
+            try {
+                const {data, error} = await supabase.rpc('approve_post_and_reward', {
+                    p_admin_hash: getAdminHash(), p_post_id: id
                 });
-                        if (error) throw error;
-                        showAdminToast(`Bài #${id} → ${action}`);
-                        loaded.posts = false;
-                        await loadPosts();
+                if (error) throw error;
+                if (data?.points_credited) {
+                    showAdminToast(`Bài #${id} đã duyệt + Cộng 30,000đ nhuận bút`);
+                } else if (data?.message) {
+                    showAdminToast(data.message);
+                } else {
+                    showAdminToast(`Bài #${id} đã duyệt (BTV chưa có tài khoản CTV)`);
+                }
+                loaded.posts = false;
+                await loadPosts();
             } catch (err) {
-                            showAdminToast('Lỗi: ' + err.message, 'error');
+                showAdminToast('Lỗi: ' + err.message, 'error');
+            }
+        };
+
+                        window.rejectPost = async function (id) {
+            if (!confirm(`Xác nhận ẩn bài #${id}?`)) return;
+            try {
+                const {error} = await supabase.rpc('admin_update_post_status', {
+                    p_admin_hash: getAdminHash(), p_post_id: id, p_approve: false
+                });
+                if (error) throw error;
+                showAdminToast(`Bài #${id} → ẩn`);
+                loaded.posts = false;
+                await loadPosts();
+            } catch (err) {
+                showAdminToast('Lỗi: ' + err.message, 'error');
             }
         };
 
