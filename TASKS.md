@@ -1,5 +1,5 @@
 # 📋 Implementation Tasks — Đông Trùng Hạ Thảo (maldalladuyduc)
-> Cập nhật lần cuối: **2026-02-20 11:55**
+> Cập nhật lần cuối: **2026-02-20 12:20**
 
 ---
 
@@ -90,9 +90,9 @@
 ### 🔐 Admin Dashboard — Nâng cấp
 - [x] Thêm chức năng duyệt/từ chối đơn hàng
 - [x] Thêm chức năng nâng hạng CTV
-- [ ] Đổi password mặc định → password riêng
+- [x] Đổi password mặc định → 'matkhau'
 - [x] Export dữ liệu CSV (đơn hàng + CTV)
-- [ ] Thêm biểu đồ doanh thu (chart)
+- [x] Thêm biểu đồ doanh thu (bar chart + doughnut chart)
 
 ### 📈 Analytics
 - [ ] Tracking page views
