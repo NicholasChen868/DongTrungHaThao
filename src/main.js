@@ -2,6 +2,11 @@ import { fetchAllData } from './data.js';
 import { initCTVSystem, registerCTV } from './ctv.js';
 import { supabase } from './supabase.js';
 import { escapeHTML, escapeCSS } from './utils/sanitize.js';
+import { createSubmitGuard } from './utils/ratelimit.js';
+
+const orderGuard = createSubmitGuard(5000);
+const ctvGuard = createSubmitGuard(5000);
+const contactGuard = createSubmitGuard(5000);
 
 // ===================================
 // INITIALIZATION
@@ -287,9 +292,9 @@ function renderAffiliateSteps(steps) {
 
   container.innerHTML = steps.map((s, i) => `
     <div class="affiliate-step animate-on-scroll" style="transition-delay: ${i * 0.1}s">
-      <div class="step-number">${s.step}</div>
-      <h3 class="step-title">${s.title}</h3>
-      <p class="step-desc">${s.desc}</p>
+      <div class="step-number">${parseInt(s.step)}</div>
+      <h3 class="step-title">${escapeHTML(s.title)}</h3>
+      <p class="step-desc">${escapeHTML(s.desc)}</p>
     </div>
   `).join('');
 }
@@ -303,14 +308,14 @@ function renderAffiliateTiers(affiliateTiers) {
 
   container.innerHTML = affiliateTiers.map((tier, i) => `
     <div class="tier-card animate-on-scroll" style="transition-delay: ${i * 0.1}s">
-      <style>.tier-card:nth-child(${i + 1})::before { background: ${tier.gradient}; }</style>
-      <span class="tier-icon">${tier.icon}</span>
-      <h3 class="tier-name" style="color: ${tier.color}">${tier.name}</h3>
-      <div class="tier-range">${tier.minSales} — ${tier.maxSales ? tier.maxSales : '∞'} sản phẩm/tháng</div>
-      <div class="tier-commission" style="color: ${tier.color}">${tier.commission}%</div>
+      <style>.tier-card:nth-child(${i + 1})::before { background: ${escapeCSS(tier.gradient)}; }</style>
+      <span class="tier-icon">${escapeHTML(tier.icon)}</span>
+      <h3 class="tier-name" style="color: ${escapeCSS(tier.color)}">${escapeHTML(tier.name)}</h3>
+      <div class="tier-range">${parseInt(tier.minSales)} — ${tier.maxSales ? parseInt(tier.maxSales) : '∞'} sản phẩm/tháng</div>
+      <div class="tier-commission" style="color: ${escapeCSS(tier.color)}">${parseInt(tier.commission)}%</div>
       <div class="tier-commission-label">Chiết khấu</div>
       <ul class="tier-perks">
-        ${tier.perks.map(p => `<li style="--check-color: ${tier.color}"><span style="color: ${tier.color}">✓</span> ${p.replace('✓', '')}</li>`).join('')}
+        ${tier.perks.map(p => `<li style="--check-color: ${escapeCSS(tier.color)}"><span style="color: ${escapeCSS(tier.color)}">✓</span> ${escapeHTML(p.replace('✓', ''))}</li>`).join('')}
       </ul>
     </div>
   `).join('');
@@ -367,6 +372,13 @@ function initOrderForm() {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const og = orderGuard();
+    if (!og.allowed) {
+      showToast(`Vui lòng đợi ${Math.ceil(og.remainingMs / 1000)}s trước khi gửi lại`, false);
+      return;
+    }
+
     const name = document.getElementById('orderName').value.trim();
     const phone = document.getElementById('orderPhone').value.trim();
     const address = document.getElementById('orderAddress').value.trim();
@@ -427,6 +439,13 @@ function initCtvForm() {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const cg = ctvGuard();
+    if (!cg.allowed) {
+      showToast(`Vui lòng đợi ${Math.ceil(cg.remainingMs / 1000)}s`, false);
+      return;
+    }
+
     const name = document.getElementById('ctvName').value;
     const phone = document.getElementById('ctvPhone')?.value;
     const email = document.getElementById('ctvEmail')?.value;

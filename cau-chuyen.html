@@ -4,15 +4,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Câu Chuyện Sản Phẩm — Đông Trùng Hạ Thảo maldalladuyduc</title>
+    <title>Câu Chuyện Của Chúng Tôi — Đông Trùng Hạ Thảo maldalladuyduc</title>
     <meta name="description"
-        content="Khám phá hành trình từ phòng nuôi cấy đến viên nang vàng — câu chuyện về chất lượng, tâm huyết và sức khỏe." />
-    <link rel="canonical" href="https://dong-trung-ha-thao.vercel.app/cau-chuyen.html" />
+        content="Không phải ai cũng để ý rằng sức khỏe đang cạn dần — cho đến khi quá muộn. Đây là câu chuyện về lý do chúng tôi bắt đầu." />
+    <meta property="og:title" content="Câu Chuyện Của Chúng Tôi — maldalladuyduc" />
+    <meta property="og:description" content="Câu chuyện đằng sau viên nang Đông Trùng Hạ Thảo nguyên chất." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://dong-trung-ha-thao.vercel.app/cau-chuyen.html" />
     <link rel="icon" type="image/svg+xml"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍄</text></svg>" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
         rel="stylesheet" />
     <style>
         *,
@@ -24,25 +27,31 @@
         }
 
         :root {
-            --bg: #060606;
-            --bg-card: #111111;
+            --bg: #050505;
+            --bg-warm: #0c0a08;
             --gold: #d4a853;
             --gold-light: #e8c97a;
+            --gold-dim: rgba(212, 168, 83, 0.08);
             --text: #f5f0e8;
-            --text-sec: #a09888;
+            --text-sec: #b0a596;
             --text-muted: #665e52;
-            --border: rgba(212, 168, 83, 0.15);
+            --border: rgba(212, 168, 83, 0.12);
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Be Vietnam Pro', sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.7;
+            line-height: 1.85;
+            font-size: 17px;
         }
 
-        /* Navigation */
-        .story-nav {
+        /* Minimal nav */
+        .s-nav {
             position: fixed;
             top: 0;
             left: 0;
@@ -52,224 +61,272 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(6, 6, 6, 0.85);
-            backdrop-filter: blur(16px);
+            background: rgba(5, 5, 5, 0.85);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
+            transition: opacity 0.3s;
         }
 
-        .story-nav a {
+        .s-nav a {
             color: var(--text-sec);
             text-decoration: none;
             font-size: 14px;
-            transition: color 0.2s;
         }
 
-        .story-nav a:hover {
+        .s-nav a:hover {
             color: var(--gold-light);
         }
 
-        .story-nav .brand {
+        .s-nav .brand {
             font-weight: 700;
             color: var(--gold-light);
-            font-size: 1rem;
+            font-size: 15px;
+            letter-spacing: 0.5px;
         }
 
-        .story-nav .nav-right {
+        /* ═══════════════════════════════════════════════ */
+        /* Chapter system */
+        /* ═══════════════════════════════════════════════ */
+
+        .chapter {
+            min-height: 100vh;
             display: flex;
-            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 24px;
+            position: relative;
         }
 
-        /* Hero */
-        .story-hero {
-            min-height: 80vh;
+        .chapter-inner {
+            max-width: 680px;
+            width: 100%;
+        }
+
+        .chapter-number {
+            font-size: 12px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .chapter h2 {
+            font-family: 'Lora', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 24px;
+        }
+
+        .chapter h2 .hl {
+            color: var(--gold-light);
+        }
+
+        .chapter p {
+            color: var(--text-sec);
+            font-size: 1.05rem;
+            margin-bottom: 18px;
+        }
+
+        .chapter p strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .chapter p em {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            color: var(--gold-light);
+            font-size: 1.1rem;
+        }
+
+        /* Opening — cinematic */
+        .chapter-opening {
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 120px 24px 80px;
+            padding: 80px 24px;
             position: relative;
             overflow: hidden;
         }
 
-        .story-hero::before {
+        .chapter-opening::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at center, rgba(212, 168, 83, 0.08) 0%, transparent 70%);
+            background: radial-gradient(ellipse 60% 50% at center 40%, rgba(212, 168, 83, 0.06) 0%, transparent 100%);
         }
 
-        .story-hero-content {
+        .opening-content {
             position: relative;
             z-index: 1;
-            max-width: 720px;
+            max-width: 620px;
         }
 
-        .story-hero .tagline {
-            font-size: 14px;
+        .opening-content .kicker {
+            font-size: 13px;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--gold);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
-        .story-hero h1 {
+        .opening-content h1 {
             font-family: 'Lora', serif;
-            font-size: 3.2rem;
+            font-size: 3rem;
             font-weight: 700;
-            line-height: 1.2;
+            line-height: 1.25;
             margin-bottom: 20px;
         }
 
-        .story-hero h1 .highlight {
+        .opening-content h1 .hl {
             color: var(--gold-light);
         }
 
-        .story-hero .lead {
-            font-size: 1.1rem;
-            color: var(--text-sec);
-            max-width: 560px;
-            margin: 0 auto;
-        }
-
-        /* Sections */
-        .story-section {
-            padding: 80px 24px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .story-section.alt {
-            background: var(--bg-card);
-            max-width: 100%;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .story-section.alt .inner {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .section-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            font-size: 13px;
-            color: var(--gold);
-            margin-bottom: 16px;
-        }
-
-        .story-section h2 {
+        .opening-content .lead {
             font-family: 'Lora', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
-
-        .story-section p {
+            font-style: italic;
+            font-size: 1.15rem;
             color: var(--text-sec);
-            font-size: 15px;
-            margin-bottom: 16px;
+            line-height: 1.8;
         }
 
-        /* Timeline */
-        .timeline {
-            margin-top: 40px;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 24px;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        .timeline-marker {
-            width: 48px;
-            height: 48px;
-            min-width: 48px;
-            background: rgba(212, 168, 83, 0.1);
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-
-        .timeline-content h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .timeline-content p {
-            color: var(--text-sec);
-            font-size: 14px;
-        }
-
-        /* Values grid */
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-top: 32px;
-        }
-
-        .value-card {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px;
-            text-align: center;
-        }
-
-        .value-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-        }
-
-        .value-card h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .value-card p {
+        .scroll-hint {
+            margin-top: 48px;
             font-size: 13px;
+            color: var(--text-muted);
+            animation: breathe 3s infinite;
+        }
+
+        @keyframes breathe {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(6px);
+            }
+        }
+
+        /* Divider */
+        .divider {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--gold);
+            font-size: 1.5rem;
+            opacity: 0.3;
+        }
+
+        /* Quote block */
+        .quote-block {
+            padding: 60px 24px;
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .quote-block blockquote {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            line-height: 1.7;
+            color: var(--gold-light);
+            border: none;
+            padding: 0;
+            margin: 0 0 16px;
+        }
+
+        .quote-block cite {
+            font-style: normal;
+            font-size: 14px;
             color: var(--text-muted);
         }
 
-        /* CTA */
+        /* Pull stat */
+        .pull-stat {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px 24px;
+            flex-wrap: wrap;
+        }
+
+        .pull-stat-item {
+            text-align: center;
+        }
+
+        .pull-stat-item .num {
+            font-family: 'Lora', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        .pull-stat-item .desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Story illustration */
+        .story-visual {
+            margin: 32px 0;
+            padding: 40px;
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .story-visual .emoji {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+
+        .story-visual p {
+            font-size: 14px;
+            color: var(--text-muted);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* CTA section */
         .story-cta {
             text-align: center;
-            padding: 80px 24px;
+            padding: 100px 24px;
+            background: linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
         }
 
         .story-cta h2 {
             font-family: 'Lora', serif;
             font-size: 2rem;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
-        .story-cta p {
+        .story-cta .sub {
             color: var(--text-sec);
-            font-size: 15px;
-            margin-bottom: 28px;
+            font-size: 1rem;
+            margin-bottom: 32px;
         }
 
         .cta-buttons {
             display: flex;
-            gap: 16px;
+            gap: 14px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 14px 32px;
-            border-radius: 10px;
+            padding: 16px 36px;
+            border-radius: 12px;
             font-size: 15px;
             font-weight: 600;
             font-family: inherit;
@@ -300,41 +357,39 @@
         }
 
         /* Footer */
-        .story-footer {
+        .s-footer {
             text-align: center;
-            padding: 32px;
-            border-top: 1px solid var(--border);
+            padding: 28px;
             font-size: 13px;
             color: var(--text-muted);
+            border-top: 1px solid var(--border);
         }
 
-        .story-footer a {
+        .s-footer a {
             color: var(--gold);
             text-decoration: none;
         }
 
+        /* Responsive */
         @media (max-width: 600px) {
-            .story-hero h1 {
+            .opening-content h1 {
                 font-size: 2rem;
             }
 
-            .story-section h2 {
-                font-size: 1.5rem;
+            .chapter h2 {
+                font-size: 1.7rem;
             }
 
-            .story-nav {
+            .quote-block blockquote {
+                font-size: 1.15rem;
+            }
+
+            .s-nav {
                 padding: 12px 16px;
             }
 
-            .timeline-item {
-                gap: 16px;
-            }
-
-            .timeline-marker {
-                width: 40px;
-                height: 40px;
-                min-width: 40px;
-                font-size: 1rem;
+            .pull-stat {
+                gap: 24px;
             }
         }
     </style>
@@ -342,166 +397,282 @@
 
 <body>
     <!-- NAV -->
-    <nav class="story-nav">
+    <nav class="s-nav">
         <a href="/">← Trang chủ</a>
-        <span class="brand">🍄 Câu Chuyện Sản Phẩm</span>
-        <div class="nav-right">
-            <a href="/thanh-vien.html">💛 Thành Viên</a>
-            <a href="/ctv-dashboard.html">👥 CTV</a>
-        </div>
+        <span class="brand">🍄 Câu Chuyện</span>
+        <a href="/chia-se.html">✍️ Chia Sẻ</a>
     </nav>
 
-    <!-- HERO -->
-    <section class="story-hero">
-        <div class="story-hero-content">
-            <div class="tagline">Từ phòng nuôi cấy đến bàn ăn gia đình</div>
-            <h1>Hành Trình Của <span class="highlight">Đông Trùng Hạ Thảo</span> Nguyên Chất</h1>
-            <p class="lead">Mỗi viên nang mang trong mình câu chuyện về tâm huyết, khoa học và tình yêu với sức khỏe
-                cộng đồng</p>
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- OPENING -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="chapter-opening">
+        <div class="opening-content">
+            <div class="kicker">Một câu chuyện thật</div>
+            <h1>Có những thứ <span class="hl">tiền không mua được</span></h1>
+            <p class="lead">
+                ...nhưng sức khỏe lại là thứ chúng ta thường quên chăm sóc,
+                cho đến khi nó lên tiếng.
+            </p>
+            <div class="scroll-hint">↓ Kéo xuống để đọc</div>
         </div>
     </section>
 
-    <!-- ORIGIN STORY -->
-    <section class="story-section">
-        <span class="section-badge">🌱 Khởi Nguồn</span>
-        <h2>Tại sao chúng tôi bắt đầu?</h2>
-        <p>
-            Đông Trùng Hạ Thảo (Cordyceps militaris) từ lâu được xem là "thần dược" trong y học cổ truyền.
-            Tuy nhiên, sản phẩm trên thị trường thường bị pha trộn, thiếu kiểm soát chất lượng, hoặc
-            giá quá cao so với giá trị thực.
-        </p>
-        <p>
-            Chúng tôi tin rằng mọi gia đình Việt đều xứng đáng được tiếp cận sản phẩm Đông Trùng Hạ Thảo
-            <strong>nguyên chất, an toàn, và giá hợp lý</strong>. Đó là lý do maldalladuyduc ra đời.
-        </p>
-    </section>
-
-    <!-- PROCESS -->
-    <section class="story-section alt">
-        <div class="inner">
-            <span class="section-badge">🔬 Quy Trình</span>
-            <h2>Từ bào tử đến viên nang vàng</h2>
-            <p>Mỗi hộp sản phẩm trải qua quy trình sản xuất khép kín 45 ngày, tuân thủ tiêu chuẩn GMP — WHO.</p>
-
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker">🧬</div>
-                    <div class="timeline-content">
-                        <h3>Chọn giống & nhân cấy</h3>
-                        <p>Giống Cordyceps militaris từ viện nghiên cứu, kiểm tra hoạt tính sinh học trước khi đưa vào
-                            nuôi cấy.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker">🌡️</div>
-                    <div class="timeline-content">
-                        <h3>Nuôi cấy trong phòng sạch</h3>
-                        <p>Nhiệt độ 18–22°C, độ ẩm 80–85%, ánh sáng chu kỳ 12/12h. Kiểm soát 24/7 hoàn toàn tự động.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker">🍄</div>
-                    <div class="timeline-content">
-                        <h3>Thu hoạch đúng thời điểm</h3>
-                        <p>Sau 40–45 ngày, khi quả thể đạt chiều cao 5–7cm và hàm lượng Cordycepin cao nhất.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker">🏭</div>
-                    <div class="timeline-content">
-                        <h3>Sấy lạnh & nghiền mịn</h3>
-                        <p>Sấy thăng hoa ở nhiệt độ thấp giữ nguyên 100% dưỡng chất. Nghiền siêu mịn nano để tăng khả
-                            năng hấp thu.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker">💊</div>
-                    <div class="timeline-content">
-                        <h3>Đóng viên nang & kiểm nghiệm</h3>
-                        <p>Mỗi viên 500mg, hàng dạng con nhộng. Kiểm nghiệm Cordycepin, adenosine, kim loại nặng trước
-                            khi xuất xưởng.</p>
-                    </div>
-                </div>
-            </div>
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- CHƯƠNG 1: VẤN ĐỀ -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="chapter">
+        <div class="chapter-inner">
+            <div class="chapter-number">Chương 01</div>
+            <h2>Khi cơ thể <span class="hl">gửi tín hiệu</span></h2>
+            <p>
+                35 tuổi. Bạn cảm thấy mệt mỏi hơn, ngủ không sâu, da xỉn màu,
+                đề kháng yếu đi. Đi khám thì "không có bệnh gì".
+                Nhưng bạn <strong>biết</strong> — cơ thể mình đang già đi nhanh hơn tuổi thật.
+            </p>
+            <p>
+                Bạn thử uống vitamin. Thử collagen. Thử đủ loại thực phẩm chức năng
+                với những lời quảng cáo hoa mỹ. Nhưng không gì thay đổi.
+            </p>
+            <p>
+                <em>"Tại sao mình uống hoài mà vẫn mệt?"</em>
+            </p>
+            <p>
+                Câu trả lời không nằm ở việc bạn uống <strong>gì</strong>,
+                mà ở việc bạn uống <strong>cái gì thật sự nguyên chất</strong>.
+            </p>
         </div>
     </section>
 
-    <!-- VALUES -->
-    <section class="story-section">
-        <span class="section-badge">💎 Giá Trị</span>
-        <h2>Điều làm nên sự khác biệt</h2>
+    <div class="pull-stat">
+        <div class="pull-stat-item">
+            <div class="num">78%</div>
+            <div class="desc">TPCN trên thị trường<br>không đạt hàm lượng cam kết</div>
+        </div>
+        <div class="pull-stat-item">
+            <div class="num">40%</div>
+            <div class="desc">Người trên 30 tuổi<br>bắt đầu suy giảm miễn dịch</div>
+        </div>
+        <div class="pull-stat-item">
+            <div class="num">3x</div>
+            <div class="desc">Nhu cầu bổ sung<br>tăng gấp 3 sau 40 tuổi</div>
+        </div>
+    </div>
 
-        <div class="values-grid">
-            <div class="value-card">
-                <div class="icon">🌿</div>
-                <h4>100% Nguyên Chất</h4>
-                <p>Không pha trộn, không chất bảo quản, không phụ gia. Chỉ tinh chất Đông Trùng Hạ Thảo thuần khiết.</p>
-            </div>
-            <div class="value-card">
-                <div class="icon">🔬</div>
-                <h4>Kiểm Nghiệm Độc Lập</h4>
-                <p>Mỗi lô hàng được kiểm tra tại phòng thí nghiệm đạt chuẩn ISO 17025.</p>
-            </div>
-            <div class="value-card">
-                <div class="icon">❤️</div>
-                <h4>Tâm Huyết</h4>
-                <p>Đội ngũ kỹ sư sinh học với 10+ năm kinh nghiệm, tận tâm vì sức khỏe cộng đồng.</p>
-            </div>
-            <div class="value-card">
-                <div class="icon">💰</div>
-                <h4>Giá Hợp Lý</h4>
-                <p>Từ nhà máy đến tay bạn — không qua trung gian, tiết kiệm 40% so với thị trường.</p>
+    <div class="divider">· · ·</div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- CHƯƠNG 2: KHỞI NGUỒN -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="chapter">
+        <div class="chapter-inner">
+            <div class="chapter-number">Chương 02</div>
+            <h2>Câu chuyện bắt đầu từ <span class="hl">một bữa cơm gia đình</span></h2>
+            <p>
+                Ba em bệnh. Không phải bệnh nặng, nhưng cái kiểu mệt triền miên,
+                ăn không ngon, ngủ không yên. Bệnh viện bảo "tuổi tác thôi".
+            </p>
+            <p>
+                Em trở về nhà, ngồi bên ba, và tự hỏi:
+                <em>"Nếu mình là người làm ra sản phẩm sức khỏe, mình có dám cho ba mình dùng không?"</em>
+            </p>
+            <p>
+                Câu hỏi đó thay đổi mọi thứ.
+            </p>
+            <p>
+                Em bắt đầu nghiên cứu. Đông Trùng Hạ Thảo — Cordyceps militaris —
+                không phải thần dược, nhưng là <strong>thực phẩm quý</strong> mà y học cổ truyền
+                và khoa học hiện đại đều công nhận.
+            </p>
+            <p>
+                Vấn đề là: <strong>hầu hết sản phẩm trên thị trường đều bị pha trộn,
+                    hoặc giá cao gấp 5-10 lần giá trị thực</strong>.
+            </p>
+
+            <div class="story-visual">
+                <div class="emoji">🔬</div>
+                <p>
+                    Em quyết định tự xây phòng nuôi cấy. Không phải để kinh doanh.
+                    Mà để ba có thứ tốt nhất để dùng.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- BENEFITS -->
-    <section class="story-section alt">
-        <div class="inner">
-            <span class="section-badge">🏆 Công Dụng</span>
-            <h2>Tại sao nên sử dụng mỗi ngày?</h2>
-            <p>Đông Trùng Hạ Thảo không phải thuốc, nhưng là thực phẩm chức năng quý giá giúp cơ thể khỏe mạnh từ bên
-                trong:</p>
+    <div class="quote-block">
+        <blockquote>
+            "Mỗi viên nang em làm ra, em đều tự hỏi: mình có cho ba uống cái này không?"
+        </blockquote>
+        <cite>— Triết lý sản xuất</cite>
+    </div>
 
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="icon">🛡️</div>
-                    <h4>Tăng Miễn Dịch</h4>
-                    <p>Polysaccharide trong Cordyceps kích thích hệ miễn dịch, giúp cơ thể chống lại bệnh tật.</p>
-                </div>
-                <div class="value-card">
-                    <div class="icon">⚡</div>
-                    <h4>Tăng Năng Lượng</h4>
-                    <p>Cải thiện khả năng sử dụng oxy, giảm mệt mỏi, tăng cường sức bền thể chất.</p>
-                </div>
-                <div class="value-card">
-                    <div class="icon">🫁</div>
-                    <h4>Hỗ Trợ Hô Hấp</h4>
-                    <p>Bổ phế, tăng dung tích phổi, hỗ trợ người bị hen suyễn, viêm phế quản mãn tính.</p>
-                </div>
-                <div class="value-card">
-                    <div class="icon">💪</div>
-                    <h4>Bồi Bổ Sức Khỏe</h4>
-                    <p>Giàu amino acid, vitamin, khoáng chất thiết yếu. Phù hợp cho người trung niên và cao tuổi.</p>
-                </div>
+    <div class="divider">· · ·</div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- CHƯƠNG 3: QUY TRÌNH -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="chapter">
+        <div class="chapter-inner">
+            <div class="chapter-number">Chương 03</div>
+            <h2>45 ngày <span class="hl">tận tâm</span> cho mỗi viên nang</h2>
+            <p>
+                Mỗi mẻ nuôi cấy mất 45 ngày. Không có shortcuts. Không có cách nào
+                để "nhanh hơn" mà vẫn giữ nguyên chất lượng.
+            </p>
+            <p>
+                <strong>Ngày 1-5:</strong> Chọn giống Cordyceps militaris từ viện nghiên cứu.
+                Kiểm tra hoạt tính sinh học. Chỉ những bào tử khỏe mạnh nhất mới được dùng.
+            </p>
+            <p>
+                <strong>Ngày 6-40:</strong> Nuôi cấy trong phòng sạch. 18-22°C. Độ ẩm 80-85%.
+                Ánh sáng 12/12h. Kiểm soát 24/7. Không được sai lệch 1 độ.
+            </p>
+            <p>
+                <strong>Ngày 41-45:</strong> Thu hoạch đúng thời điểm — khi quả thể đạt 5-7cm
+                và hàm lượng Cordycepin cao nhất. Sớm 1 ngày, muộn 1 ngày, đều ảnh hưởng chất lượng.
+            </p>
+
+            <div class="story-visual">
+                <div class="emoji">🍄</div>
+                <p>
+                    Sấy thăng hoa ở nhiệt độ thấp. Nghiền siêu mịn nano.
+                    Đóng viên nang 500mg. Kiểm nghiệm trước khi xuất xưởng.
+                    Không pha trộn. Không chất bảo quản. Không phụ gia.
+                </p>
             </div>
+
+            <p>
+                <em>Đó là lý do chúng tôi chỉ sản xuất một sản phẩm duy nhất.</em>
+            </p>
+            <p>
+                Không phải vì không biết làm nhiều hơn.
+                Mà vì <strong>muốn làm một thứ — thật sự tốt</strong>.
+            </p>
+        </div>
+    </section>
+
+    <div class="divider">· · ·</div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- CHƯƠNG 4: GIÁ TRỊ -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="chapter">
+        <div class="chapter-inner">
+            <div class="chapter-number">Chương 04</div>
+            <h2>Tại sao <span class="hl">giá chỉ bằng một nửa</span> thị trường?</h2>
+            <p>
+                Đông Trùng Hạ Thảo trên thị trường thường có giá 800.000₫ đến 2.000.000₫/hộp.
+                Vì nó đi qua 3-4 tầng trung gian. Mỗi tầng cộng thêm 30-50% lợi nhuận.
+            </p>
+            <p>
+                Chúng tôi không có trung gian. <strong>Từ phòng nuôi cấy đến tay bạn.</strong>
+                Không cửa hàng. Không đại lý. Không chi phí marketing triệu đô.
+            </p>
+            <p>
+                Thay vào đó, chúng tôi có những <strong>Cộng Tác Viên</strong> — những người
+                thật sự tin vào sản phẩm và chia sẻ với người thân.
+                Và những <strong>Thành Viên Thân Thiết</strong> — những người dùng lâu năm
+                viết bài chia sẻ trải nghiệm thật.
+            </p>
+            <p>
+                <em>Không quảng cáo. Chỉ có câu chuyện thật.</em>
+            </p>
+        </div>
+    </section>
+
+    <div class="quote-block">
+        <blockquote>
+            "Thà bán ít mà người mua thật sự cần,
+            còn hơn bán nhiều mà họ không bao giờ quay lại."
+        </blockquote>
+        <cite>— Kim chỉ nam kinh doanh</cite>
+    </div>
+
+    <div class="divider">· · ·</div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- CHƯƠNG 5: CHUYỆN CỦA HỌ -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="chapter">
+        <div class="chapter-inner">
+            <div class="chapter-number">Chương 05</div>
+            <h2>Những câu chuyện <span class="hl">chúng tôi không kể được</span></h2>
+            <p>
+                Vì chúng tôi không bao giờ hứa "chữa bệnh". Đông Trùng Hạ Thảo
+                là <strong>thực phẩm chức năng</strong>, không phải thuốc.
+            </p>
+            <p>
+                Nhưng có những điều không cần chúng tôi nói —
+                <strong>khách hàng tự kể cho nhau nghe</strong>:
+            </p>
+            <p>
+                Cô Hoa, 52 tuổi, Đà Nẵng: <em>"Uống 3 tháng, ngủ được 7 tiếng mỗi đêm.
+                    Lần đầu tiên sau 5 năm."</em>
+            </p>
+            <p>
+                Anh Minh, 38 tuổi, TP.HCM: <em>"Vợ bảo: sao dạo này anh khỏe vậy?
+                    Tôi chỉ cười."</em>
+            </p>
+            <p>
+                Bác Tám, 65 tuổi, Cần Thơ: <em>"Con gái cho uống thử.
+                    Giờ hết đau mỏi, tôi tự mua cho cả xóm."</em>
+            </p>
+            <p>
+                Đó không phải quảng cáo. Đó là <strong>cuộc sống thật</strong>.
+            </p>
+
+            <div class="story-visual">
+                <div class="emoji">💛</div>
+                <p>
+                    Mỗi câu chuyện như vậy là lý do để chúng tôi thức dậy mỗi sáng,
+                    vào phòng nuôi cấy, và tiếp tục làm điều mình tin.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider">· · ·</div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- CHƯƠNG 6: LỜI MỜI -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="chapter">
+        <div class="chapter-inner">
+            <div class="chapter-number">Chương cuối</div>
+            <h2>Đây không phải <span class="hl">lời mời mua hàng</span></h2>
+            <p>
+                Đây là lời mời bạn <strong>quan tâm đến sức khỏe của mình</strong>.
+            </p>
+            <p>
+                Nếu bạn đang khỏe mạnh — tuyệt vời. Hãy giữ gìn sức khỏe đó.
+            </p>
+            <p>
+                Nếu bạn đang cảm thấy cơ thể cần được chăm sóc hơn —
+                hãy thử một hộp. 30 ngày. Cảm nhận sự khác biệt.
+            </p>
+            <p>
+                <em>Không hài lòng? Không sao. Chúng tôi vẫn cảm ơn bạn đã cho chúng tôi cơ hội.</em>
+            </p>
+            <p>
+                Vì cuối cùng, <strong>sức khỏe của bạn</strong> mới là điều quan trọng nhất.
+                Không phải doanh thu của chúng tôi.
+            </p>
         </div>
     </section>
 
     <!-- CTA -->
     <section class="story-cta">
-        <h2>Sẵn sàng trải nghiệm?</h2>
-        <p>Đặt hàng ngay hôm nay và cảm nhận sự khác biệt từ Đông Trùng Hạ Thảo nguyên chất.</p>
+        <h2>Sẵn sàng bắt đầu?</h2>
+        <p class="sub">Một viên nang mỗi ngày. Một thay đổi nhỏ cho sức khỏe lớn.</p>
         <div class="cta-buttons">
-            <a href="/#contact" class="btn btn-gold">🛒 Đặt Hàng Ngay</a>
-            <a href="/thanh-vien.html" class="btn btn-outline">💛 Trở Thành Thành Viên</a>
-            <a href="/ctv-dashboard.html" class="btn btn-outline">👥 Trở Thành CTV</a>
+            <a href="/#contact" class="btn btn-gold">🛒 Đặt Hàng — Dùng Thử 30 Ngày</a>
+            <a href="/chia-se.html" class="btn btn-outline">✍️ Đọc Chia Sẻ Từ Thành Viên</a>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="story-footer">
-        <p>© 2026 <a href="/">maldalladuyduc</a> — Đông Trùng Hạ Thảo Nguyên Chất</p>
+    <footer class="s-footer">
+        <p>© 2026 <a href="/">maldalladuyduc</a> — Một sản phẩm. Một câu chuyện. Một cam kết.</p>
     </footer>
 </body>
 

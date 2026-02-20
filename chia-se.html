@@ -523,6 +523,9 @@
     <script type="module">
         import { supabase } from './src/supabase.js';
         import { escapeHTML } from './src/utils/sanitize.js';
+        import { createSubmitGuard } from './src/utils/ratelimit.js';
+
+        const postGuard = createSubmitGuard(5000);
 
         let currentCat = 'all';
 
@@ -655,6 +658,12 @@
             const btn = document.getElementById('submitBtn');
 
             if (!title || !content) { errEl.textContent = 'Vui lòng điền đầy đủ'; errEl.style.display = 'block'; return; }
+
+            const pg = postGuard();
+            if (!pg.allowed) {
+                errEl.textContent = `Vui lòng đợi ${Math.ceil(pg.remainingMs / 1000)}s`;
+                errEl.style.display = 'block'; return;
+            }
 
             btn.disabled = true;
             btn.textContent = 'Đang đăng...';

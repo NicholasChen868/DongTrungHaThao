@@ -2,6 +2,7 @@
 // CTV POINTS SYSTEM
 // ===================================
 import { supabase } from './supabase.js';
+import { escapeHTML } from './utils/sanitize.js';
 
 // --- Local Storage helpers ---
 const CTV_KEY = 'ctv_ref_code';
@@ -150,37 +151,38 @@ export function renderCTVDashboard(data) {
     const container = document.getElementById('ctvDashboard');
     if (!container || !data?.ok) return;
 
+    const tierMap = { silver: '🥈 Bạc', gold: '🥇 Vàng', diamond: '💎 Kim Cương' };
     container.innerHTML = `
     <div class="ctv-dashboard-card">
       <div class="ctv-dash-header">
-        <h3>🏆 Xin chào, ${data.name}</h3>
-        <span class="ctv-tier ctv-tier--${data.tier}">${data.tier === 'silver' ? '🥈 Bạc' : data.tier === 'gold' ? '🥇 Vàng' : data.tier === 'diamond' ? '💎 Kim Cương' : '👑 Đại Lý'}</span>
+        <h3>🏆 Xin chào, ${escapeHTML(data.name)}</h3>
+        <span class="ctv-tier ctv-tier--${escapeHTML(data.tier)}">${tierMap[data.tier] || '👑 Đại Lý'}</span>
       </div>
       <div class="ctv-dash-stats">
         <div class="ctv-stat">
-          <div class="ctv-stat-value">${data.total_points}</div>
+          <div class="ctv-stat-value">${parseInt(data.total_points) || 0}</div>
           <div class="ctv-stat-label">Điểm đã duyệt</div>
         </div>
         <div class="ctv-stat">
-          <div class="ctv-stat-value">${data.pending_points}</div>
+          <div class="ctv-stat-value">${parseInt(data.pending_points) || 0}</div>
           <div class="ctv-stat-label">Đang chờ duyệt</div>
         </div>
         <div class="ctv-stat">
-          <div class="ctv-stat-value">${(data.available_vnd || 0).toLocaleString('vi-VN')}₫</div>
+          <div class="ctv-stat-value">${Number(data.available_vnd || 0).toLocaleString('vi-VN')}₫</div>
           <div class="ctv-stat-label">Số dư khả dụng</div>
         </div>
         <div class="ctv-stat">
-          <div class="ctv-stat-value">${data.total_clicks}</div>
+          <div class="ctv-stat-value">${parseInt(data.total_clicks) || 0}</div>
           <div class="ctv-stat-label">Lượt click</div>
         </div>
       </div>
       <div class="ctv-dash-ref">
         <span>Mã giới thiệu:</span>
-        <code class="ctv-ref-code">${data.referral_code}</code>
+        <code class="ctv-ref-code">${escapeHTML(data.referral_code)}</code>
         <button class="ctv-copy-btn" id="copyRefBtn">📋 Copy</button>
       </div>
       <div class="ctv-dash-info">
-        <p>📊 Hôm nay: <strong>${data.today_points}/50 điểm</strong> &nbsp;|&nbsp; 💰 100 điểm = 10.000₫</p>
+        <p>📊 Hôm nay: <strong>${parseInt(data.today_points) || 0}/50 điểm</strong> &nbsp;|&nbsp; 💰 100 điểm = 10.000₫</p>
       </div>
     </div>
   `;

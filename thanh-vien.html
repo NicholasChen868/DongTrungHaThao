@@ -490,6 +490,9 @@
 
     <script type="module">
         import { supabase } from './src/supabase.js';
+        import { checkRateLimit, recordAttempt, createSubmitGuard } from './src/utils/ratelimit.js';
+
+        const registerGuard = createSubmitGuard(5000);
 
         // --- Toast ---
         function showToast(msg, isError = false) {
@@ -526,6 +529,12 @@
 
             if (!name || !phone || !password) { errEl.textContent = 'Vui lòng điền đầy đủ'; errEl.style.display = 'block'; return; }
             if (password.length < 4) { errEl.textContent = 'Mật khẩu tối thiểu 4 ký tự'; errEl.style.display = 'block'; return; }
+
+            const sg = registerGuard();
+            if (!sg.allowed) {
+                errEl.textContent = `Vui lòng đợi ${Math.ceil(sg.remainingMs / 1000)}s`;
+                errEl.style.display = 'block'; return;
+            }
 
             btn.disabled = true;
             btn.textContent = 'Đang tạo...';
@@ -565,6 +574,16 @@
             const password = document.getElementById('loginPassword').value;
             const errEl = document.getElementById('loginError');
             const btn = document.getElementById('loginBtn');
+
+            // Rate limit: max 5 login attempts per 60 seconds
+            const rl = checkRateLimit('member_login', 5, 60000);
+            if (!rl.allowed) {
+                const secs = Math.ceil(rl.remainingMs / 1000);
+                errEl.textContent = `Quá nhiều lần thử. Vui lòng đợi ${secs}s`;
+                errEl.style.display = 'block';
+                return;
+            }
+            recordAttempt('member_login', 60000);
 
             btn.disabled = true;
             btn.textContent = 'Đang đăng nhập...';

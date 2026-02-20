@@ -740,6 +740,7 @@
     <script type="module">
         import { supabase } from './src/supabase.js';
         import { escapeHTML } from './src/utils/sanitize.js';
+        import { checkRateLimit, recordAttempt } from './src/utils/ratelimit.js';
 
         // --- Config ---
         const ADMIN_HASH = '6445e373d7fcde106bfcb897ee8f0bb28589bd7797f54f1ef4e5d5447cfbd011'; // sha256 of 'matkhau'
@@ -774,6 +775,16 @@
         // --- Login ---
         document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            const rl = checkRateLimit('admin_login', 3, 60000);
+            if (!rl.allowed) {
+                const errEl = document.getElementById('adminLoginError');
+                errEl.textContent = `Quá nhiều lần thử. Đợi ${Math.ceil(rl.remainingMs / 1000)}s`;
+                errEl.style.display = 'block';
+                return;
+            }
+            recordAttempt('admin_login', 60000);
+
             const pw = document.getElementById('adminPassword').value;
             const hash = await sha256(pw);
 
@@ -1175,12 +1186,12 @@
                         actions = `<button class="btn-action btn-approve" onclick="processWithdrawal(${w.id},'paid')">💰 Đã trả</button>`;
                     }
                     return `<tr>
-                                <td>#${w.id}</td>
-                                <td>${w.ctv_name}<br><small style="color:var(--text-muted)">${w.ctv_code}</small></td>
+                                <td>#${parseInt(w.id)}</td>
+                                <td>${escapeHTML(w.ctv_name)}<br><small style="color:var(--text-muted)">${escapeHTML(w.ctv_code)}</small></td>
                                 <td style="color:var(--gold-light);font-weight:600">${fmtMoney(w.amount)}</td>
-                                <td>${w.bank_name}</td>
-                                <td>${w.bank_account}</td>
-                                <td>${w.bank_holder}</td>
+                                <td>${escapeHTML(w.bank_name)}</td>
+                                <td>${escapeHTML(w.bank_account)}</td>
+                                <td>${escapeHTML(w.bank_holder)}</td>
                                 <td>${status}</td>
                                 <td>${fmtDate(w.created_at)}</td>
                                 <td>${actions}</td>

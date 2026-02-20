@@ -766,6 +766,8 @@
 
     <script type="module">
         import { supabase } from './src/supabase.js';
+        import { escapeHTML } from './src/utils/sanitize.js';
+        import { checkRateLimit, recordAttempt } from './src/utils/ratelimit.js';
 
         const loginScreen = document.getElementById('ctvLoginScreen');
         const dashboardPage = document.getElementById('ctvDashboardPage');
@@ -784,6 +786,14 @@
             loginError.style.display = 'none';
             const phone = document.getElementById('loginPhone').value.trim();
             if (!phone) return;
+
+            const rl = checkRateLimit('ctv_login', 5, 60000);
+            if (!rl.allowed) {
+                loginError.textContent = `Quá nhiều lần thử. Đợi ${Math.ceil(rl.remainingMs / 1000)}s`;
+                loginError.style.display = 'block';
+                return;
+            }
+            recordAttempt('ctv_login', 60000);
 
             try {
                 const { data, error } = await supabase
@@ -924,7 +934,7 @@
                     const timeStr = date.toLocaleDateString('vi-VN', {
                         day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
                     });
-                    const typeStr = typeMap[t.content_type] || t.content_type || '—';
+                    const typeStr = typeMap[t.content_type] || escapeHTML(t.content_type) || '—';
                     const status = t.status === 'approved'
                         ? '<span class="badge-approved">✓ Đã duyệt</span>'
                         : '<span class="badge-pending">⏳ Đang chờ</span>';
@@ -1027,8 +1037,8 @@
                     const [label, cls] = statusMap[w.status] || statusMap.pending;
                     return `<tr>
                                 <td>${fmtDate(w.created_at)}</td>
-                                <td style="color:var(--gold-light);font-weight:600">${w.amount.toLocaleString('vi-VN')}₫</td>
-                                <td>${w.bank_name}</td>
+                                <td style="color:var(--gold-light);font-weight:600">${Number(w.amount).toLocaleString('vi-VN')}₫</td>
+                                <td>${escapeHTML(w.bank_name)}</td>
                                 <td><span class="${cls}">${label}</span></td>
                             </tr>`;
                 }).join('')}
