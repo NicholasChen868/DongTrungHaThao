@@ -496,6 +496,134 @@
             }
         }
 
+        /* CTV Onboarding Wizard */
+        .onboarding-wizard {
+            background: var(--bg-card);
+            border: 1px solid var(--gold-primary);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .onboarding-wizard::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
+        }
+
+        .ob-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .ob-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gold-primary);
+        }
+
+        .ob-progress {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .ob-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .ob-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold-primary), #4ade80);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .ob-steps {
+            display: flex;
+            gap: 16px;
+        }
+
+        .ob-step {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .ob-step.done {
+            border-color: rgba(74, 222, 128, 0.3);
+            background: rgba(74, 222, 128, 0.05);
+        }
+
+        .ob-step.active {
+            border-color: var(--gold-primary);
+            background: rgba(212, 168, 83, 0.06);
+        }
+
+        .ob-step-icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .ob-step-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        .ob-step-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .ob-step .ob-check {
+            display: none;
+            color: #4ade80;
+            font-size: 1.2rem;
+            margin-top: 8px;
+        }
+
+        .ob-step.done .ob-check {
+            display: block;
+        }
+
+        .ob-dismiss {
+            display: block;
+            margin: 16px auto 0;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .ob-dismiss:hover {
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 640px) {
+            .ob-steps {
+                flex-direction: column;
+            }
+        }
+
         /* Withdrawal Section */
         .ctv-withdraw {
             background: var(--bg-card);
@@ -750,6 +878,38 @@
                 </div>
             </div>
 
+            <!-- Onboarding Wizard (3 Steps) -->
+            <div class="onboarding-wizard" id="obWizard" style="display:none">
+                <div class="ob-header">
+                    <span class="ob-title">Bắt Đầu Kiếm Tiền</span>
+                    <span class="ob-progress" id="obProgress">0/3 hoàn thành</span>
+                </div>
+                <div class="ob-bar">
+                    <div class="ob-bar-fill" id="obBarFill" style="width:0%"></div>
+                </div>
+                <div class="ob-steps">
+                    <div class="ob-step" id="obStep1">
+                        <div class="ob-step-icon">🔗</div>
+                        <div class="ob-step-title">Chia sẻ mã giới thiệu</div>
+                        <div class="ob-step-desc">Copy link giới thiệu và gửi cho bạn bè, người thân</div>
+                        <div class="ob-check">✔</div>
+                    </div>
+                    <div class="ob-step" id="obStep2">
+                        <div class="ob-step-icon">👥</div>
+                        <div class="ob-step-title">Giới thiệu 3 khách</div>
+                        <div class="ob-step-desc">Mời 3 khách hàng đầu tiên đặt hàng qua link của bạn</div>
+                        <div class="ob-check">✔</div>
+                    </div>
+                    <div class="ob-step" id="obStep3">
+                        <div class="ob-step-icon">💰</div>
+                        <div class="ob-step-title">Rút tiền đầu tiên</div>
+                        <div class="ob-step-desc">Theo dõi doanh số và rút tiền về tài khoản ngân hàng</div>
+                        <div class="ob-check">✔</div>
+                    </div>
+                </div>
+                <button class="ob-dismiss" onclick="dismissOnboarding()">Đã hiểu, ẩn hướng dẫn</button>
+            </div>
+
             <!-- Stats -->
             <div class="ctv-stats">
                 <div class="ctv-stat-card">
@@ -795,7 +955,8 @@
                     </div>
                 </div>
                 <div style="text-align:center;margin-top:12px">
-                    <a href="/chia-se.html#write" class="ctv-ref-copy-btn" style="display:inline-block;text-decoration:none">Viết Bài Mới</a>
+                    <a href="/chia-se.html#write" class="ctv-ref-copy-btn"
+                        style="display:inline-block;text-decoration:none">Viết Bài Mới</a>
                 </div>
             </div>
 
@@ -1153,6 +1314,9 @@
                 // Store for withdrawal form
                 window._ctvData = data;
 
+                // Onboarding wizard logic
+                initOnboarding(data);
+
             } catch (err) {
                 console.error('Dashboard load error:', err);
             }
@@ -1401,6 +1565,60 @@
             t.textContent = msg;
             t.className = `ctv-toast show ${isError ? 'error' : ''}`;
             setTimeout(() => t.classList.remove('show'), 3500);
+        }
+        // ====================================
+        // ONBOARDING WIZARD
+        // ====================================
+        function initOnboarding(data) {
+            const wizard = document.getElementById('obWizard');
+            if (!wizard) return;
+
+            // Don't show if dismissed
+            const dismissed = localStorage.getItem('ctv_ob_dismissed');
+            if (dismissed) return;
+
+            // Calculate steps
+            const hasCopiedLink = localStorage.getItem('ctv_link_copied') === 'true';
+            const ordersCount = data.total_points ? Math.floor(data.total_points / 10) : 0;
+            const has3Orders = ordersCount >= 3;
+            const hasWithdrawn = (data.available_vnd || 0) > 0 || localStorage.getItem('ctv_first_withdraw') === 'true';
+
+            let doneCount = 0;
+            if (hasCopiedLink) { document.getElementById('obStep1').classList.add('done'); doneCount++; }
+            else { document.getElementById('obStep1').classList.add('active'); }
+
+            if (has3Orders) { document.getElementById('obStep2').classList.add('done'); doneCount++; }
+            else if (hasCopiedLink) { document.getElementById('obStep2').classList.add('active'); }
+
+            if (hasWithdrawn) { document.getElementById('obStep3').classList.add('done'); doneCount++; }
+            else if (has3Orders) { document.getElementById('obStep3').classList.add('active'); }
+
+            // If all done, auto-dismiss after 3 seconds
+            if (doneCount >= 3) {
+                localStorage.setItem('ctv_ob_dismissed', 'true');
+                return;
+            }
+
+            // Update progress
+            document.getElementById('obProgress').textContent = `${doneCount}/3 hoàn thành`;
+            document.getElementById('obBarFill').style.width = `${Math.round(doneCount / 3 * 100)}%`;
+
+            wizard.style.display = 'block';
+        }
+
+        window.dismissOnboarding = function () {
+            localStorage.setItem('ctv_ob_dismissed', 'true');
+            document.getElementById('obWizard').style.display = 'none';
+        };
+
+        // Track copy link for onboarding
+        const copyBtn = document.getElementById('refCopyBtn');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', () => {
+                localStorage.setItem('ctv_link_copied', 'true');
+                const step1 = document.getElementById('obStep1');
+                if (step1) { step1.classList.remove('active'); step1.classList.add('done'); }
+            });
         }
     </script>
 </body>

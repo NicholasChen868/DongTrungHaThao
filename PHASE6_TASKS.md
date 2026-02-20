@@ -167,12 +167,18 @@
 3. ✅ Task 3: CTA sau Health Stories
 
 ### Sprint 2 (Sau Sprint 1 — cần phối hợp Claude Code):
-4. Task 4: Gợi ý mua lại
-5. Task 5: Bài viết + Like
+4. ✅ Task 4: Gợi ý mua lại
+5. ✅ Task 5: Bài viết + Like + Read Modal
 
 ### Sprint 3 (Feature lớn):
-6. Task 6: CTV Onboarding
-7. Task 7: Mệnh Lý & Chiêm Tinh (wow factor)
+6. ✅ Task 6: CTV Onboarding
+7. ✅ Task 7: Mệnh Lý & Chiêm Tinh (ban-do-suc-khoe.html)
+
+### Sprint 4 (Kênh Kép — BTV Gamification):
+8. ✅ Nghiên cứu nhuận bút thị trường (`docs/DE_XUAT_BIEN_TAP_VIEN_NHUAN_BUT.md`)
+9. ✅ Migration 014: Cột nhuận bút + RPC duyệt bài cộng 30K
+10. ✅ CTV Dashboard: Tab "Bài Viết Của Tôi"
+11. ✅ Admin: Nút duyệt bài + cộng nhuận bút tự động
 
 ---
 
