@@ -619,7 +619,8 @@
             <div class="admin-section" id="section-orders">
                 <div class="admin-panel">
                     <h3>📦 Tất Cả Đơn Hàng <button class="btn-refresh" onclick="refreshSection('orders')">🔄 Làm
-                            mới</button></h3>
+                            mới</button><button class="btn-refresh" onclick="exportCSV('orders')">📄 Xuất CSV</button>
+                    </h3>
                     <div id="allOrders">
                         <div class="admin-loading">
                             <div class="spinner"></div> Đang tải...
@@ -631,8 +632,8 @@
             <!-- CTV SECTION -->
             <div class="admin-section" id="section-ctv">
                 <div class="admin-panel">
-                    <h3>👥 Danh Sách CTV <button class="btn-refresh" onclick="refreshSection('ctv')">🔄 Làm mới</button>
-                    </h3>
+                    <h3>👥 Danh Sách CTV <button class="btn-refresh" onclick="refreshSection('ctv')">🔄 Làm
+                            mới</button><button class="btn-refresh" onclick="exportCSV('ctv')">📄 Xuất CSV</button></h3>
                     <div id="allCTV">
                         <div class="admin-loading">
                             <div class="spinner"></div> Đang tải...
@@ -785,6 +786,55 @@
             loaded[name] = false;
             await loadSection(name);
             showAdminToast('Đã làm mới dữ liệu');
+        };
+
+        // --- Export CSV ---
+        window.exportCSV = async function (type) {
+            try {
+                let data, filename, headers;
+                if (type === 'orders') {
+                    const res = await supabase.from('orders').select('*').order('created_at', { ascending: false });
+                    data = res.data;
+                    filename = 'don-hang';
+                    headers = ['ID', 'Khách hàng', 'SĐT', 'Địa chỉ', 'SL', 'Đơn giá', 'Giảm %', 'Tổng', 'CTV', 'Ghi chú', 'Trạng thái', 'Ngày tạo'];
+                } else if (type === 'ctv') {
+                    const res = await supabase.from('ctv_accounts').select('*').order('created_at', { ascending: false });
+                    data = res.data;
+                    filename = 'ctv';
+                    headers = ['Mã CTV', 'Tên', 'SĐT', 'Email', 'Hạng', 'Điểm', 'VNĐ', 'Ngày ĐK'];
+                }
+                if (!data?.length) {
+                    showAdminToast('Không có dữ liệu để xuất', 'error');
+                    return;
+                }
+
+                const fieldMap = {
+                    orders: ['id', 'customer_name', 'phone', 'address', 'quantity', 'unit_price', 'discount_percent', 'total_amount', 'ctv_code', 'note', 'status', 'created_at'],
+                    ctv: ['referral_code', 'name', 'phone', 'email', 'tier', 'total_points', 'available_vnd', 'created_at'],
+                };
+
+                const fields = fieldMap[type];
+                const csvRows = [headers.join(',')];
+                data.forEach(row => {
+                    csvRows.push(fields.map(f => {
+                        let v = row[f] ?? '';
+                        v = String(v).replace(/"/g, '""');
+                        if (v.includes(',') || v.includes('"') || v.includes('\n')) v = `"${v}"`;
+                        return v;
+                    }).join(','));
+                });
+
+                const blob = new Blob(['\uFEFF' + csvRows.join('\n')], { type: 'text/csv;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${filename}_${new Date().toISOString().slice(0, 10)}.csv`;
+                a.click();
+                URL.revokeObjectURL(url);
+                showAdminToast(`Đã xuất ${data.length} dòng → ${a.download}`);
+            } catch (err) {
+                showAdminToast('Lỗi xuất CSV: ' + err.message, 'error');
+            }
         };
 
         // --- OVERVIEW ---
