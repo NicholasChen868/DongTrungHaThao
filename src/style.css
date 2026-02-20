@@ -956,6 +956,30 @@ img {
   line-height: 1.5;
 }
 
+/* Single item gallery — centered */
+.product-gallery--single {
+  grid-template-columns: 1fr;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* "Ảnh mẫu" watermark for AI-generated / non-real images */
+.sample-badge {
+  position: absolute;
+  bottom: 80px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.45);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.75rem;
+  font-family: var(--font-body);
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  z-index: 2;
+}
+
 /* ===================================
    TESTIMONIALS
    =================================== */
