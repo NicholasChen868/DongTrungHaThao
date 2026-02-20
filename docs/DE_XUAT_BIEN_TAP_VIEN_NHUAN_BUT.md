@@ -37,10 +37,10 @@ Theo khảo sát trên thị trường Freelance, Content SEO, và Báo điện 
 
 Anh có thể tham khảo mức chi trả sau để tạo sự cạnh tranh và khuyến khích chia sẻ:
 
-### Cấp độ 1: Nhuận Bút Cơ Bản (Tính theo bài viết duyệt đăng)
-- **Cơ chế:** Khi Biên tập viên gửi bài chia sẻ kinh nghiệm sử dụng/ kiến thức sức khỏe lên mục "Câu Chuyện" và được Admin duyệt.
-- **Gợi ý mức trả:** **100.000 - 150.000 VNĐ / bài** (Giới hạn tối thiểu 800 chữ, nội dung không copy).
-- *Ý nghĩa:* Thu hút các freelancer tham gia viết bài đều đặn, đảm bảo website luôn có nội dung mới cho SEO.
+### Cấp độ 1: Nhuận Bút Cơ Bản - Game Hóa Tích Điểm (Bằng 30% Giá Thị Trường)
+- **Cơ chế:** Khi Biên tập viên gửi bài viết được Admin duyệt, hệ thống sẽ cộng "Điểm Nhuận Bút" vào ví (Ví dụ: +30.000 đến 50.000 điểm/bài, quy đổi 1 điểm = 1 VNĐ). Số điểm này có thể dùng để đổi quà, đổi sản phẩm hoặc rút tiền mặt khi đạt hạn mức giống hệt tài khoản CTV.
+- **Giá trị:** Tương đương **30.000 - 50.000 VNĐ / bài** (chỉ bằng khoảng 30% giá thị trường hiện tại).
+- *Ý nghĩa:* Tối ưu chi phí rủi ro ban đầu cho doanh nghiệp, dùng tính năng "Game Hóa" (Gamification) để tạo động lực cày cuốc, giữ chân người viết hoạt động lâu dài hơn việc trả đứt tiền ngay.
 
 ### Cấp độ 2: Thưởng Tương Tác / Lượt Share (Tính theo mức độ lan tỏa mạng xã hội)
 - **Cơ chế:** Khi Biên tập viên lấy link bài viết trên website chia sẻ lên Facebook, Zalo. Bài viết nhận được nhiều "Like/Tim" hoặc lượng truy cập cao sẽ được hệ thống thưởng thêm.
@@ -61,8 +61,8 @@ Anh có thể tham khảo mức chi trả sau để tạo sự cạnh tranh và 
 ## 4. Tóm Tắt Quy Trình Hoạt Động Của Hệ Thống
 
 1. **Biên tập viên:** Đăng nhập website -> Gửi bài viết chia sẻ kinh nghiệm.
-2. **Hệ thống (Admin):** Duyệt bài -> Trả **Nhuận bút cơ bản (150K)**.
-3. **Biên tập viên:** Share url bài viết lên Facebook / Mạng Xã Hội để kêu gọi người thân, bạn bè vào đọc.
-4. **Hệ thống tự động:** Có hệ thống theo dõi và + điểm/tiền cho mỗi lượt truy cập (View) và mỗi lượt yêu thích (Like). => Trả tiền **Thưởng Tương tác**.
-5. **Khách hàng Mạng Xã Hội:** Đọc bài thấy hay -> Bấm Mua Sản phẩm trực tiếp trên bài viết.
-6. **Hệ thống (Bán hàng):** Ghi nhận đơn hàng -> Trích **Chiết khấu 10-25%** trả cho Biên tập viên ngay lập tức.
+2. **Hệ thống (Admin):** Duyệt bài -> **Cộng điểm thưởng vào Game tích lũy (Ví dụ: +50.000 điểm)** thay vì trả tiền thẳng.
+3. **Biên tập viên (Cày cuốc):** Share url bài viết lên mạng xã hội để "cày" thêm điểm nhanh hơn thông qua việc đua top lượt xem, lượt like.
+4. **Hệ thống tự động:** Quét tương tác tự động và **cộng điểm bonus** vào ví tài khoản. Biên tập viên thu thập điểm như chơi Game để nâng Hạng/Rút tiền.
+5. **Khách hàng Mạng Xã Hội:** Tò mò vào đọc bài trên web -> Bấm click Mua Sản phẩm trực tiếp trên link bài viết.
+6. **Hệ thống (Bán hàng):** Ghi nhận đơn hàng -> Lập tức biến BTV thành một Đại lý thực thụ và nổ doanh thu **Chiết khấu 10-25%** vào ví BTV.
