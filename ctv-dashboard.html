@@ -948,10 +948,10 @@
                 });
 
                 if (result?.ok) {
-                    showCtvToast(`Đăng ký thành công! Mã CTV: ${result.referral_code}`);
+                    showCtvToast(`Đăng ký thành công! Mã CTV: ${result.referral_code} — Bắt đầu chia sẻ tại /chia-se.html`);
                     registerForm.reset();
                     localStorage.setItem('ctv_ref_code', result.referral_code);
-                    setTimeout(() => loadDashboard(result.referral_code), 1500);
+                    setTimeout(() => loadDashboard(result.referral_code), 2000);
                 } else {
                     registerError.textContent = result?.error || 'Đăng ký thất bại. Vui lòng thử lại.';
                     registerError.style.display = 'block';

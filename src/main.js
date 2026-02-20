@@ -3,8 +3,25 @@ import { initCTVSystem, registerCTV } from './ctv.js';
 import { supabase } from './supabase.js';
 import { escapeHTML, escapeCSS } from './utils/sanitize.js';
 import { checkRateLimit, recordAttempt, createSubmitGuard } from './utils/ratelimit.js';
+import './utils/tracker.js';
 
 const contactGuard = createSubmitGuard(5000);
+
+// ===================================
+// DYNAMIC PRICING
+// ===================================
+let PRICING = {
+  unit_price: 850000,
+  discounts: { 1: 0, 2: 0, 3: 5, 5: 10, 10: 15 },
+  free_shipping_min: 3
+};
+
+async function loadPricing() {
+  try {
+    const { data } = await supabase.rpc('get_product_pricing');
+    if (data) PRICING = data;
+  } catch (e) { console.warn('Dùng giá mặc định'); }
+}
 
 // ===================================
 // INITIALIZATION
@@ -15,8 +32,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   initHeroParticles();
   initCountUp();
 
-  // Fetch all data from Supabase (falls back to local data)
-  const { product, testimonials, processSteps, affiliateTiers, affiliateSteps, healthStories } = await fetchAllData();
+  // Load pricing from backend (parallel with fetchAllData)
+  const [allData] = await Promise.all([fetchAllData(), loadPricing()]);
+  const { product, testimonials, processSteps, affiliateTiers, affiliateSteps, healthStories } = allData;
 
   // Store globally for quantity selector / order form
   window.__product = product;
@@ -331,11 +349,14 @@ function initQuantitySelector(product) {
   if (!minusBtn || !plusBtn || !product) return;
 
   let qty = 1;
+  const unitPrice = PRICING.unit_price || product.price || 850000;
 
   function updateQty(newQty) {
     qty = Math.max(1, Math.min(99, newQty));
     valueEl.textContent = qty;
-    const total = qty * product.price;
+    const discountPercent = PRICING.discounts[qty] || 0;
+    const subtotal = qty * unitPrice;
+    const total = Math.round(subtotal * (1 - discountPercent / 100));
     totalEl.textContent = total.toLocaleString('vi-VN') + '₫';
   }
 
@@ -354,15 +375,12 @@ function initOrderForm() {
 
   if (!form) return;
 
-  const discounts = { 1: 0, 2: 0, 3: 0.05, 5: 0.10, 10: 0.15 };
-
   qtySelect.addEventListener('change', () => {
-    const p = window.__product;
-    if (!p) return;
     const qty = parseInt(qtySelect.value);
-    const discount = discounts[qty] || 0;
-    const subtotal = qty * p.price;
-    const total = subtotal * (1 - discount);
+    const unitPrice = PRICING.unit_price || 850000;
+    const discountPercent = PRICING.discounts[qty] || 0;
+    const subtotal = qty * unitPrice;
+    const total = Math.round(subtotal * (1 - discountPercent / 100));
 
     subtotalEl.textContent = subtotal.toLocaleString('vi-VN') + '₫';
     totalEl.textContent = total.toLocaleString('vi-VN') + '₫';
@@ -390,12 +408,11 @@ function initOrderForm() {
       return;
     }
 
-    // Calculate total
-    const p = window.__product;
-    const unitPrice = p?.price || 850000;
-    const discount = discounts[qty] || 0;
+    // Calculate total using dynamic pricing
+    const unitPrice = PRICING.unit_price || 850000;
+    const discountPercent = PRICING.discounts[qty] || 0;
     const subtotal = qty * unitPrice;
-    const total = Math.round(subtotal * (1 - discount));
+    const total = Math.round(subtotal * (1 - discountPercent / 100));
 
     // Disable button while submitting
     const submitBtn = form.querySelector('button[type="submit"]');
@@ -410,7 +427,7 @@ function initOrderForm() {
         address: address,
         quantity: qty,
         unit_price: unitPrice,
-        discount_percent: discount * 100,
+        discount_percent: discountPercent,
         total_amount: total,
         ctv_code: ctvCode,
         note: note,
@@ -419,9 +436,16 @@ function initOrderForm() {
 
       if (error) throw error;
 
-      showToast(`Cảm ơn ${name}! Đơn hàng #${data.id} đã được ghi nhận. Theo dõi tại: /tra-cuu.html`);
+      showToast(
+        `Cảm ơn ${escapeHTML(name)}! Đơn hàng <strong>#${parseInt(data.id)}</strong> đã được ghi nhận.`
+        + `<br><a href="/tra-cuu.html" style="color:var(--gold-light);font-weight:600">📦 Tra cứu đơn</a>`
+        + ` &nbsp;|&nbsp; <a href="/thanh-vien.html" style="color:var(--gold-light);font-weight:600">💛 Thành viên</a>`,
+        true,
+        { html: true, duration: 8000 }
+      );
       form.reset();
       qtySelect.dispatchEvent(new Event('change'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error('Order submit error:', err);
       showToast('Đặt hàng thất bại. Vui lòng gọi Hotline hoặc thử lại!', false);
@@ -459,13 +483,25 @@ function initCtvForm() {
     const result = await registerCTV(name, phone, email);
     if (result?.ok) {
       if (result.existing) {
-        showToast(`Chào mừng trở lại! Mã CTV của bạn: ${result.referral_code}`);
+        showToast(
+          `Chào mừng trở lại! Mã CTV: <strong>${escapeHTML(result.referral_code)}</strong>`
+          + `<br><a href="/chia-se.html" style="color:var(--gold-light);font-weight:600">✍️ Viết bài chia sẻ</a>`
+          + ` &nbsp;|&nbsp; <a href="/ctv-dashboard.html" style="color:var(--gold-light);font-weight:600">📊 Dashboard CTV</a>`,
+          true,
+          { html: true, duration: 8000 }
+        );
       } else {
-        showToast(`Đăng ký thành công! Mã CTV: ${result.referral_code} — Chia sẻ link để nhận điểm!`);
+        showToast(
+          `Đăng ký thành công! Mã CTV: <strong>${escapeHTML(result.referral_code)}</strong>`
+          + `<br><a href="/chia-se.html" style="color:var(--gold-light);font-weight:600">✍️ Viết bài chia sẻ (+3đ)</a>`
+          + ` &nbsp;|&nbsp; <a href="/ctv-dashboard.html" style="color:var(--gold-light);font-weight:600">📊 Dashboard CTV</a>`,
+          true,
+          { html: true, duration: 8000 }
+        );
       }
       form.reset();
       // Reload to show dashboard
-      setTimeout(() => window.location.reload(), 2000);
+      setTimeout(() => window.location.reload(), 8000);
     } else {
       showToast('Đăng ký thất bại. Vui lòng thử lại!', false);
     }
@@ -475,17 +511,21 @@ function initCtvForm() {
 // ===================================
 // TOAST
 // ===================================
-function showToast(message, success = true) {
+function showToast(message, success = true, { html = false, duration = 4000 } = {}) {
   const toast = document.getElementById('toast');
   const toastIcon = toast.querySelector('.toast-icon');
   const toastMessage = document.getElementById('toastMessage');
 
   toastIcon.textContent = success ? '✅' : '⚠️';
-  toastMessage.textContent = message;
+  if (html) {
+    toastMessage.innerHTML = message;
+  } else {
+    toastMessage.textContent = message;
+  }
   toast.style.borderColor = success ? 'var(--success)' : 'var(--gold-primary)';
   toast.classList.add('show');
 
-  setTimeout(() => toast.classList.remove('show'), 4000);
+  setTimeout(() => toast.classList.remove('show'), duration);
 }
 
 // ===================================
