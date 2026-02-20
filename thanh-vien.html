@@ -532,8 +532,8 @@
             errEl.style.display = 'none';
 
             try {
-                // Check if phone exists
-                const { data: existing } = await supabase.from('members').select('id').eq('phone', phone).maybeSingle();
+                // Check if phone exists (via RPC)
+                const { data: existing } = await supabase.rpc('check_phone_exists', { p_phone: phone });
                 if (existing) { errEl.textContent = 'Số điện thoại đã được đăng ký'; errEl.style.display = 'block'; return; }
 
                 const pwHash = await sha256(password);
@@ -547,6 +547,7 @@
                 sessionStorage.setItem('member_id', data.id);
                 sessionStorage.setItem('member_name', data.name);
                 sessionStorage.setItem('member_phone', data.phone);
+                sessionStorage.setItem('member_hash', pwHash);
                 showDashboard(data);
             } catch (err) {
                 errEl.textContent = 'Lỗi: ' + (err.message || 'Thử lại sau');
@@ -571,8 +572,9 @@
 
             try {
                 const pwHash = await sha256(password);
-                const { data, error } = await supabase.from('members')
-                    .select('*').eq('phone', phone).eq('password_hash', pwHash).maybeSingle();
+                const { data, error } = await supabase.rpc('authenticate_member', {
+                    p_phone: phone, p_password_hash: pwHash
+                });
 
                 if (error) throw error;
                 if (!data) { errEl.style.display = 'block'; return; }
@@ -580,6 +582,7 @@
                 sessionStorage.setItem('member_id', data.id);
                 sessionStorage.setItem('member_name', data.name);
                 sessionStorage.setItem('member_phone', data.phone);
+                sessionStorage.setItem('member_hash', pwHash);
                 showToast(`Chào ${data.name}! 💛`);
                 showDashboard(data);
             } catch (err) {
@@ -592,11 +595,15 @@
         };
 
         // --- Session check ---
-        const savedId = sessionStorage.getItem('member_id');
-        if (savedId) {
+        const savedPhone = sessionStorage.getItem('member_phone');
+        const savedHash = sessionStorage.getItem('member_hash');
+        if (savedPhone && savedHash) {
             (async () => {
-                const { data } = await supabase.from('members').select('*').eq('id', savedId).maybeSingle();
+                const { data } = await supabase.rpc('authenticate_member', {
+                    p_phone: savedPhone, p_password_hash: savedHash
+                });
                 if (data) showDashboard(data);
+                else { sessionStorage.clear(); }
             })();
         }
 
@@ -607,10 +614,11 @@
             dash.classList.add('active');
             document.getElementById('memberName').textContent = member.name;
 
-            // Load orders by phone
-            const { data: orders } = await supabase.from('orders')
-                .select('*').eq('phone', member.phone)
-                .order('created_at', { ascending: false }).limit(10);
+            // Load orders via RPC (secure, verified by credentials)
+            const memberHash = sessionStorage.getItem('member_hash');
+            const { data: orders } = await supabase.rpc('get_member_orders', {
+                p_phone: member.phone, p_password_hash: memberHash
+            });
 
             const total = orders?.length || 0;
             const completed = orders?.filter(o => o.status === 'completed').length || 0;
@@ -652,6 +660,7 @@
             sessionStorage.removeItem('member_id');
             sessionStorage.removeItem('member_name');
             sessionStorage.removeItem('member_phone');
+            sessionStorage.removeItem('member_hash');
             location.reload();
         };
     </script>

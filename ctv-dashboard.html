@@ -448,6 +448,169 @@
                 transform: rotate(360deg);
             }
         }
+
+        /* Withdrawal Section */
+        .ctv-withdraw {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .ctv-withdraw h3 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+
+        .ctv-withdraw .wd-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .ctv-withdraw .wd-full {
+            grid-column: 1 / -1;
+        }
+
+        .ctv-withdraw label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .ctv-withdraw input,
+        .ctv-withdraw select,
+        .ctv-withdraw textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .ctv-withdraw input:focus,
+        .ctv-withdraw select:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+        }
+
+        .ctv-withdraw textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+
+        .wd-btn {
+            margin-top: 14px;
+            padding: 12px 24px;
+            background: var(--gold-primary);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .wd-btn:hover {
+            background: var(--gold-light);
+        }
+
+        .wd-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .wd-error {
+            color: var(--error);
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .wd-min-note {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .badge-wd-pending {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(251, 191, 36, 0.12);
+            color: var(--pending);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-wd-approved {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(96, 165, 250, 0.12);
+            color: #60a5fa;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-wd-paid {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(74, 222, 128, 0.12);
+            color: var(--success);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-wd-rejected {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(248, 113, 113, 0.12);
+            color: var(--error);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Toast */
+        .ctv-toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1a1a1a;
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--success);
+            border-radius: 10px;
+            padding: 14px 20px;
+            font-size: 14px;
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+            max-width: 360px;
+        }
+
+        .ctv-toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .ctv-toast.error {
+            border-left-color: var(--error);
+        }
+
+        @media (max-width: 640px) {
+            .ctv-withdraw .wd-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -527,6 +690,63 @@
                 <div class="ctv-ref-row">
                     <input type="text" class="ctv-ref-input" id="refLinkInput" readonly />
                     <button class="ctv-ref-copy-btn" id="refCopyBtn">📋 Copy Link</button>
+                </div>
+            </div>
+
+            <!-- Withdrawal Form -->
+            <div class="ctv-withdraw">
+                <h3>💳 Yêu Cầu Rút Tiền</h3>
+                <form id="withdrawForm" onsubmit="submitWithdrawal(event)">
+                    <div class="wd-grid">
+                        <div>
+                            <label>Số tiền rút (₫) *</label>
+                            <input type="number" id="wdAmount" min="50000" step="10000" placeholder="VD: 100000"
+                                required />
+                            <div class="wd-min-note">Tối thiểu 50.000₫ — Quy đổi: 100 điểm = 10.000₫</div>
+                        </div>
+                        <div>
+                            <label>Tên ngân hàng *</label>
+                            <select id="wdBank" required>
+                                <option value="">— Chọn ngân hàng —</option>
+                                <option>Vietcombank</option>
+                                <option>Techcombank</option>
+                                <option>BIDV</option>
+                                <option>Agribank</option>
+                                <option>VPBank</option>
+                                <option>MB Bank</option>
+                                <option>ACB</option>
+                                <option>Sacombank</option>
+                                <option>TPBank</option>
+                                <option>Momo</option>
+                                <option>ZaloPay</option>
+                                <option value="other">Khác</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Số tài khoản *</label>
+                            <input type="text" id="wdAccount" placeholder="VD: 1234567890" required />
+                        </div>
+                        <div>
+                            <label>Chủ tài khoản *</label>
+                            <input type="text" id="wdHolder" placeholder="VD: NGUYEN VAN A" required />
+                        </div>
+                        <div class="wd-full">
+                            <label>Ghi chú (tùy chọn)</label>
+                            <textarea id="wdNote" placeholder="VD: Rút lần đầu, xin xác nhận qua Zalo..."></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="wd-btn" id="wdBtn">💳 Gửi Yêu Cầu Rút Tiền</button>
+                    <div class="wd-error" id="wdError"></div>
+                </form>
+            </div>
+
+            <!-- Withdrawal History -->
+            <div class="ctv-transactions">
+                <h3>💳 Lịch Sử Rút Tiền</h3>
+                <div id="withdrawHistory">
+                    <div class="ctv-loading">
+                        <div class="spinner"></div> Đang tải...
+                    </div>
                 </div>
             </div>
 
@@ -641,8 +861,12 @@
                 // Referral link
                 document.getElementById('refLinkInput').value = `${window.location.origin}/?ref=${data.referral_code}`;
 
-                // Load recent transactions
+                // Load recent transactions + withdrawals
                 loadTransactions(refCode);
+                loadWithdrawals(data.referral_code, data.name);
+
+                // Store for withdrawal form
+                window._ctvData = data;
 
             } catch (err) {
                 console.error('Dashboard load error:', err);
@@ -718,6 +942,114 @@
                 container.innerHTML = '<div class="ctv-empty">Lỗi tải dữ liệu</div>';
                 console.error('Transactions load error:', err);
             }
+        }
+
+        // --- Withdrawal ---
+        window.submitWithdrawal = async function (e) {
+            e.preventDefault();
+            const amount = parseInt(document.getElementById('wdAmount').value);
+            const bank = document.getElementById('wdBank').value;
+            const account = document.getElementById('wdAccount').value.trim();
+            const holder = document.getElementById('wdHolder').value.trim();
+            const note = document.getElementById('wdNote').value.trim();
+            const errEl = document.getElementById('wdError');
+            const btn = document.getElementById('wdBtn');
+            const data = window._ctvData;
+
+            if (!data) { errEl.textContent = 'Chưa đăng nhập'; errEl.style.display = 'block'; return; }
+            if (!amount || !bank || !account || !holder) {
+                errEl.textContent = 'Vui lòng điền đầy đủ thông tin';
+                errEl.style.display = 'block'; return;
+            }
+            if (amount < 50000) {
+                errEl.textContent = 'Số tiền tối thiểu là 50.000₫';
+                errEl.style.display = 'block'; return;
+            }
+            if (amount > (data.available_vnd || 0)) {
+                errEl.textContent = `Số dư khả dụng chỉ ${(data.available_vnd || 0).toLocaleString('vi-VN')}₫`;
+                errEl.style.display = 'block'; return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Đang gửi...';
+            errEl.style.display = 'none';
+
+            try {
+                const { error } = await supabase.from('withdrawals').insert({
+                    ctv_code: data.referral_code,
+                    ctv_name: data.name,
+                    amount, bank_name: bank,
+                    bank_account: account,
+                    bank_holder: holder,
+                    note: note || null,
+                });
+                if (error) throw error;
+
+                showCtvToast(`Yêu cầu rút ${amount.toLocaleString('vi-VN')}₫ đã gửi! Admin sẽ xử lý trong 24h 💛`);
+                document.getElementById('withdrawForm').reset();
+                loadWithdrawals(data.referral_code, data.name);
+            } catch (err) {
+                errEl.textContent = 'Lỗi: ' + err.message;
+                errEl.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '💳 Gửi Yêu Cầu Rút Tiền';
+            }
+        };
+
+        async function loadWithdrawals(refCode) {
+            const container = document.getElementById('withdrawHistory');
+            try {
+                const { data, error } = await supabase.from('withdrawals')
+                    .select('*').eq('ctv_code', refCode)
+                    .order('created_at', { ascending: false }).limit(10);
+
+                if (!data?.length) {
+                    container.innerHTML = '<div class="ctv-empty">Chưa có yêu cầu rút tiền</div>';
+                    return;
+                }
+
+                const statusMap = {
+                    pending: ['⏳ Chờ duyệt', 'badge-wd-pending'],
+                    approved: ['✅ Đã duyệt', 'badge-wd-approved'],
+                    paid: ['💰 Đã thanh toán', 'badge-wd-paid'],
+                    rejected: ['✗ Từ chối', 'badge-wd-rejected'],
+                };
+
+                const fmtDate = (d) => new Date(d).toLocaleDateString('vi-VN', {
+                    day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+                });
+
+                container.innerHTML = `<table class="ctv-table">
+                    <thead><tr><th>Ngày</th><th>Số tiền</th><th>Ngân hàng</th><th>Trạng thái</th></tr></thead>
+                    <tbody>
+                        ${data.map(w => {
+                    const [label, cls] = statusMap[w.status] || statusMap.pending;
+                    return `<tr>
+                                <td>${fmtDate(w.created_at)}</td>
+                                <td style="color:var(--gold-light);font-weight:600">${w.amount.toLocaleString('vi-VN')}₫</td>
+                                <td>${w.bank_name}</td>
+                                <td><span class="${cls}">${label}</span></td>
+                            </tr>`;
+                }).join('')}
+                    </tbody>
+                </table>`;
+            } catch (err) {
+                container.innerHTML = '<div class="ctv-empty">Lỗi tải dữ liệu</div>';
+            }
+        }
+
+        function showCtvToast(msg, isError = false) {
+            let t = document.getElementById('ctvToast');
+            if (!t) {
+                t = document.createElement('div');
+                t.id = 'ctvToast';
+                t.className = 'ctv-toast';
+                document.body.appendChild(t);
+            }
+            t.textContent = msg;
+            t.className = `ctv-toast show ${isError ? 'error' : ''}`;
+            setTimeout(() => t.classList.remove('show'), 3500);
         }
     </script>
 </body>

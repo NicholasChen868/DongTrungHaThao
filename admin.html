@@ -555,6 +555,7 @@
             <li><button class="sidebar-item" data-section="products">🧪 Sản Phẩm</button></li>
             <li><button class="sidebar-item" data-section="contacts">📞 Liên Hệ</button></li>
             <li><button class="sidebar-item" data-section="posts">✍️ Bài Viết</button></li>
+            <li><button class="sidebar-item" data-section="withdrawals">💳 Rút Tiền</button></li>
             <li><button class="sidebar-item" data-section="analytics">📈 Analytics</button></li>
         </ul>
         <div class="sidebar-bottom">
@@ -691,6 +692,19 @@
                 </div>
             </div>
 
+            <!-- WITHDRAWALS SECTION -->
+            <div class="admin-section" id="section-withdrawals">
+                <div class="admin-panel">
+                    <h3>💳 Yêu Cầu Rút Tiền <button class="btn-refresh" onclick="refreshSection('withdrawals')">🔄 Làm
+                            mới</button></h3>
+                    <div id="allWithdrawals">
+                        <div class="admin-loading">
+                            <div class="spinner"></div> Đang tải...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- ANALYTICS SECTION -->
             <div class="admin-section" id="section-analytics">
                 <div class="overview-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 24px;">
@@ -725,6 +739,7 @@
 
     <script type="module">
         import { supabase } from './src/supabase.js';
+        import { escapeHTML } from './src/utils/sanitize.js';
 
         // --- Config ---
         const ADMIN_HASH = '6445e373d7fcde106bfcb897ee8f0bb28589bd7797f54f1ef4e5d5447cfbd011'; // sha256 of 'matkhau'
@@ -746,8 +761,13 @@
             setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
+        // Helper: get stored admin hash for RPC calls
+        function getAdminHash() {
+            return sessionStorage.getItem('admin_hash') || '';
+        }
+
         // --- Check session ---
-        if (sessionStorage.getItem('admin_auth') === 'true') {
+        if (sessionStorage.getItem('admin_hash')) {
             showDashboard();
         }
 
@@ -758,7 +778,7 @@
             const hash = await sha256(pw);
 
             if (hash === ADMIN_HASH) {
-                sessionStorage.setItem('admin_auth', 'true');
+                sessionStorage.setItem('admin_hash', hash);
                 showDashboard();
             } else {
                 document.getElementById('adminLoginError').style.display = 'block';
@@ -767,7 +787,7 @@
 
         // --- Logout ---
         document.getElementById('adminLogout').addEventListener('click', () => {
-            sessionStorage.removeItem('admin_auth');
+            sessionStorage.removeItem('admin_hash');
             location.reload();
         });
 
@@ -812,6 +832,7 @@
                 case 'testimonials': await loadTestimonials(); break;
                 case 'contacts': await loadContacts(); break;
                 case 'posts': await loadPosts(); break;
+                case 'withdrawals': await loadAdminWithdrawals(); break;
                 case 'analytics': await loadAnalytics(); break;
             }
         }
@@ -828,12 +849,12 @@
             try {
                 let data, filename, headers;
                 if (type === 'orders') {
-                    const res = await supabase.from('orders').select('*').order('created_at', { ascending: false });
+                    const res = await supabase.rpc('admin_list_orders', { p_admin_hash: getAdminHash() });
                     data = res.data;
                     filename = 'don-hang';
                     headers = ['ID', 'Khách hàng', 'SĐT', 'Địa chỉ', 'SL', 'Đơn giá', 'Giảm %', 'Tổng', 'CTV', 'Ghi chú', 'Trạng thái', 'Ngày tạo'];
                 } else if (type === 'ctv') {
-                    const res = await supabase.from('ctv_accounts').select('*').order('created_at', { ascending: false });
+                    const res = await supabase.rpc('admin_list_ctv', { p_admin_hash: getAdminHash() });
                     data = res.data;
                     filename = 'ctv';
                     headers = ['Mã CTV', 'Tên', 'SĐT', 'Email', 'Hạng', 'Điểm', 'VNĐ', 'Ngày ĐK'];
@@ -872,33 +893,19 @@
             }
         };
 
-        // --- OVERVIEW ---
+        // --- OVERVIEW (via admin RPC) ---
         async function loadOverview() {
             try {
-                const { count: orderCount } = await supabase
-                    .from('orders').select('*', { count: 'exact', head: true });
-                document.getElementById('ovOrders').textContent = orderCount || 0;
+                const { data: ov, error } = await supabase.rpc('admin_get_overview', { p_admin_hash: getAdminHash() });
+                if (error) throw error;
 
-                const { data: orders } = await supabase
-                    .from('orders').select('total_amount').eq('status', 'completed');
-                const revenue = (orders || []).reduce((sum, o) => sum + (o.total_amount || 0), 0);
-                document.getElementById('ovRevenue').textContent = revenue.toLocaleString('vi-VN') + '₫';
+                document.getElementById('ovOrders').textContent = ov.order_count || 0;
+                document.getElementById('ovRevenue').textContent = Number(ov.revenue || 0).toLocaleString('vi-VN') + '₫';
+                document.getElementById('ovCTV').textContent = ov.ctv_count || 0;
+                document.getElementById('ovContacts').textContent = ov.contact_count || 0;
 
-                const { count: ctvCount } = await supabase
-                    .from('ctv_accounts').select('*', { count: 'exact', head: true });
-                document.getElementById('ovCTV').textContent = ctvCount || 0;
-
-                const { count: contactCount } = await supabase
-                    .from('contact_submissions').select('*', { count: 'exact', head: true });
-                document.getElementById('ovContacts').textContent = contactCount || 0;
-
-                const { data: recentOrders } = await supabase
-                    .from('orders').select('*').order('created_at', { ascending: false }).limit(5);
-                renderOrderTable('recentOrders', recentOrders, true);
-
-                const { data: recentCTV } = await supabase
-                    .from('ctv_accounts').select('*').order('created_at', { ascending: false }).limit(5);
-                renderTable('recentCTV', recentCTV, ['referral_code', 'name', 'phone', 'tier', 'total_points', 'created_at'],
+                renderOrderTable('recentOrders', ov.recent_orders || [], true);
+                renderTable('recentCTV', ov.recent_ctv || [], ['referral_code', 'name', 'phone', 'tier', 'total_points', 'created_at'],
                     ['Mã CTV', 'Tên', 'SĐT', 'Hạng', 'Điểm', 'Ngày ĐK']);
 
             } catch (err) {
@@ -906,11 +913,11 @@
             }
         }
 
-        // --- ORDERS with action buttons ---
+        // --- ORDERS with action buttons (via admin RPC) ---
         async function loadOrders() {
-            const { data } = await supabase.from('orders')
-                .select('*').order('created_at', { ascending: false }).limit(50);
-            renderOrderTable('allOrders', data, false);
+            const { data, error } = await supabase.rpc('admin_list_orders', { p_admin_hash: getAdminHash() });
+            if (error) { console.error('Orders load error:', error); return; }
+            renderOrderTable('allOrders', data || [], false);
         }
 
         function renderOrderTable(containerId, data, compact) {
@@ -952,21 +959,21 @@
                             : '—';
                 if (compact) {
                     return `<tr>
-                                    <td>#${o.id}</td>
-                                    <td>${o.customer_name}</td>
+                                    <td>#${parseInt(o.id)}</td>
+                                    <td>${escapeHTML(o.customer_name)}</td>
                                     <td>${fmtMoney(o.total_amount)}</td>
                                     <td>${statusBadge(o.status)}</td>
                                     <td>${actions}</td>
                                 </tr>`;
                 }
                 return `<tr>
-                                <td>#${o.id}</td>
-                                <td>${o.customer_name}</td>
-                                <td>${o.phone}</td>
-                                <td>${String(o.address || '').substring(0, 40)}${(o.address || '').length > 40 ? '...' : ''}</td>
-                                <td>${o.quantity || 1}</td>
+                                <td>#${parseInt(o.id)}</td>
+                                <td>${escapeHTML(o.customer_name)}</td>
+                                <td>${escapeHTML(o.phone)}</td>
+                                <td>${escapeHTML(String(o.address || '').substring(0, 40))}${(o.address || '').length > 40 ? '...' : ''}</td>
+                                <td>${parseInt(o.quantity) || 1}</td>
                                 <td>${fmtMoney(o.total_amount)}</td>
-                                <td>${o.ctv_code || '—'}</td>
+                                <td>${escapeHTML(o.ctv_code) || '—'}</td>
                                 <td>${statusBadge(o.status)}</td>
                                 <td>${fmtDate(o.created_at)}</td>
                                 <td>${actions}</td>
@@ -983,10 +990,11 @@
             if (!confirm(`Xác nhận ${labels[newStatus]} đơn #${id}?`)) return;
 
             try {
-                const { error } = await supabase.from('orders').update({ status: newStatus }).eq('id', id);
+                const { error } = await supabase.rpc('admin_update_order_status', {
+                    p_admin_hash: getAdminHash(), p_order_id: id, p_status: newStatus
+                });
                 if (error) throw error;
                 showAdminToast(`Đơn #${id} → ${labels[newStatus]}`);
-                // Refresh
                 loaded.orders = false;
                 loaded.overview = false;
                 await loadOrders();
@@ -996,11 +1004,11 @@
             }
         };
 
-        // --- CTV LIST with tier upgrade ---
+        // --- CTV LIST with tier upgrade (via admin RPC) ---
         async function loadCTVList() {
-            const { data } = await supabase.from('ctv_accounts')
-                .select('*').order('created_at', { ascending: false }).limit(50);
-            renderCTVTable('allCTV', data);
+            const { data, error } = await supabase.rpc('admin_list_ctv', { p_admin_hash: getAdminHash() });
+            if (error) { console.error('CTV load error:', error); return; }
+            renderCTVTable('allCTV', data || []);
         }
 
         function renderCTVTable(containerId, data) {
@@ -1023,12 +1031,12 @@
                     ? `<button class="btn-action btn-approve" onclick="upgradeCTV('${c.referral_code}','${nextTier}')">${tierMap[nextTier]}</button>`
                     : '<span style="color:var(--text-muted)">Max</span>';
                 return `<tr>
-                                <td><code>${c.referral_code}</code></td>
-                                <td>${c.name}</td>
-                                <td>${c.phone}</td>
-                                <td>${c.email || '—'}</td>
-                                <td>${tierMap[c.tier] || c.tier}</td>
-                                <td>${c.total_points || 0}</td>
+                                <td><code>${escapeHTML(c.referral_code)}</code></td>
+                                <td>${escapeHTML(c.name)}</td>
+                                <td>${escapeHTML(c.phone)}</td>
+                                <td>${escapeHTML(c.email) || '—'}</td>
+                                <td>${tierMap[c.tier] || escapeHTML(c.tier)}</td>
+                                <td>${parseInt(c.total_points) || 0}</td>
                                 <td>${Number(c.available_vnd || 0).toLocaleString('vi-VN')}₫</td>
                                 <td>${fmtDate(c.created_at)}</td>
                                 <td>${upgradeBtn}</td>
@@ -1045,7 +1053,9 @@
             if (!confirm(`Nâng hạng ${refCode} lên ${tierMap[newTier]}?`)) return;
 
             try {
-                const { error } = await supabase.from('ctv_accounts').update({ tier: newTier }).eq('referral_code', refCode);
+                const { error } = await supabase.rpc('admin_upgrade_ctv', {
+                    p_admin_hash: getAdminHash(), p_ref_code: refCode, p_new_tier: newTier
+                });
                 if (error) throw error;
                 showAdminToast(`${refCode} → ${tierMap[newTier]}`);
                 loaded.ctv = false;
@@ -1071,11 +1081,11 @@
                 ['ID', 'Tên', 'SĐT', 'Email', 'Nội dung', 'Ngày gửi']);
         }
 
-        // --- POSTS ---
+        // --- POSTS (via admin RPC) ---
         async function loadPosts() {
             try {
-                const { data } = await supabase.from('member_posts')
-                    .select('*').order('created_at', { ascending: false });
+                const { data, error } = await supabase.rpc('admin_list_posts', { p_admin_hash: getAdminHash() });
+                if (error) throw error;
 
                 const container = document.getElementById('allPosts');
                 if (!data?.length) {
@@ -1097,12 +1107,12 @@
                         ? `<button class="btn-action btn-approve" onclick="approvePost(${p.id},true)">✓ Duyệt</button><button class="btn-action btn-reject" onclick="approvePost(${p.id},false)">✗ Xóa</button>`
                         : `<button class="btn-action btn-reject" onclick="approvePost(${p.id},false)">Ẩn</button>`;
                     return `<tr>
-                                <td>#${p.id}</td>
-                                <td>${p.member_name}</td>
-                                <td>${(p.title || '').substring(0, 40)}</td>
-                                <td>${catMap[p.category] || p.category}</td>
-                                <td>${p.views || 0}</td>
-                                <td>${p.likes || 0}</td>
+                                <td>#${parseInt(p.id)}</td>
+                                <td>${escapeHTML(p.member_name)}</td>
+                                <td>${escapeHTML((p.title || '').substring(0, 40))}</td>
+                                <td>${catMap[p.category] || escapeHTML(p.category)}</td>
+                                <td>${parseInt(p.views) || 0}</td>
+                                <td>${parseInt(p.likes) || 0}</td>
                                 <td>${status}</td>
                                 <td>${fmtDate(p.created_at)}</td>
                                 <td>${actions}</td>
@@ -1119,13 +1129,10 @@
             const action = approve ? 'duyệt' : 'ẩn';
             if (!confirm(`Xác nhận ${action} bài #${id}?`)) return;
             try {
-                if (approve) {
-                    const { error } = await supabase.from('member_posts').update({ is_approved: true }).eq('id', id);
-                    if (error) throw error;
-                } else {
-                    const { error } = await supabase.from('member_posts').update({ is_approved: false }).eq('id', id);
-                    if (error) throw error;
-                }
+                const { error } = await supabase.rpc('admin_update_post_status', {
+                    p_admin_hash: getAdminHash(), p_post_id: id, p_approve: approve
+                });
+                if (error) throw error;
                 showAdminToast(`Bài #${id} → ${action}`);
                 loaded.posts = false;
                 await loadPosts();
@@ -1134,15 +1141,78 @@
             }
         };
 
-        // --- ANALYTICS ---
+        // --- ANALYTICS (via admin RPC) ---
+        async function loadAdminWithdrawals() {
+            try {
+                const { data } = await supabase.from('withdrawals')
+                    .select('*').order('created_at', { ascending: false });
+
+                const container = document.getElementById('allWithdrawals');
+                if (!data?.length) {
+                    container.innerHTML = '<div class="admin-empty">Chưa có yêu cầu rút tiền</div>';
+                    return;
+                }
+
+                const fmtDate = (d) => new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+                const fmtMoney = (v) => Number(v).toLocaleString('vi-VN') + '₫';
+                const statusMap = {
+                    pending: '<span class="badge badge-warning">⏳ Chờ</span>',
+                    approved: '<span class="badge badge-info">✅ Duyệt</span>',
+                    paid: '<span class="badge badge-success">💰 Đã trả</span>',
+                    rejected: '<span class="badge badge-danger">✗ Từ chối</span>',
+                };
+
+                container.innerHTML = `<table class="admin-table">
+                    <thead><tr><th>ID</th><th>CTV</th><th>Số tiền</th><th>Ngân hàng</th><th>STK</th><th>Chủ TK</th><th>Trạng thái</th><th>Ngày</th><th>Thao tác</th></tr></thead>
+                    <tbody>
+                        ${data.map(w => {
+                    const status = statusMap[w.status] || statusMap.pending;
+                    let actions = '';
+                    if (w.status === 'pending') {
+                        actions = `<button class="btn-action btn-approve" onclick="processWithdrawal(${w.id},'approved')">Duyệt</button>
+                                           <button class="btn-action btn-reject" onclick="processWithdrawal(${w.id},'rejected')">✗</button>`;
+                    } else if (w.status === 'approved') {
+                        actions = `<button class="btn-action btn-approve" onclick="processWithdrawal(${w.id},'paid')">💰 Đã trả</button>`;
+                    }
+                    return `<tr>
+                                <td>#${w.id}</td>
+                                <td>${w.ctv_name}<br><small style="color:var(--text-muted)">${w.ctv_code}</small></td>
+                                <td style="color:var(--gold-light);font-weight:600">${fmtMoney(w.amount)}</td>
+                                <td>${w.bank_name}</td>
+                                <td>${w.bank_account}</td>
+                                <td>${w.bank_holder}</td>
+                                <td>${status}</td>
+                                <td>${fmtDate(w.created_at)}</td>
+                                <td>${actions}</td>
+                            </tr>`;
+                }).join('')}
+                    </tbody>
+                </table>`;
+            } catch (err) {
+                console.error('Withdrawals load error:', err);
+            }
+        }
+
+        window.processWithdrawal = async function (id, newStatus) {
+            const label = { approved: 'duyệt', rejected: 'từ chối', paid: 'xác nhận đã thanh toán' };
+            if (!confirm(`Xác nhận ${label[newStatus]} yêu cầu #${id}?`)) return;
+            try {
+                const { error } = await supabase.from('withdrawals').update({ status: newStatus }).eq('id', id);
+                if (error) throw error;
+                showAdminToast(`Yêu cầu #${id} → ${label[newStatus]}`);
+                loaded.withdrawals = false;
+                await loadAdminWithdrawals();
+            } catch (err) {
+                showAdminToast('Lỗi: ' + err.message, 'error');
+            }
+        };
+
         async function loadAnalytics() {
             try {
-                const thirtyDaysAgo = new Date();
-                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-                const { data: orders } = await supabase.from('orders')
-                    .select('total_amount, status, created_at')
-                    .gte('created_at', thirtyDaysAgo.toISOString());
+                const { data: orders, error } = await supabase.rpc('admin_get_analytics', {
+                    p_admin_hash: getAdminHash(), p_days: 30
+                });
+                if (error) throw error;
 
                 if (!orders?.length) {
                     document.getElementById('anMonthOrders').textContent = '0';
@@ -1278,17 +1348,19 @@
                 if (f === 'available_vnd' && val) val = Number(val).toLocaleString('vi-VN') + '₫';
                 if (f === 'status') {
                     const cls = val === 'completed' ? 'badge-success' : val === 'pending' ? 'badge-warning' : val === 'cancelled' ? 'badge-danger' : 'badge-info';
-                    val = `<span class="badge ${cls}">${val || '—'}</span>`;
+                    val = `<span class="badge ${cls}">${escapeHTML(val) || '—'}</span>`;
+                    return `<td>${val}</td>`;
                 }
                 if (f === 'tier') {
                     const map = { silver: '🥈 Bạc', gold: '🥇 Vàng', diamond: '💎 Kim Cương' };
-                    val = map[val] || val || '—';
+                    val = map[val] || escapeHTML(val) || '—';
+                    return `<td>${val}</td>`;
                 }
-                if (f === 'rating') val = '⭐'.repeat(val || 0);
+                if (f === 'rating') { val = '⭐'.repeat(parseInt(val) || 0); return `<td>${val}</td>`; }
                 if (f === 'quote' || f === 'message' || f === 'address') {
                     val = String(val || '').substring(0, 60) + (String(val || '').length > 60 ? '...' : '');
                 }
-                return `<td>${val ?? '—'}</td>`;
+                return `<td>${escapeHTML(val) ?? '—'}</td>`;
             }).join('')}</tr>`).join('')}
                     </tbody>
                 </table>

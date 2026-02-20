@@ -1,6 +1,7 @@
 import { fetchAllData } from './data.js';
 import { initCTVSystem, registerCTV } from './ctv.js';
 import { supabase } from './supabase.js';
+import { escapeHTML, escapeCSS } from './utils/sanitize.js';
 
 // ===================================
 // INITIALIZATION
@@ -118,9 +119,9 @@ function renderBenefits(product) {
 
   grid.innerHTML = product.benefits.map((b, i) => `
     <div class="benefit-card animate-on-scroll" style="transition-delay: ${i * 0.1}s">
-      <span class="benefit-icon">${b.icon}</span>
-      <h3 class="benefit-title">${b.title}</h3>
-      <p class="benefit-desc">${b.desc}</p>
+      <span class="benefit-icon">${escapeHTML(b.icon)}</span>
+      <h3 class="benefit-title">${escapeHTML(b.title)}</h3>
+      <p class="benefit-desc">${escapeHTML(b.desc)}</p>
     </div>
   `).join('');
 }
@@ -134,12 +135,12 @@ function renderProcess(processSteps) {
 
   timeline.innerHTML = processSteps.map((step, i) => `
     <div class="process-item animate-on-scroll" style="transition-delay: ${i * 0.1}s">
-      <div class="process-dot">${step.icon}</div>
+      <div class="process-dot">${escapeHTML(step.icon)}</div>
       <div class="process-content">
-        <div class="process-step-num">Bước ${step.step}</div>
-        <h3 class="process-title">${step.title}</h3>
-        <p class="process-desc">${step.description}</p>
-        <span class="process-duration">⏱ ${step.duration}</span>
+        <div class="process-step-num">Bước ${parseInt(step.step)}</div>
+        <h3 class="process-title">${escapeHTML(step.title)}</h3>
+        <p class="process-desc">${escapeHTML(step.description)}</p>
+        <span class="process-duration">⏱ ${escapeHTML(step.duration)}</span>
       </div>
     </div>
   `).join('');
@@ -166,7 +167,7 @@ function renderProduct(product) {
 
   if (ingredientsEl) {
     const ul = ingredientsEl.querySelector('ul');
-    ul.innerHTML = product.ingredients.map(i => `<li>${i}</li>`).join('');
+    ul.innerHTML = product.ingredients.map(i => `<li>${escapeHTML(i)}</li>`).join('');
   }
 
   if (usageEl) {
@@ -185,13 +186,13 @@ function renderTestimonials(testimonials) {
   track.innerHTML = testimonials.map(t => `
     <div class="testimonial-card">
       <div class="testimonial-inner">
-        <div class="testimonial-stars">${'★'.repeat(t.rating)}${'☆'.repeat(5 - t.rating)}</div>
-        <p class="testimonial-quote">${t.quote}</p>
+        <div class="testimonial-stars">${'★'.repeat(parseInt(t.rating) || 0)}${'☆'.repeat(5 - (parseInt(t.rating) || 0))}</div>
+        <p class="testimonial-quote">${escapeHTML(t.quote)}</p>
         <div class="testimonial-author">
-          <div class="testimonial-avatar">${t.avatar}</div>
+          <div class="testimonial-avatar">${escapeHTML(t.avatar)}</div>
           <div>
-            <div class="testimonial-name">${t.name}, ${t.age} tuổi</div>
-            <div class="testimonial-location">${t.location}</div>
+            <div class="testimonial-name">${escapeHTML(t.name)}, ${parseInt(t.age) || ''} tuổi</div>
+            <div class="testimonial-location">${escapeHTML(t.location)}</div>
           </div>
         </div>
       </div>
@@ -252,27 +253,27 @@ function renderHealthStories(stories) {
   grid.innerHTML = stories.map((s, i) => `
     <div class="story-card animate-on-scroll" style="transition-delay: ${i * 0.15}s">
       <div class="story-header">
-        <div class="story-avatar">${s.avatar.startsWith('/') ? `<img src="${s.avatar}" alt="${s.name}" loading="lazy">` : s.avatar}</div>
+        <div class="story-avatar">${s.avatar.startsWith('/') ? `<img src="${escapeHTML(s.avatar)}" alt="${escapeHTML(s.name)}" loading="lazy">` : escapeHTML(s.avatar)}</div>
         <div class="story-meta">
-          <div class="story-name">${s.name}, ${s.age} tuổi</div>
-          <div class="story-location">${s.location}</div>
+          <div class="story-name">${escapeHTML(s.name)}, ${parseInt(s.age) || ''} tuổi</div>
+          <div class="story-location">${escapeHTML(s.location)}</div>
         </div>
-        <div class="story-condition">${s.condition}</div>
+        <div class="story-condition">${escapeHTML(s.condition)}</div>
       </div>
-      <h3 class="story-title">${s.title}</h3>
+      <h3 class="story-title">${escapeHTML(s.title)}</h3>
       <div class="story-timeline">
         <div class="story-phase story-before">
           <div class="phase-label">😔 Trước khi dùng</div>
-          <p>${s.before}</p>
+          <p>${escapeHTML(s.before)}</p>
         </div>
-        <div class="story-arrow">⬇️ Sau ${s.duration}</div>
+        <div class="story-arrow">⬇️ Sau ${escapeHTML(s.duration)}</div>
         <div class="story-phase story-after">
           <div class="phase-label">😊 Sau khi dùng</div>
-          <p>${s.after}</p>
+          <p>${escapeHTML(s.after)}</p>
         </div>
       </div>
-      <blockquote class="story-quote">"${s.quote}"</blockquote>
-      <div class="story-rating">${'★'.repeat(s.rating)}${'☆'.repeat(5 - s.rating)}</div>
+      <blockquote class="story-quote">"${escapeHTML(s.quote)}"</blockquote>
+      <div class="story-rating">${'★'.repeat(parseInt(s.rating) || 0)}${'☆'.repeat(5 - (parseInt(s.rating) || 0))}</div>
     </div>
   `).join('');
 }

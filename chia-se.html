@@ -522,6 +522,7 @@
 
     <script type="module">
         import { supabase } from './src/supabase.js';
+        import { escapeHTML } from './src/utils/sanitize.js';
 
         let currentCat = 'all';
 
@@ -574,7 +575,7 @@
             container.innerHTML = posts.map(p => {
                 const [catLabel, catCls] = catMap[p.category] || ['📝 Khác', 'badge-suc-khoe'];
                 const date = new Date(p.created_at).toLocaleDateString('vi-VN', { day: '2-digit', month: 'short', year: 'numeric' });
-                const excerpt = (p.content || '').length > 200 ? p.content.substring(0, 200) + '…' : p.content;
+                const rawExcerpt = (p.content || '').length > 200 ? p.content.substring(0, 200) + '…' : p.content;
                 const shareUrl = encodeURIComponent(`https://dong-trung-ha-thao.vercel.app/chia-se.html?post=${p.id}`);
                 const shareTitle = encodeURIComponent(p.title);
 
@@ -582,24 +583,24 @@
                     <div class="post-header">
                         <div class="post-avatar">💛</div>
                         <div>
-                            <div class="post-author">${p.member_name}</div>
+                            <div class="post-author">${escapeHTML(p.member_name)}</div>
                             <div class="post-date">${date}</div>
                         </div>
                         <span class="post-badge ${catCls}">${catLabel}</span>
                     </div>
-                    <h2 class="post-title">${p.title}</h2>
-                    <p class="post-excerpt">${excerpt}</p>
+                    <h2 class="post-title">${escapeHTML(p.title)}</h2>
+                    <p class="post-excerpt">${escapeHTML(rawExcerpt)}</p>
                     <div class="post-actions">
-                        <span class="post-stat">👁️ ${p.views || 0}</span>
-                        <span class="post-stat">❤️ ${p.likes || 0}</span>
-                        <button class="btn-share" onclick="sharePost(${p.id}, '${shareTitle}', '${shareUrl}')">📤 Chia sẻ</button>
+                        <span class="post-stat">👁️ ${parseInt(p.views) || 0}</span>
+                        <span class="post-stat">❤️ ${parseInt(p.likes) || 0}</span>
+                        <button class="btn-share" onclick="sharePost(${parseInt(p.id)}, '${shareTitle}', '${shareUrl}')">📤 Chia sẻ</button>
                     </div>
                 </article>`;
             }).join('');
 
-            // Track views
+            // Track views via RPC (secure, no direct UPDATE)
             posts.forEach(p => {
-                supabase.from('member_posts').update({ views: (p.views || 0) + 1 }).eq('id', p.id).then(() => { });
+                supabase.rpc('increment_post_views', { p_post_id: p.id }).then(() => { });
             });
         }
 
