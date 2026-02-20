@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CTV Dashboard — Đông Trùng Hạ Thảo maldalladuyduc</title>
+    <meta name="description" content="Theo dõi điểm, lượt click và thu nhập của Cộng Tác Viên maldalladuyduc" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #060606;
+            --bg-card: #111111;
+            --bg-card-hover: #1a1a1a;
+            --gold-primary: #d4a853;
+            --gold-light: #e8c97a;
+            --gold-dark: #b8860b;
+            --text-primary: #f5f0e8;
+            --text-secondary: #a09888;
+            --text-muted: #665e52;
+            --border-color: rgba(212, 168, 83, 0.15);
+            --success: #4ade80;
+            --error: #f87171;
+            --pending: #fbbf24;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .ctv-header {
+            background: linear-gradient(180deg, #141414 0%, #0e0e0e 100%);
+            border-top: 2px solid var(--gold-primary);
+            border-bottom: 1px solid rgba(212, 168, 83, 0.2);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .ctv-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ctv-header-left a {
+            color: var(--gold-light);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .ctv-header-badge {
+            background: rgba(212, 168, 83, 0.15);
+            color: var(--gold-light);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .ctv-header-right a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Container */
+        .ctv-container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 32px 20px;
+        }
+
+        /* Login Screen */
+        .ctv-login {
+            max-width: 420px;
+            margin: 80px auto;
+            text-align: center;
+        }
+
+        .ctv-login h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .ctv-login p {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-size: 1rem;
+        }
+
+        .ctv-login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .ctv-login-form input {
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .ctv-login-form input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+        }
+
+        .ctv-login-form button {
+            padding: 14px;
+            background: var(--gold-primary);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .ctv-login-form button:hover {
+            background: var(--gold-light);
+        }
+
+        .ctv-login-error {
+            color: var(--error);
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .ctv-login-register {
+            margin-top: 24px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .ctv-login-register a {
+            color: var(--gold-primary);
+            text-decoration: underline;
+        }
+
+        /* Dashboard hidden by default */
+        .ctv-dashboard {
+            display: none;
+        }
+
+        /* Welcome Bar */
+        .ctv-welcome {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .ctv-welcome h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .ctv-welcome-tier {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .tier-silver {
+            background: rgba(192, 192, 192, 0.15);
+            color: #c0c0c0;
+        }
+
+        .tier-gold {
+            background: rgba(212, 168, 83, 0.15);
+            color: var(--gold-light);
+        }
+
+        .tier-diamond {
+            background: rgba(125, 185, 232, 0.15);
+            color: #7db9e8;
+        }
+
+        /* Stats Grid */
+        .ctv-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .ctv-stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .ctv-stat-card .icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .ctv-stat-card .value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+
+        .ctv-stat-card .label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Referral Link Section */
+        .ctv-ref-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .ctv-ref-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 14px;
+        }
+
+        .ctv-ref-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .ctv-ref-input {
+            flex: 1;
+            padding: 12px 16px;
+            background: #0a0a0a;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--gold-light);
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .ctv-ref-copy-btn {
+            padding: 12px 20px;
+            background: var(--gold-primary);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+
+        .ctv-ref-copy-btn:hover {
+            background: var(--gold-light);
+        }
+
+        /* Info Bar */
+        .ctv-info-bar {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+            padding: 16px 20px;
+            background: rgba(212, 168, 83, 0.06);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .ctv-info-bar strong {
+            color: var(--gold-light);
+        }
+
+        /* Transactions Table */
+        .ctv-transactions {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .ctv-transactions h3 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+
+        .ctv-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .ctv-table th {
+            text-align: left;
+            padding: 10px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .ctv-table td {
+            padding: 12px 12px;
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .ctv-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge-approved {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(74, 222, 128, 0.12);
+            color: var(--success);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-pending {
+            display: inline-block;
+            padding: 3px 10px;
+            background: rgba(251, 191, 36, 0.12);
+            color: var(--pending);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .ctv-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* Logout */
+        .ctv-logout-btn {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .ctv-logout-btn:hover {
+            border-color: var(--error);
+            color: var(--error);
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .ctv-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ctv-ref-row {
+                flex-direction: column;
+            }
+
+            .ctv-ref-input {
+                width: 100%;
+            }
+
+            .ctv-ref-copy-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .ctv-table th,
+            .ctv-table td {
+                padding: 8px 8px;
+                font-size: 13px;
+            }
+
+            .ctv-welcome h1 {
+                font-size: 1.2rem;
+            }
+
+            .ctv-stat-card .value {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Loading spinner */
+        .ctv-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            color: var(--text-muted);
+            font-size: 16px;
+            gap: 12px;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-top-color: var(--gold-primary);
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="ctv-header">
+        <div class="ctv-header-left">
+            <span>🍄</span>
+            <a href="/">maldalladuyduc</a>
+            <span class="ctv-header-badge">CTV Dashboard</span>
+        </div>
+        <div class="ctv-header-right">
+            <a href="/">← Về trang chính</a>
+        </div>
+    </header>
+
+    <!-- Login Screen -->
+    <div id="ctvLoginScreen" class="ctv-login">
+        <h1>🔐 Đăng Nhập CTV</h1>
+        <p>Nhập số điện thoại đã đăng ký để xem bảng điều khiển</p>
+        <form class="ctv-login-form" id="loginForm">
+            <input type="tel" id="loginPhone" placeholder="Số điện thoại" required />
+            <button type="submit">Đăng Nhập</button>
+        </form>
+        <div class="ctv-login-error" id="loginError">Số điện thoại không tồn tại trong hệ thống</div>
+        <p class="ctv-login-register">Chưa có tài khoản? <a href="/#affiliate">Đăng ký CTV</a></p>
+    </div>
+
+    <!-- Dashboard (hidden until login) -->
+    <div id="ctvDashboardPage" class="ctv-dashboard">
+        <div class="ctv-container">
+
+            <!-- Welcome -->
+            <div class="ctv-welcome">
+                <h1 id="dashWelcome">Xin chào!</h1>
+                <div style="display:flex;gap:10px;align-items:center;">
+                    <span class="ctv-welcome-tier tier-silver" id="dashTier">🥈 Bạc</span>
+                    <button class="ctv-logout-btn" id="logoutBtn">Đăng xuất</button>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="ctv-stats">
+                <div class="ctv-stat-card">
+                    <div class="icon">📊</div>
+                    <div class="value" id="statPoints">0</div>
+                    <div class="label">Tổng điểm</div>
+                </div>
+                <div class="ctv-stat-card">
+                    <div class="icon">⏳</div>
+                    <div class="value" id="statPending">0</div>
+                    <div class="label">Đang chờ duyệt</div>
+                </div>
+                <div class="ctv-stat-card">
+                    <div class="icon">💰</div>
+                    <div class="value" id="statVND">0₫</div>
+                    <div class="label">Thu nhập khả dụng</div>
+                </div>
+                <div class="ctv-stat-card">
+                    <div class="icon">👆</div>
+                    <div class="value" id="statClicks">0</div>
+                    <div class="label">Lượt click</div>
+                </div>
+            </div>
+
+            <!-- Info Bar -->
+            <div class="ctv-info-bar">
+                <span>📅 Hôm nay: <strong id="statToday">0/50 điểm</strong></span>
+                <span>💱 Quy đổi: <strong>100 điểm = 10.000₫</strong></span>
+                <span>⏱️ Điểm chờ duyệt: <strong>48 giờ</strong></span>
+            </div>
+
+            <!-- Referral Link -->
+            <div class="ctv-ref-section">
+                <h3>🔗 Link Giới Thiệu Của Bạn</h3>
+                <div class="ctv-ref-row">
+                    <input type="text" class="ctv-ref-input" id="refLinkInput" readonly />
+                    <button class="ctv-ref-copy-btn" id="refCopyBtn">📋 Copy Link</button>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="ctv-transactions">
+                <h3>📋 Lịch Sử Giao Dịch Gần Đây</h3>
+                <div id="transactionsBody">
+                    <div class="ctv-loading">
+                        <div class="spinner"></div>
+                        Đang tải...
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module">
+        import { supabase } from './src/supabase.js';
+
+        const loginScreen = document.getElementById('ctvLoginScreen');
+        const dashboardPage = document.getElementById('ctvDashboardPage');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('loginError');
+
+        // Check if already logged in
+        const savedRef = localStorage.getItem('ctv_ref_code');
+        if (savedRef) {
+            loadDashboard(savedRef);
+        }
+
+        // Login form
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            loginError.style.display = 'none';
+            const phone = document.getElementById('loginPhone').value.trim();
+            if (!phone) return;
+
+            try {
+                const { data, error } = await supabase
+                    .from('ctv_accounts')
+                    .select('referral_code, name, tier')
+                    .eq('phone', phone)
+                    .single();
+
+                if (error || !data) {
+                    loginError.style.display = 'block';
+                    return;
+                }
+
+                localStorage.setItem('ctv_ref_code', data.referral_code);
+                loadDashboard(data.referral_code);
+            } catch (err) {
+                loginError.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
+                loginError.style.display = 'block';
+            }
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('ctv_ref_code');
+            window.location.reload();
+        });
+
+        // Copy ref link
+        document.getElementById('refCopyBtn').addEventListener('click', async () => {
+            const input = document.getElementById('refLinkInput');
+            await navigator.clipboard.writeText(input.value);
+            const btn = document.getElementById('refCopyBtn');
+            btn.textContent = '✅ Đã copy!';
+            setTimeout(() => btn.textContent = '📋 Copy Link', 2000);
+        });
+
+        async function loadDashboard(refCode) {
+            loginScreen.style.display = 'none';
+            dashboardPage.style.display = 'block';
+
+            try {
+                // Get dashboard data
+                const { data, error } = await supabase.rpc('get_ctv_dashboard', {
+                    p_ref_code: refCode,
+                });
+
+                if (error || !data?.ok) {
+                    loginScreen.style.display = 'block';
+                    dashboardPage.style.display = 'none';
+                    loginError.textContent = 'Mã CTV không hợp lệ. Vui lòng đăng nhập lại.';
+                    loginError.style.display = 'block';
+                    localStorage.removeItem('ctv_ref_code');
+                    return;
+                }
+
+                // Populate stats
+                document.getElementById('dashWelcome').textContent = `Xin chào, ${data.name}! 👋`;
+
+                const tierEl = document.getElementById('dashTier');
+                const tierMap = {
+                    silver: ['🥈 Bạc', 'tier-silver'],
+                    gold: ['🥇 Vàng', 'tier-gold'],
+                    diamond: ['💎 Kim Cương', 'tier-diamond'],
+                };
+                const [tierText, tierClass] = tierMap[data.tier] || ['🥈 Bạc', 'tier-silver'];
+                tierEl.textContent = tierText;
+                tierEl.className = `ctv-welcome-tier ${tierClass}`;
+
+                document.getElementById('statPoints').textContent = data.total_points || 0;
+                document.getElementById('statPending').textContent = data.pending_points || 0;
+                document.getElementById('statVND').textContent = `${(data.available_vnd || 0).toLocaleString('vi-VN')}₫`;
+                document.getElementById('statClicks').textContent = data.total_clicks || 0;
+                document.getElementById('statToday').textContent = `${data.today_points || 0}/50 điểm`;
+
+                // Referral link
+                document.getElementById('refLinkInput').value = `${window.location.origin}/?ref=${data.referral_code}`;
+
+                // Load recent transactions
+                loadTransactions(refCode);
+
+            } catch (err) {
+                console.error('Dashboard load error:', err);
+            }
+        }
+
+        async function loadTransactions(refCode) {
+            const container = document.getElementById('transactionsBody');
+
+            try {
+                // Get the CTV account ID first
+                const { data: acct } = await supabase
+                    .from('ctv_accounts')
+                    .select('id')
+                    .eq('referral_code', refCode)
+                    .single();
+
+                if (!acct) {
+                    container.innerHTML = '<div class="ctv-empty">Chưa có giao dịch nào</div>';
+                    return;
+                }
+
+                // Get recent point transactions
+                const { data: transactions, error } = await supabase
+                    .from('point_transactions')
+                    .select('*')
+                    .eq('ctv_id', acct.id)
+                    .order('created_at', { ascending: false })
+                    .limit(20);
+
+                if (error || !transactions?.length) {
+                    container.innerHTML = '<div class="ctv-empty">Chưa có giao dịch nào. Hãy chia sẻ link để nhận điểm! 🚀</div>';
+                    return;
+                }
+
+                const typeMap = {
+                    story: '📖 Câu chuyện',
+                    product: '📦 Sản phẩm',
+                    page: '🌐 Trang chính',
+                };
+
+                container.innerHTML = `
+          <table class="ctv-table">
+            <thead>
+              <tr>
+                <th>Thời gian</th>
+                <th>Loại</th>
+                <th>Điểm</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${transactions.map(t => {
+                    const date = new Date(t.created_at);
+                    const timeStr = date.toLocaleDateString('vi-VN', {
+                        day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+                    });
+                    const typeStr = typeMap[t.content_type] || t.content_type || '—';
+                    const status = t.status === 'approved'
+                        ? '<span class="badge-approved">✓ Đã duyệt</span>'
+                        : '<span class="badge-pending">⏳ Đang chờ</span>';
+                    return `<tr>
+                  <td>${timeStr}</td>
+                  <td>${typeStr}</td>
+                  <td style="color:var(--gold-light);font-weight:600">+${t.points}</td>
+                  <td>${status}</td>
+                </tr>`;
+                }).join('')}
+            </tbody>
+          </table>
+        `;
+            } catch (err) {
+                container.innerHTML = '<div class="ctv-empty">Lỗi tải dữ liệu</div>';
+                console.error('Transactions load error:', err);
+            }
+        }
+    </script>
+</body>
+
+</html>
