@@ -700,7 +700,8 @@
                 <input type="tel" id="regPhone" placeholder="Số điện thoại *" required />
                 <div class="field-hint">10 chữ số, bắt đầu bằng 0</div>
                 <input type="email" id="regEmail" placeholder="Email (tùy chọn)" />
-                <input type="password" id="regPassword" placeholder="Mật khẩu * (tối thiểu 6 ký tự)" required minlength="6" />
+                <input type="password" id="regPassword" placeholder="Mật khẩu * (tối thiểu 6 ký tự)" required
+                    minlength="6" />
                 <input type="text" id="regReferrer" placeholder="Mã giới thiệu (tùy chọn)" />
                 <button type="submit">Tạo Tài Khoản CTV</button>
             </form>
@@ -876,13 +877,11 @@
             recordAttempt('ctv_login', 60000);
 
             try {
-                const { data, error } = await supabase
-                    .from('ctv_accounts')
-                    .select('referral_code, name, tier')
-                    .eq('phone', phone)
-                    .single();
+                const { data, error } = await supabase.rpc('authenticate_ctv', {
+                    p_phone: phone
+                });
 
-                if (error || !data) {
+                if (error || !data || !data.ok) {
                     loginError.style.display = 'block';
                     return;
                 }
