@@ -1,0 +1,15 @@
+# Quy Định Viết Commit & Issue
+
+1. **Ngôn ngữ:** BẮT BUỘC dùng **Tiếng Việt** dễ hiểu, rõ ràng.
+2. **Cấu trúc Commit/Issue:** Phải mô tả rành mạch 2 phần:
+   - **TRƯỚC KHI SỬA:** Tình trạng cũ như thế nào, bị lỗi gì hay thiết kế cũ ra sao.
+   - **SAU KHI SỬA:** Đã thay đổi thế nào, kết quả đạt được là gì.
+3. **Phạm vi áp dụng:** Áp dụng cho TOÀN BỘ công việc, action github, commit message, pull request và issue từ nay trở về sau.
+
+Ví dụ Commit Message chuẩn:
+```text
+Cải thiện: Thay ảnh sản phẩm quà tặng ở trang chủ
+
+- Trước khi sửa: Dùng ảnh "hộp nhung đỏ" nhìn giả và không đúng thực tế sản phẩm.
+- Sau khi sửa: Đổi sang ảnh "lọ viên nang nắp vàng premium" chân thực, sang trọng hơn.
+```
