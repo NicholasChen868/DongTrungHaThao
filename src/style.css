@@ -1,30 +1,41 @@
 /* ===================================
    ĐÔNG TRÙNG HẠ THẢO — DESIGN SYSTEM
-   maldalladuyduc Premium Dark/Gold Theme
+   Maldala Duy Đức Premium Crimson/Gold Theme
+   Inspired by product packaging:
+   - Crimson Red (#7A1B1B) — box exterior
+   - Imperial Gold (#C5962C) — satin, cap
+   - Ivory (#F5E6C8) — lid
+   - Bronze (#8B6D3F) — capsules
    =================================== */
 
 /* --- CSS Variables --- */
 :root {
-  /* Colors */
-  --bg-primary: #060606;
-  --bg-secondary: #0d0d0d;
-  --bg-card: #111111;
-  --bg-card-hover: #1a1a1a;
-  --bg-glass: rgba(255, 255, 255, 0.03);
-  --bg-glass-hover: rgba(255, 255, 255, 0.06);
+  /* Colors — matched to product packaging */
+  --bg-primary: #080505;
+  --bg-secondary: #0f0a08;
+  --bg-card: #141010;
+  --bg-card-hover: #1c1614;
+  --bg-glass: rgba(122, 27, 27, 0.06);
+  --bg-glass-hover: rgba(122, 27, 27, 0.12);
 
-  --gold-primary: #d4a853;
-  --gold-light: #e8c97a;
-  --gold-dark: #b8860b;
-  --gold-gradient: linear-gradient(135deg, #d4a853, #f0d890, #d4a853);
-  --gold-text-gradient: linear-gradient(135deg, #e8c97a, #d4a853, #b8860b);
+  --gold-primary: #c5962c;
+  --gold-light: #d4a853;
+  --gold-dark: #a67c1e;
+  --gold-gradient: linear-gradient(135deg, #c5962c, #e8c97a, #c5962c);
+  --gold-text-gradient: linear-gradient(135deg, #d4a853, #c5962c, #a67c1e);
 
-  --text-primary: #f5f0e8;
-  --text-secondary: #a09888;
-  --text-muted: #665e52;
+  /* Crimson accent — from product box */
+  --crimson: #7a1b1b;
+  --crimson-light: #9e2b2b;
+  --crimson-dark: #5c1414;
+  --crimson-gradient: linear-gradient(135deg, #7a1b1b, #9e2b2b, #7a1b1b);
 
-  --border-color: rgba(212, 168, 83, 0.15);
-  --border-hover: rgba(212, 168, 83, 0.4);
+  --text-primary: #f5efe6;
+  --text-secondary: #a89888;
+  --text-muted: #6b5e50;
+
+  --border-color: rgba(197, 150, 44, 0.15);
+  --border-hover: rgba(197, 150, 44, 0.4);
 
   --success: #4ade80;
   --error: #f87171;
@@ -43,9 +54,9 @@
   --transition-base: 0.2s ease;
   --transition-slow: 0.3s ease;
 
-  /* Shadows — minimal */
-  --shadow-gold: none;
-  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.2);
+  /* Shadows — warm toned */
+  --shadow-gold: 0 0 20px rgba(197, 150, 44, 0.1);
+  --shadow-card: 0 2px 8px rgba(122, 27, 27, 0.15);
   --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.3);
 
   /* Quote tone — warm gold accent */
@@ -375,6 +386,7 @@ img {
   position: relative;
   overflow: hidden;
   background: var(--bg-primary);
+  background-image: radial-gradient(ellipse at 50% 30%, rgba(122, 27, 27, 0.12) 0%, transparent 70%);
 }
 
 .hero-particles {
@@ -385,7 +397,7 @@ img {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 50%, var(--bg-primary) 100%);
+  background: linear-gradient(to bottom, rgba(122, 27, 27, 0.05) 0%, transparent 30%, transparent 60%, var(--bg-primary) 100%);
 }
 
 .hero-content {
