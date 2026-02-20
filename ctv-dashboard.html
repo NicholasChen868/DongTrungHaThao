@@ -688,9 +688,15 @@
         <div class="ctv-auth-panel active" id="panelLogin">
             <form class="ctv-login-form" id="loginForm">
                 <input type="tel" id="loginPhone" placeholder="Số điện thoại" required />
+                <input type="password" id="loginPassword" placeholder="Mật khẩu" required />
                 <button type="submit">Đăng Nhập</button>
             </form>
-            <div class="ctv-login-error" id="loginError">Số điện thoại không tồn tại trong hệ thống</div>
+            <div class="ctv-login-error" id="loginError">Sai thông tin đăng nhập</div>
+            <div style="text-align:center;margin-top:12px">
+                <a href="#" id="ctvForgotLink"
+                    style="color:var(--gold-light);font-size:13px;text-decoration:underline;cursor:pointer">Quên mật
+                    khẩu?</a>
+            </div>
         </div>
 
         <!-- Register Panel -->
@@ -706,6 +712,28 @@
                 <button type="submit">Tạo Tài Khoản CTV</button>
             </form>
             <div class="ctv-login-error" id="registerError"></div>
+        </div>
+
+        <!-- Forgot Password Panel -->
+        <div class="ctv-auth-panel" id="panelForgot">
+            <h3 style="color:var(--gold-light);margin:0 0 8px;font-size:16px;text-align:center">Đặt Lại Mật Khẩu CTV
+            </h3>
+            <p style="font-size:13px;color:#aaa;margin:0 0 16px;text-align:center">Nhập SĐT và Email đã đăng ký để xác
+                thực</p>
+            <form class="ctv-login-form" id="ctvForgotForm">
+                <input type="tel" id="ctvResetPhone" placeholder="Số điện thoại đã đăng ký *" required />
+                <input type="email" id="ctvResetEmail" placeholder="Email đã đăng ký *" required />
+                <input type="password" id="ctvResetNewPw" placeholder="Mật khẩu mới * (tối thiểu 6 ký tự)" required
+                    minlength="6" />
+                <input type="password" id="ctvResetConfirmPw" placeholder="Xác nhận mật khẩu mới *" required
+                    minlength="6" />
+                <button type="submit">Đặt Lại Mật Khẩu</button>
+            </form>
+            <div class="ctv-login-error" id="ctvForgotError"></div>
+            <div style="text-align:center;margin-top:12px">
+                <a href="#" id="ctvBackToLogin" style="color:#aaa;font-size:13px;cursor:pointer">← Quay lại đăng
+                    nhập</a>
+            </div>
         </div>
     </div>
 
@@ -843,16 +871,47 @@
         const registerError = document.getElementById('registerError');
         const registerGuard = createSubmitGuard(10000);
 
+        // --- SHA-256 utility ---
+        async function sha256(str) {
+            const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
         // --- Tab switching ---
+        function showPanel(panelId) {
+            document.querySelectorAll('.ctv-auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.ctv-auth-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(panelId).classList.add('active');
+            // Highlight correct tab
+            document.querySelectorAll('.ctv-auth-tab').forEach(t => {
+                if ((panelId === 'panelLogin' && t.dataset.tab === 'login') ||
+                    (panelId === 'panelRegister' && t.dataset.tab === 'register')) {
+                    t.classList.add('active');
+                }
+            });
+            // Hide tabs in forgot mode
+            const tabContainer = document.querySelector('.ctv-auth-tabs');
+            if (tabContainer) tabContainer.style.display = panelId === 'panelForgot' ? 'none' : '';
+            loginError.style.display = 'none';
+            registerError.style.display = 'none';
+        }
+
         document.querySelectorAll('.ctv-auth-tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                document.querySelectorAll('.ctv-auth-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.ctv-auth-panel').forEach(p => p.classList.remove('active'));
-                tab.classList.add('active');
-                document.getElementById(tab.dataset.tab === 'login' ? 'panelLogin' : 'panelRegister').classList.add('active');
-                loginError.style.display = 'none';
-                registerError.style.display = 'none';
+                showPanel(tab.dataset.tab === 'login' ? 'panelLogin' : 'panelRegister');
             });
+        });
+
+        // Forgot password link
+        document.getElementById('ctvForgotLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            showPanel('panelForgot');
+        });
+
+        // Back to login
+        document.getElementById('ctvBackToLogin').addEventListener('click', (e) => {
+            e.preventDefault();
+            showPanel('panelLogin');
         });
 
         // Check if already logged in
@@ -861,12 +920,13 @@
             loadDashboard(savedRef);
         }
 
-        // Login form
+        // Login form (with password)
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             loginError.style.display = 'none';
             const phone = document.getElementById('loginPhone').value.trim();
-            if (!phone) return;
+            const password = document.getElementById('loginPassword').value;
+            if (!phone || !password) return;
 
             const rl = checkRateLimit('ctv_login', 5, 60000);
             if (!rl.allowed) {
@@ -877,11 +937,14 @@
             recordAttempt('ctv_login', 60000);
 
             try {
+                const pwHash = await sha256(password);
                 const { data, error } = await supabase.rpc('authenticate_ctv', {
-                    p_phone: phone
+                    p_phone: phone,
+                    p_password_hash: pwHash
                 });
 
                 if (error || !data || !data.ok) {
+                    loginError.textContent = data?.error || 'Sai thông tin đăng nhập';
                     loginError.style.display = 'block';
                     return;
                 }
@@ -891,6 +954,60 @@
             } catch (err) {
                 loginError.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
                 loginError.style.display = 'block';
+            }
+        });
+
+        // Forgot password form
+        document.getElementById('ctvForgotForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const phone = document.getElementById('ctvResetPhone').value.trim();
+            const email = document.getElementById('ctvResetEmail').value.trim();
+            const newPw = document.getElementById('ctvResetNewPw').value;
+            const confirmPw = document.getElementById('ctvResetConfirmPw').value;
+            const errEl = document.getElementById('ctvForgotError');
+            const btn = e.target.querySelector('button[type="submit"]');
+
+            errEl.style.display = 'none';
+
+            if (!phone || !email || !newPw || !confirmPw) {
+                errEl.textContent = 'Vui lòng điền đầy đủ thông tin';
+                errEl.style.display = 'block'; return;
+            }
+            if (newPw.length < 6) {
+                errEl.textContent = 'Mật khẩu mới phải có ít nhất 6 ký tự';
+                errEl.style.display = 'block'; return;
+            }
+            if (newPw !== confirmPw) {
+                errEl.textContent = 'Mật khẩu xác nhận không khớp';
+                errEl.style.display = 'block'; return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Đang xử lý...';
+
+            try {
+                const pwHash = await sha256(newPw);
+                const { data, error } = await supabase.rpc('reset_ctv_password', {
+                    p_phone: phone,
+                    p_email: email,
+                    p_new_password_hash: pwHash
+                });
+
+                if (error) throw error;
+                if (!data || !data.ok) {
+                    errEl.textContent = data?.error || 'Không tìm thấy tài khoản. Vui lòng kiểm tra SĐT và Email.';
+                    errEl.style.display = 'block'; return;
+                }
+
+                alert(`Mật khẩu của ${data.name} đã được đặt lại thành công! Bấm OK để đăng nhập.`);
+                document.getElementById('ctvForgotForm').reset();
+                showPanel('panelLogin');
+            } catch (err) {
+                errEl.textContent = 'Lỗi: ' + (err.message || 'Thử lại sau');
+                errEl.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Đặt Lại Mật Khẩu';
             }
         });
 

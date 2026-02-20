@@ -433,6 +433,11 @@
                 <input class="form-input" type="password" id="loginPassword" placeholder="Mật khẩu *" required />
                 <button type="submit" class="btn-primary" id="loginBtn">Đăng Nhập</button>
                 <div class="auth-error" id="loginError">Sai thông tin đăng nhập</div>
+                <div style="text-align:center;margin-top:12px">
+                    <a href="#" id="forgotPasswordLink"
+                        style="color:var(--gold);font-size:13px;text-decoration:underline;cursor:pointer">Quên mật
+                        khẩu?</a>
+                </div>
             </form>
 
             <!-- REGISTER FORM -->
@@ -443,6 +448,26 @@
                 <input class="form-input" type="password" id="regPassword" placeholder="Tạo mật khẩu *" required />
                 <button type="submit" class="btn-primary" id="regBtn">Tạo Tài Khoản</button>
                 <div class="auth-error" id="regError"></div>
+            </form>
+
+            <!-- FORGOT PASSWORD FORM -->
+            <form class="auth-form hidden" id="forgotForm">
+                <h3 style="color:var(--gold);margin:0 0 8px;font-size:16px;text-align:center">Đặt Lại Mật Khẩu</h3>
+                <p style="font-size:13px;color:var(--text-sec);margin:0 0 16px;text-align:center">Nhập SĐT và Email đã
+                    đăng ký để xác thực</p>
+                <input class="form-input" type="tel" id="resetPhone" placeholder="Số điện thoại đã đăng ký *"
+                    required />
+                <input class="form-input" type="email" id="resetEmail" placeholder="Email đã đăng ký *" required />
+                <input class="form-input" type="password" id="resetNewPassword"
+                    placeholder="Mật khẩu mới * (tối thiểu 4 ký tự)" required minlength="4" />
+                <input class="form-input" type="password" id="resetConfirmPassword"
+                    placeholder="Xác nhận mật khẩu mới *" required minlength="4" />
+                <button type="submit" class="btn-primary" id="resetBtn">Đặt Lại Mật Khẩu</button>
+                <div class="auth-error" id="resetError"></div>
+                <div style="text-align:center;margin-top:12px">
+                    <a href="#" id="backToLoginLink" style="color:var(--text-sec);font-size:13px;cursor:pointer">← Quay
+                        lại đăng nhập</a>
+                </div>
             </form>
 
             <div class="auth-divider">hoặc</div>
@@ -509,6 +534,9 @@
             });
             document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
             document.getElementById('registerForm').classList.toggle('hidden', tab !== 'register');
+            document.getElementById('forgotForm').classList.toggle('hidden', tab !== 'forgot');
+            // Show/hide tabs when in forgot mode
+            document.querySelector('.auth-tabs').style.display = tab === 'forgot' ? 'none' : '';
         }
 
         // Bind tab buttons
@@ -519,6 +547,72 @@
         // Bind form submissions
         document.getElementById('loginForm').addEventListener('submit', (e) => handleLogin(e));
         document.getElementById('registerForm').addEventListener('submit', (e) => handleRegister(e));
+
+        // Forgot password link
+        document.getElementById('forgotPasswordLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            switchTab('forgot');
+        });
+
+        // Back to login link
+        document.getElementById('backToLoginLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            switchTab('login');
+        });
+
+        // Forgot password form
+        document.getElementById('forgotForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const phone = document.getElementById('resetPhone').value.trim();
+            const email = document.getElementById('resetEmail').value.trim();
+            const newPw = document.getElementById('resetNewPassword').value;
+            const confirmPw = document.getElementById('resetConfirmPassword').value;
+            const errEl = document.getElementById('resetError');
+            const btn = document.getElementById('resetBtn');
+
+            errEl.style.display = 'none';
+
+            if (!phone || !email || !newPw || !confirmPw) {
+                errEl.textContent = 'Vui lòng điền đầy đủ thông tin';
+                errEl.style.display = 'block'; return;
+            }
+            if (newPw.length < 4) {
+                errEl.textContent = 'Mật khẩu mới phải có ít nhất 4 ký tự';
+                errEl.style.display = 'block'; return;
+            }
+            if (newPw !== confirmPw) {
+                errEl.textContent = 'Mật khẩu xác nhận không khớp';
+                errEl.style.display = 'block'; return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Đang xử lý...';
+
+            try {
+                const pwHash = await sha256(newPw);
+                const { data, error } = await supabase.rpc('reset_member_password', {
+                    p_phone: phone,
+                    p_email: email,
+                    p_new_password_hash: pwHash
+                });
+
+                if (error) throw error;
+                if (!data || !data.ok) {
+                    errEl.textContent = data?.error || 'Không tìm thấy tài khoản. Vui lòng kiểm tra SĐT và Email.';
+                    errEl.style.display = 'block'; return;
+                }
+
+                showToast(`Mật khẩu của ${data.name} đã được đặt lại thành công!`);
+                document.getElementById('forgotForm').reset();
+                switchTab('login');
+            } catch (err) {
+                errEl.textContent = 'Lỗi: ' + (err.message || 'Thử lại sau');
+                errEl.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Đặt Lại Mật Khẩu';
+            }
+        });
 
         // --- Simple hash ---
         async function sha256(str) {
