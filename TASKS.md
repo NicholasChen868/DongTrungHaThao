@@ -139,12 +139,12 @@
 
 ### 🔴 Phase 1: Security Hardening (ƯU TIÊN CAO)
 
-- [ ] Tighten RLS: members (SELECT by owner only)
-- [ ] Tighten RLS: member_posts (UPDATE by owner only)
-- [ ] Tighten RLS: orders (restrict SELECT)
-- [ ] Input sanitization (XSS prevention)
-- [ ] Rate limiting (login attempts, form submissions)
-- [ ] CSP headers (vercel.json)
+- [x] Tighten RLS: members (SELECT by owner only) — RPC `authenticate_member`
+- [x] Tighten RLS: member_posts (UPDATE by owner only) — RPC `admin_update_post_status`
+- [x] Tighten RLS: orders (restrict SELECT) — RPC `get_member_orders`, `admin_list_orders`
+- [x] Input sanitization (XSS prevention) — `src/utils/sanitize.js` + escapeHTML everywhere
+- [x] Rate limiting (login attempts, form submissions) — `src/utils/ratelimit.js`
+- [x] CSP headers (vercel.json) — CSP + X-Frame-Options + nosniff
 - [ ] Admin auth nâng cao → Supabase Auth
 
 ### 🟡 Phase 2: Testing
