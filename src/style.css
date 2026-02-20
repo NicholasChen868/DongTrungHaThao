@@ -1892,22 +1892,28 @@ textarea {
     grid-template-columns: 1fr 1fr;
   }
 
-  /* Hamburger menu for tablets and below */
+  /* ===== PREMIUM MOBILE MENU ===== */
   .nav-links {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 280px;
+    width: 100%;
+    max-width: 340px;
     height: 100vh;
     height: 100dvh;
-    background: rgba(6, 6, 6, 0.98);
+    background: rgba(8, 5, 5, 0.97);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     flex-direction: column;
-    padding: 80px 32px 32px;
-    gap: 4px;
-    transition: right var(--transition-base);
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 100px 28px 40px;
+    gap: 0;
+    transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     border-left: 1px solid var(--border-color);
     z-index: 999;
     overflow-y: auto;
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.5);
   }
 
   .nav-links.open {
@@ -1920,9 +1926,38 @@ textarea {
   }
 
   .nav-link {
+    display: block;
     font-size: 1rem;
-    padding: 14px 20px;
-    border-radius: 12px;
+    font-weight: 500;
+    padding: 16px 20px;
+    border-radius: 10px;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    border-bottom: 1px solid rgba(197, 150, 44, 0.06);
+  }
+
+  .nav-link:hover,
+  .nav-link:active {
+    background: rgba(197, 150, 44, 0.08);
+    color: var(--gold-light);
+  }
+
+  /* CTA buttons in mobile menu — stack nicely */
+  .nav-links .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    margin-top: 4px;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+
+  /* Group CTA buttons at bottom with separator */
+  .nav-links .btn:first-of-type {
+    margin-top: 16px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
+    border-radius: 10px;
   }
 }
 
