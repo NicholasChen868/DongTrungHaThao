@@ -524,6 +524,7 @@
         import { supabase } from './src/supabase.js';
         import { escapeHTML } from './src/utils/sanitize.js';
         import { createSubmitGuard } from './src/utils/ratelimit.js';
+        import './src/utils/tracker.js';
 
         const postGuard = createSubmitGuard(5000);
 

@@ -2,10 +2,8 @@ import { fetchAllData } from './data.js';
 import { initCTVSystem, registerCTV } from './ctv.js';
 import { supabase } from './supabase.js';
 import { escapeHTML, escapeCSS } from './utils/sanitize.js';
-import { createSubmitGuard } from './utils/ratelimit.js';
+import { checkRateLimit, recordAttempt, createSubmitGuard } from './utils/ratelimit.js';
 
-const orderGuard = createSubmitGuard(5000);
-const ctvGuard = createSubmitGuard(5000);
 const contactGuard = createSubmitGuard(5000);
 
 // ===================================
@@ -373,11 +371,12 @@ function initOrderForm() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const og = orderGuard();
-    if (!og.allowed) {
-      showToast(`Vui lòng đợi ${Math.ceil(og.remainingMs / 1000)}s trước khi gửi lại`, false);
+    const rl = checkRateLimit('order', 3, 60000);
+    if (!rl.allowed) {
+      showToast(`Quá nhiều lần gửi. Vui lòng đợi ${Math.ceil(rl.remainingMs / 1000)}s`, false);
       return;
     }
+    recordAttempt('order', 60000);
 
     const name = document.getElementById('orderName').value.trim();
     const phone = document.getElementById('orderPhone').value.trim();
@@ -440,11 +439,12 @@ function initCtvForm() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const cg = ctvGuard();
-    if (!cg.allowed) {
-      showToast(`Vui lòng đợi ${Math.ceil(cg.remainingMs / 1000)}s`, false);
+    const rl = checkRateLimit('ctv_register', 3, 60000);
+    if (!rl.allowed) {
+      showToast(`Quá nhiều lần đăng ký. Vui lòng đợi ${Math.ceil(rl.remainingMs / 1000)}s`, false);
       return;
     }
+    recordAttempt('ctv_register', 60000);
 
     const name = document.getElementById('ctvName').value;
     const phone = document.getElementById('ctvPhone')?.value;
