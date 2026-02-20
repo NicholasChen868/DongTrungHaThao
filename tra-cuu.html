@@ -426,14 +426,14 @@
     <!-- TOP BAR -->
     <div class="top-bar">
         <a href="/">← Trang chủ</a>
-        <span class="brand">📦 Tra Cứu Đơn Hàng</span>
-        <a href="/thanh-vien.html">💛 Thành Viên</a>
+        <span class="brand">Tra Cứu Đơn Hàng</span>
+        <a href="/thanh-vien.html">Thành Viên</a>
     </div>
 
     <div class="track-container">
         <!-- HERO -->
         <div class="track-hero">
-            <div class="icon">📦</div>
+            <div class="icon"></div>
             <h1>Tra Cứu Đơn Hàng</h1>
             <p>Nhập số điện thoại bạn đã dùng khi đặt hàng<br>để kiểm tra trạng thái đơn hàng ngay lập tức</p>
         </div>
@@ -443,7 +443,7 @@
             <label>Số điện thoại đặt hàng</label>
             <div class="search-row">
                 <input class="search-input" type="tel" id="trackPhone" placeholder="VD: 0901234567" required />
-                <button class="btn-search" id="trackBtn" onclick="trackOrders()">🔍 Tra cứu</button>
+                <button class="btn-search" id="trackBtn" onclick="trackOrders()">Tra cứu</button>
             </div>
         </div>
 
@@ -473,11 +473,11 @@
         }
 
         const statusConfig = {
-            pending: { label: '⏳ Chờ duyệt', cls: 'badge-warning', step: 0 },
-            confirmed: { label: '✅ Đã duyệt', cls: 'badge-info', step: 1 },
-            shipping: { label: '🚚 Đang giao', cls: 'badge-info', step: 2 },
-            completed: { label: '✓ Hoàn thành', cls: 'badge-success', step: 3 },
-            cancelled: { label: '✗ Đã hủy', cls: 'badge-danger', step: -1 },
+            pending: { label: 'Chờ duyệt', cls: 'badge-warning', step: 0 },
+            confirmed: { label: 'Đã duyệt', cls: 'badge-info', step: 1 },
+            shipping: { label: 'Đang giao', cls: 'badge-info', step: 2 },
+            completed: { label: 'Hoàn thành', cls: 'badge-success', step: 3 },
+            cancelled: { label: 'Đã hủy', cls: 'badge-danger', step: -1 },
         };
 
         const steps = ['Đặt hàng', 'Xác nhận', 'Giao hàng', 'Hoàn thành'];
@@ -526,7 +526,7 @@
                     results.classList.add('active');
                     countEl.textContent = '0';
                     orderList.innerHTML = `<div class="empty-state">
-                        <div class="icon">🔍</div>
+                        <div class="icon"></div>
                         <p>Không tìm thấy đơn hàng với SĐT <strong>${escapeHTML(phone)}</strong></p>
                         <p style="margin-top:8px;font-size:13px">Kiểm tra lại SĐT hoặc <a href="/#contact" style="color:var(--gold)">đặt hàng ngay</a></p>
                     </div>`;
@@ -581,7 +581,7 @@
                 showToast('Lỗi tra cứu: ' + err.message, true);
             } finally {
                 btn.disabled = false;
-                btn.textContent = '🔍 Tra cứu';
+                btn.textContent = 'Tra cứu';
             }
         };
 

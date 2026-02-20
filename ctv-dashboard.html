@@ -666,7 +666,6 @@
     <!-- Header -->
     <header class="ctv-header">
         <div class="ctv-header-left">
-            <span>🌿</span>
             <a href="/">maldalladuyduc</a>
             <span class="ctv-header-badge">CTV Dashboard</span>
         </div>
@@ -677,7 +676,7 @@
 
     <!-- Login/Register Screen -->
     <div id="ctvLoginScreen" class="ctv-login">
-        <h1>🌿 Cộng Tác Viên</h1>
+        <h1>Cộng Tác Viên</h1>
         <p>Đăng nhập hoặc tạo tài khoản CTV mới</p>
 
         <div class="ctv-auth-tabs">
@@ -725,22 +724,18 @@
             <!-- Stats -->
             <div class="ctv-stats">
                 <div class="ctv-stat-card">
-                    <div class="icon">📊</div>
                     <div class="value" id="statPoints">0</div>
                     <div class="label">Tổng điểm</div>
                 </div>
                 <div class="ctv-stat-card">
-                    <div class="icon">⏳</div>
                     <div class="value" id="statPending">0</div>
                     <div class="label">Đang chờ duyệt</div>
                 </div>
                 <div class="ctv-stat-card">
-                    <div class="icon">💰</div>
                     <div class="value" id="statVND">0₫</div>
                     <div class="label">Thu nhập khả dụng</div>
                 </div>
                 <div class="ctv-stat-card">
-                    <div class="icon">👆</div>
                     <div class="value" id="statClicks">0</div>
                     <div class="label">Lượt click</div>
                 </div>
@@ -748,23 +743,23 @@
 
             <!-- Info Bar -->
             <div class="ctv-info-bar">
-                <span>📅 Hôm nay: <strong id="statToday">0/50 điểm</strong></span>
-                <span>💱 Quy đổi: <strong>100 điểm = 10.000₫</strong></span>
-                <span>⏱️ Điểm chờ duyệt: <strong>48 giờ</strong></span>
+                <span>Hôm nay: <strong id="statToday">0/50 điểm</strong></span>
+                <span>Quy đổi: <strong>100 điểm = 10.000₫</strong></span>
+                <span>Điểm chờ duyệt: <strong>48 giờ</strong></span>
             </div>
 
             <!-- Referral Link -->
             <div class="ctv-ref-section">
-                <h3>🔗 Link Giới Thiệu Của Bạn</h3>
+                <h3>Link Giới Thiệu Của Bạn</h3>
                 <div class="ctv-ref-row">
                     <input type="text" class="ctv-ref-input" id="refLinkInput" readonly />
-                    <button class="ctv-ref-copy-btn" id="refCopyBtn">📋 Copy Link</button>
+                    <button class="ctv-ref-copy-btn" id="refCopyBtn">Copy Link</button>
                 </div>
             </div>
 
             <!-- Withdrawal Form -->
             <div class="ctv-withdraw">
-                <h3>💳 Yêu Cầu Rút Tiền</h3>
+                <h3>Yêu Cầu Rút Tiền</h3>
                 <form id="withdrawForm" onsubmit="submitWithdrawal(event)">
                     <div class="wd-grid">
                         <div>
@@ -804,14 +799,14 @@
                             <textarea id="wdNote" placeholder="VD: Rút lần đầu, xin xác nhận qua Zalo..."></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="wd-btn" id="wdBtn">💳 Gửi Yêu Cầu Rút Tiền</button>
+                    <button type="submit" class="wd-btn" id="wdBtn">Gửi Yêu Cầu Rút Tiền</button>
                     <div class="wd-error" id="wdError"></div>
                 </form>
             </div>
 
             <!-- Withdrawal History -->
             <div class="ctv-transactions">
-                <h3>💳 Lịch Sử Rút Tiền</h3>
+                <h3>Lịch Sử Rút Tiền</h3>
                 <div id="withdrawHistory">
                     <div class="ctv-loading">
                         <div class="spinner"></div> Đang tải...
@@ -821,7 +816,7 @@
 
             <!-- Recent Transactions -->
             <div class="ctv-transactions">
-                <h3>📋 Lịch Sử Giao Dịch Gần Đây</h3>
+                <h3>Lịch Sử Giao Dịch Gần Đây</h3>
                 <div id="transactionsBody">
                     <div class="ctv-loading">
                         <div class="spinner"></div>
@@ -976,8 +971,8 @@
             const input = document.getElementById('refLinkInput');
             await navigator.clipboard.writeText(input.value);
             const btn = document.getElementById('refCopyBtn');
-            btn.textContent = '✅ Đã copy!';
-            setTimeout(() => btn.textContent = '📋 Copy Link', 2000);
+            btn.textContent = 'Đã copy!';
+            setTimeout(() => btn.textContent = 'Copy Link', 2000);
         });
 
         async function loadDashboard(refCode) {
@@ -1000,13 +995,13 @@
                 }
 
                 // Populate stats
-                document.getElementById('dashWelcome').textContent = `Xin chào, ${data.name}! 👋`;
+                document.getElementById('dashWelcome').textContent = `Xin chào, ${data.name}!`;
 
                 const tierEl = document.getElementById('dashTier');
                 const tierMap = {
-                    silver: ['🥈 Bạc', 'tier-silver'],
-                    gold: ['🥇 Vàng', 'tier-gold'],
-                    diamond: ['💎 Kim Cương', 'tier-diamond'],
+                    silver: ['Bạc', 'tier-silver'],
+                    gold: ['Vàng', 'tier-gold'],
+                    diamond: ['Kim Cương', 'tier-diamond'],
                 };
                 const [tierText, tierClass] = tierMap[data.tier] || ['🥈 Bạc', 'tier-silver'];
                 tierEl.textContent = tierText;
@@ -1058,14 +1053,14 @@
                     .limit(20);
 
                 if (error || !transactions?.length) {
-                    container.innerHTML = '<div class="ctv-empty">Chưa có giao dịch nào. Hãy chia sẻ link để nhận điểm! 🚀</div>';
+                    container.innerHTML = '<div class="ctv-empty">Chưa có giao dịch nào. Hãy chia sẻ link để nhận điểm!</div>';
                     return;
                 }
 
                 const typeMap = {
-                    story: '📖 Câu chuyện',
-                    product: '📦 Sản phẩm',
-                    page: '🌐 Trang chính',
+                    story: 'Câu chuyện',
+                    product: 'Sản phẩm',
+                    page: 'Trang chính',
                 };
 
                 container.innerHTML = `
@@ -1145,7 +1140,7 @@
                 });
                 if (error) throw error;
 
-                showCtvToast(`Yêu cầu rút ${amount.toLocaleString('vi-VN')}₫ đã gửi! Admin sẽ xử lý trong 24h 💛`);
+                showCtvToast(`Yêu cầu rút ${amount.toLocaleString('vi-VN')}₫ đã gửi. Admin sẽ xử lý trong 24h.`);
                 document.getElementById('withdrawForm').reset();
                 loadWithdrawals(data.referral_code, data.name);
             } catch (err) {
@@ -1153,7 +1148,7 @@
                 errEl.style.display = 'block';
             } finally {
                 btn.disabled = false;
-                btn.textContent = '💳 Gửi Yêu Cầu Rút Tiền';
+                btn.textContent = 'Gửi Yêu Cầu Rút Tiền';
             }
         };
 
@@ -1170,10 +1165,10 @@
                 }
 
                 const statusMap = {
-                    pending: ['⏳ Chờ duyệt', 'badge-wd-pending'],
-                    approved: ['✅ Đã duyệt', 'badge-wd-approved'],
-                    paid: ['💰 Đã thanh toán', 'badge-wd-paid'],
-                    rejected: ['✗ Từ chối', 'badge-wd-rejected'],
+                    pending: ['Chờ duyệt', 'badge-wd-pending'],
+                    approved: ['Đã duyệt', 'badge-wd-approved'],
+                    paid: ['Đã thanh toán', 'badge-wd-paid'],
+                    rejected: ['Từ chối', 'badge-wd-rejected'],
                 };
 
                 const fmtDate = (d) => new Date(d).toLocaleDateString('vi-VN', {

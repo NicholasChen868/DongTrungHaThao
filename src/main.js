@@ -164,7 +164,7 @@ function renderProcess(processSteps) {
         <div class="process-step-num">Bước ${parseInt(step.step)}</div>
         <h3 class="process-title">${escapeHTML(step.title)}</h3>
         <p class="process-desc">${escapeHTML(step.description)}</p>
-        <span class="process-duration">⏱ ${escapeHTML(step.duration)}</span>
+        <span class="process-duration">${escapeHTML(step.duration)}</span>
       </div>
     </div>
   `).join('');
@@ -287,12 +287,12 @@ function renderHealthStories(stories) {
       <h3 class="story-title">${escapeHTML(s.title)}</h3>
       <div class="story-timeline">
         <div class="story-phase story-before">
-          <div class="phase-label">😔 Trước khi dùng</div>
+          <div class="phase-label">Trước khi dùng</div>
           <p>${escapeHTML(s.before)}</p>
         </div>
-        <div class="story-arrow">⬇️ Sau ${escapeHTML(s.duration)}</div>
+        <div class="story-arrow">Sau ${escapeHTML(s.duration)}</div>
         <div class="story-phase story-after">
-          <div class="phase-label">😊 Sau khi dùng</div>
+          <div class="phase-label">Sau khi dùng</div>
           <p>${escapeHTML(s.after)}</p>
         </div>
       </div>
@@ -441,8 +441,8 @@ function initOrderForm() {
 
       showToast(
         `Cảm ơn ${escapeHTML(name)}! Đơn hàng <strong>#${parseInt(data.id)}</strong> đã được ghi nhận.`
-        + `<br><a href="/tra-cuu.html" style="color:var(--gold-light);font-weight:600">📦 Tra cứu đơn</a>`
-        + ` &nbsp;|&nbsp; <a href="/thanh-vien.html" style="color:var(--gold-light);font-weight:600">💛 Thành viên</a>`,
+        + `<br><a href="/tra-cuu.html" style="color:var(--gold-light);font-weight:600">Tra cứu đơn</a>`
+        + ` &nbsp;|&nbsp; <a href="/thanh-vien.html" style="color:var(--gold-light);font-weight:600">Thành viên</a>`,
         true,
         { html: true, duration: 8000 }
       );
@@ -492,16 +492,16 @@ function initCtvForm() {
       if (result.existing) {
         showToast(
           `Chào mừng trở lại! Mã CTV: <strong>${escapeHTML(result.referral_code)}</strong>`
-          + `<br><a href="/chia-se.html" style="color:var(--gold-light);font-weight:600">✍️ Viết bài chia sẻ</a>`
-          + ` &nbsp;|&nbsp; <a href="/ctv-dashboard.html" style="color:var(--gold-light);font-weight:600">📊 Dashboard CTV</a>`,
+          + `<br><a href="/chia-se.html" style="color:var(--gold-light);font-weight:600">Viết bài chia sẻ</a>`
+          + ` &nbsp;|&nbsp; <a href="/ctv-dashboard.html" style="color:var(--gold-light);font-weight:600">Dashboard CTV</a>`,
           true,
           { html: true, duration: 8000 }
         );
       } else {
         showToast(
           `Đăng ký thành công! Mã CTV: <strong>${escapeHTML(result.referral_code)}</strong>`
-          + `<br><a href="/chia-se.html" style="color:var(--gold-light);font-weight:600">✍️ Viết bài chia sẻ (+3đ)</a>`
-          + ` &nbsp;|&nbsp; <a href="/ctv-dashboard.html" style="color:var(--gold-light);font-weight:600">📊 Dashboard CTV</a>`,
+          + `<br><a href="/chia-se.html" style="color:var(--gold-light);font-weight:600">Viết bài chia sẻ (+3đ)</a>`
+          + ` &nbsp;|&nbsp; <a href="/ctv-dashboard.html" style="color:var(--gold-light);font-weight:600">Dashboard CTV</a>`,
           true,
           { html: true, duration: 8000 }
         );
@@ -523,7 +523,7 @@ function showToast(message, success = true, { html = false, duration = 4000 } = 
   const toastIcon = toast.querySelector('.toast-icon');
   const toastMessage = document.getElementById('toastMessage');
 
-  toastIcon.textContent = success ? '✅' : '⚠️';
+  toastIcon.textContent = success ? '' : '';
   if (html) {
     toastMessage.innerHTML = message;
   } else {

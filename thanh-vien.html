@@ -411,14 +411,14 @@
     <!-- TOP BAR -->
     <div class="top-bar">
         <a href="/">← Trang chính</a>
-        <span class="brand">🌿 Thành Viên Thân Thiết</span>
+        <span class="brand">Thành Viên Thân Thiết</span>
         <a href="/ctv-dashboard.html">CTV →</a>
     </div>
 
     <!-- AUTH BOX -->
     <div class="member-container" id="authScreen">
         <div class="auth-box">
-            <div class="auth-icon">💛</div>
+            <div class="auth-icon"></div>
             <h1>Xin Chào Quý Khách</h1>
             <p class="subtitle">Đăng nhập để theo dõi đơn hàng, tích điểm<br>và nhận ưu đãi dành riêng cho bạn</p>
 
@@ -456,7 +456,7 @@
             <div class="greeting">Chào mừng, <span id="memberName">—</span>!</div>
             <p style="color:var(--text-sec);font-size:14px;margin-top:4px">Cảm ơn bạn đã là Thành Viên Thân Thiết của
                 chúng tôi</p>
-            <div class="member-badge">💛 Thành Viên Thân Thiết</div>
+            <div class="member-badge">Thành Viên Thân Thiết</div>
         </div>
 
         <div class="member-stats">
@@ -475,7 +475,7 @@
         </div>
 
         <div class="member-panel">
-            <h3>📦 Đơn Hàng Gần Đây</h3>
+            <h3>Đơn Hàng Gần Đây</h3>
             <div id="memberOrders">
                 <div class="empty-state">Đang tải...</div>
             </div>
@@ -552,7 +552,7 @@
 
                 if (error) throw error;
 
-                showToast(`Chào mừng ${name}! Tài khoản đã được tạo 💛`);
+                showToast(`Chào mừng ${name}! Tài khoản đã được tạo.`);
                 sessionStorage.setItem('member_id', data.id);
                 sessionStorage.setItem('member_name', data.name);
                 sessionStorage.setItem('member_phone', data.phone);
@@ -604,7 +604,7 @@
                 sessionStorage.setItem('member_phone', data.phone);
                 sessionStorage.setItem('member_hash', pwHash);
                 resetMemberSession();
-                showToast(`Chào ${data.name}! 💛`);
+                showToast(`Chào ${data.name}!`);
                 showDashboard(data);
             } catch (err) {
                 errEl.textContent = 'Lỗi hệ thống';
@@ -681,11 +681,11 @@
             }
 
             const statusMap = {
-                pending: ['⏳ Chờ duyệt', 'badge-warning'],
-                confirmed: ['✅ Đã duyệt', 'badge-info'],
-                shipping: ['🚚 Đang giao', 'badge-info'],
-                completed: ['✓ Hoàn thành', 'badge-success'],
-                cancelled: ['✗ Đã hủy', 'badge-warning'],
+                pending: ['Chờ duyệt', 'badge-warning'],
+                confirmed: ['Đã duyệt', 'badge-info'],
+                shipping: ['Đang giao', 'badge-info'],
+                completed: ['Hoàn thành', 'badge-success'],
+                cancelled: ['Đã hủy', 'badge-warning'],
             };
 
             container.innerHTML = orders.map(o => {
