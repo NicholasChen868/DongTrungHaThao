@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bản Đồ Sức Khỏe Cá Nhân — Đông Trùng Hạ Thảo maldalladuyduc</title>
+    <meta name="description"
+        content="Khám phá Bản Đồ Sức Khỏe dựa trên Ngũ Hành. Nhập năm sinh để nhận phân tích và gợi ý bổ sung Đông Trùng Hạ Thảo phù hợp." />
+
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/src/style.css" />
+
+    <style>
+        /* ===================================
+       HEALTH MAP — Page-specific styles
+       =================================== */
+        .health-map-hero {
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .health-map-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(212, 168, 83, 0.08), transparent 70%);
+            pointer-events: none;
+        }
+
+        .health-map-hero .section-tag {
+            margin-bottom: 16px;
+        }
+
+        .health-map-hero h1 {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .health-map-hero p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            max-width: 560px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        /* Input form */
+        .birth-year-form {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .birth-year-input {
+            width: 180px;
+            padding: 16px 24px;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            border: 2px solid rgba(212, 168, 83, 0.3);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+        }
+
+        .birth-year-input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 20px rgba(212, 168, 83, 0.2);
+        }
+
+        .birth-year-input::placeholder {
+            color: var(--text-muted);
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+
+        .btn-analyze {
+            padding: 16px 36px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 16px;
+        }
+
+        /* Loading animation */
+        .analyzing-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9999;
+            background: rgba(6, 6, 6, 0.95);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .analyzing-overlay.active {
+            display: flex;
+        }
+
+        .analyzing-spinner {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(212, 168, 83, 0.15);
+            border-top: 3px solid var(--primary-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .analyzing-text {
+            color: var(--text-secondary);
+            font-size: 15px;
+            animation: analyzeFlicker 1.5s ease-in-out infinite;
+        }
+
+        @keyframes analyzeFlicker {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Results section */
+        .health-result {
+            display: none;
+            padding: 0 20px 80px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .health-result.visible {
+            display: block;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Element card — main result */
+        .element-card {
+            border-radius: 24px;
+            padding: 48px 36px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+
+        .element-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--element-gradient, linear-gradient(135deg, rgba(212, 168, 83, 0.1), rgba(6, 6, 6, 0.9)));
+            z-index: 0;
+        }
+
+        .element-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .element-icon {
+            font-size: 4rem;
+            margin-bottom: 12px;
+        }
+
+        .element-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .element-canchi {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .element-organ {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .element-strength {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Detail cards grid */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .detail-card {
+            border: 1px solid rgba(212, 168, 83, 0.12);
+            border-radius: 16px;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .detail-card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .detail-card h4 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-gold);
+            margin-bottom: 8px;
+        }
+
+        .detail-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .detail-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Cordyceps advice — highlighted */
+        .cordyceps-card {
+            border: 1px solid rgba(212, 168, 83, 0.25);
+            border-radius: 20px;
+            padding: 32px;
+            background: linear-gradient(135deg, rgba(212, 168, 83, 0.08), rgba(6, 6, 6, 0.6));
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .cordyceps-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--primary-gold);
+        }
+
+        .cordyceps-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cordyceps-card .recommendation {
+            background: rgba(212, 168, 83, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        /* Compatible elements */
+        .compat-section {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .compat-badge {
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .compat-badge.good {
+            background: rgba(34, 139, 34, 0.15);
+            color: #32CD32;
+            border: 1px solid rgba(34, 139, 34, 0.3);
+        }
+
+        .compat-badge.bad {
+            background: rgba(255, 69, 0, 0.1);
+            color: #FF6347;
+            border: 1px solid rgba(255, 69, 0, 0.2);
+        }
+
+        /* CTA at bottom */
+        .result-cta {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(212, 168, 83, 0.1);
+        }
+
+        .result-cta h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .result-cta p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .result-cta .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .element-card {
+                padding: 32px 20px;
+            }
+
+            .element-name {
+                font-size: 2rem;
+            }
+
+            .health-map-hero {
+                padding: 100px 16px 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ======= NAVIGATION ======= -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="logo-text">Maldala <span class="brand-accent">Duy Đức</span></span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/" class="nav-link">Trang&nbsp;Chủ</a></li>
+                <li><a href="/cau-chuyen.html" class="nav-link">Câu&nbsp;Chuyện</a></li>
+                <li><a href="/chia-se.html" class="nav-link">Chia&nbsp;Sẻ</a></li>
+                <li><a href="/#contact" class="nav-link nav-link--cta">Đặt&nbsp;Hàng</a></li>
+                <li><a href="/tra-cuu.html" class="nav-link">📦&nbsp;Tra&nbsp;Cứu</a></li>
+                <li class="nav-divider"></li>
+                <li><a href="/ctv-dashboard.html" class="nav-link nav-link--accent" title="Cộng Tác Viên">👥 CTV</a>
+                </li>
+                <li><a href="/thanh-vien.html" class="nav-link nav-link--member" title="Thành Viên">💛
+                        Thành&nbsp;Viên</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ======= HERO ======= -->
+    <section class="health-map-hero">
+        <span class="section-tag">Bản Đồ Sức Khỏe Cá Nhân</span>
+        <h1>Khám Phá <span class="text-gold">Ngũ Hành</span> Của Bạn</h1>
+        <p>Nhập năm sinh để nhận phân tích sức khỏe cá nhân dựa trên Thiên Can — Địa Chi và gợi ý bổ sung Đông Trùng Hạ
+            Thảo phù hợp nhất</p>
+
+        <div class="birth-year-form">
+            <input type="number" class="birth-year-input" id="birthYearInput" placeholder="VD: 1990" min="1924"
+                max="2024" />
+            <button class="btn btn-primary btn-glow btn-analyze" id="btnAnalyze">
+                Phân Tích
+            </button>
+        </div>
+    </section>
+
+    <!-- ======= ANALYZING OVERLAY ======= -->
+    <div class="analyzing-overlay" id="analyzingOverlay">
+        <div class="analyzing-spinner"></div>
+        <div class="analyzing-text" id="analyzingText">Đang phân tích Ngũ Hành...</div>
+    </div>
+
+    <!-- ======= RESULTS ======= -->
+    <section class="health-result" id="healthResult">
+        <!-- Filled by JS -->
+    </section>
+
+    <!-- ======= FOOTER ======= -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Maldala Duy Đức. Đông Trùng Hạ Thảo nguyên chất.</p>
+                <p><a href="/">Trang Chủ</a> · <a href="/cau-chuyen.html">Câu Chuyện</a> · <a href="/chia-se.html">Chia
+                        Sẻ</a> · <a href="/#contact">Đặt Hàng</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { analyzeNguHanh } from '/src/utils/ngu-hanh.js';
+
+        // Navbar toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                navToggle.classList.toggle('active');
+            });
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        const input = document.getElementById('birthYearInput');
+        const btn = document.getElementById('btnAnalyze');
+        const overlay = document.getElementById('analyzingOverlay');
+        const analyzingText = document.getElementById('analyzingText');
+        const resultSection = document.getElementById('healthResult');
+
+        const analysisMessages = [
+            'Đang phân tích Ngũ Hành...',
+            'Xác định Thiên Can — Địa Chi...',
+            'Phân tích cơ quan mục tiêu...',
+            'Tạo gợi ý sức khỏe cá nhân...',
+        ];
+
+        btn.addEventListener('click', analyze);
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') analyze();
+        });
+
+        function analyze() {
+            const year = parseInt(input.value);
+            if (!year || year < 1924 || year > 2024) {
+                input.style.borderColor = '#FF4500';
+                setTimeout(() => input.style.borderColor = '', 2000);
+                return;
+            }
+
+            // Show analyzing overlay with progressive messages
+            overlay.classList.add('active');
+            let msgIndex = 0;
+            const msgInterval = setInterval(() => {
+                msgIndex++;
+                if (msgIndex < analysisMessages.length) {
+                    analyzingText.textContent = analysisMessages[msgIndex];
+                }
+            }, 600);
+
+            // Simulate analysis (dramatic effect)
+            setTimeout(() => {
+                clearInterval(msgInterval);
+                overlay.classList.remove('active');
+
+                const result = analyzeNguHanh(year);
+                renderResult(result);
+            }, 2500);
+        }
+
+        function renderResult(r) {
+            resultSection.innerHTML = `
+        <!-- Element Card -->
+        <div class="element-card" style="--element-gradient: ${r.colorGradient.replace(')', ', rgba(6,6,6,0.85))')}">
+          <div class="element-icon">${r.elementIcon}</div>
+          <div class="element-name" style="color: ${r.colorHex}">Mệnh ${r.element}</div>
+          <div class="element-canchi">${r.canChi} · Năm ${r.birthYear}</div>
+          <div class="element-organ" style="background: ${r.colorHex}15; border: 1px solid ${r.colorHex}30; color: ${r.colorHex}">
+            <span>${r.organIcon}</span> ${r.organTarget}
+          </div>
+          <div class="element-strength">✨ ${r.strength}</div>
+        </div>
+
+        <!-- Detail Grid -->
+        <div class="detail-grid">
+          <div class="detail-card">
+            <div class="detail-card-icon">⚠️</div>
+            <h4>Điểm Yếu Sức Khỏe</h4>
+            <p>${r.weakness}</p>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-icon">🍽️</div>
+            <h4>Chế Độ Ăn Phù Hợp</h4>
+            <p>${r.dietTip}</p>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-icon">🗓️</div>
+            <h4>Thời Điểm Cần Chú Ý</h4>
+            <p>${r.season}</p>
+          </div>
+          <div class="detail-card">
+            <div class="detail-card-icon">💊</div>
+            <h4>Liều Dùng Gợi Ý</h4>
+            <p>${r.recommendation}</p>
+          </div>
+        </div>
+
+        <!-- Cordyceps Advice -->
+        <div class="cordyceps-card">
+          <h3>🌿 Đông Trùng Hạ Thảo & Mệnh ${r.element}</h3>
+          <p>${r.healthAdvice}</p>
+          <div class="recommendation">💡 ${r.recommendation}</div>
+          <a href="/#contact" class="btn btn-primary btn-glow">Đặt Hàng Theo Gợi Ý</a>
+        </div>
+
+        <!-- Compatible Elements -->
+        <div style="text-align:center;margin-bottom:12px">
+          <h4 style="color:var(--text-muted);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Tương Sinh & Tương Khắc</h4>
+        </div>
+        <div class="compat-section">
+          ${r.compatibleElements.map(e => `<span class="compat-badge good">✓ Tương sinh: ${e}</span>`).join('')}
+          ${r.conflictingElements.map(e => `<span class="compat-badge bad">✕ Tương khắc: ${e}</span>`).join('')}
+        </div>
+
+        <!-- CTA -->
+        <div class="result-cta">
+          <h3>Bắt đầu chăm sóc sức khỏe theo Ngũ Hành</h3>
+          <p>Mỗi viên nang Đông Trùng Hạ Thảo là một lời hứa với sức khỏe của bạn</p>
+          <div class="btn-group">
+            <a href="/#contact" class="btn btn-primary btn-glow">Đặt Hàng Ngay</a>
+            <a href="/cau-chuyen.html" class="btn btn-secondary">Đọc Câu Chuyện</a>
+          </div>
+        </div>
+      `;
+
+            resultSection.classList.add('visible');
+            resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+
+</html>

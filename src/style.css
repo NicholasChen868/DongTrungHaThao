@@ -2633,6 +2633,28 @@ textarea {
   color: var(--primary-gold);
 }
 
+/* Reorder reminder */
+.reorder-banner {
+  background: linear-gradient(135deg, rgba(34, 139, 34, 0.1), rgba(34, 139, 34, 0.04));
+  border-bottom: 1px solid rgba(34, 139, 34, 0.2);
+  padding: 12px 0;
+  position: relative;
+  z-index: 89;
+  animation: greetingSlideDown 0.5s ease-out;
+}
+
+.reorder-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-sm {
+  padding: 6px 18px !important;
+  font-size: 13px !important;
+  border-radius: 20px;
+}
+
 /* ===================================
    CTA JOURNEY (after Health Stories)
    =================================== */
