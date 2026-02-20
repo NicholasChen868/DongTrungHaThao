@@ -102,6 +102,14 @@
     </div>
   </nav>
 
+  <!-- ======= RETURNING CUSTOMER GREETING ======= -->
+  <div class="greeting-banner hidden-default" id="greetingBanner">
+    <div class="container greeting-inner">
+      <span class="greeting-text">💛 Chào <strong id="greetingName">bạn</strong>! Rất vui được gặp lại bạn</span>
+      <button class="greeting-dismiss" id="greetingDismiss" aria-label="Đóng">Không phải bạn?</button>
+    </div>
+  </div>
+
   <!-- ======= HERO ======= -->
   <section class="hero" id="hero">
     <div class="hero-particles" id="heroParticles"></div>
@@ -304,6 +312,18 @@
       </div>
       <div class="stories-grid" id="storiesGrid">
         <!-- Rendered by JS from Supabase -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CTA: BẮT ĐẦU HÀNH TRÌNH ======= -->
+  <section class="section section-cta-journey animate-on-scroll" id="ctaJourney">
+    <div class="container">
+      <div class="cta-journey-box">
+        <span class="cta-journey-icon">🌿</span>
+        <h2 class="cta-journey-title">Bắt đầu hành trình sức khỏe <span class="text-gold">của bạn</span></h2>
+        <p class="cta-journey-desc">Đông Trùng Hạ Thảo nguyên chất — Mỗi viên nang là một lời hứa với sức khỏe</p>
+        <a href="#contact" class="btn btn-primary btn-glow">Đặt Hàng Ngay</a>
       </div>
     </div>
   </section>
@@ -511,6 +531,14 @@
     <span class="toast-icon">✅</span>
     <span class="toast-message" id="toastMessage"></span>
   </div>
+
+  <!-- ======= FLOATING ORDER BUTTON ======= -->
+  <a href="#contact" class="floating-order-btn" id="floatingOrderBtn" aria-label="Đặt hàng ngay">
+    <span class="floating-order-text">Đặt Hàng</span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+    </svg>
+  </a>
 
   <script type="module" src="/src/main.js"></script>
 </body>

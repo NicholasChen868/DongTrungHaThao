@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   initNavbar();
   initHeroParticles();
   initCountUp();
+  initReturningCustomer();
+  initFloatingOrderBtn();
 
   // Load pricing from backend (parallel with fetchAllData)
   const [allData] = await Promise.all([fetchAllData(), loadPricing()]);
@@ -443,6 +445,10 @@ function initOrderForm() {
         true,
         { html: true, duration: 8000 }
       );
+      // Save customer info for returning customer greeting
+      try {
+        localStorage.setItem('mdd_customer', JSON.stringify({ name, phone, lastOrder: Date.now() }));
+      } catch (e) { /* quota exceeded */ }
       form.reset();
       qtySelect.dispatchEvent(new Event('change'));
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -565,5 +571,63 @@ function initScrollAnimations() {
     if (!el.classList.contains('visible')) {
       observer.observe(el);
     }
+  });
+}
+
+// ===================================
+// RETURNING CUSTOMER GREETING
+// ===================================
+function initReturningCustomer() {
+  const banner = document.getElementById('greetingBanner');
+  const nameEl = document.getElementById('greetingName');
+  const dismissBtn = document.getElementById('greetingDismiss');
+  if (!banner || !nameEl) return;
+
+  try {
+    const saved = JSON.parse(localStorage.getItem('mdd_customer'));
+    if (!saved || !saved.name) return;
+
+    // Show greeting
+    nameEl.textContent = saved.name;
+    banner.classList.remove('hidden-default');
+
+    // Auto-fill order form
+    const nameInput = document.getElementById('orderName');
+    const phoneInput = document.getElementById('orderPhone');
+    if (nameInput && !nameInput.value) nameInput.value = saved.name;
+    if (phoneInput && !phoneInput.value && saved.phone) phoneInput.value = saved.phone;
+
+    // Dismiss = clear saved data
+    if (dismissBtn) {
+      dismissBtn.addEventListener('click', () => {
+        localStorage.removeItem('mdd_customer');
+        banner.classList.add('hidden-default');
+        if (nameInput) nameInput.value = '';
+        if (phoneInput) phoneInput.value = '';
+      });
+    }
+  } catch (e) { /* corrupted data */ }
+}
+
+// ===================================
+// FLOATING ORDER BUTTON
+// ===================================
+function initFloatingOrderBtn() {
+  const btn = document.getElementById('floatingOrderBtn');
+  const contactSection = document.getElementById('contact');
+  if (!btn || !contactSection) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      btn.classList.toggle('hidden', entry.isIntersecting);
+    });
+  }, { threshold: 0.1 });
+
+  observer.observe(contactSection);
+
+  // Smooth scroll
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    contactSection.scrollIntoView({ behavior: 'smooth' });
   });
 }
