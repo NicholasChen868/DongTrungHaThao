@@ -1,4 +1,5 @@
 import { fetchAllData } from './data.js';
+import { initCTVSystem, registerCTV } from './ctv.js';
 
 // ===================================
 // INITIALIZATION
@@ -29,6 +30,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   initOrderForm();
   initCtvForm();
   initScrollAnimations();
+
+  // Init CTV referral tracking + dashboard
+  await initCTVSystem();
 });
 
 // ===================================
@@ -375,24 +379,35 @@ function initOrderForm() {
   });
 }
 
-// ===================================
-// CTV FORM
-// ===================================
 function initCtvForm() {
   const form = document.getElementById('ctvForm');
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('ctvName').value;
+    const phone = document.getElementById('ctvPhone')?.value;
+    const email = document.getElementById('ctvEmail')?.value;
 
-    if (!name) {
-      showToast('Vui lòng điền họ tên!', false);
+    if (!name || !phone) {
+      showToast('Vui lòng điền họ tên và số điện thoại!', false);
       return;
     }
 
-    showToast(`Cảm ơn ${name}! Đăng ký CTV thành công. Đội ngũ sẽ liên hệ trong vòng 24h.`);
-    form.reset();
+    // Register CTV in Supabase
+    const result = await registerCTV(name, phone, email);
+    if (result?.ok) {
+      if (result.existing) {
+        showToast(`Chào mừng trở lại! Mã CTV của bạn: ${result.referral_code}`);
+      } else {
+        showToast(`Đăng ký thành công! Mã CTV: ${result.referral_code} — Chia sẻ link để nhận điểm!`);
+      }
+      form.reset();
+      // Reload to show dashboard
+      setTimeout(() => window.location.reload(), 2000);
+    } else {
+      showToast('Đăng ký thất bại. Vui lòng thử lại!', false);
+    }
   });
 }
 
