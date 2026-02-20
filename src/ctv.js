@@ -197,6 +197,27 @@ export function renderCTVDashboard(data) {
     });
 }
 
+// --- Register CTV (dashboard page) ---
+export async function handleCTVRegister({ name, phone, email, passwordHash, referrerCode }) {
+    try {
+        const { data, error } = await supabase.rpc('register_ctv', {
+            p_name: name,
+            p_phone: phone,
+            p_email: email || null,
+            p_password_hash: passwordHash,
+            p_referrer_code: referrerCode || null,
+        });
+        if (error) throw error;
+        if (data?.ok) {
+            setStoredRef(data.referral_code);
+        }
+        return data;
+    } catch (err) {
+        console.error('CTV register error:', err.message);
+        return { ok: false, error: err.message };
+    }
+}
+
 // --- Init CTV System ---
 export async function initCTVSystem() {
     // Track incoming referral clicks

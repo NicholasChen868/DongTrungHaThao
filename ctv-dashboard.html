@@ -165,6 +165,53 @@
             text-decoration: underline;
         }
 
+        /* Auth Tabs */
+        .ctv-auth-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 28px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .ctv-auth-tab {
+            flex: 1;
+            padding: 12px;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .ctv-auth-tab.active {
+            background: var(--gold-primary);
+            color: #0a0a0a;
+        }
+
+        .ctv-auth-tab:hover:not(.active) {
+            background: var(--bg-card-hover);
+        }
+
+        .ctv-auth-panel {
+            display: none;
+        }
+
+        .ctv-auth-panel.active {
+            display: block;
+        }
+
+        .ctv-login-form .field-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            text-align: left;
+        }
+
         /* Dashboard hidden by default */
         .ctv-dashboard {
             display: none;
@@ -628,16 +675,38 @@
         </div>
     </header>
 
-    <!-- Login Screen -->
+    <!-- Login/Register Screen -->
     <div id="ctvLoginScreen" class="ctv-login">
-        <h1>🔐 Đăng Nhập CTV</h1>
-        <p>Nhập số điện thoại đã đăng ký để xem bảng điều khiển</p>
-        <form class="ctv-login-form" id="loginForm">
-            <input type="tel" id="loginPhone" placeholder="Số điện thoại" required />
-            <button type="submit">Đăng Nhập</button>
-        </form>
-        <div class="ctv-login-error" id="loginError">Số điện thoại không tồn tại trong hệ thống</div>
-        <p class="ctv-login-register">Chưa có tài khoản? <a href="/#affiliate">Đăng ký CTV</a></p>
+        <h1>🍄 Cộng Tác Viên</h1>
+        <p>Đăng nhập hoặc tạo tài khoản CTV mới</p>
+
+        <div class="ctv-auth-tabs">
+            <button class="ctv-auth-tab active" data-tab="login">Đăng Nhập</button>
+            <button class="ctv-auth-tab" data-tab="register">Đăng Ký Mới</button>
+        </div>
+
+        <!-- Login Panel -->
+        <div class="ctv-auth-panel active" id="panelLogin">
+            <form class="ctv-login-form" id="loginForm">
+                <input type="tel" id="loginPhone" placeholder="Số điện thoại" required />
+                <button type="submit">Đăng Nhập</button>
+            </form>
+            <div class="ctv-login-error" id="loginError">Số điện thoại không tồn tại trong hệ thống</div>
+        </div>
+
+        <!-- Register Panel -->
+        <div class="ctv-auth-panel" id="panelRegister">
+            <form class="ctv-login-form" id="registerForm">
+                <input type="text" id="regName" placeholder="Họ và tên *" required />
+                <input type="tel" id="regPhone" placeholder="Số điện thoại *" required />
+                <div class="field-hint">10 chữ số, bắt đầu bằng 0</div>
+                <input type="email" id="regEmail" placeholder="Email (tùy chọn)" />
+                <input type="password" id="regPassword" placeholder="Mật khẩu * (tối thiểu 6 ký tự)" required minlength="6" />
+                <input type="text" id="regReferrer" placeholder="Mã giới thiệu (tùy chọn)" />
+                <button type="submit">Tạo Tài Khoản CTV</button>
+            </form>
+            <div class="ctv-login-error" id="registerError"></div>
+        </div>
     </div>
 
     <!-- Dashboard (hidden until login) -->
@@ -767,12 +836,28 @@
     <script type="module">
         import { supabase } from './src/supabase.js';
         import { escapeHTML } from './src/utils/sanitize.js';
-        import { checkRateLimit, recordAttempt } from './src/utils/ratelimit.js';
+        import { checkRateLimit, recordAttempt, createSubmitGuard } from './src/utils/ratelimit.js';
+        import { handleCTVRegister } from './src/ctv.js';
 
         const loginScreen = document.getElementById('ctvLoginScreen');
         const dashboardPage = document.getElementById('ctvDashboardPage');
         const loginForm = document.getElementById('loginForm');
         const loginError = document.getElementById('loginError');
+        const registerForm = document.getElementById('registerForm');
+        const registerError = document.getElementById('registerError');
+        const registerGuard = createSubmitGuard(10000);
+
+        // --- Tab switching ---
+        document.querySelectorAll('.ctv-auth-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.ctv-auth-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.ctv-auth-panel').forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab === 'login' ? 'panelLogin' : 'panelRegister').classList.add('active');
+                loginError.style.display = 'none';
+                registerError.style.display = 'none';
+            });
+        });
 
         // Check if already logged in
         const savedRef = localStorage.getItem('ctv_ref_code');
@@ -812,6 +897,71 @@
             } catch (err) {
                 loginError.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
                 loginError.style.display = 'block';
+            }
+        });
+
+        // Register form
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            registerError.style.display = 'none';
+
+            const name = document.getElementById('regName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const referrerCode = document.getElementById('regReferrer').value.trim();
+
+            // Validate phone
+            if (!/^0\d{9}$/.test(phone)) {
+                registerError.textContent = 'Số điện thoại phải gồm 10 chữ số, bắt đầu bằng 0';
+                registerError.style.display = 'block';
+                return;
+            }
+
+            // Validate password
+            if (password.length < 6) {
+                registerError.textContent = 'Mật khẩu phải có ít nhất 6 ký tự';
+                registerError.style.display = 'block';
+                return;
+            }
+
+            // Rate limit
+            const guard = registerGuard();
+            if (!guard.allowed) {
+                registerError.textContent = `Vui lòng đợi ${Math.ceil(guard.remainingMs / 1000)}s trước khi thử lại`;
+                registerError.style.display = 'block';
+                return;
+            }
+
+            const btn = registerForm.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = 'Đang tạo tài khoản...';
+
+            try {
+                // Hash password
+                const encoder = new TextEncoder();
+                const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(password));
+                const passwordHash = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+                const result = await handleCTVRegister({
+                    name, phone, email, passwordHash, referrerCode
+                });
+
+                if (result?.ok) {
+                    showCtvToast(`Đăng ký thành công! Mã CTV: ${result.referral_code}`);
+                    registerForm.reset();
+                    localStorage.setItem('ctv_ref_code', result.referral_code);
+                    setTimeout(() => loadDashboard(result.referral_code), 1500);
+                } else {
+                    registerError.textContent = result?.error || 'Đăng ký thất bại. Vui lòng thử lại.';
+                    registerError.style.display = 'block';
+                }
+            } catch (err) {
+                registerError.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
+                registerError.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Tạo Tài Khoản CTV';
             }
         });
 

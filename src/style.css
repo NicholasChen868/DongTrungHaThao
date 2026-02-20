@@ -387,7 +387,7 @@ img {
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 70px 24px 0;
+  padding: 70px 24px 100px;
   max-width: 900px;
 }
 
