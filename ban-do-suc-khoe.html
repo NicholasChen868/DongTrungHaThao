@@ -7,6 +7,13 @@
     <title>Bản Đồ Sinh Mệnh & Sức Khỏe — Đông Trùng Hạ Thảo</title>
     <meta name="description"
         content="Khám phá bản đồ sức khỏe cá nhân theo Ngũ Hành và nhận gợi ý sử dụng Đông Trùng Hạ Thảo phù hợp với cơ địa của bạn.">
+    <meta property="og:title" content="Bản Đồ Ngũ Hành Sức Khỏe — Khám Phá Cơ Thể Bạn">
+    <meta property="og:description"
+        content="Nhập năm sinh để xem mệnh lý và cơ quan nào cần chăm sóc nhất. Miễn phí, chính xác theo Âm Dương Ngũ Hành.">
+    <meta property="og:image" content="https://dong-trung-ha-thao.vercel.app/images/og-share.png">
+    <meta property="og:url" content="https://dong-trung-ha-thao.vercel.app/ban-do-suc-khoe.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="vi_VN">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -324,6 +331,64 @@
             box-shadow: 0 10px 25px rgba(197, 150, 44, 0.4);
         }
 
+        .share-section {
+            text-align: center;
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px dashed var(--border-color);
+            border-radius: 16px;
+        }
+
+        .share-section p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .share-link-row {
+            display: flex;
+            gap: 8px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .share-link-input {
+            flex: 1;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--gold-light);
+            font-size: 13px;
+        }
+
+        .share-copy-btn {
+            padding: 12px 20px;
+            background: var(--gold-gradient);
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .share-copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .shared-banner {
+            text-align: center;
+            padding: 12px;
+            background: rgba(197, 150, 44, 0.1);
+            border: 1px solid rgba(197, 150, 44, 0.3);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            color: var(--gold-light);
+            font-size: 14px;
+        }
+
         @media (max-width: 600px) {
             .astro-title {
                 font-size: 2rem;
@@ -335,6 +400,10 @@
 
             .input-container {
                 padding: 24px;
+            }
+
+            .share-link-row {
+                flex-direction: column;
             }
         }
     </style>

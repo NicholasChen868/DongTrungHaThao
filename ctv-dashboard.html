@@ -786,6 +786,122 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Notification Bell */
+        .notif-wrapper {
+            position: relative;
+        }
+
+        .notif-bell {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            position: relative;
+            color: var(--text-primary);
+        }
+
+        .notif-bell:hover {
+            border-color: var(--gold-primary);
+        }
+
+        .notif-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--error);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            min-width: 16px;
+            height: 16px;
+            border-radius: 8px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+        }
+
+        .notif-badge.show {
+            display: flex;
+        }
+
+        .notif-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 320px;
+            max-height: 400px;
+            overflow-y: auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .notif-dropdown.open {
+            display: block;
+        }
+
+        .notif-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 600;
+            color: var(--gold-primary);
+            font-size: 14px;
+        }
+
+        .notif-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .notif-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .notif-item.unread {
+            border-left: 3px solid var(--gold-primary);
+        }
+
+        .notif-item-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .notif-item-msg {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .notif-item-time {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .notif-empty {
+            padding: 24px 16px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        @media (max-width: 640px) {
+            .notif-dropdown {
+                width: 280px;
+                right: -10px;
+            }
+        }
     </style>
 </head>
 
@@ -873,6 +989,18 @@
             <div class="ctv-welcome">
                 <h1 id="dashWelcome">Xin chào!</h1>
                 <div style="display:flex;gap:10px;align-items:center;">
+                    <div class="notif-wrapper">
+                        <button type="button" class="notif-bell" id="notifBell">
+                            🔔
+                            <span class="notif-badge" id="notifBadge">0</span>
+                        </button>
+                        <div class="notif-dropdown" id="notifDropdown">
+                            <div class="notif-header">Thông báo</div>
+                            <div id="notifList">
+                                <div class="notif-empty">Chưa có thông báo</div>
+                            </div>
+                        </div>
+                    </div>
                     <span class="ctv-welcome-tier tier-silver" id="dashTier">🥈 Bạc</span>
                     <button class="ctv-logout-btn" id="logoutBtn">Đăng xuất</button>
                 </div>
@@ -1310,6 +1438,7 @@
                 loadTransactions(refCode);
                 loadWithdrawals(data.referral_code, data.name);
                 loadBtvPosts(refCode);
+                loadNotifications(refCode);
 
                 // Store for withdrawal form
                 window._ctvData = data;
@@ -1567,21 +1696,103 @@
             setTimeout(() => t.classList.remove('show'), 3500);
         }
         // ====================================
-        // ONBOARDING WIZARD
+        // NOTIFICATIONS
+        // ====================================
+        async function loadNotifications(refCode) {
+            try {
+                const { data, error } = await supabase.rpc('get_ctv_notifications', {
+                    p_ref_code: refCode
+                });
+                if (error) throw error;
+                if (!data?.ok) return;
+
+                // Update badge
+                const badge = document.getElementById('notifBadge');
+                const unread = data.unread_count || 0;
+                if (unread > 0) {
+                    badge.textContent = unread > 9 ? '9+' : unread;
+                    badge.classList.add('show');
+                }
+
+                // Render list
+                const list = document.getElementById('notifList');
+                const notifications = data.notifications || [];
+                if (!notifications.length) {
+                    list.innerHTML = '<div class="notif-empty">Chưa có thông báo</div>';
+                    return;
+                }
+
+                const typeIcon = {
+                    'new_order': '🛒',
+                    'commission': '💰',
+                    'withdrawal_approved': '✅',
+                    'post_reward': '✍️'
+                };
+
+                list.innerHTML = notifications.map(n => {
+                    const time = new Date(n.created_at).toLocaleDateString('vi-VN', {
+                        day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+                    });
+                    const icon = typeIcon[n.type] || '📢';
+                    return `<div class="notif-item ${n.is_read ? '' : 'unread'}" data-id="${parseInt(n.id)}">
+                        <div class="notif-item-title">${icon} ${escapeHTML(n.title)}</div>
+                        ${n.message ? `<div class="notif-item-msg">${escapeHTML(n.message)}</div>` : ''}
+                        <div class="notif-item-time">${time}</div>
+                    </div>`;
+                }).join('');
+
+                // Click to mark as read
+                list.querySelectorAll('.notif-item.unread').forEach(el => {
+                    el.addEventListener('click', async () => {
+                        const nId = parseInt(el.dataset.id);
+                        el.classList.remove('unread');
+                        try {
+                            await supabase.rpc('mark_notification_read', {
+                                p_ref_code: refCode,
+                                p_notification_id: nId
+                            });
+                            const current = parseInt(badge.textContent) || 0;
+                            if (current <= 1) {
+                                badge.classList.remove('show');
+                            } else {
+                                badge.textContent = current - 1;
+                            }
+                        } catch (err) {
+                            console.warn('Mark read error:', err);
+                        }
+                    });
+                });
+            } catch (err) {
+                console.warn('Notifications load error:', err);
+            }
+        }
+
+        // Toggle notification dropdown
+        document.getElementById('notifBell').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('notifDropdown').classList.toggle('open');
+        });
+
+        // Close dropdown on outside click
+        document.addEventListener('click', () => {
+            document.getElementById('notifDropdown').classList.remove('open');
+        });
+
+        // ====================================
+        // ONBOARDING WIZARD (DB-backed)
         // ====================================
         function initOnboarding(data) {
             const wizard = document.getElementById('obWizard');
             if (!wizard) return;
 
-            // Don't show if dismissed
-            const dismissed = localStorage.getItem('ctv_ob_dismissed');
-            if (dismissed) return;
+            // Use DB-backed onboarding_step (0-5)
+            const dbStep = data.onboarding_step || 0;
 
-            // Calculate steps
-            const hasCopiedLink = localStorage.getItem('ctv_link_copied') === 'true';
+            // Also check live data for auto-advancement
+            const hasCopiedLink = dbStep >= 1 || localStorage.getItem('ctv_link_copied') === 'true';
             const ordersCount = data.total_points ? Math.floor(data.total_points / 10) : 0;
-            const has3Orders = ordersCount >= 3;
-            const hasWithdrawn = (data.available_vnd || 0) > 0 || localStorage.getItem('ctv_first_withdraw') === 'true';
+            const has3Orders = dbStep >= 2 || ordersCount >= 3;
+            const hasWithdrawn = dbStep >= 3 || (data.available_vnd || 0) > 0;
 
             let doneCount = 0;
             if (hasCopiedLink) { document.getElementById('obStep1').classList.add('done'); doneCount++; }
@@ -1593,9 +1804,14 @@
             if (hasWithdrawn) { document.getElementById('obStep3').classList.add('done'); doneCount++; }
             else if (has3Orders) { document.getElementById('obStep3').classList.add('active'); }
 
-            // If all done, auto-dismiss after 3 seconds
+            // Sync to DB if live data shows more progress than DB
+            if (doneCount > dbStep) {
+                saveOnboardingStep(data.referral_code, doneCount);
+            }
+
+            // If all done, save and hide
             if (doneCount >= 3) {
-                localStorage.setItem('ctv_ob_dismissed', 'true');
+                saveOnboardingStep(data.referral_code, 3);
                 return;
             }
 
@@ -1606,8 +1822,20 @@
             wizard.style.display = 'block';
         }
 
+        async function saveOnboardingStep(refCode, step) {
+            try {
+                await supabase.rpc('update_onboarding_step', {
+                    p_ref_code: refCode,
+                    p_step: step
+                });
+            } catch (err) {
+                console.warn('Onboarding save error:', err.message);
+            }
+        }
+
         window.dismissOnboarding = function () {
-            localStorage.setItem('ctv_ob_dismissed', 'true');
+            const refCode = localStorage.getItem('ctv_ref_code');
+            if (refCode) saveOnboardingStep(refCode, 5);
             document.getElementById('obWizard').style.display = 'none';
         };
 
@@ -1618,6 +1846,8 @@
                 localStorage.setItem('ctv_link_copied', 'true');
                 const step1 = document.getElementById('obStep1');
                 if (step1) { step1.classList.remove('active'); step1.classList.add('done'); }
+                const refCode = localStorage.getItem('ctv_ref_code');
+                if (refCode) saveOnboardingStep(refCode, 1);
             });
         }
     </script>

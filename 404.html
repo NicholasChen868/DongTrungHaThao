@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Trang Không Tìm Thấy</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: #050505;
+            color: #f5f0e8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 50% 40% at center, rgba(212, 168, 83, 0.06) 0%, transparent 100%);
+        }
+
+        .error-content {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, #d4a853, #e8c97a, #d4a853);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .error-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .error-title {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+            color: #e8c97a;
+        }
+
+        .error-desc {
+            color: #b0a596;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-404 {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary-404 {
+            background: linear-gradient(135deg, #d4a853, #e8c97a);
+            color: #000;
+        }
+
+        .btn-primary-404:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 168, 83, 0.3);
+        }
+
+        .btn-secondary-404 {
+            background: none;
+            border: 1px solid rgba(212, 168, 83, 0.2);
+            color: #b0a596;
+        }
+
+        .btn-secondary-404:hover {
+            border-color: #d4a853;
+            color: #e8c97a;
+        }
+
+        .error-links {
+            margin-top: 48px;
+            font-size: 13px;
+            color: #665e52;
+        }
+
+        .error-links a {
+            color: #d4a853;
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        .error-links a:hover {
+            color: #e8c97a;
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(212, 168, 83, 0.3);
+            border-radius: 50%;
+            animation: drift linear infinite;
+        }
+
+        @keyframes drift {
+            from {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-20px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="error-content">
+        <div class="error-icon">🍃</div>
+        <div class="error-code">404</div>
+        <h1 class="error-title">Lạc Đường Rồi!</h1>
+        <p class="error-desc">
+            Trang bạn tìm kiếm không tồn tại hoặc đã được chuyển đi nơi khác.
+            Đừng lo — hãy quay về trang chủ hoặc khám phá các trang hữu ích bên dưới.
+        </p>
+        <div class="error-actions">
+            <a href="/" class="btn-404 btn-primary-404">🏠 Về Trang Chủ</a>
+            <a href="/ban-do-suc-khoe.html" class="btn-404 btn-secondary-404">☯️ Xem Mệnh Lý</a>
+        </div>
+        <div class="error-links">
+            <a href="/cau-chuyen.html">Câu Chuyện</a>
+            <a href="/chia-se.html">Góc Chia Sẻ</a>
+            <a href="/tuyen-ctv.html">Tuyển CTV</a>
+            <a href="/#contact">Đặt Hàng</a>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        for (let i = 0; i < 15; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDuration = (8 + Math.random() * 12) + 's';
+            p.style.animationDelay = Math.random() * 8 + 's';
+            p.style.width = p.style.height = (2 + Math.random() * 4) + 'px';
+            document.body.appendChild(p);
+        }
+    </script>
+</body>
+
+</html>
