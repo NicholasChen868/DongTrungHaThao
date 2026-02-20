@@ -523,7 +523,7 @@ function showToast(message, success = true, { html = false, duration = 4000 } = 
   const toastIcon = toast.querySelector('.toast-icon');
   const toastMessage = document.getElementById('toastMessage');
 
-  toastIcon.textContent = success ? '' : '';
+  toastIcon.textContent = success ? '✓' : '!';
   if (html) {
     toastMessage.innerHTML = message;
   } else {
