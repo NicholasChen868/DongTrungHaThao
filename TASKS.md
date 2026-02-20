@@ -1,5 +1,5 @@
 # 📋 Implementation Tasks — Đông Trùng Hạ Thảo (maldalladuyduc)
-> Cập nhật lần cuối: **2026-02-20 11:49**
+> Cập nhật lần cuối: **2026-02-20 11:55**
 
 ---
 
@@ -123,9 +123,12 @@
 - [ ] Push notifications (đơn hàng mới, điểm CTV)
 
 ### 🔍 SEO & Marketing
-- [ ] Sitemap.xml
-- [ ] Schema.org structured data
-- [ ] Open Graph meta tags
+- [x] Sitemap.xml
+- [x] Schema.org structured data (Organization + Product)
+- [x] Open Graph meta tags (full: url, locale, site_name)
+- [x] Twitter Card meta tags
+- [x] Canonical URL
+- [x] Robots.txt (+ noindex admin)
 - [ ] Blog/Tin tức về Đông Trùng Hạ Thảo
 - [ ] Landing pages cho từng sản phẩm
 
