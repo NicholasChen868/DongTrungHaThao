@@ -1,23 +1,30 @@
-import { product } from '../data/products.js';
-import { testimonials } from '../data/testimonials.js';
-import { affiliateTiers, affiliateProgram } from '../data/affiliateTiers.js';
-import { processSteps } from '../data/processSteps.js';
+import { fetchAllData } from './data.js';
 
 // ===================================
 // INITIALIZATION
 // ===================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Start non-data-dependent init immediately
   initNavbar();
   initHeroParticles();
   initCountUp();
-  renderBenefits();
-  renderProcess();
-  renderProduct();
-  renderTestimonials();
-  renderAffiliateSteps();
-  renderAffiliateTiers();
-  initCarousel();
-  initQuantitySelector();
+
+  // Fetch all data from Supabase (falls back to local data)
+  const { product, testimonials, processSteps, affiliateTiers, affiliateSteps } = await fetchAllData();
+
+  // Store globally for quantity selector / order form
+  window.__product = product;
+  window.__testimonials = testimonials;
+
+  // Render data-dependent sections
+  renderBenefits(product);
+  renderProcess(processSteps);
+  renderProduct(product);
+  renderTestimonials(testimonials);
+  renderAffiliateSteps(affiliateSteps);
+  renderAffiliateTiers(affiliateTiers);
+  initCarousel(testimonials);
+  initQuantitySelector(product);
   initOrderForm();
   initCtvForm();
   initScrollAnimations();
@@ -119,9 +126,9 @@ function animateCount(el, target) {
 // ===================================
 // RENDER BENEFITS
 // ===================================
-function renderBenefits() {
+function renderBenefits(product) {
   const grid = document.getElementById('benefitsGrid');
-  if (!grid) return;
+  if (!grid || !product) return;
 
   grid.innerHTML = product.benefits.map((b, i) => `
     <div class="benefit-card animate-on-scroll" style="transition-delay: ${i * 0.1}s">
@@ -135,9 +142,9 @@ function renderBenefits() {
 // ===================================
 // RENDER PROCESS TIMELINE
 // ===================================
-function renderProcess() {
+function renderProcess(processSteps) {
   const timeline = document.getElementById('processTimeline');
-  if (!timeline) return;
+  if (!timeline || !processSteps) return;
 
   timeline.innerHTML = processSteps.map((step, i) => `
     <div class="process-item animate-on-scroll" style="transition-delay: ${i * 0.1}s">
@@ -155,7 +162,8 @@ function renderProcess() {
 // ===================================
 // RENDER PRODUCT
 // ===================================
-function renderProduct() {
+function renderProduct(product) {
+  if (!product) return;
   const nameEl = document.getElementById('productName');
   const descEl = document.getElementById('productDesc');
   const capsulesEl = document.getElementById('productCapsules');
@@ -183,10 +191,10 @@ function renderProduct() {
 // ===================================
 // RENDER TESTIMONIALS
 // ===================================
-function renderTestimonials() {
+function renderTestimonials(testimonials) {
   const track = document.getElementById('testimonialsTrack');
   const dots = document.getElementById('carouselDots');
-  if (!track || !dots) return;
+  if (!track || !dots || !testimonials) return;
 
   track.innerHTML = testimonials.map(t => `
     <div class="testimonial-card">
@@ -212,13 +220,13 @@ function renderTestimonials() {
 // ===================================
 // CAROUSEL
 // ===================================
-function initCarousel() {
+function initCarousel(testimonials) {
   const track = document.getElementById('testimonialsTrack');
   const prevBtn = document.getElementById('carouselPrev');
   const nextBtn = document.getElementById('carouselNext');
   const dotsContainer = document.getElementById('carouselDots');
 
-  if (!track || !prevBtn || !nextBtn) return;
+  if (!track || !prevBtn || !nextBtn || !testimonials) return;
 
   let current = 0;
   const total = testimonials.length;
@@ -251,11 +259,11 @@ function initCarousel() {
 // ===================================
 // AFFILIATE STEPS
 // ===================================
-function renderAffiliateSteps() {
+function renderAffiliateSteps(steps) {
   const container = document.getElementById('affiliateSteps');
-  if (!container) return;
+  if (!container || !steps) return;
 
-  container.innerHTML = affiliateProgram.howItWorks.map((s, i) => `
+  container.innerHTML = steps.map((s, i) => `
     <div class="affiliate-step animate-on-scroll" style="transition-delay: ${i * 0.1}s">
       <div class="step-number">${s.step}</div>
       <h3 class="step-title">${s.title}</h3>
@@ -267,9 +275,9 @@ function renderAffiliateSteps() {
 // ===================================
 // AFFILIATE TIERS
 // ===================================
-function renderAffiliateTiers() {
+function renderAffiliateTiers(affiliateTiers) {
   const container = document.getElementById('affiliateTiers');
-  if (!container) return;
+  if (!container || !affiliateTiers) return;
 
   container.innerHTML = affiliateTiers.map((tier, i) => `
     <div class="tier-card animate-on-scroll" style="transition-delay: ${i * 0.1}s">
@@ -289,13 +297,13 @@ function renderAffiliateTiers() {
 // ===================================
 // QUANTITY SELECTOR
 // ===================================
-function initQuantitySelector() {
+function initQuantitySelector(product) {
   const minusBtn = document.getElementById('qtyMinus');
   const plusBtn = document.getElementById('qtyPlus');
   const valueEl = document.getElementById('qtyValue');
   const totalEl = document.getElementById('totalPrice');
 
-  if (!minusBtn || !plusBtn) return;
+  if (!minusBtn || !plusBtn || !product) return;
 
   let qty = 1;
 
