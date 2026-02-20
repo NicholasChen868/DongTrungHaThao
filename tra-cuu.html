@@ -462,6 +462,7 @@
 
     <script type="module">
         import { supabase } from './src/supabase.js';
+        import { escapeHTML } from './src/utils/sanitize.js';
         import './src/utils/tracker.js';
 
         function showToast(msg, isError = false) {
@@ -513,10 +514,7 @@
             btn.textContent = 'Đang tìm...';
 
             try {
-                const { data: orders, error } = await supabase.from('orders')
-                    .select('*')
-                    .eq('phone', phone)
-                    .order('created_at', { ascending: false });
+                const { data: orders, error } = await supabase.rpc('track_orders', { p_phone: phone });
 
                 if (error) throw error;
 
@@ -529,7 +527,7 @@
                     countEl.textContent = '0';
                     orderList.innerHTML = `<div class="empty-state">
                         <div class="icon">🔍</div>
-                        <p>Không tìm thấy đơn hàng với SĐT <strong>${phone}</strong></p>
+                        <p>Không tìm thấy đơn hàng với SĐT <strong>${escapeHTML(phone)}</strong></p>
                         <p style="margin-top:8px;font-size:13px">Kiểm tra lại SĐT hoặc <a href="/#contact" style="color:var(--gold)">đặt hàng ngay</a></p>
                     </div>`;
                     return;
@@ -554,7 +552,7 @@
                         <div class="order-details">
                             <div class="order-field">
                                 <div class="label">Khách hàng</div>
-                                <div class="value">${o.customer_name}</div>
+                                <div class="value">${escapeHTML(o.customer_name)}</div>
                             </div>
                             <div class="order-field">
                                 <div class="label">Số lượng</div>
@@ -570,7 +568,7 @@
                             </div>
                             ${o.address ? `<div class="order-field" style="grid-column: 1/-1">
                                 <div class="label">Địa chỉ</div>
-                                <div class="value">${o.address}</div>
+                                <div class="value">${escapeHTML(o.address)}</div>
                             </div>` : ''}
                         </div>
                         ${renderTimeline(o.status)}

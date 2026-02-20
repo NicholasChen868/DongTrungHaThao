@@ -526,7 +526,7 @@
             display: none !important;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous">
 </head>
 
 <body>
@@ -767,10 +767,31 @@
         import { checkRateLimit, recordAttempt } from './src/utils/ratelimit.js';
 
         // --- Config ---
-        const ADMIN_HASH = '6445e373d7fcde106bfcb897ee8f0bb28589bd7797f54f1ef4e5d5447cfbd011'; // sha256 of 'matkhau'
+        const ADMIN_HASH = '6445e373d7fcde106bfcb897ee8f0bb28589bd7797f54f1ef4e5d5447cfbd011';
+        const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
         const loginScreen = document.getElementById('adminLogin');
         const sidebar = document.getElementById('adminSidebar');
         const main = document.getElementById('adminMain');
+
+        // --- Session timeout ---
+        let sessionTimer;
+        function resetSessionTimer() {
+            clearTimeout(sessionTimer);
+            if (sessionStorage.getItem('admin_hash')) {
+                sessionStorage.setItem('admin_session_ts', Date.now().toString());
+                sessionTimer = setTimeout(() => {
+                    sessionStorage.removeItem('admin_hash');
+                    sessionStorage.removeItem('admin_session_ts');
+                    showAdminToast('Phiên đã hết hạn. Vui lòng đăng nhập lại.', 'error');
+                    setTimeout(() => location.reload(), 1500);
+                }, SESSION_TIMEOUT_MS);
+            }
+        }
+        ['click', 'keydown', 'scroll', 'mousemove'].forEach(evt =>
+            document.addEventListener(evt, () => {
+                if (sessionStorage.getItem('admin_hash')) resetSessionTimer();
+            }, { passive: true })
+        );
 
         // --- Simple hash ---
         async function sha256(str) {
@@ -791,9 +812,16 @@
             return sessionStorage.getItem('admin_hash') || '';
         }
 
-        // --- Check session ---
+        // --- Check session (with timeout validation) ---
         if (sessionStorage.getItem('admin_hash')) {
-            showDashboard();
+            const ts = parseInt(sessionStorage.getItem('admin_session_ts') || '0');
+            if (Date.now() - ts > SESSION_TIMEOUT_MS) {
+                sessionStorage.removeItem('admin_hash');
+                sessionStorage.removeItem('admin_session_ts');
+            } else {
+                resetSessionTimer();
+                showDashboard();
+            }
         }
 
         // --- Login ---
@@ -814,6 +842,7 @@
 
             if (hash === ADMIN_HASH) {
                 sessionStorage.setItem('admin_hash', hash);
+                resetSessionTimer();
                 showDashboard();
             } else {
                 document.getElementById('adminLoginError').style.display = 'block';
@@ -986,12 +1015,13 @@
                     <thead><tr>${headers}</tr></thead>
                     <tbody>
                         ${data.map(o => {
+                const oid = parseInt(o.id);
                 const actions = o.status === 'pending'
-                    ? `<button class="btn-action btn-approve" onclick="updateOrder(${o.id},'confirmed')">✓ Duyệt</button><button class="btn-action btn-reject" onclick="updateOrder(${o.id},'cancelled')">✗ Hủy</button>`
+                    ? `<button class="btn-action btn-approve" onclick="updateOrder(${oid},'confirmed')">✓ Duyệt</button><button class="btn-action btn-reject" onclick="updateOrder(${oid},'cancelled')">✗ Hủy</button>`
                     : o.status === 'confirmed'
-                        ? `<button class="btn-action btn-ship" onclick="updateOrder(${o.id},'shipping')">🚚 Giao</button>`
+                        ? `<button class="btn-action btn-ship" onclick="updateOrder(${oid},'shipping')">🚚 Giao</button>`
                         : o.status === 'shipping'
-                            ? `<button class="btn-action btn-approve" onclick="updateOrder(${o.id},'completed')">✓ Xong</button>`
+                            ? `<button class="btn-action btn-approve" onclick="updateOrder(${oid},'completed')">✓ Xong</button>`
                             : '—';
                 if (compact) {
                     return `<tr>
@@ -1064,8 +1094,8 @@
                         ${data.map(c => {
                 const nextTier = c.tier === 'silver' ? 'gold' : c.tier === 'gold' ? 'diamond' : null;
                 const upgradeBtn = nextTier
-                    ? `<button class="btn-action btn-approve" onclick="upgradeCTV('${c.referral_code}','${nextTier}')">${tierMap[nextTier]}</button>`
-                    : '<span style="color:var(--text-muted)">Max</span>';
+                    ? `<button class="btn-action btn-approve" data-ref="${escapeHTML(c.referral_code)}" data-tier="${escapeHTML(nextTier)}" onclick="upgradeCTV(this.dataset.ref,this.dataset.tier)">${tierMap[nextTier]}</button>`
+                    : '<span class="text-muted">Max</span>';
                 return `<tr>
                                 <td><code>${escapeHTML(c.referral_code)}</code></td>
                                 <td>${escapeHTML(c.name)}</td>
@@ -1180,8 +1210,7 @@
         // --- ANALYTICS (via admin RPC) ---
         async function loadAdminWithdrawals() {
             try {
-                const { data } = await supabase.from('withdrawals')
-                    .select('*').order('created_at', { ascending: false });
+                const { data } = await supabase.rpc('admin_list_withdrawals', { p_admin_hash: getAdminHash() });
 
                 const container = document.getElementById('allWithdrawals');
                 if (!data?.length) {
@@ -1233,7 +1262,9 @@
             const label = { approved: 'duyệt', rejected: 'từ chối', paid: 'xác nhận đã thanh toán' };
             if (!confirm(`Xác nhận ${label[newStatus]} yêu cầu #${id}?`)) return;
             try {
-                const { error } = await supabase.from('withdrawals').update({ status: newStatus }).eq('id', id);
+                const { error } = await supabase.rpc('admin_process_withdrawal', {
+                    p_admin_hash: getAdminHash(), p_withdrawal_id: id, p_status: newStatus
+                });
                 if (error) throw error;
                 showAdminToast(`Yêu cầu #${id} → ${label[newStatus]}`);
                 loaded.withdrawals = false;

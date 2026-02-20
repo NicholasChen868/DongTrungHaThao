@@ -597,7 +597,7 @@
                     <div class="post-actions">
                         <span class="post-stat">👁️ ${parseInt(p.views) || 0}</span>
                         <span class="post-stat">❤️ ${parseInt(p.likes) || 0}</span>
-                        <button class="btn-share" onclick="sharePost(${parseInt(p.id)}, '${shareTitle}', '${shareUrl}')">📤 Chia sẻ</button>
+                        <button class="btn-share" data-id="${parseInt(p.id)}" data-title="${escapeHTML(shareTitle)}" data-url="${escapeHTML(shareUrl)}" onclick="sharePost(+this.dataset.id, this.dataset.title, this.dataset.url)">📤 Chia sẻ</button>
                     </div>
                 </article>`;
             }).join('');

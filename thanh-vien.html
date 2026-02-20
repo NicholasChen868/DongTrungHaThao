@@ -557,6 +557,7 @@
                 sessionStorage.setItem('member_name', data.name);
                 sessionStorage.setItem('member_phone', data.phone);
                 sessionStorage.setItem('member_hash', pwHash);
+                resetMemberSession();
                 showDashboard(data);
             } catch (err) {
                 errEl.textContent = 'Lỗi: ' + (err.message || 'Thử lại sau');
@@ -602,6 +603,7 @@
                 sessionStorage.setItem('member_name', data.name);
                 sessionStorage.setItem('member_phone', data.phone);
                 sessionStorage.setItem('member_hash', pwHash);
+                resetMemberSession();
                 showToast(`Chào ${data.name}! 💛`);
                 showDashboard(data);
             } catch (err) {
@@ -613,17 +615,42 @@
             }
         };
 
-        // --- Session check ---
+        // --- Session timeout (60 minutes) ---
+        const MEMBER_SESSION_TIMEOUT = 60 * 60 * 1000;
+        let memberSessionTimer;
+        function resetMemberSession() {
+            clearTimeout(memberSessionTimer);
+            if (sessionStorage.getItem('member_phone')) {
+                sessionStorage.setItem('member_session_ts', Date.now().toString());
+                memberSessionTimer = setTimeout(() => {
+                    sessionStorage.clear();
+                    showToast('Phiên đã hết hạn. Vui lòng đăng nhập lại.', true);
+                    setTimeout(() => location.reload(), 1500);
+                }, MEMBER_SESSION_TIMEOUT);
+            }
+        }
+        ['click', 'keydown', 'scroll'].forEach(evt =>
+            document.addEventListener(evt, () => {
+                if (sessionStorage.getItem('member_phone')) resetMemberSession();
+            }, { passive: true })
+        );
+
+        // --- Session check (with timeout validation) ---
         const savedPhone = sessionStorage.getItem('member_phone');
         const savedHash = sessionStorage.getItem('member_hash');
         if (savedPhone && savedHash) {
-            (async () => {
-                const { data } = await supabase.rpc('authenticate_member', {
-                    p_phone: savedPhone, p_password_hash: savedHash
-                });
-                if (data) showDashboard(data);
-                else { sessionStorage.clear(); }
-            })();
+            const ts = parseInt(sessionStorage.getItem('member_session_ts') || '0');
+            if (Date.now() - ts > MEMBER_SESSION_TIMEOUT) {
+                sessionStorage.clear();
+            } else {
+                (async () => {
+                    const { data } = await supabase.rpc('authenticate_member', {
+                        p_phone: savedPhone, p_password_hash: savedHash
+                    });
+                    if (data) { resetMemberSession(); showDashboard(data); }
+                    else { sessionStorage.clear(); }
+                })();
+            }
         }
 
         // --- Show dashboard ---
