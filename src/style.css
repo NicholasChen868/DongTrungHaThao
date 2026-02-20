@@ -101,6 +101,11 @@ img {
   color: var(--gold-light);
 }
 
+.brand-accent {
+  color: var(--gold-primary);
+  font-weight: inherit;
+}
+
 /* --- Buttons --- */
 .btn {
   display: inline-flex;
