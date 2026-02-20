@@ -91,7 +91,7 @@
 - [x] Thêm chức năng duyệt/từ chối đơn hàng
 - [x] Thêm chức năng nâng hạng CTV
 - [ ] Đổi password mặc định → password riêng
-- [ ] Export dữ liệu CSV
+- [x] Export dữ liệu CSV (đơn hàng + CTV)
 - [ ] Thêm biểu đồ doanh thu (chart)
 
 ### 📈 Analytics

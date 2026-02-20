@@ -526,6 +526,7 @@
             display: none !important;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 </head>
 
 <body>
@@ -678,9 +679,27 @@
 
             <!-- ANALYTICS SECTION -->
             <div class="admin-section" id="section-analytics">
+                <div class="overview-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 24px;">
+                    <div class="overview-card">
+                        <div class="label">Đơn tháng này</div>
+                        <div class="value" id="anMonthOrders">—</div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="label">Doanh thu tháng này</div>
+                        <div class="value" id="anMonthRevenue">—</div>
+                    </div>
+                </div>
                 <div class="admin-panel">
-                    <h3>📈 Thống Kê Truy Cập</h3>
-                    <div class="admin-empty">Analytics dashboard — sắp ra mắt</div>
+                    <h3>📈 Doanh Thu 30 Ngày Gần Đây</h3>
+                    <div style="position:relative;height:300px">
+                        <canvas id="chartRevenue"></canvas>
+                    </div>
+                </div>
+                <div class="admin-panel" style="margin-top:20px">
+                    <h3>📦 Đơn Hàng Theo Trạng Thái</h3>
+                    <div style="position:relative;height:280px;max-width:400px;margin:0 auto">
+                        <canvas id="chartStatus"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -694,7 +713,7 @@
         import { supabase } from './src/supabase.js';
 
         // --- Config ---
-        const ADMIN_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'; // sha256 of 'password' — CHANGE THIS
+        const ADMIN_HASH = '6445e373d7fcde106bfcb897ee8f0bb28589bd7797f54f1ef4e5d5447cfbd011'; // sha256 of 'matkhau'
         const loginScreen = document.getElementById('adminLogin');
         const sidebar = document.getElementById('adminSidebar');
         const main = document.getElementById('adminMain');
@@ -778,6 +797,7 @@
                 case 'ctv': await loadCTVList(); break;
                 case 'testimonials': await loadTestimonials(); break;
                 case 'contacts': await loadContacts(); break;
+                case 'analytics': await loadAnalytics(); break;
             }
         }
 
@@ -1034,6 +1054,129 @@
                 .select('*').order('created_at', { ascending: false }).limit(50);
             renderTable('allContacts', data, ['id', 'name', 'phone', 'email', 'message', 'created_at'],
                 ['ID', 'Tên', 'SĐT', 'Email', 'Nội dung', 'Ngày gửi']);
+        }
+
+        // --- ANALYTICS ---
+        async function loadAnalytics() {
+            try {
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+                const { data: orders } = await supabase.from('orders')
+                    .select('total_amount, status, created_at')
+                    .gte('created_at', thirtyDaysAgo.toISOString());
+
+                if (!orders?.length) {
+                    document.getElementById('anMonthOrders').textContent = '0';
+                    document.getElementById('anMonthRevenue').textContent = '0₫';
+                    return;
+                }
+
+                // Month stats
+                const now = new Date();
+                const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+                const monthOrders = orders.filter(o => o.created_at >= monthStart);
+                const monthCompleted = monthOrders.filter(o => o.status === 'completed');
+                document.getElementById('anMonthOrders').textContent = monthOrders.length;
+                document.getElementById('anMonthRevenue').textContent =
+                    monthCompleted.reduce((s, o) => s + (o.total_amount || 0), 0).toLocaleString('vi-VN') + '₫';
+
+                // --- Bar chart: Revenue by day ---
+                const dayMap = {};
+                for (let i = 29; i >= 0; i--) {
+                    const d = new Date();
+                    d.setDate(d.getDate() - i);
+                    const key = d.toISOString().slice(5, 10); // MM-DD
+                    dayMap[key] = 0;
+                }
+                orders.filter(o => o.status !== 'cancelled').forEach(o => {
+                    const key = o.created_at.slice(5, 10);
+                    if (dayMap[key] !== undefined) dayMap[key] += (o.total_amount || 0);
+                });
+
+                const chartColors = {
+                    gold: 'rgba(212, 168, 83, 0.8)',
+                    goldBorder: 'rgba(212, 168, 83, 1)',
+                    gridColor: 'rgba(255,255,255,0.06)',
+                    textColor: '#a09888',
+                };
+
+                new Chart(document.getElementById('chartRevenue'), {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(dayMap).map(k => k.replace('-', '/')),
+                        datasets: [{
+                            label: 'Doanh thu (₫)',
+                            data: Object.values(dayMap),
+                            backgroundColor: chartColors.gold,
+                            borderColor: chartColors.goldBorder,
+                            borderWidth: 1,
+                            borderRadius: 4,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: (ctx) => ctx.raw.toLocaleString('vi-VN') + '₫'
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: chartColors.gridColor },
+                                ticks: {
+                                    color: chartColors.textColor,
+                                    callback: (v) => v >= 1000000 ? (v / 1000000) + 'M' : v >= 1000 ? (v / 1000) + 'K' : v
+                                }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: chartColors.textColor, maxRotation: 45 }
+                            }
+                        }
+                    }
+                });
+
+                // --- Doughnut chart: Status breakdown ---
+                const statusCount = { pending: 0, confirmed: 0, shipping: 0, completed: 0, cancelled: 0 };
+                orders.forEach(o => { if (statusCount[o.status] !== undefined) statusCount[o.status]++; });
+
+                new Chart(document.getElementById('chartStatus'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Chờ duyệt', 'Đã duyệt', 'Đang giao', 'Hoàn thành', 'Đã hủy'],
+                        datasets: [{
+                            data: Object.values(statusCount),
+                            backgroundColor: [
+                                'rgba(251,191,36,0.7)',
+                                'rgba(96,165,250,0.7)',
+                                'rgba(129,140,248,0.7)',
+                                'rgba(74,222,128,0.7)',
+                                'rgba(248,113,113,0.7)',
+                            ],
+                            borderWidth: 0,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: chartColors.textColor, padding: 16, font: { size: 13 } }
+                            }
+                        }
+                    }
+                });
+
+            } catch (err) {
+                console.error('Analytics error:', err);
+            }
         }
 
         // --- Generic render table helper ---
