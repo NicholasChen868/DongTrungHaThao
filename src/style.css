@@ -98,10 +98,7 @@ img {
 }
 
 .text-gold {
-  background: var(--gold-text-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--gold-light);
 }
 
 /* --- Buttons --- */
@@ -116,7 +113,7 @@ img {
   font-weight: 600;
   cursor: pointer;
   border: none;
-  transition: all var(--transition-base);
+  transition: border-color 0.2s ease;
   text-transform: none;
   letter-spacing: 0.02em;
 }
@@ -209,18 +206,7 @@ img {
   opacity: 1;
 }
 
-/* All GPU-heavy keyframes removed (float, pulse-gold, scroll-down)
-   Only shimmer kept for text gradient */
-@keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-
-  100% {
-    background-position: 200% center;
-  }
-}
-
+/* All GPU-heavy keyframes removed — zero continuous animations */
 /* ===================================
    NAVBAR
    =================================== */
@@ -231,7 +217,7 @@ img {
   right: 0;
   z-index: 1000;
   padding: 16px 0;
-  transition: all var(--transition-base);
+  transition: border-color 0.2s ease;
 }
 
 .navbar.scrolled {
@@ -284,7 +270,7 @@ img {
   font-weight: 500;
   color: var(--text-secondary);
   border-radius: 50px;
-  transition: all var(--transition-fast);
+  transition: color 0.15s ease;
 }
 
 .nav-link:hover {
@@ -318,7 +304,7 @@ img {
   height: 2px;
   background: var(--text-primary);
   border-radius: 2px;
-  transition: all var(--transition-base);
+  transition: border-color 0.2s ease;
 }
 
 .nav-toggle.active span:nth-child(1) {
@@ -393,10 +379,7 @@ img {
 }
 
 .hero-title-accent {
-  background: var(--gold-text-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--gold-light);
 }
 
 .hero-title-brand {
@@ -504,7 +487,7 @@ img {
   border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 36px 28px;
-  transition: all var(--transition-base);
+  transition: border-color 0.2s ease;
   position: relative;
   overflow: hidden;
 }
@@ -610,7 +593,7 @@ img {
   justify-content: center;
   font-size: 1.3rem;
   z-index: 2;
-  transition: all var(--transition-base);
+  transition: border-color 0.2s ease;
 }
 
 .process-item:hover .process-dot {
@@ -622,7 +605,7 @@ img {
   border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 24px;
-  transition: all var(--transition-base);
+  transition: border-color 0.2s ease;
 }
 
 .process-item:hover .process-content {
@@ -721,7 +704,7 @@ img {
   font-size: 5rem;
   display: block;
   margin-bottom: 12px;
-  animation: float 3s ease-in-out infinite;
+  /* animation removed for GPU perf */
 }
 
 .product-badge-cert {
@@ -846,7 +829,7 @@ img {
   color: var(--text-primary);
   font-size: 1.2rem;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: color 0.15s ease;
 }
 
 .qty-btn:hover {
@@ -986,7 +969,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition-fast);
+  transition: color 0.15s ease;
 }
 
 .carousel-btn:hover {
@@ -1006,7 +989,7 @@ img {
   border-radius: 50%;
   background: var(--text-muted);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: color 0.15s ease;
 }
 
 .carousel-dot.active {
@@ -1033,7 +1016,7 @@ img {
   border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 32px;
-  transition: all var(--transition-base);
+  transition: border-color 0.2s ease;
 }
 
 .story-card:hover {
@@ -1186,7 +1169,7 @@ img {
   border: 1px solid var(--border-color);
   border-radius: 20px;
   position: relative;
-  transition: all var(--transition-base);
+  transition: border-color 0.2s ease;
 }
 
 .affiliate-step:hover {
@@ -1233,7 +1216,7 @@ img {
   border-radius: 20px;
   padding: 32px 24px;
   text-align: center;
-  transition: all var(--transition-base);
+  transition: border-color 0.2s ease;
   position: relative;
   overflow: hidden;
 }
@@ -1367,7 +1350,7 @@ textarea {
   color: var(--text-primary);
   font-family: var(--font-body);
   font-size: 1rem;
-  transition: all var(--transition-fast);
+  transition: color 0.15s ease;
   outline: none;
 }
 
@@ -1637,7 +1620,7 @@ textarea {
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
-  transition: all var(--transition-fast);
+  transition: color 0.15s ease;
 }
 
 .social-link:hover {
@@ -1724,7 +1707,7 @@ textarea {
   z-index: 9999;
   transform: translateY(100px);
   opacity: 0;
-  transition: all var(--transition-base);
+  transition: border-color 0.2s ease;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
   max-width: calc(100vw - 32px);
 }
