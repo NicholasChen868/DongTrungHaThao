@@ -11,6 +11,7 @@ export default defineConfig({
                 'thanh-vien': resolve(__dirname, 'thanh-vien.html'),
                 'cau-chuyen': resolve(__dirname, 'cau-chuyen.html'),
                 'chia-se': resolve(__dirname, 'chia-se.html'),
+                'tra-cuu': resolve(__dirname, 'tra-cuu.html'),
             },
         },
     },

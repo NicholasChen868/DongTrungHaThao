@@ -407,7 +407,7 @@ function initOrderForm() {
 
       if (error) throw error;
 
-      showToast(`Cảm ơn ${name}! Đơn hàng #${data.id} đã được ghi nhận. Chúng tôi sẽ liên hệ qua ${phone} sớm nhất.`);
+      showToast(`Cảm ơn ${name}! Đơn hàng #${data.id} đã được ghi nhận. Theo dõi tại: /tra-cuu.html`);
       form.reset();
       qtySelect.dispatchEvent(new Event('change'));
     } catch (err) {
