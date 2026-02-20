@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiếm Thu Nhập Thụ Động — Trở Thành CTV Đông Trùng Hạ Thảo</title>
+    <meta name="description"
+        content="Tham gia làm Cộng Tác Viên bán Đông Trùng Hạ Thảo — không cần vốn, không cần kho hàng, chỉ cần chia sẻ link và nhận hoa hồng lên tới 25%.">
+    <meta property="og:title" content="Kiếm Thu Nhập Thụ Động — CTV Đông Trùng Hạ Thảo">
+    <meta property="og:description"
+        content="Chia sẻ link, kiếm hoa hồng 10-25%. Không vốn, không kho. Đăng ký miễn phí.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dong-trung-ha-thao.vercel.app/tuyen-ctv.html">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #050505;
+            --bg-card: #0e0e0e;
+            --gold: #d4a853;
+            --gold-light: #e8c97a;
+            --gold-dim: rgba(212, 168, 83, 0.08);
+            --green: #4ade80;
+            --green-dim: rgba(74, 222, 128, 0.1);
+            --text: #f5f0e8;
+            --text-sec: #b0a596;
+            --text-muted: #665e52;
+            --border: rgba(212, 168, 83, 0.12);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Nav */
+        .r-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.9);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .r-nav a {
+            color: var(--text-sec);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .r-nav a:hover {
+            color: var(--gold-light);
+        }
+
+        .r-nav .brand {
+            font-weight: 700;
+            color: var(--gold-light);
+            font-size: 15px;
+        }
+
+        /* Hero */
+        .r-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .r-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 50% at center 30%, rgba(74, 222, 128, 0.06) 0%, transparent 100%);
+        }
+
+        .r-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+        }
+
+        .r-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            background: var(--green-dim);
+            color: var(--green);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        .r-hero h1 {
+            font-family: 'Lora', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .r-hero h1 .hl {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .r-hero .lead {
+            font-size: 1.15rem;
+            color: var(--text-sec);
+            max-width: 550px;
+            margin: 0 auto 32px;
+            line-height: 1.8;
+        }
+
+        .r-hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-green {
+            background: linear-gradient(135deg, #22c55e, #4ade80);
+            color: #000;
+        }
+
+        .btn-green:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 222, 128, 0.3);
+        }
+
+        .btn-ghost {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-sec);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--gold);
+            color: var(--gold-light);
+        }
+
+        /* Stats Banner */
+        .r-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin: -40px 24px 60px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .r-stat {
+            padding: 28px 20px;
+            text-align: center;
+            background: var(--bg-card);
+        }
+
+        .r-stat .num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold);
+        }
+
+        .r-stat .label {
+            font-size: 13px;
+            color: var(--text-sec);
+            margin-top: 4px;
+        }
+
+        /* How It Works */
+        .r-section {
+            padding: 80px 24px;
+        }
+
+        .r-section-title {
+            text-align: center;
+            font-family: 'Lora', serif;
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+
+        .r-section-title .hl {
+            color: var(--gold-light);
+        }
+
+        .r-section-sub {
+            text-align: center;
+            color: var(--text-sec);
+            max-width: 500px;
+            margin: 0 auto 48px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .step-num {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 28px;
+            background: var(--gold);
+            color: #000;
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            margin: 16px 0;
+        }
+
+        .step-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            color: var(--text-sec);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Income Calculator */
+        .calc-section {
+            background: rgba(74, 222, 128, 0.03);
+        }
+
+        .calc-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .calc-label {
+            font-size: 14px;
+            color: var(--text-sec);
+            margin-bottom: 8px;
+        }
+
+        .calc-slider {
+            width: 100%;
+            margin: 8px 0 24px;
+            accent-color: var(--gold);
+        }
+
+        .calc-result {
+            text-align: center;
+            padding: 24px;
+            background: var(--green-dim);
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .calc-result .amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .calc-result .period {
+            font-size: 14px;
+            color: var(--text-sec);
+            margin-top: 4px;
+        }
+
+        /* Tiers */
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tier-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tier-card.featured {
+            border-color: var(--gold);
+            background: linear-gradient(170deg, var(--bg-card), rgba(212, 168, 83, 0.06));
+        }
+
+        .tier-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .tier-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .tier-pct {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin: 8px 0;
+        }
+
+        .tier-req {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Dual Path */
+        .dual-path {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .path-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .path-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .path-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            color: var(--gold-light);
+        }
+
+        .path-list {
+            list-style: none;
+        }
+
+        .path-list li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--text-sec);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .path-list li::before {
+            content: '✓ ';
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        /* CTA Bottom */
+        .r-cta-section {
+            text-align: center;
+            padding: 100px 24px;
+            background: radial-gradient(ellipse 60% 40% at center, rgba(74, 222, 128, 0.06) 0%, transparent 100%);
+        }
+
+        .r-cta-section h2 {
+            font-family: 'Lora', serif;
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .r-cta-section .sub {
+            color: var(--text-sec);
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+
+        /* Guarantee */
+        .guarantee {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        .r-footer {
+            text-align: center;
+            padding: 28px;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+
+        .r-footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .r-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .r-stats {
+                grid-template-columns: repeat(2, 1fr);
+                margin-top: 0;
+            }
+
+            .steps-grid,
+            .tiers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dual-path {
+                grid-template-columns: 1fr;
+            }
+
+            .r-nav {
+                padding: 12px 16px;
+            }
+
+            .calc-box {
+                padding: 24px;
+            }
+        }
+
+        /* Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Nav -->
+    <nav class="r-nav">
+        <a href="/">← Trang chủ</a>
+        <span class="brand">💰 Tuyển CTV</span>
+        <a href="/ctv-dashboard.html">Đăng Nhập CTV</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="r-hero">
+        <div class="r-hero-content">
+            <div class="r-badge">🔥 ĐANG TUYỂN — MIỄN PHÍ ĐĂNG KÝ</div>
+            <h1>Kiếm <span class="hl">Thu Nhập Thụ Động</span> Mỗi Ngày</h1>
+            <p class="lead">
+                Chia sẻ link sản phẩm Đông Trùng Hạ Thảo chất lượng cao.
+                Mỗi đơn thành công bạn nhận ngay hoa hồng <strong>10% — 25%</strong>.
+                Không cần vốn. Không cần kho hàng. Không áp doanh số.
+            </p>
+            <div class="r-hero-cta">
+                <a href="/ctv-dashboard.html" class="btn-cta btn-green">Đăng Ký Ngay — Miễn Phí</a>
+                <a href="#how" class="btn-cta btn-ghost">Tìm Hiểu Thêm ↓</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="r-stats reveal">
+        <div class="r-stat">
+            <div class="num">500+</div>
+            <div class="label">CTV đang hoạt động</div>
+        </div>
+        <div class="r-stat">
+            <div class="num">25%</div>
+            <div class="label">Hoa hồng cao nhất</div>
+        </div>
+        <div class="r-stat">
+            <div class="num">48h</div>
+            <div class="label">Duyệt rút tiền</div>
+        </div>
+        <div class="r-stat">
+            <div class="num">0₫</div>
+            <div class="label">Chi phí tham gia</div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <section class="r-section" id="how">
+        <div class="container">
+            <h2 class="r-section-title reveal">Cách <span class="hl">Kiếm Tiền</span> Đơn Giản</h2>
+            <p class="r-section-sub reveal">Chỉ 3 bước, bạn đã bắt đầu có thu nhập</p>
+            <div class="steps-grid">
+                <div class="step-card reveal">
+                    <div class="step-num">1</div>
+                    <div class="step-icon">📝</div>
+                    <div class="step-title">Đăng Ký Miễn Phí</div>
+                    <div class="step-desc">Tạo tài khoản CTV trong 30 giây. Nhận mã giới thiệu cá nhân ngay lập tức.
+                    </div>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-num">2</div>
+                    <div class="step-icon">🔗</div>
+                    <div class="step-title">Chia Sẻ Link</div>
+                    <div class="step-desc">Copy link giới thiệu, gửi qua Facebook, Zalo, TikTok. Khi ai đó click và đặt
+                        hàng — bạn được ghi nhận.</div>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-num">3</div>
+                    <div class="step-icon">💰</div>
+                    <div class="step-title">Nhận Hoa Hồng</div>
+                    <div class="step-desc">Hoa hồng tự động cộng vào ví. Rút tiền bất cứ lúc nào qua ngân hàng hoặc ví
+                        điện tử.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Income Calculator -->
+    <section class="r-section calc-section" id="calc">
+        <div class="container">
+            <h2 class="r-section-title reveal">Bạn Có Thể Kiếm <span class="hl">Bao Nhiêu?</span></h2>
+            <p class="r-section-sub reveal">Kéo thanh trượt để ước tính thu nhập hàng tháng</p>
+            <div class="calc-box reveal">
+                <div class="calc-label">Số đơn hàng bạn có thể mang về mỗi tháng:</div>
+                <input type="range" class="calc-slider" id="calcSlider" min="1" max="50" value="5">
+                <div style="text-align:center;font-size:1.5rem;font-weight:700;color:var(--gold);">
+                    <span id="calcOrders">5</span> đơn / tháng
+                </div>
+                <div class="calc-result">
+                    <div class="amount" id="calcAmount">725.000₫</div>
+                    <div class="period">Thu nhập ước tính mỗi tháng (hoa hồng 10%)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tiers -->
+    <section class="r-section">
+        <div class="container">
+            <h2 class="r-section-title reveal">Bậc <span class="hl">Hoa Hồng</span></h2>
+            <p class="r-section-sub reveal">Bán càng nhiều — hoa hồng càng cao</p>
+            <div class="tiers-grid">
+                <div class="tier-card reveal">
+                    <div class="tier-icon">🥈</div>
+                    <div class="tier-name">Bạc</div>
+                    <div class="tier-pct">10%</div>
+                    <div class="tier-req">Khởi điểm</div>
+                </div>
+                <div class="tier-card featured reveal">
+                    <div class="tier-icon">🥇</div>
+                    <div class="tier-name">Vàng</div>
+                    <div class="tier-pct">15%</div>
+                    <div class="tier-req">Từ 10 đơn / tháng</div>
+                </div>
+                <div class="tier-card reveal">
+                    <div class="tier-icon">💎</div>
+                    <div class="tier-name">Kim Cương</div>
+                    <div class="tier-pct">25%</div>
+                    <div class="tier-req">Từ 30 đơn / tháng</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dual Path: CTV + BTV -->
+    <section class="r-section">
+        <div class="container">
+            <h2 class="r-section-title reveal">2 Con Đường <span class="hl">Kiếm Tiền</span></h2>
+            <p class="r-section-sub reveal">Chọn phong cách phù hợp với bạn — hoặc làm cả hai!</p>
+            <div class="dual-path">
+                <div class="path-card reveal">
+                    <div class="path-icon">🤝</div>
+                    <div class="path-title">Cộng Tác Viên Bán Hàng</div>
+                    <ul class="path-list">
+                        <li>Chia sẻ link sản phẩm lên MXH</li>
+                        <li>Giới thiệu trực tiếp cho bạn bè</li>
+                        <li>Hoa hồng 10% — 25% mỗi đơn</li>
+                        <li>Theo dõi doanh thu real-time</li>
+                        <li>Rút tiền qua ngân hàng, Momo, ZaloPay</li>
+                    </ul>
+                </div>
+                <div class="path-card reveal">
+                    <div class="path-icon">✍️</div>
+                    <div class="path-title">Biên Tập Viên Nội Dung</div>
+                    <ul class="path-list">
+                        <li>Viết bài chia sẻ kinh nghiệm sức khỏe</li>
+                        <li>Nhận 30,000đ nhuận bút mỗi bài duyệt</li>
+                        <li>Tích điểm tương tác (Like, View)</li>
+                        <li>Bài viết kèm link mua — ăn chiết khấu</li>
+                        <li>Thi Biên Tập Viên Xuất Sắc Tháng</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="r-cta-section">
+        <h2 class="reveal">Bắt Đầu <span class="hl">Ngay Hôm Nay</span></h2>
+        <p class="sub reveal">Đăng ký miễn phí, nhận link giới thiệu, và bắt đầu kiếm thu nhập ngay lập tức.</p>
+        <a href="/ctv-dashboard.html" class="btn-cta btn-green reveal">Đăng Ký CTV — Miễn Phí</a>
+        <div class="guarantee reveal">
+            🔒 Không thu phí • Không áp doanh số • Rút tiền bất cứ lúc nào
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="r-footer">
+        <p>© 2026 <a href="/">Maldala Duy Đức</a> — Đông Trùng Hạ Thảo Nguyên Chất</p>
+    </footer>
+
+    <script>
+        // Income calculator
+        const slider = document.getElementById('calcSlider');
+        const ordersEl = document.getElementById('calcOrders');
+        const amountEl = document.getElementById('calcAmount');
+        const unitPrice = 1450000;
+
+        slider.addEventListener('input', () => {
+            const orders = parseInt(slider.value);
+            ordersEl.textContent = orders;
+
+            let pct = 0.10;
+            if (orders >= 30) pct = 0.25;
+            else if (orders >= 10) pct = 0.15;
+
+            const income = Math.round(orders * unitPrice * pct);
+            amountEl.textContent = income.toLocaleString('vi-VN') + '₫';
+        });
+
+        // Reveal on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    observer.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+    <script type="module">import './src/utils/tracker.js';</script>
+</body>
+
+</html>

@@ -392,6 +392,128 @@
                 gap: 24px;
             }
         }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal.delay-1 {
+            transition-delay: 0.15s;
+        }
+
+        .reveal.delay-2 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal.delay-3 {
+            transition-delay: 0.45s;
+        }
+
+        /* Reading Progress Bar */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            z-index: 200;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Chapter fade-in variation */
+        .chapter-inner>* {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .chapter-inner.animate>*:nth-child(1) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0s;
+        }
+
+        .chapter-inner.animate>*:nth-child(2) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.12s;
+        }
+
+        .chapter-inner.animate>*:nth-child(3) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.24s;
+        }
+
+        .chapter-inner.animate>*:nth-child(4) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.36s;
+        }
+
+        .chapter-inner.animate>*:nth-child(5) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.48s;
+        }
+
+        .chapter-inner.animate>*:nth-child(6) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.6s;
+        }
+
+        .chapter-inner.animate>*:nth-child(7) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.72s;
+        }
+
+        .chapter-inner.animate>*:nth-child(8) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.84s;
+        }
+
+        .chapter-inner.animate>*:nth-child(9) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.96s;
+        }
+
+        /* Pull stat reveal */
+        .pull-stat-item {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .pull-stat.visible .pull-stat-item:nth-child(1) {
+            opacity: 1;
+            transform: scale(1);
+            transition-delay: 0s;
+        }
+
+        .pull-stat.visible .pull-stat-item:nth-child(2) {
+            opacity: 1;
+            transform: scale(1);
+            transition-delay: 0.15s;
+        }
+
+        .pull-stat.visible .pull-stat-item:nth-child(3) {
+            opacity: 1;
+            transform: scale(1);
+            transition-delay: 0.3s;
+        }
     </style>
 </head>
 
@@ -684,6 +806,54 @@
         <p>© 2026 <a href="/">maldalladuyduc</a> — Một sản phẩm. Một câu chuyện. Một cam kết.</p>
     </footer>
     <script type="module">import './src/utils/tracker.js';</script>
+
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <script>
+        // Reading progress bar
+        window.addEventListener('scroll', () => {
+            const docH = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = Math.min((window.scrollY / docH) * 100, 100);
+            document.getElementById('readingProgress').style.width = pct + '%';
+        });
+
+        // Chapter inner stagger animation
+        const chapterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('animate');
+                    chapterObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.chapter-inner').forEach(el => chapterObserver.observe(el));
+
+        // Pull stat reveal
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    statObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.pull-stat').forEach(el => statObserver.observe(el));
+
+        // Generic reveal
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    revealObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    </script>
 </body>
 
 </html>
