@@ -455,11 +455,133 @@
     <script type="module">
         import { analyzeNguHanh, getHealthMap, generateGreeting } from './src/utils/ngu-hanh.js';
         import { escapeHTML } from './src/utils/sanitize.js';
+        import { supabase } from './src/supabase.js';
+
+        // URL params
+        const params = new URLSearchParams(window.location.search);
+        const shareParam = params.get('share');
+        const refParam = params.get('ref');
 
         // Listen to Enter key
         document.getElementById('birthYear').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') analyzeHanh();
         });
+
+        // Render result (shared between fresh analysis and loaded share)
+        function renderResult(nameInput, year) {
+            const healthMap = getHealthMap(year);
+            if (!healthMap) return null;
+
+            const rawData = analyzeNguHanh(year);
+            document.documentElement.style.setProperty('--element-color', healthMap.color);
+
+            const container = document.getElementById('resultSection');
+            let cardsHtml = '';
+            const formatPairs = [
+                { icon: '🎯', title: 'Cơ quan trọng yếu', data: rawData.organTarget, detail: rawData.healthAdvice },
+                { icon: '⚠️', title: 'Điểm yếu dễ mắc', data: rawData.weakness, detail: `Mùa suy yếu: ${rawData.season}` },
+                { icon: '🍲', title: 'Dinh dưỡng bổ trợ', data: rawData.dietTip, detail: rawData.recommendation },
+                { icon: '⚡', title: 'Năng lượng cốt lõi', data: rawData.strength, detail: `Tương hợp: ${rawData.compatibleElements.join(' & ')}` }
+            ];
+
+            formatPairs.forEach(c => {
+                cardsHtml += `
+                <div class="info-card">
+                    <div class="ic-header">
+                        <span class="ic-icon">${c.icon}</span>
+                        <span class="ic-title">${c.title}</span>
+                    </div>
+                    <div class="ic-content">
+                        <strong style="display:block;margin-bottom:8px;color:#fff;">${c.data}</strong>
+                        <span style="font-size:0.95rem;color:var(--text-mut);">${c.detail}</span>
+                    </div>
+                </div>`;
+            });
+
+            cardsHtml += `
+                <div class="info-card emotional-card">
+                    <div class="ic-header">
+                        <span class="ic-icon">💌</span>
+                        <span class="ic-title">Thông Điệp Dành Riêng Cho ${escapeHTML(nameInput)}</span>
+                    </div>
+                    <div class="ic-content emotional-text">
+                        "${rawData.emotionalKey}"
+                    </div>
+                </div>`;
+
+            container.innerHTML = `
+                <div class="element-hero" style="border-top: 4px solid var(--element-color)">
+                    <div class="element-bg-glow"></div>
+                    <div class="element-content">
+                        <div class="element-icon-big">${healthMap.icon}</div>
+                        <div class="element-name">Mệnh ${rawData.element}</div>
+                        <div class="element-info">Ngũ Hành Bản Mệnh • Tuổi ${rawData.conGiap} (${rawData.canChi})</div>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    ${cardsHtml}
+                </div>
+
+                <div id="shareSection"></div>
+
+                <div class="cta-bottom">
+                    <h3>Dưỡng Chân Khí — Sinh Trường Thọ</h3>
+                    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+                        Đông Trùng Hạ Thảo có tính bình, vị ngọt, đi cả vào kinh Phổi và Thận. Phù hợp tuyệt vời để điều hòa sinh lực cho mệnh <strong>${rawData.element}</strong> của bạn.
+                    </p>
+                    <a href="/index.html#contact" class="btn-order-now">Tư Vấn & Đặt Hàng Ngay</a>
+                </div>
+            `;
+
+            container.style.display = 'block';
+            return rawData.element;
+        }
+
+        // Save to DB and show share link
+        async function saveAndShowShare(name, year, element) {
+            const shareSection = document.getElementById('shareSection');
+            if (!shareSection) return;
+
+            try {
+                const { data, error } = await supabase.rpc('save_health_map', {
+                    p_name: name,
+                    p_birth_year: year,
+                    p_element: element,
+                    p_ref_code: refParam || null
+                });
+
+                if (error) throw error;
+                if (!data?.ok) return;
+
+                const shareUrl = `${window.location.origin}/ban-do-suc-khoe.html?share=${data.share_code}`;
+
+                shareSection.innerHTML = `
+                    <div class="share-section">
+                        <p>Chia sẻ kết quả Ngũ Hành của bạn cho bạn bè & người thân:</p>
+                        <div class="share-link-row">
+                            <input type="text" class="share-link-input" id="shareLinkInput" value="${escapeHTML(shareUrl)}" readonly />
+                            <button type="button" class="share-copy-btn" id="shareCopyBtn">Copy Link</button>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('shareCopyBtn').addEventListener('click', async () => {
+                    const input = document.getElementById('shareLinkInput');
+                    try {
+                        await navigator.clipboard.writeText(input.value);
+                    } catch (e) {
+                        input.select();
+                        document.execCommand('copy');
+                    }
+                    const btn = document.getElementById('shareCopyBtn');
+                    btn.textContent = 'Đã copy!';
+                    setTimeout(() => btn.textContent = 'Copy Link', 2000);
+                });
+            } catch (err) {
+                console.warn('Save health map error:', err.message);
+            }
+        }
 
         window.analyzeHanh = function () {
             const nameInput = document.getElementById('birthName').value.trim() || 'Bạn';
@@ -471,96 +593,65 @@
                 return;
             }
 
-            // Show Loading
             document.getElementById('loadingOverlay').style.display = 'flex';
 
             setTimeout(() => {
-                // Hide input section
                 document.getElementById('inputSection').style.display = 'none';
                 document.getElementById('loadingOverlay').style.display = 'none';
 
-                // Get Data
-                const healthMap = getHealthMap(year);
-                if (!healthMap) {
-                    alert('Có lỗi xảy ra khi luận giải. Vui lòng thử lại.');
-                    return;
+                const element = renderResult(nameInput, year);
+
+                if (element) {
+                    saveAndShowShare(nameInput, year, element);
                 }
 
-                const rawData = analyzeNguHanh(year);
-
-                // Set CSS variable for dynamic coloring
-                document.documentElement.style.setProperty('--element-color', healthMap.color);
-
-                // Build UI
-                const container = document.getElementById('resultSection');
-
-                let cardsHtml = '';
-                const formatPairs = [
-                    { icon: '🎯', title: 'Cơ quan trọng yếu', data: rawData.organTarget, detail: rawData.healthAdvice },
-                    { icon: '⚠️', title: 'Điểm yếu dễ mắc', data: rawData.weakness, detail: `Mùa suy yếu: ${rawData.season}` },
-                    { icon: '🍲', title: 'Dinh dưỡng bổ trợ', data: rawData.dietTip, detail: rawData.recommendation },
-                    { icon: '⚡', title: 'Năng lượng cốt lõi', data: rawData.strength, detail: `Tương hợp: ${rawData.compatibleElements.join(' & ')}` }
-                ];
-
-                formatPairs.forEach(c => {
-                    cardsHtml += `
-                    <div class="info-card">
-                        <div class="ic-header">
-                            <span class="ic-icon">${c.icon}</span>
-                            <span class="ic-title">${c.title}</span>
-                        </div>
-                        <div class="ic-content">
-                            <strong style="display:block;margin-bottom:8px;color:#fff;">${c.data}</strong>
-                            <span style="font-size:0.95rem;color:var(--text-mut);">${c.detail}</span>
-                        </div>
-                    </div>`;
-                });
-
-                // Add emotional card
-                cardsHtml += `
-                    <div class="info-card emotional-card">
-                        <div class="ic-header">
-                            <span class="ic-icon">💌</span>
-                            <span class="ic-title">Thông Điệp Dành Riêng Cho ${escapeHTML(nameInput)}</span>
-                        </div>
-                        <div class="ic-content emotional-text">
-                            "${rawData.emotionalKey}"
-                        </div>
-                    </div>`;
-
-                container.innerHTML = `
-                    <div class="element-hero" style="border-top: 4px solid var(--element-color)">
-                        <div class="element-bg-glow"></div>
-                        <div class="element-content">
-                            <div class="element-icon-big">${healthMap.icon}</div>
-                            <div class="element-name">Mệnh ${rawData.element}</div>
-                            <div class="element-info">Ngũ Hành Bản Mệnh • Tuổi ${rawData.conGiap} (${rawData.canChi})</div>
-                        </div>
-                    </div>
-
-                    <div class="cards-grid">
-                        ${cardsHtml}
-                    </div>
-
-                    <div class="cta-bottom">
-                        <h3>Dưỡng Chân Khí — Sinh Trường Thọ</h3>
-                        <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.6;">
-                            Đông Trùng Hạ Thảo có tính bình, vị ngọt, đi cả vào kinh Phổi và Thận. Phù hợp tuyệt vời để điều hòa sinh lực cho mệnh <strong>${rawData.element}</strong> của bạn.
-                        </p>
-                        <a href="/index.html#contact" class="btn-order-now">Tư Vấn & Đặt Hàng Ngay</a>
-                    </div>
-                `;
-
-                container.style.display = 'block';
-
-                // Scroll to result smoothly
                 window.scrollTo({
                     top: document.querySelector('.astro-hero').offsetHeight + 50,
                     behavior: 'smooth'
                 });
-
-            }, 1200); // 1.2s fake dramatic loading
+            }, 1200);
         };
+
+        // --- Load shared result from URL ---
+        if (shareParam) {
+            (async () => {
+                document.getElementById('loadingOverlay').style.display = 'flex';
+                try {
+                    const { data, error } = await supabase.rpc('get_health_map', {
+                        p_share_code: shareParam
+                    });
+
+                    if (error) throw error;
+
+                    if (data?.ok) {
+                        document.getElementById('inputSection').style.display = 'none';
+                        document.getElementById('loadingOverlay').style.display = 'none';
+
+                        renderResult(data.name, data.birth_year);
+
+                        // Show shared banner
+                        const container = document.getElementById('resultSection');
+                        const banner = document.createElement('div');
+                        banner.className = 'shared-banner';
+                        banner.textContent = `Kết quả Ngũ Hành của ${data.name}`;
+
+                        const tryLink = document.createElement('a');
+                        tryLink.href = '/ban-do-suc-khoe.html';
+                        tryLink.textContent = ' — Khám phá mệnh của bạn!';
+                        tryLink.style.cssText = 'color:var(--gold-primary);text-decoration:underline;';
+                        banner.appendChild(tryLink);
+
+                        container.insertBefore(banner, container.firstChild);
+                        container.style.display = 'block';
+                    } else {
+                        document.getElementById('loadingOverlay').style.display = 'none';
+                    }
+                } catch (err) {
+                    console.warn('Load shared map error:', err.message);
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                }
+            })();
+        }
     </script>
 </body>
 
