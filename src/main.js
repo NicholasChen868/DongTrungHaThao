@@ -58,19 +58,22 @@ function initHeroParticles() {
   const container = document.getElementById('heroParticles');
   if (!container) return;
 
-  for (let i = 0; i < 30; i++) {
+  // Reduced from 30 to 12 particles for performance
+  for (let i = 0; i < 12; i++) {
     const particle = document.createElement('div');
-    const size = Math.random() * 4 + 1;
+    const size = Math.random() * 3 + 1;
+    const opacity = Math.random() * 0.3 + 0.1;
     particle.style.cssText = `
       position: absolute;
       width: ${size}px;
       height: ${size}px;
-      background: radial-gradient(circle, rgba(212, 168, 83, ${Math.random() * 0.5 + 0.1}), transparent);
+      background: rgba(212, 168, 83, ${opacity});
       border-radius: 50%;
       left: ${Math.random() * 100}%;
       top: ${Math.random() * 100}%;
-      animation: float ${Math.random() * 6 + 4}s ease-in-out infinite;
+      animation: float ${Math.random() * 8 + 6}s ease-in-out infinite;
       animation-delay: ${Math.random() * 4}s;
+      will-change: transform;
     `;
     container.appendChild(particle);
   }

@@ -42,10 +42,10 @@
   --transition-base: 0.3s ease;
   --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Shadows */
-  --shadow-gold: 0 0 40px rgba(212, 168, 83, 0.15);
-  --shadow-card: 0 4px 30px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+  /* Shadows — simplified for GPU performance */
+  --shadow-gold: 0 0 20px rgba(212, 168, 83, 0.1);
+  --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
 /* --- Reset & Base --- */
@@ -282,9 +282,9 @@ img {
 }
 
 .navbar.scrolled {
-  background: rgba(6, 6, 6, 0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(6, 6, 6, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 10px 0;
   border-bottom: 1px solid var(--border-color);
 }
@@ -391,10 +391,7 @@ img {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse at 20% 80%, rgba(212, 168, 83, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(212, 168, 83, 0.05) 0%, transparent 50%),
-    var(--bg-primary);
+  background: var(--bg-primary);
 }
 
 .hero-particles {
@@ -407,7 +404,7 @@ img {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 30%, var(--bg-primary) 70%);
+  background: radial-gradient(circle at center, transparent 40%, var(--bg-primary) 80%);
 }
 
 .hero-content {
@@ -543,9 +540,7 @@ img {
    ABOUT / BENEFITS
    =================================== */
 .section-about {
-  background:
-    radial-gradient(ellipse at 0% 50%, rgba(212, 168, 83, 0.04) 0%, transparent 50%),
-    var(--bg-secondary);
+  background: var(--bg-secondary);
 }
 
 .benefits-grid {
@@ -721,9 +716,7 @@ img {
    PRODUCT
    =================================== */
 .section-product {
-  background:
-    radial-gradient(ellipse at 80% 50%, rgba(212, 168, 83, 0.05) 0%, transparent 50%),
-    var(--bg-secondary);
+  background: var(--bg-secondary);
 }
 
 .product-showcase {
@@ -742,11 +735,11 @@ img {
 
 .product-image-glow {
   position: absolute;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(212, 168, 83, 0.15), transparent 70%);
-  animation: float 4s ease-in-out infinite;
+  background: rgba(212, 168, 83, 0.08);
+  filter: blur(40px);
 }
 
 .product-image-box {
@@ -1071,9 +1064,7 @@ img {
    AFFILIATE / CTV
    =================================== */
 .section-affiliate {
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(212, 168, 83, 0.06) 0%, transparent 50%),
-    var(--bg-secondary);
+  background: var(--bg-secondary);
 }
 
 .affiliate-steps {
@@ -1560,8 +1551,8 @@ textarea {
     height: 100vh;
     height: 100dvh;
     background: rgba(6, 6, 6, 0.98);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     flex-direction: column;
     padding: 80px 32px 32px;
     gap: 4px;
@@ -2144,4 +2135,40 @@ textarea {
   .nav-links {
     padding-bottom: calc(32px + env(safe-area-inset-bottom));
   }
+}
+
+/* ===================================
+   PERFORMANCE — Reduce motion for
+   users who prefer it or weak GPUs
+   =================================== */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hero-particles {
+    display: none !important;
+  }
+
+  .hero-overlay {
+    background: var(--bg-primary) !important;
+  }
+
+  .product-image-glow {
+    display: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Section containment for paint isolation */
+.section {
+  contain: layout style;
 }
