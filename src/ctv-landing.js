@@ -29,3 +29,15 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Floating Widget Logic
+const ctvWidget = document.getElementById('ctvFloatingWidget');
+if (ctvWidget) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) {
+            ctvWidget.classList.add('collapsed');
+        } else {
+            ctvWidget.classList.remove('collapsed');
+        }
+    }, { passive: true });
+}

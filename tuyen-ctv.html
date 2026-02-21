@@ -542,11 +542,84 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Floating Widget */
+        .ctv-floating-widget {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: linear-gradient(135deg, var(--gold), #c49540);
+            color: #000;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            padding: 10px 16px 10px 10px;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(212, 168, 83, 0.4);
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 320px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ctv-floating-widget:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(212, 168, 83, 0.6);
+        }
+
+        .ctv-fw-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            margin-right: 12px;
+        }
+
+        .ctv-fw-content {
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .ctv-fw-title {
+            font-weight: 800;
+            font-size: 14px;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .ctv-fw-desc {
+            font-size: 11px;
+            font-weight: 500;
+            opacity: 0.85;
+            line-height: 1.2;
+            margin-top: 3px;
+            max-height: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Collapsed state when scrolling */
+        .ctv-floating-widget.collapsed .ctv-fw-desc {
+            max-height: 0;
+            opacity: 0;
+            margin-top: 0;
+        }
+
+        .ctv-floating-widget.collapsed {
+            padding: 12px 18px 12px 12px;
+            bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
-    <!-- Nav -->
+    <!-- Top Nav -->
     <nav class="r-nav">
         <a href="/">← Trang chủ</a>
         <span class="brand">💰 Tuyển CTV</span>
@@ -598,24 +671,42 @@
             <div class="steps-grid">
                 <div class="step-card reveal">
                     <div class="step-num">1</div>
-                    <div class="step-icon">📝</div>
                     <div class="step-title">Đăng Ký Miễn Phí</div>
-                    <div class="step-desc">Tạo tài khoản CTV trong 30 giây. Nhận mã giới thiệu cá nhân ngay lập tức.
-                    </div>
+                    <p class="step-desc">Tạo tài khoản CTV nhanh chóng trong 1 phút, nhận link giới thiệu riêng và tài
+                        liệu bán hàng.</p>
                 </div>
                 <div class="step-card reveal">
                     <div class="step-num">2</div>
-                    <div class="step-icon">🔗</div>
                     <div class="step-title">Chia Sẻ Link</div>
-                    <div class="step-desc">Copy link giới thiệu, gửi qua Facebook, Zalo, TikTok. Khi ai đó click và đặt
-                        hàng — bạn được ghi nhận.</div>
+                    <p class="step-desc">Copy link sản phẩm và chia sẻ cho bạn bè, người thân hoặc đăng lên các mạng xã
+                        hội (Facebook, Zalo, Tiktok).</p>
                 </div>
                 <div class="step-card reveal">
                     <div class="step-num">3</div>
-                    <div class="step-icon">💰</div>
                     <div class="step-title">Nhận Hoa Hồng</div>
-                    <div class="step-desc">Hoa hồng tự động cộng vào ví. Rút tiền bất cứ lúc nào qua ngân hàng hoặc ví
-                        điện tử.</div>
+                    <p class="step-desc">Khách mua hàng qua link, hoa hồng tự động cộng vào tài khoản. Rút tiền về thẻ
+                        ATM bất kỳ lúc nào.</p>
+                </div>
+            </div>
+
+            <div class="dual-path reveal" style="margin-top: 50px;">
+                <div class="path-box">
+                    <h3>Nếu Tự Bán Lẻ</h3>
+                    <ul>
+                        <li>Tự nhập sỉ số lượng lớn, bỏ vốn nhiều</li>
+                        <li>Tự đóng gói, giao hàng mệt mỏi</li>
+                        <li>Tồn kho, rủi ro hàng hết hạn</li>
+                        <li>Khó xây dựng hệ thống</li>
+                    </ul>
+                </div>
+                <div class="path-box highlight">
+                    <h3>Nếu Làm CTV Tại Đây</h3>
+                    <ul>
+                        <li><strong>0₫ Vốn</strong>, rủi ro bằng không</li>
+                        <li>Chúng tôi đóng gói và giao hàng cho khách</li>
+                        <li>Hoa hồng tăng tự động theo doanh số</li>
+                        <li>Theo dõi đơn siêu minh bạch qua Dashboard</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -641,64 +732,31 @@
     </section>
 
     <!-- Tiers -->
-    <section class="r-section">
+    <section class="r-section" style="background:var(--bg-card);">
         <div class="container">
-            <h2 class="r-section-title reveal">Bậc <span class="hl">Hoa Hồng</span></h2>
-            <p class="r-section-sub reveal">Bán càng nhiều — hoa hồng càng cao</p>
+            <h2 class="r-section-title reveal">Chính Sách <span class="hl">Chiết Khấu</span></h2>
+            <p class="r-section-sub reveal">Mức chiết khấu % dựa trên xếp hạng số lượng đơn hàng tích luỹ</p>
             <div class="tiers-grid">
                 <div class="tier-card reveal">
-                    <div class="tier-icon">🥈</div>
-                    <div class="tier-name">Bạc</div>
+                    <div class="tier-name">Hạng Bạc</div>
                     <div class="tier-pct">10%</div>
-                    <div class="tier-req">Khởi điểm</div>
+                    <div class="tier-req">Dành cho người mới đăng ký</div>
                 </div>
-                <div class="tier-card featured reveal">
-                    <div class="tier-icon">🥇</div>
-                    <div class="tier-name">Vàng</div>
+                <div class="tier-card tier-vàng reveal">
+                    <div class="tier-name">Hạng Vàng</div>
                     <div class="tier-pct">15%</div>
-                    <div class="tier-req">Từ 10 đơn / tháng</div>
+                    <div class="tier-req">Hoàn thành 10 đơn hàng</div>
                 </div>
-                <div class="tier-card reveal">
-                    <div class="tier-icon">💎</div>
+                <div class="tier-card tier-kimcuong reveal">
                     <div class="tier-name">Kim Cương</div>
                     <div class="tier-pct">25%</div>
-                    <div class="tier-req">Từ 30 đơn / tháng</div>
+                    <div class="tier-req">Hoàn thành 30 đơn hàng</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Dual Path: CTV + BTV -->
-    <section class="r-section">
-        <div class="container">
-            <h2 class="r-section-title reveal">2 Con Đường <span class="hl">Kiếm Tiền</span></h2>
-            <p class="r-section-sub reveal">Chọn phong cách phù hợp với bạn — hoặc làm cả hai!</p>
-            <div class="dual-path">
-                <div class="path-card reveal">
-                    <div class="path-icon">🤝</div>
-                    <div class="path-title">Cộng Tác Viên Bán Hàng</div>
-                    <ul class="path-list">
-                        <li>Chia sẻ link sản phẩm lên MXH</li>
-                        <li>Giới thiệu trực tiếp cho bạn bè</li>
-                        <li>Hoa hồng 10% — 25% mỗi đơn</li>
-                        <li>Theo dõi doanh thu real-time</li>
-                        <li>Rút tiền qua ngân hàng, Momo, ZaloPay</li>
-                    </ul>
-                </div>
-                <div class="path-card reveal">
-                    <div class="path-icon">✍️</div>
-                    <div class="path-title">Biên Tập Viên Nội Dung</div>
-                    <ul class="path-list">
-                        <li>Viết bài chia sẻ kinh nghiệm sức khỏe</li>
-                        <li>Nhận 30,000đ nhuận bút mỗi bài duyệt</li>
-                        <li>Tích điểm tương tác (Like, View)</li>
-                        <li>Bài viết kèm link mua — ăn chiết khấu</li>
-                        <li>Thi Biên Tập Viên Xuất Sắc Tháng</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Bottom CTA -->
     <section class="r-cta-section">
@@ -714,6 +772,15 @@
     <footer class="r-footer">
         <p>© 2026 <a href="/">Maldala Duy Đức</a> — Đông Trùng Hạ Thảo Nguyên Chất</p>
     </footer>
+
+    <!-- Floating Widget -->
+    <a href="/ctv-dashboard.html?tab=register" class="ctv-floating-widget" id="ctvFloatingWidget">
+        <div class="ctv-fw-icon">🎁</div>
+        <div class="ctv-fw-content">
+            <span class="ctv-fw-title">Đăng Ký CTV</span>
+            <span class="ctv-fw-desc">Nhận chiết khấu lên đến 25%</span>
+        </div>
+    </a>
 
     <script type="module">
         import './src/ctv-landing.js';
