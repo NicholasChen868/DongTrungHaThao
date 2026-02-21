@@ -1513,37 +1513,51 @@
 
             try {
                 const pwHash = await sha256(password);
+                let loggedIn = false;
 
-                // Try unified auth first
+                // 1) Try unified auth (members table) first
                 const { data: userData, error: userError } = await supabase.rpc('authenticate_user', {
                     p_phone: phone,
                     p_password_hash: pwHash
                 });
 
-                if (userError || !userData || !userData.ok) {
-                    loginError.textContent = userData?.error || 'Sai thông tin đăng nhập';
+                if (!userError && userData?.ok) {
+                    // Store unified session
+                    localStorage.setItem('maldala_user', JSON.stringify(userData));
+                    localStorage.setItem('maldala_session_expiry', String(Date.now() + 86400000));
+
+                    // Handle by role
+                    if (userData.role === 'admin') {
+                        window.location.href = '/';
+                        return;
+                    }
+                    if (userData.referral_code) {
+                        localStorage.setItem('ctv_ref_code', userData.referral_code);
+                        loadDashboard(userData.referral_code);
+                        loggedIn = true;
+                    } else if (userData.role === 'member' || userData.role === 'loyal_customer') {
+                        window.location.href = '/thanh-vien.html';
+                        return;
+                    }
+                }
+
+                // 2) Fallback: try CTV-specific auth (ctv_accounts table)
+                if (!loggedIn) {
+                    const { data: ctvData, error: ctvError } = await supabase.rpc('authenticate_ctv', {
+                        p_phone: phone,
+                        p_password_hash: pwHash
+                    });
+
+                    if (!ctvError && ctvData?.ok && ctvData.referral_code) {
+                        localStorage.setItem('ctv_ref_code', ctvData.referral_code);
+                        loadDashboard(ctvData.referral_code);
+                        loggedIn = true;
+                    }
+                }
+
+                if (!loggedIn) {
+                    loginError.textContent = 'Sai số điện thoại hoặc mật khẩu';
                     loginError.style.display = 'block';
-                    return;
-                }
-
-                // Store unified session
-                localStorage.setItem('maldala_user', JSON.stringify(userData));
-                localStorage.setItem('maldala_session_expiry', String(Date.now() + 86400000));
-
-                // Handle by role
-                if (userData.role === 'admin') {
-                    // Admin — store and redirect to homepage with admin banner
-                    window.location.href = '/';
-                    return;
-                }
-
-                if (userData.referral_code) {
-                    // CTV/BTV — load dashboard normally
-                    localStorage.setItem('ctv_ref_code', userData.referral_code);
-                    loadDashboard(userData.referral_code);
-                } else {
-                    // Member/KHTT — redirect to member page
-                    window.location.href = '/thanh-vien.html';
                 }
             } catch (err) {
                 loginError.textContent = 'Lỗi kết nối. Vui lòng thử lại.';
