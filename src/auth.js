@@ -146,36 +146,39 @@ export async function loginUser(phone, password) {
 export function renderAuthBanner() {
     const user = getCurrentUser();
 
-    // Find the nav element on the page
-    const nav = document.querySelector('.s-nav, .r-nav, .ctv-header, nav');
+    // Find the nav element — different pages use different class names
+    const nav = document.querySelector('.s-nav, .r-nav, .navbar .nav-container, nav');
     if (!nav) return;
 
     // Remove any existing auth banner
     const existing = document.getElementById('authBanner');
     if (existing) existing.remove();
 
+    // For homepage navbar, find the nav-links list and append there
+    const navLinks = nav.querySelector('.nav-links, ul');
+
     if (!user) {
         // Not logged in — add login link
-        const loginLink = document.createElement('a');
-        loginLink.href = '/ctv-dashboard.html';
-        loginLink.className = 'auth-login-link';
-        loginLink.textContent = '🔐 Đăng Nhập';
-        loginLink.id = 'authBanner';
-
-        // Replace last nav link if it's "Đăng Nhập CTV" etc.
-        const lastLink = nav.querySelector('a:last-of-type');
-        if (lastLink && (lastLink.textContent.includes('Đăng Nhập') || lastLink.textContent.includes('CTV'))) {
-            lastLink.replaceWith(loginLink);
+        const loginEl = document.createElement(navLinks ? 'li' : 'a');
+        loginEl.id = 'authBanner';
+        if (navLinks) {
+            loginEl.innerHTML = '<a href="/ctv-dashboard.html" class="nav-link auth-login-link">🔐 Đăng Nhập</a>';
+            navLinks.appendChild(loginEl);
+        } else {
+            loginEl.href = '/ctv-dashboard.html';
+            loginEl.className = 'auth-login-link';
+            loginEl.textContent = '🔐 Đăng Nhập';
+            nav.appendChild(loginEl);
         }
         return;
     }
 
     // Logged in — build the banner
     const config = getRoleConfig(user.role);
-    const banner = document.createElement('div');
-    banner.id = 'authBanner';
-    banner.className = 'auth-banner';
-    banner.innerHTML = `
+    const wrapper = document.createElement(navLinks ? 'li' : 'div');
+    wrapper.id = 'authBanner';
+    wrapper.className = 'auth-banner';
+    wrapper.innerHTML = `
         <button class="auth-user-btn" id="authUserBtn">
             <span class="auth-avatar">${config.icon || user.display_name?.charAt(0) || '👤'}</span>
             <span class="auth-name">${escapeForHTML(user.display_name || user.name)}</span>
@@ -200,12 +203,11 @@ export function renderAuthBanner() {
         </div>
     `;
 
-    // Replace last nav link with the banner
-    const lastLink = nav.querySelector('a:last-of-type');
-    if (lastLink) {
-        lastLink.replaceWith(banner);
+    // Append to nav
+    if (navLinks) {
+        navLinks.appendChild(wrapper);
     } else {
-        nav.appendChild(banner);
+        nav.appendChild(wrapper);
     }
 
     // Toggle dropdown
