@@ -1,222 +1,265 @@
-# CÂU CHUYỆN — Content mới cho cau-chuyen.html
+# CÂU CHUYỆN — Content v2 (Final)
 > Soạn bởi ClaudeCode — Cho Antigravity đưa lên frontend
-> Tâm thế viết: Carl Jung (Persona → Shadow → Ego → Self)
-> Chủ đề chính: Sức khỏe, gia đình, giường bệnh, ước mơ dang dở
+> Viết theo tâm thế Carl Jung nhưng KHÔNG gọi tên Jung trong bài
+> Chủ đề: Sức khỏe, gia đình, giường bệnh, ước mơ dang dở, sự thật
+> Giọng: Xưng "em" xuyên suốt — founder viết thư cho một người
 
 ---
 
-## OPENING (Màn mở — Cinematic, center screen)
+## OPENING (Cinematic, full-screen center)
 
-**Kicker:** Một lá thư chưa bao giờ được gửi
+**Kicker:** Một lá thư gửi cho người đang gắng gượng
 
-**H1:** Có một phiên bản của bạn — *đang chờ được nhìn thấy*
+**H1:** Bạn không cần mạnh mẽ thêm nữa — *bạn cần được chăm sóc*
 
 **Lead (italic, Lora):**
-Chúng ta sống cả đời lo cho người khác, giỏi che giấu những mệt mỏi của chính mình — và gọi đó là "mạnh mẽ."
+Có bao nhiêu buổi sáng bạn tỉnh dậy, mệt hơn lúc đi ngủ — rồi vẫn nói với mọi người rằng mình ổn?
 
 **Scroll hint:** ↓ Kéo xuống để đọc
 
 ---
 
-## CHƯƠNG 01 — PERSONA (Chiếc mặt nạ)
+## CHƯƠNG 01 — Chiếc mặt nạ
 
-**Chapter number:** Chương 01 — Persona
+**Chapter number:** Chương 01
 
-**H2:** Bạn nói "tôi ổn" — *bao nhiêu lần trong tuần?*
-
-**Body:**
-
-Mỗi sáng thức dậy, bạn khoác lên mình một vai diễn quen thuộc. Người mạnh mẽ. Người không cần ai lo. Người luôn *"ổn."*
-
-Nhưng cơ thể thì không biết diễn.
-
-Nó mệt — thì nó mệt. Nó kiệt — thì nó kiệt. Và nó đã gửi cho bạn rất nhiều tín hiệu. Chỉ là bạn quá bận "ổn" để nghe.
-
-Giấc ngủ nông dần. Da xỉn đi. Sức đề kháng yếu hơn mỗi mùa. Bạn đổ cho *"áp lực công việc,"* cho *"tuổi tác."* Nhưng sâu thẳm, bạn biết — **không chỉ vậy.**
-
-Bạn đã thử nhiều thứ. Vitamin. Collagen. Những lọ thuốc với lời hứa hoa mỹ trên bao bì. Và mỗi lần thất vọng, bạn lại tự nhủ: *"Chắc tại mình."*
-
-Không. Không phải tại bạn.
-
-Tại vì những thứ bạn uống — **cũng đang đeo mặt nạ.**
-
----
-
-## PULL STATS (Giữ nguyên 3 stats, đổi mô tả)
-
-| Số | Mô tả |
-|----|-------|
-| **78%** | Thực phẩm chức năng trên thị trường — bán lời hứa, không bán chất lượng |
-| **40%** | Người sau 30 tuổi — miễn dịch suy giảm âm thầm mỗi năm |
-| **3x** | Cơ thể cần được bồi đắp gấp 3 lần sau tuổi 40 |
-
----
-
-## CHƯƠNG 02 — SHADOW (Cái bóng)
-
-**Chapter number:** Chương 02 — Shadow
-
-**H2:** Có những đêm ngồi cạnh giường bệnh — *mới biết mình sợ gì*
+**H2:** "Tôi ổn" — *lời nói dối dịu dàng nhất mà ta tự nói mỗi ngày*
 
 **Body:**
 
-Có một đêm, em ngồi cạnh giường ba trong bệnh viện.
+Em muốn hỏi bạn một câu thật lòng.
 
-Không phải bệnh gì to tát. Chỉ là cái kiểu suy nhược âm ỉ — ăn không thấy ngon, ngủ nửa đêm lại tỉnh, đi vài bước đã thở dốc. Bác sĩ bảo *"tuổi tác thôi mà."* Rồi kê đơn. Rồi cho về.
+Lần cuối bạn ngủ một giấc thật sâu — không tỉnh giữa đêm, không nằm mơ loạn, không mở mắt lúc 3 giờ sáng rồi nhìn trần nhà cho đến khi chuông báo thức kêu — là khi nào?
 
-Nhưng em nhìn mắt ba lúc đó — thấy cả một sự **cam chịu.** Cái nhìn của người đã quen với việc không được ai hỏi *"Ba có đau không?"*
+Lần cuối bạn nhìn vào gương mà không nhận ra mình già hơn mình nghĩ — là khi nào?
 
-Và em nhận ra: ba cũng đang đeo mặt nạ. Mặt nạ của người cha **"không muốn con lo."**
+Lần cuối bạn chạy theo con mà không thở dốc — là khi nào?
 
-Khoảnh khắc đó, em không sợ ba bệnh. Em sợ một thứ khác —
+Bạn không nhớ. Em cũng không nhớ. Vì chúng ta quá giỏi một việc: **giả vờ ổn.**
 
-**Sợ rằng mình sẽ sống cả đời, làm đủ thứ trên đời, mà không bao giờ đủ tốt để chăm sóc những người mình yêu nhất.**
+Mỗi sáng, bạn uống cà phê để tỉnh. Mỉm cười để đi làm. Nói *"khỏe"* khi ai đó hỏi thăm. Rồi tối về, ngã lưng xuống giường, cảm thấy toàn thân nặng trĩu — nhưng không biết gọi tên cảm giác đó là gì.
 
-Jung gọi đó là *Shadow* — cái bóng. Thứ mà ta trốn chạy cả đời. Nhưng chính nó là cánh cửa dẫn ta trở về với con người thật.
+Nó không phải bệnh. Bệnh thì có tên. Còn cái này — nó chỉ là một sự **cạn dần**. Như cái bình nước bị rò. Không ai thấy. Nhưng một ngày, bạn nghiêng bình — và không còn gì để rót.
 
-Em bắt đầu tìm kiếm. Không phải tìm "sản phẩm." Mà tìm câu trả lời cho một câu hỏi duy nhất:
+Bạn đã thử bù lại. Vitamin. Collagen. Những hộp thuốc bao bì đẹp và lời hứa to. Bạn uống. Chờ. Không thấy gì thay đổi. Rồi bạn tự nhủ: *"Chắc tại mình không hợp."*
 
-*"Có thứ gì trên đời này — thật sự nguyên chất, thật sự tử tế — mà mình có thể đặt vào tay ba, và không phải do dự?"*
+Nhưng có khi nào bạn nghĩ — không phải tại bạn. Mà tại những thứ bạn uống, **cũng đang giả vờ?**
 
-Đông Trùng Hạ Thảo — *Cordyceps militaris.* Y học cổ truyền biết đến hàng ngàn năm. Khoa học hiện đại đã chứng minh. Nhưng thị trường thì... pha trộn, thổi giá, đánh tráo.
+---
 
-**Em quyết định: nếu không tìm được thứ mình tin, thì tự mình làm ra nó.**
+## CHƯƠNG 02 — Cái bóng
+
+**Chapter number:** Chương 02
+
+**H2:** Có những đêm ngồi bên giường bệnh — *mới thấy rõ mình đang sợ gì*
+
+**Body:**
+
+Em kể cho bạn nghe chuyện này.
+
+Năm đó, ba em nhập viện. Không phải cấp cứu. Không có xe cứu thương. Chỉ là má gọi, giọng bình thường: *"Ba con yếu quá, con chở ba đi khám nha."*
+
+"Yếu quá." Hai chữ nhẹ nhàng, nhưng khi em chở ba trên xe, ổng ngồi sau tựa lưng vào em — em mới biết **ổng nhẹ cỡ nào.** Cái lưng hồi xưa em ôm không hết, giờ em vòng tay qua mà thừa.
+
+Bệnh viện bảo suy nhược. Kê đơn. Cho về. Bác sĩ nhìn ba mà nói chuyện với em, kiểu như ba không có mặt ở đó. *"Tuổi tác thôi. Bổ sung dinh dưỡng vào. Nghỉ ngơi."*
+
+Đêm đó, em ngồi cạnh giường ba trong phòng bệnh. Mùi nước sát khuẩn. Tiếng máy monitor nhịp nhàng. Ba nằm nghiêng, mắt nhắm nhưng em biết ổng chưa ngủ.
+
+Em nhìn bàn tay ba. Gân xanh nổi lên dưới lớp da mỏng như giấy. Bàn tay hồi xưa bế em lên cao, hồi xưa sửa cái xe đạp hỏng cho em đi học, hồi xưa vỗ vai em ngày ra Sài Gòn — **giờ thì đang nằm yên, bất lực, trên tấm drap trắng bệnh viện.**
+
+Và em nhận ra ba cũng đang diễn. Diễn vai người cha **"không sao đâu con."** Ổng giấu cơn đau để con không lo. Giấu sự mệt mỏi để vợ không buồn. Giấu nỗi sợ để cả nhà yên tâm.
+
+Khoảnh khắc đó, em không sợ ba bệnh. Em sợ một thứ lớn hơn nhiều:
+
+**Sợ rằng mình sẽ sống cả đời — kiếm tiền, bon chen, bận rộn — rồi một ngày ngồi bên giường bệnh ai đó mình yêu, và nhận ra mình chưa từng làm đủ.**
+
+Đêm đó em không ngủ. Em ngồi google đến 4 giờ sáng. Không phải tìm thuốc. Mà tìm câu trả lời cho một câu hỏi:
+
+*"Có thứ gì trên đời này — thật sự nguyên chất, thật sự tử tế — mà mình có thể đặt vào tay ba, nhìn ổng uống, và không phải do dự một giây nào?"*
+
+Em tìm được câu trả lời. Nhưng không phải trên mạng.
+
+---
+
+## CHƯƠNG 03 — Lựa chọn
+
+**Chapter number:** Chương 03
+
+**H2:** Em không tìm được thứ mình tin — *nên em tự làm ra nó*
+
+**Body:**
+
+Đông Trùng Hạ Thảo — em biết đến nó không phải qua quảng cáo. Mà qua một ông bác sĩ đông y già, bạn của ngoại, người mà hồi nhỏ em gọi là "ông Năm thuốc."
+
+Ổng bảo: *"Trùng Thảo là thứ quý hiếm thiệt. Nhưng 10 người bán thì 9 người pha. Con mua ngoài, may lắm được 30% nguyên chất."*
+
+Em đi khảo thị trường. Ông Năm nói đúng. Hộp 800 ngàn, hộp 2 triệu — mở ra, nhìn, ngửi, thử — phần lớn là **bột gạo trộn màu.** Cái ngành này sống nhờ một thứ: **người mua không biết phân biệt.**
+
+Em đứng giữa hai lựa chọn:
+
+Một — quên đi. Mua đại một hộp nào đó "có tiếng" cho ba. Tự an ủi rằng "có còn hơn không." Sống tiếp.
+
+Hai — tự mình làm.
+
+Em chọn cái khó hơn. Không phải vì em giỏi. Mà vì em không chịu được cảm giác **đặt một thứ mình không tin vào tay ba mình.**
 
 **[Story Visual — ảnh phòng nuôi cấy]**
-*Em quyết định tự xây phòng nuôi cấy. Không phải để kinh doanh. Mà để ba có thứ tốt nhất để dùng.*
+*Phòng nuôi cấy đầu tiên — nhỏ xíu, thua xa cái phòng ngủ. Nhưng mẻ Đông Trùng Hạ Thảo đầu tiên mà ba uống — em làm từ đó.*
 
 ---
 
-## QUOTE sau Chương 02
+## QUOTE sau Chương 03
 
-> "Mỗi viên nang em làm ra, em đều đặt câu hỏi duy nhất: mình có dám cho ba uống không?"
+> "Mỗi viên nang em làm ra, em đều tự hỏi: mình có dám cho ba uống không? Nếu câu trả lời không phải 'có' ngay lập tức — em bỏ cả mẻ."
 >
-> — Không phải slogan. Là lời hứa.
+> — Không phải slogan. Là cách em sống.
 
 ---
 
-## CHƯƠNG 03 — EGO (Hành trình ý thức)
-
-**Chapter number:** Chương 03 — Ego
-
-**H2:** 45 ngày tĩnh lặng — *cho một viên nang thành thật*
-
-**Body:**
-
-45 ngày. Đó là thời gian để nuôi cấy một mẻ Đông Trùng Hạ Thảo.
-
-Không phải vì em muốn chậm. Mà vì **thiên nhiên không vội.** Và em chọn đi cùng nhịp với nó.
-
-**Ngày 1–5:** Chọn giống Cordyceps militaris từ viện nghiên cứu. Kiểm tra hoạt tính sinh học. Chỉ những bào tử khỏe mạnh nhất mới được giữ lại. Không ngoại lệ.
-
-**Ngày 6–40:** Phòng sạch. 18–22°C. Độ ẩm 80–85%. Ánh sáng 12/12h. Mỗi ngày em vào kiểm tra — như cách người cha nhìn con mình lớn lên. Không thúc giục. Chỉ kiên nhẫn.
-
-**Ngày 41–45:** Thu hoạch. Đúng lúc quả thể đạt 5–7cm, hàm lượng Cordycepin ở đỉnh. Sớm một ngày — chưa đủ. Muộn một ngày — đã qua.
-
-**[Story Visual — ảnh quy trình]**
-*Sấy thăng hoa ở nhiệt độ thấp. Nghiền siêu mịn nano. Đóng viên nang 500mg. Không pha trộn. Không chất bảo quản. Không phụ gia. Kiểm nghiệm trước khi xuất xưởng.*
-
-*Đó là lý do chúng tôi chỉ làm một sản phẩm duy nhất.*
-
-Không phải vì không biết làm thêm. Mà vì sự toàn vẹn — **the Self** — không cần nhiều. **Nó cần đúng.**
-
----
-
-## CHƯƠNG 04 — Cởi bỏ Persona của ngành
+## CHƯƠNG 04 — 45 ngày tĩnh lặng
 
 **Chapter number:** Chương 04
 
-**H2:** Khi giá cả cũng *đeo mặt nạ*
+**H2:** Thiên nhiên không vội — *và em chọn đi cùng nhịp với nó*
 
 **Body:**
 
-Một hộp Đông Trùng Hạ Thảo ngoài thị trường: 800.000 đến 2.000.000₫. Tại sao?
+45 ngày.
 
-Vì nó đi qua 3–4 tầng trung gian. Mỗi tầng cộng thêm 30–50% lợi nhuận. Bạn không mua dưỡng chất. Bạn mua **persona** — cái vẻ sang trọng mà người ta khoác lên bao bì.
+Đó là thời gian để một mẻ Đông Trùng Hạ Thảo đi từ bào tử đến viên nang. Không có cách nào nhanh hơn. Không có shortcut. Nếu ai bảo có — họ đang nói dối bạn.
 
-Chúng tôi bỏ hết.
+Năm ngày đầu, em chọn giống. Cordyceps militaris từ viện nghiên cứu. Chỉ giữ lại những bào tử khỏe nhất. Phần còn lại — bỏ. Không tiếc.
 
-**Từ phòng nuôi cấy → đến tay bạn.** Không cửa hàng. Không đại lý. Không marketing triệu đô.
+35 ngày tiếp theo — phòng sạch, nhiệt độ 18 đến 22 độ, độ ẩm 85%. Mỗi ngày em vào nhìn chúng lớn lên. Giống như trông con. Không thúc giục được. Không la mắng được. Chỉ có thể kiên nhẫn, và tin.
 
-Thay vào đó, chúng tôi có những con người thật — **Cộng Tác Viên** chia sẻ vì họ tin. **Thành Viên Thân Thiết** viết bài vì họ đã trải qua.
+5 ngày cuối — thu hoạch. Phải đúng lúc quả thể cao 5 đến 7cm, lúc hàm lượng dưỡng chất ở đỉnh. Sớm một ngày — chưa chín. Muộn một ngày — đã qua. Em gọi đó là **khoảnh khắc thật** — lúc mà sự tận tâm và thời gian gặp nhau đúng chỗ.
 
-*Không quảng cáo. Chỉ có những câu chuyện thật — truyền từ người này sang người kia.*
+**[Story Visual — ảnh quy trình]**
+*Sấy thăng hoa giữ nguyên dưỡng chất. Nghiền mịn. Đóng viên 500mg. Không pha. Không trộn. Không bảo quản. Không phụ gia. Một thành phần duy nhất: Đông Trùng Hạ Thảo nguyên chất.*
+
+Người ta hỏi em: *"Sao không làm thêm sản phẩm khác?"*
+
+Em hỏi lại: *"Một người cha tốt — cần nuôi 10 đứa con, hay cần nuôi một đứa cho đàng hoàng?"*
+
+**Em chọn làm một thứ. Và làm cho nó thật sự xứng đáng.**
 
 ---
 
-## QUOTE sau Chương 04
-
-> "Thà bán ít mà người mua thật sự cần — còn hơn bán nhiều mà họ không bao giờ quay lại."
->
-> — Kim chỉ nam duy nhất
-
----
-
-## CHƯƠNG 05 — Collective Self (Những câu chuyện về nhà)
+## CHƯƠNG 05 — Cái giá của sự thật
 
 **Chapter number:** Chương 05
 
-**H2:** Những giấc ngủ *được trả lại* — và những ước mơ chưa kịp dang dở
+**H2:** Có hai cách bán Đông Trùng Hạ Thảo — *em chọn cách khó hơn*
 
 **Body:**
 
-Chúng tôi không bao giờ hứa *"chữa bệnh."* Đông Trùng Hạ Thảo là thực phẩm chức năng, không phải thuốc.
+Cách thứ nhất: làm bao bì thật đẹp. Chạy quảng cáo thật nhiều. Thuê người nổi tiếng review. Bán qua đại lý, mỗi tầng cộng 30–50%. Hộp 300 ngàn biến thành 2 triệu. Người mua trả tiền cho **hình ảnh**, không phải cho dưỡng chất.
 
-Nhưng có những điều em không cần nói — **vì người ta đã tự kể cho nhau nghe:**
+Cách thứ hai: **bỏ hết trung gian.** Từ phòng nuôi cấy đến tay bạn. Không cửa hàng. Không đại lý. Không quảng cáo triệu đô.
 
-Cô Hoa, 52 tuổi, Đà Nẵng:
-*"Năm năm mất ngủ. Năm năm nằm nhìn trần nhà mỗi đêm. Uống 3 tháng — giờ ngủ được 7 tiếng. Lần đầu tiên, tôi nằm mơ thấy mình trẻ lại."*
+Em chọn cách thứ hai. Và em biết cái giá: **chậm.** Rất chậm. Không viral. Không bùng nổ. Không có mấy chục ngàn đơn trong một đêm.
 
-Anh Minh, 38 tuổi, TP.HCM:
-*"Vợ hỏi: sao dạo này anh khỏe vậy? Tôi không biết giải thích. Chỉ biết rằng — tôi đã lâu lắm rồi mới dám nghĩ đến chuyện mở lại cái quán cà phê hồi xưa."*
+Nhưng em có một thứ khác.
 
-Bác Tám, 65 tuổi, Cần Thơ:
-*"Con gái cho uống thử. Tôi uống cho con vui. Nhưng rồi hết đau mỏi thật. Giờ sáng nào tôi cũng đạp xe ra chợ. Tôi mua thêm cho cả xóm."*
+Em có chị Lan ở Bình Dương — uống 2 tháng rồi gọi hỏi mua thêm cho mẹ chồng. Em có anh Khoa ở Hà Nội — lần đầu mua 1 hộp, lần sau đặt 5 hộp tặng đồng nghiệp. Em có bác Sáu ở miền Tây — không biết xài Zalo, nhờ con gái gọi điện cho em đặt hàng, rồi cuối tháng gọi lại: *"Nay bác ngủ ngon lắm con."*
 
-Đó không phải quảng cáo. Đó là những con người **quyết định cởi bỏ cái persona "tôi ổn"** — và bắt đầu thật sự chăm sóc mình. Và khi họ khỏe lại — những ước mơ tưởng đã dang dở, bỗng dưng có thêm một chương nữa.
+Mỗi người trong số họ — không phải khách hàng. Họ là **bằng chứng** rằng khi bạn làm thật, người ta sẽ tự tìm đến bạn. Và họ quay lại không phải vì quảng cáo. Mà vì cơ thể họ — lần đầu tiên sau rất lâu — **nói thật với họ rằng: có gì đó khác.**
 
-**[Story Visual — emoji 💛]**
-*Mỗi câu chuyện như vậy nhắc em rằng: sản phẩm tốt nhất không phải thứ bán chạy nhất — mà là thứ khiến người ta quay lại, và mang theo cả người thân.*
+*Chúng tôi không có đại lý. Chúng tôi có những con người tin nhau.*
 
 ---
 
-## CHƯƠNG CUỐI — THE SELF (Toàn vẹn)
+## QUOTE sau Chương 05
 
-**Chapter number:** Chương cuối — The Self
+> "Thà bán ít mà người mua nói thật — còn hơn bán nhiều mà ai cũng im lặng."
 
-**H2:** Cuối cùng, đây không phải *câu chuyện của chúng tôi*
+---
+
+## CHƯƠNG 06 — Những giấc ngủ được trả lại
+
+**Chapter number:** Chương 06
+
+**H2:** Đông Trùng Hạ Thảo không chữa bệnh — *nhưng có những thứ nó trả lại cho bạn*
+
+**Body:**
+
+Em nói thẳng: Đông Trùng Hạ Thảo là **thực phẩm chức năng**. Không phải thuốc. Em không bao giờ hứa chữa bệnh. Ai hứa — người đó nói dối bạn.
+
+Nhưng có những điều em không cần nói. Vì người ta tự kể cho nhau.
+
+---
+
+Cô Hoa, 52 tuổi, Đà Nẵng.
+Năm năm mất ngủ. Năm năm nằm đếm vết nứt trên trần nhà từ 12 giờ đêm đến 4 giờ sáng. Chồng ngáy bên cạnh, con ngủ say phòng bên, cả nhà ai cũng ngủ — **chỉ mình cô thức.** Cô uống đủ thứ: an thần, melatonin, trà thảo mộc — không gì khá hơn.
+
+Cô uống Đông Trùng Hạ Thảo vì con gái ép. Uống tháng đầu, không thấy gì. Tháng thứ hai, bắt đầu ngủ được 5 tiếng. Tháng thứ ba — 7 tiếng. Cô gọi cho con gái, khóc trong điện thoại: *"Lần đầu tiên sau 5 năm — mẹ nằm mơ."*
+
+---
+
+Anh Minh, 38 tuổi, TP.HCM.
+Chạy Grab từ 6 giờ sáng đến 10 giờ đêm. Về nhà tắm xong là lăn ra ngủ. Vợ bảo: *"Anh sống như cái máy."* Anh biết. Nhưng ngừng không được. Tiền học phí con, tiền thuê nhà, tiền gửi về quê cho má.
+
+Có bữa anh ngồi uống cà phê, nhìn cái quán nhỏ đối diện, nhớ hồi xưa anh từng mơ mở một tiệm. Rồi cười buồn. Mơ mà không có sức thì mơ làm gì.
+
+Ba tháng sau khi vợ mua cho hộp Đông Trùng Hạ Thảo, vợ hỏi: *"Sao dạo này anh khỏe vậy?"* Anh không biết trả lời. Chỉ biết rằng — sáng nay anh dậy lúc 5 giờ, không phải vì chuông báo thức, **mà vì anh muốn dậy.** Và cái quán cà phê trong đầu — lần đầu tiên anh nghĩ: *"Cũng không xa lắm đâu."*
+
+---
+
+Bác Tám, 65 tuổi, Cần Thơ.
+Con gái mua cho. Bác uống cho con vui. Bác không tin mấy thứ này. *"Già rồi thì yếu, thuốc gì cũng vậy."*
+
+Nhưng tháng thứ hai, bác bắt đầu đạp xe ra chợ lại được. Tháng thứ ba, bác gọi điện cho con: *"Mày mua cho ba thêm mấy hộp. Cho luôn thím Bảy với chú Chín kế bên. Tụi nó cũng đau mỏi hoài."*
+
+Con gái bác cười: *"Ba ghét mấy thứ này mà?"*
+
+Bác nói: *"Ghét là ghét. Nhưng mà nó thiệt."*
+
+---
+
+Đó không phải quảng cáo. Đó là ba con người — **mỗi người đều từng nói "tôi ổn"** — cho đến khi họ thật sự ổn, và nhận ra trước đó mình chưa bao giờ ổn.
+
+**[Story Visual — emoji 💛]**
+*Mỗi câu chuyện như vậy nhắc em: sản phẩm tốt nhất không phải thứ bán chạy nhất. Mà là thứ mà khi người ta mua lần hai — họ mua cho người họ thương.*
+
+---
+
+## CHƯƠNG CUỐI — Về nhà
+
+**Chapter number:** Chương cuối
+
+**H2:** Câu chuyện này — *không phải của chúng tôi*
 
 **Body:**
 
 Đây là câu chuyện của **bạn.**
 
-Của buổi sáng bạn tỉnh dậy và tự hỏi: *"Mình đang sống — hay đang gắng sống?"*
+Của buổi sáng bạn tỉnh dậy, nhìn đồng hồ, và tự hỏi: *"Mình đang sống — hay đang cố sống qua ngày?"*
 
-Của khoảnh khắc bạn nhìn cha mẹ già đi mỗi ngày — và nhận ra rằng thời gian không bao giờ hỏi ý kiến ai trước khi trôi.
+Của khoảnh khắc bạn nhìn ba mẹ — thấy tóc bạc nhiều hơn tháng trước, thấy bước đi chậm hơn mùa trước — và nhận ra rằng thời gian không bao giờ gõ cửa trước khi đi qua.
 
-Của những đêm nằm trên giường, không bệnh nhưng cũng không khỏe, nghĩ về những điều mình muốn làm mà chưa kịp làm. Cái quán nhỏ muốn mở. Chuyến đi muốn đưa mẹ đi. Buổi chiều muốn chạy bộ cùng con.
+Của những đêm nằm trên giường — không bệnh, nhưng cũng không khỏe. Nghĩ về những điều mình muốn làm mà cứ hoãn mãi. Cái quán nhỏ muốn mở. Chuyến đi muốn đưa mẹ đi một lần. Buổi chiều muốn ra công viên chạy bộ cùng con mà không phải dừng lại thở.
 
-**Những ước mơ đó không dang dở vì bạn thiếu ý chí. Mà vì cơ thể đã không còn đủ sức đi cùng bạn.**
+**Những ước mơ đó không dang dở vì bạn thiếu ý chí. Mà vì cơ thể — đã lâu lắm rồi — không còn đủ sức đi cùng bạn.**
 
-Nếu bạn đang khỏe — tuyệt vời. Hãy giữ gìn điều quý giá đó. Đừng đợi đến lúc mất mới biết mình từng có.
+Và có lẽ, điều bạn cần không phải là một lời hứa to tát. Không phải một phép màu. Mà chỉ là **một khởi đầu nhỏ.** Một đêm ngủ sâu hơn. Một sáng tỉnh dậy nhẹ nhõm hơn. Một tháng mà cơ thể bắt đầu nói với bạn: *"Ừ, mình đang khá lên."*
 
-Nếu bạn đang cảm thấy cơ thể cần được lắng nghe — hãy bắt đầu. Bằng bất cứ điều gì. Một giấc ngủ sớm. Một bữa ăn tử tế. Hay một viên nang mỗi ngày — trong 30 ngày — để cảm nhận sự khác biệt.
+Nếu bạn đang khỏe — xin hãy giữ gìn. Đừng đợi đến lúc mất mới biết mình từng có.
 
-*Không hài lòng? Không sao cả. Chúng tôi vẫn biết ơn bạn — vì đã cho mình một cơ hội.*
+Nếu bạn đang cảm thấy mình cần được chăm sóc — hãy bắt đầu. Bằng bất cứ điều gì. Một giấc ngủ sớm hơn. Một bữa ăn tử tế hơn. Hay một viên nang mỗi ngày, trong 30 ngày, để cơ thể bạn có cơ hội nói thật với bạn.
 
-Vì cuối cùng, **sức khỏe của bạn** mới là thứ toàn vẹn nhất, thật nhất, đáng giá nhất mà bạn đang sở hữu.
+*Nếu không hài lòng — không sao. Em vẫn biết ơn. Vì bạn đã tin em đủ để thử.*
 
-Jung gọi nó là *The Self.*
+Vì cuối cùng — **sức khỏe của bạn** mới là thứ toàn vẹn nhất, thật nhất, đáng giá nhất mà bạn đang giữ trong tay.
 
-Em gọi nó là — **lý do duy nhất để tất cả những điều này tồn tại.**
+Và tất cả những gì em làm — phòng nuôi cấy, 45 ngày kiên nhẫn, từng viên nang — chỉ để phục vụ **một điều duy nhất đó.**
 
 ---
 
 ## CTA SECTION
 
-**H2:** Bạn đã đọc đến đây — vậy hãy bắt đầu.
+**H2:** Bạn đã đọc đến đây.
 
-**Sub:** Không phải vì chúng tôi nói hay. Mà vì bạn xứng đáng được chăm sóc.
+**Sub:** Vậy thì bạn biết — đây không phải quảng cáo. Đây là một lời mời bạn bắt đầu chăm sóc mình.
 
 **Button 1 (Gold):** Đặt Hàng — Dùng Thử 30 Ngày
 **Button 2 (Outline):** Đọc Chia Sẻ Từ Thành Viên
@@ -231,9 +274,11 @@ Em gọi nó là — **lý do duy nhất để tất cả những điều này t
 
 ## GHI CHÚ CHO GRAVITY
 
-1. **Giữ nguyên cấu trúc chapter** hiện tại — chỉ thay nội dung text
-2. **Thêm "Persona / Shadow / Ego / Self"** vào chapter-number nếu muốn (optional, có thể bỏ nếu quá học thuật)
-3. **Testimonials ở Chương 05**: đã mở rộng nội dung cho cô Hoa, anh Minh — nếu có data testimonials thật, thay vào
-4. **Tone giọng**: Giữ xưng "em" — đây là góc nhìn của founder nói với người đọc
-5. **Ảnh**: Giữ nguyên ảnh hiện tại (story-lab.jpg, process-cultivation.jpg), chúng phù hợp
-6. **SEO meta description gợi ý**: "Không phải ai cũng dám nhìn thẳng vào sức khỏe của mình — cho đến khi cơ thể lên tiếng. Câu chuyện về lý do Maldala Duy Đức ra đời."
+1. **Bỏ hoàn toàn label Jung** (Persona, Shadow, Ego, Self) khỏi chapter-number — chỉ giữ "Chương 01, 02..." hoặc đặt tên chapter bằng tiếng Việt
+2. **Bỏ pull-stats (78%, 40%, 3x)** — thay bằng khoảng thở (divider) giữa Chương 01 và 02
+3. **Testimonials ở Chương 06**: Viết dài hơn, mỗi người là một micro-story. Nếu có data khách hàng thật — thay tên + chi tiết vào
+4. **Tone giọng**: Xưng "em" 100%. KHÔNG dùng "chúng tôi" trừ khi nói về đội ngũ cụ thể
+5. **Ảnh**: Giữ nguyên ảnh hiện tại, phù hợp context
+6. **SEO meta description gợi ý:** "Câu chuyện bắt đầu từ một đêm ngồi cạnh giường bệnh ba. Không phải tìm thuốc — mà tìm một thứ đủ tử tế để đặt vào tay người mình thương."
+7. **Cấu trúc 7 chương** (Opening + 6 chapters + CTA) — nhiều hơn bản cũ 1 chương, nhưng mỗi chương gọn hơn, đọc nhanh hơn
+8. **Quan trọng: Sản phẩm không được nhắc tên cho đến Chương 03.** Hai chương đầu hoàn toàn là cảm xúc thuần túy.
