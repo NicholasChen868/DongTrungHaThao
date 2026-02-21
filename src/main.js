@@ -500,6 +500,7 @@ function initCtvForm() {
       } else {
         showToast(
           `Đăng ký thành công! Mã CTV: <strong>${escapeHTML(result.referral_code)}</strong>`
+          + `<br><br><span style="font-size:14px">Mật khẩu Dashboard mặc định là <strong>Số điện thoại</strong> của bạn. Vui lòng đăng nhập và đổi mật khẩu sớm.</span>`
           + `<br><a href="/chia-se.html" style="color:var(--gold-light);font-weight:600">Viết bài chia sẻ (+3đ)</a>`
           + ` &nbsp;|&nbsp; <a href="/ctv-dashboard.html" style="color:var(--gold-light);font-weight:600">Dashboard CTV</a>`,
           true,

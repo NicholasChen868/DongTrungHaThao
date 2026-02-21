@@ -41,10 +41,17 @@ export function initRefTracking() {
 // --- Register CTV ---
 export async function registerCTV(name, phone, email) {
     try {
+        // Create a default password using phone number
+        const encoder = new TextEncoder();
+        const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(phone));
+        const defaultPasswordHash = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+
         const { data, error } = await supabase.rpc('register_ctv', {
             p_name: name,
             p_phone: phone,
             p_email: email || null,
+            p_password_hash: defaultPasswordHash,
+            p_referrer_code: null,
         });
         if (error) throw error;
         if (data?.ok) {
