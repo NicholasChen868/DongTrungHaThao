@@ -1,98 +1,127 @@
-# ClaudeCode — Phase 7: Backend Hoàn Thiện Vòng Lặp Kinh Doanh
+# ClaudeCode — Phase 7 Frontend: CTV Dashboard Notifications + Onboarding DB Sync
 
-> Copy toàn bộ nội dung bên dưới vào terminal ClaudeCode để chạy.
+> Migrations 015-017 đã được chạy trên Supabase. Giờ cần cập nhật Frontend.
 
 ---
 
 ## PROMPT:
 
-Bạn đang tiếp tục phát triển hệ thống DongTrungHaThao (HTML, CSS, Vanilla JS, Supabase).
-Phase 6 đã hoàn thành toàn bộ Frontend. Giờ cần Backend bổ sung 3 module còn thiếu.
+Bạn đang tiếp tục phát triển CTV Dashboard (`ctv-dashboard.html`).
+Migrations 015-017 đã live trên Supabase. Cần cập nhật frontend để sử dụng các RPC mới.
 
-### CONTEXT
-- Giá sản phẩm: 1,450,000 VNĐ / hộp 60 viên
-- Database Supabase đang có: `ctv_accounts`, `member_posts`, `members`, `orders`, `point_transactions`, `rate_limit_tracker`
-- Migration 014 đã chạy: cột `reward_points_granted` trong `member_posts`, RPC `approve_post_and_reward`, `get_btv_posts`, `admin_list_posts`
-- CTV Onboarding Wizard UI đã có ở `ctv-dashboard.html` (3 bước: Copy link > 3 khách > Rút tiền)
+### CONTEXT QUAN TRỌNG
+- Database `ctv_accounts.id` là **UUID** (không phải INTEGER)
+- Supabase client đã có sẵn trong file, import qua module
+- File `ctv-dashboard.html` đã có Onboarding Wizard UI (id="obWizard") và CSS
+- Token Supabase đã lưu trong `.env`
 
-### NHIỆM VỤ 1: Lưu Onboarding Step vào Database
-**File:** `supabase/migrations/015_ctv_onboarding.sql`
+### NHIỆM VỤ 1: Onboarding Wizard DB Sync (File: ctv-dashboard.html)
 
-Thêm cột `onboarding_step INTEGER DEFAULT 0` vào bảng `ctv_accounts`.
+Hiện tại Onboarding Wizard chỉ dùng localStorage. Cần đồng bộ với DB.
 
-Tạo RPC:
-```sql
-update_onboarding_step(p_ref_code TEXT, p_step INTEGER)
-```
-- Validate ref_code tồn tại
-- Chỉ cho phép tăng step (không cho giảm)
-- Rate limit 10 calls / 5 phút
-- SECURITY DEFINER
+**RPC đã có trên server:**
+- `get_ctv_dashboard(p_ref_code)` → trả thêm field `onboarding_step` (0-5)
+- `update_onboarding_step(p_ref_code, p_step)` → lưu bước hoàn thành, chỉ cho phép tăng
 
-Cập nhật file `ctv-dashboard.html`:
-- Khi load dashboard, đọc `onboarding_step` từ data trả về (cần update RPC `get_ctv_dashboard` để trả thêm field `onboarding_step`)
-- Khi user hoàn thành 1 bước, gọi RPC `update_onboarding_step` để lưu vào DB (thay vì chỉ localStorage)
+**Cần sửa trong `initOnboarding(data)`:**
+1. Đọc `data.onboarding_step` thay vì chỉ dùng localStorage
+2. Khi user hoàn thành bước (copy link, đủ 3 đơn) → gọi `supabase.rpc('update_onboarding_step', {p_ref_code, p_step})`
+3. Khi bấm "Đã hiểu, ẩn hướng dẫn" → gọi `update_onboarding_step(ref, 5)` (dismiss forever)
+4. Giữ localStorage làm cache phụ (offline fallback)
 
-### NHIỆM VỤ 2: Thông Báo Đơn Hàng Cho CTV (Order Notification)
-**File:** `supabase/migrations/016_order_notifications.sql`
+### NHIỆM VỤ 2: CTV Notification Bell (File: ctv-dashboard.html)
 
-Tạo bảng `ctv_notifications`:
-```sql
-CREATE TABLE ctv_notifications (
-    id SERIAL PRIMARY KEY,
-    ctv_id INTEGER REFERENCES ctv_accounts(id),
-    type TEXT NOT NULL, -- 'new_order', 'commission', 'withdrawal_approved', 'post_reward'
-    title TEXT NOT NULL,
-    message TEXT,
-    is_read BOOLEAN DEFAULT false,
-    created_at TIMESTAMPTZ DEFAULT now()
-);
-```
+**RPC đã có trên server:**
+- `get_ctv_notifications(p_ref_code)` → trả `{ok, unread_count, notifications[]}`
+- `mark_notification_read(p_ref_code, p_notification_id)` → đánh dấu đã đọc
 
-Tạo RPC:
-- `get_ctv_notifications(p_ref_code TEXT)` — Lấy 20 thông báo mới nhất, rate limit
-- `mark_notification_read(p_ref_code TEXT, p_notification_id INTEGER)` — Đánh dấu đã đọc
+**Cần thêm:**
 
-Tạo Trigger trên bảng `orders`:
-- Khi có đơn hàng mới với `ref_code` khớp CTV → Tự động INSERT vào `ctv_notifications` với type='new_order'
-
-Cập nhật `ctv-dashboard.html`:
-- Thêm icon chuông thông báo ở header (hiện số chưa đọc)
-- Dropdown danh sách thông báo khi click
-- Gọi `get_ctv_notifications` khi load dashboard
-
-### NHIỆM VỤ 3: Lưu & Chia Sẻ Kết Quả Ngũ Hành
-**File:** `supabase/migrations/017_health_map_shares.sql`
-
-Tạo bảng `health_map_results`:
-```sql
-CREATE TABLE health_map_results (
-    id SERIAL PRIMARY KEY,
-    share_code TEXT UNIQUE NOT NULL, -- 8 ký tự random
-    name TEXT NOT NULL,
-    birth_year INTEGER NOT NULL,
-    element TEXT NOT NULL, -- Kim, Mộc, Thủy, Hỏa, Thổ
-    ref_code TEXT, -- CTV referral nếu có
-    created_at TIMESTAMPTZ DEFAULT now()
-);
+1. **HTML** — Trong `.ctv-welcome` header, thêm:
+```html
+<div class="notif-wrapper" id="notifWrapper">
+    <button class="notif-bell" id="notifBell" onclick="toggleNotifications()">
+        🔔 <span class="notif-badge" id="notifBadge" style="display:none">0</span>
+    </button>
+    <div class="notif-dropdown" id="notifDropdown">
+        <div class="notif-header">Thông Báo</div>
+        <div class="notif-list" id="notifList">
+            <div class="notif-empty">Chưa có thông báo</div>
+        </div>
+    </div>
+</div>
 ```
 
-Tạo RPC:
-- `save_health_map(p_name TEXT, p_birth_year INTEGER, p_element TEXT, p_ref_code TEXT DEFAULT NULL)` — Lưu kết quả, trả về share_code. Rate limit 20/giờ
-- `get_health_map(p_share_code TEXT)` — Lấy kết quả theo share_code (public, cho phép xem không cần login)
+2. **CSS** — Thêm styles cho `.notif-*`:
+- `.notif-wrapper` — position: relative
+- `.notif-bell` — background none, border none, font-size 1.3rem, cursor pointer, position relative
+- `.notif-badge` — position absolute, top -4px, right -4px, background #ef4444, color white, font-size 11px, width 18px, height 18px, border-radius 50%, display flex, align-items center, justify-content center
+- `.notif-dropdown` — position absolute, top 100%, right 0, width 320px, max-height 400px, overflow-y auto, background var(--bg-card), border 1px solid var(--border-color), border-radius 12px, box-shadow, display none, z-index 50
+- `.notif-dropdown.open` — display block
+- `.notif-item` — padding 12px 16px, border-bottom 1px solid, cursor pointer, transition
+- `.notif-item.unread` — background rgba(212,168,83,0.06)
+- `.notif-item:hover` — background rgba(255,255,255,0.03)
+- `.notif-type-icon` — margin-right 8px
+- `.notif-time` — font-size 12px, color var(--text-muted)
 
-Cập nhật `ban-do-suc-khoe.html`:
-- Sau khi phân tích xong, tự động gọi `save_health_map` để lưu kết quả
-- Hiển thị nút "Chia Sẻ Kết Quả" với link dạng: `/ban-do-suc-khoe.html?share=ABC12345`
-- Khi URL có `?share=...` → Load kết quả từ DB thay vì yêu cầu nhập lại
-- Nếu URL có `?ref=...` → Lưu ref_code vào kết quả (tracking CTV)
+3. **JavaScript:**
+```javascript
+async function loadNotifications(refCode) {
+    const { data } = await supabase.rpc('get_ctv_notifications', { p_ref_code: refCode });
+    if (!data?.ok) return;
+    
+    // Update badge
+    const badge = document.getElementById('notifBadge');
+    if (data.unread_count > 0) {
+        badge.textContent = data.unread_count;
+        badge.style.display = 'flex';
+    } else {
+        badge.style.display = 'none';
+    }
+    
+    // Render list
+    const list = document.getElementById('notifList');
+    if (!data.notifications?.length) {
+        list.innerHTML = '<div class="notif-empty">Chưa có thông báo</div>';
+        return;
+    }
+    
+    const typeIcons = { new_order: '🛒', commission: '💰', withdrawal_approved: '✅', post_reward: '✍️' };
+    list.innerHTML = data.notifications.map(n => `
+        <div class="notif-item ${n.is_read ? '' : 'unread'}" onclick="markRead('${refCode}', ${n.id}, this)">
+            <div><span class="notif-type-icon">${typeIcons[n.type] || '📌'}</span><strong>${escapeHTML(n.title)}</strong></div>
+            <div style="font-size:13px;color:var(--text-secondary);margin-top:4px">${escapeHTML(n.message || '')}</div>
+            <div class="notif-time">${fmtDate(n.created_at)}</div>
+        </div>
+    `).join('');
+}
 
-### QUY TẮC BẮT BUỘC
-1. Tất cả UI/Text/Commit phải là **Tiếng Việt**
-2. Commit message phải có `Trước khi sửa:` và `Sau khi sửa:`
-3. Mọi RPC phải có `SECURITY DEFINER` + rate limiting
-4. Không lộ `password_hash` trong response
-5. Tạo file migration SQL riêng cho mỗi nhiệm vụ (015, 016, 017)
-6. Test RPC bằng cách gọi trực tiếp trong SQL Editor nếu được
+async function markRead(refCode, notifId, el) {
+    el.classList.remove('unread');
+    await supabase.rpc('mark_notification_read', { p_ref_code: refCode, p_notification_id: notifId });
+    const badge = document.getElementById('notifBadge');
+    const count = parseInt(badge.textContent) - 1;
+    badge.textContent = Math.max(count, 0);
+    if (count <= 0) badge.style.display = 'none';
+}
 
-Bắt đầu từ Nhiệm vụ 1 (đơn giản nhất) rồi tiến dần lên nhé!
+function toggleNotifications() {
+    document.getElementById('notifDropdown').classList.toggle('open');
+}
+
+// Close on outside click
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.notif-wrapper')) {
+        document.getElementById('notifDropdown')?.classList.remove('open');
+    }
+});
+```
+
+4. Gọi `loadNotifications(refCode)` ngay sau `loadBtvPosts(refCode)` trong hàm load dashboard.
+
+### QUY TẮC
+1. Tất cả UI/Text phải là **Tiếng Việt**
+2. Commit message có `Trước khi sửa:` và `Sau khi sửa:`
+3. Không lộ password_hash
+4. escapeHTML cho mọi user input
+5. Build production trước khi push: `npx vite build`
