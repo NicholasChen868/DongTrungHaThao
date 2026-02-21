@@ -2,7 +2,7 @@
 title: "Frontend: User Menu Banner with Role Badges"
 priority: high
 assignee: antigravity
-status: in_progress
+status: done
 created: 2026-02-21
 depends_on: [unified-auth-backend]
 ---

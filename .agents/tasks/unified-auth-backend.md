@@ -2,7 +2,7 @@
 title: "Backend: Unified Auth System + Admin Login RPC"
 priority: high
 assignee: claudecode
-status: todo
+status: done
 created: 2026-02-21
 depends_on: [011_banking_roles_admin.sql migration]
 ---
