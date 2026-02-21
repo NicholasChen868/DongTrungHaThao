@@ -12,6 +12,8 @@
         content="Chia sẻ link, kiếm hoa hồng 10-25%. Không vốn, không kho. Đăng ký miễn phí.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dong-trung-ha-thao.vercel.app/tuyen-ctv.html">
+    <meta property="og:image" content="https://dong-trung-ha-thao.vercel.app/images/og-share.png">
+    <meta property="og:locale" content="vi_VN">
     <link rel="icon" type="image/svg+xml"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -708,38 +710,10 @@
         <p>© 2026 <a href="/">Maldala Duy Đức</a> — Đông Trùng Hạ Thảo Nguyên Chất</p>
     </footer>
 
-    <script>
-        // Income calculator
-        const slider = document.getElementById('calcSlider');
-        const ordersEl = document.getElementById('calcOrders');
-        const amountEl = document.getElementById('calcAmount');
-        const unitPrice = 1450000;
-
-        slider.addEventListener('input', () => {
-            const orders = parseInt(slider.value);
-            ordersEl.textContent = orders;
-
-            let pct = 0.10;
-            if (orders >= 30) pct = 0.25;
-            else if (orders >= 10) pct = 0.15;
-
-            const income = Math.round(orders * unitPrice * pct);
-            amountEl.textContent = income.toLocaleString('vi-VN') + '₫';
-        });
-
-        // Reveal on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    observer.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.15 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    <script type="module">
+        import './src/ctv-landing.js';
+        import './src/utils/tracker.js';
     </script>
-    <script type="module">import './src/utils/tracker.js';</script>
 </body>
 
 </html>
