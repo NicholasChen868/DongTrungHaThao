@@ -4,6 +4,7 @@ import { supabase } from './supabase.js';
 import { escapeHTML, escapeCSS } from './utils/sanitize.js';
 import { checkRateLimit, recordAttempt, createSubmitGuard } from './utils/ratelimit.js';
 import './utils/tracker.js';
+import './auth.js';
 
 const contactGuard = createSubmitGuard(5000);
 
