@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initCountUp();
   initReturningCustomer();
   initFloatingOrderBtn();
+  initContactWidget();
   initReorderReminder();
 
   // Load pricing from backend (parallel with fetchAllData)
@@ -667,4 +668,58 @@ function initReorderReminder() {
       });
     }
   } catch (e) { /* corrupted data */ }
+}
+
+// ===================================
+// FLOATING CONTACT WIDGET
+// ===================================
+function initContactWidget() {
+  const widget = document.getElementById('contactWidget');
+  const toggle = document.getElementById('cwToggle');
+  if (!widget || !toggle) return;
+
+  // Toggle open/close
+  toggle.addEventListener('click', () => {
+    widget.classList.toggle('open');
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!widget.contains(e.target) && widget.classList.contains('open')) {
+      widget.classList.remove('open');
+    }
+  });
+
+  // Fetch contact info from DB and update links
+  loadContactLinks();
+}
+
+async function loadContactLinks() {
+  try {
+    const { data, error } = await supabase.rpc('get_contact_info');
+    if (error || !data) return;
+
+    const cwCall = document.getElementById('cwCall');
+    const cwZalo = document.getElementById('cwZalo');
+    const cwMessenger = document.getElementById('cwMessenger');
+
+    if (cwCall && data.phone) {
+      cwCall.href = `tel:${data.phone.replace(/\s/g, '')}`;
+    }
+
+    if (cwZalo && data.zalo) {
+      // If zalo is a number, use zalo.me link; if it's a URL, use directly
+      cwZalo.href = data.zalo.startsWith('http') ? data.zalo : `https://zalo.me/${data.zalo}`;
+    }
+
+    if (cwMessenger && data.messenger) {
+      cwMessenger.href = data.messenger;
+      cwMessenger.style.display = '';
+    } else if (cwMessenger) {
+      // Hide messenger button if no link configured
+      cwMessenger.style.display = 'none';
+    }
+  } catch (e) {
+    console.warn('⚠️ Could not load contact info:', e.message);
+  }
 }

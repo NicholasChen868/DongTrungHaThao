@@ -1198,37 +1198,37 @@
 
                         window.approvePostReward = async function (id) {
             if (!confirm(`Duyệt bài #${id} và cộng nhuận bút 30,000đ?`)) return;
-            try {
+                        try {
                 const {data, error} = await supabase.rpc('approve_post_and_reward', {
-                    p_admin_hash: getAdminHash(), p_post_id: id
+                            p_admin_hash: getAdminHash(), p_post_id: id
                 });
-                if (error) throw error;
-                if (data?.points_credited) {
-                    showAdminToast(`Bài #${id} đã duyệt + Cộng 30,000đ nhuận bút`);
+                        if (error) throw error;
+                        if (data?.points_credited) {
+                            showAdminToast(`Bài #${id} đã duyệt + Cộng 30,000đ nhuận bút`);
                 } else if (data?.message) {
-                    showAdminToast(data.message);
+                            showAdminToast(data.message);
                 } else {
-                    showAdminToast(`Bài #${id} đã duyệt (BTV chưa có tài khoản CTV)`);
+                            showAdminToast(`Bài #${id} đã duyệt (BTV chưa có tài khoản CTV)`);
                 }
-                loaded.posts = false;
-                await loadPosts();
+                        loaded.posts = false;
+                        await loadPosts();
             } catch (err) {
-                showAdminToast('Lỗi: ' + err.message, 'error');
+                            showAdminToast('Lỗi: ' + err.message, 'error');
             }
         };
 
                         window.rejectPost = async function (id) {
             if (!confirm(`Xác nhận ẩn bài #${id}?`)) return;
-            try {
+                        try {
                 const {error} = await supabase.rpc('admin_update_post_status', {
-                    p_admin_hash: getAdminHash(), p_post_id: id, p_approve: false
+                            p_admin_hash: getAdminHash(), p_post_id: id, p_approve: false
                 });
-                if (error) throw error;
-                showAdminToast(`Bài #${id} → ẩn`);
-                loaded.posts = false;
-                await loadPosts();
+                        if (error) throw error;
+                        showAdminToast(`Bài #${id} → ẩn`);
+                        loaded.posts = false;
+                        await loadPosts();
             } catch (err) {
-                showAdminToast('Lỗi: ' + err.message, 'error');
+                            showAdminToast('Lỗi: ' + err.message, 'error');
             }
         };
 
@@ -1372,11 +1372,15 @@
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
                             <div>
                                 <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">📱 Số điện thoại</label>
-                                <input class="admin-input" id="ct_phone" value="${escapeHTML(contact.phone || '')}" />
+                                <input class="admin-input" id="ct_phone" value="${escapeHTML(contact.phone || '')}" placeholder="0374867868" />
                             </div>
                             <div>
-                                <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">💬 Zalo</label>
-                                <input class="admin-input" id="ct_zalo" value="${escapeHTML(contact.zalo || '')}" />
+                                <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">💬 Zalo (SĐT hoặc link)</label>
+                                <input class="admin-input" id="ct_zalo" value="${escapeHTML(contact.zalo || '')}" placeholder="0374867868" />
+                            </div>
+                            <div>
+                                <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">💙 Messenger (link m.me/...)</label>
+                                <input class="admin-input" id="ct_messenger" value="${escapeHTML(contact.messenger || '')}" placeholder="https://m.me/username" />
                             </div>
                             <div>
                                 <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px">📍 Địa chỉ</label>
@@ -1496,6 +1500,7 @@
                             await saveSetting('contact_info', {
                                 phone: document.getElementById('ct_phone').value,
                                 zalo: document.getElementById('ct_zalo').value,
+                                messenger: document.getElementById('ct_messenger').value,
                                 address: document.getElementById('ct_address').value,
                                 working_hours: document.getElementById('ct_hours').value,
                             });
