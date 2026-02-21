@@ -183,16 +183,20 @@ img {
 
 .section-tag {
   display: inline-block;
-  padding: 6px 20px;
+  padding: 10px 28px;
   border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 500;
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0;
   color: var(--gold-primary);
   border: 1px solid var(--border-color);
   background: var(--bg-glass);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  line-height: 1.5;
+  max-width: 90%;
 }
 
 .section-title {
@@ -2000,7 +2004,7 @@ textarea {
   }
 
   .hero-scroll-indicator {
-    bottom: 20px;
+    display: none;
   }
 
   /* Section headers */
@@ -2244,6 +2248,7 @@ textarea {
   .hero-stats {
     flex-direction: column;
     gap: 16px;
+    padding-bottom: 24px;
   }
 
   .hero-stat-number {
@@ -2251,7 +2256,11 @@ textarea {
   }
 
   .hero-content {
-    padding: 80px 16px 0;
+    padding: 80px 16px 40px;
+  }
+
+  .hero-scroll-indicator {
+    display: none;
   }
 
   /* Benefits */
