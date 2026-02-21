@@ -186,8 +186,8 @@ function renderProduct(product) {
   if (nameEl) nameEl.textContent = product.name;
   if (descEl) descEl.textContent = product.description;
   if (capsulesEl) capsulesEl.textContent = product.capsuleCount + ' ' + product.capsuleUnit;
-  if (priceEl) priceEl.textContent = product.priceFormatted;
-  if (totalEl) totalEl.textContent = product.priceFormatted;
+  if (priceEl) priceEl.textContent = PRICING.unit_price.toLocaleString('vi-VN') + '₫';
+  if (totalEl) totalEl.textContent = PRICING.unit_price.toLocaleString('vi-VN') + '₫';
 
   if (ingredientsEl) {
     const ul = ingredientsEl.querySelector('ul');
