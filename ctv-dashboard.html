@@ -903,6 +903,191 @@
                 right: -10px;
             }
         }
+
+        /* Banking / Payment Info Section */
+        .ctv-banking {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .ctv-banking h3 {
+            color: var(--gold-light);
+            font-size: 18px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ctv-banking .bank-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .bank-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .bank-status.configured {
+            background: rgba(74, 222, 128, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+
+        .bank-status.not-configured {
+            background: rgba(251, 191, 36, 0.1);
+            color: var(--pending);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+
+        .bank-saved-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .bank-saved-field {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+
+        .bank-saved-field .field-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .bank-saved-field .field-value {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .bank-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .bank-form-grid .bank-full {
+            grid-column: 1 / -1;
+        }
+
+        .bank-form-grid label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .bank-form-grid input,
+        .bank-form-grid select {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .bank-form-grid input:focus,
+        .bank-form-grid select:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+        }
+
+        .bank-form-grid select option {
+            background: #111;
+            color: #eee;
+        }
+
+        .bank-btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .bank-save-btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: opacity 0.2s;
+        }
+
+        .bank-save-btn:hover {
+            opacity: 0.9;
+        }
+
+        .bank-save-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .bank-edit-btn {
+            padding: 10px 24px;
+            background: transparent;
+            color: var(--gold-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .bank-edit-btn:hover {
+            border-color: var(--gold-primary);
+            background: rgba(212, 168, 83, 0.06);
+        }
+
+        .bank-error {
+            color: var(--error);
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .bank-success {
+            color: var(--success);
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+
+            .bank-saved-info,
+            .bank-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -1086,6 +1271,93 @@
                 <div style="text-align:center;margin-top:12px">
                     <a href="/chia-se.html#write" class="ctv-ref-copy-btn"
                         style="display:inline-block;text-decoration:none">Viết Bài Mới</a>
+                </div>
+            </div>
+
+            <!-- Payment Info / Banking Section -->
+            <div class="ctv-banking" id="bankingSection">
+                <h3>💳 Thông Tin Thanh Toán</h3>
+                <p class="bank-subtitle">Lưu thông tin ngân hàng để tự động điền khi rút tiền</p>
+
+                <!-- Status Badge -->
+                <div class="bank-status not-configured" id="bankStatus">
+                    <span>⚠️</span> Chưa thiết lập
+                </div>
+
+                <!-- Saved Info Display (shown when configured) -->
+                <div id="bankSavedDisplay" style="display:none">
+                    <div class="bank-saved-info">
+                        <div class="bank-saved-field">
+                            <div class="field-label">Ngân hàng</div>
+                            <div class="field-value" id="bankDisplayName">—</div>
+                        </div>
+                        <div class="bank-saved-field">
+                            <div class="field-label">Số tài khoản</div>
+                            <div class="field-value" id="bankDisplayNumber">—</div>
+                        </div>
+                        <div class="bank-saved-field">
+                            <div class="field-label">Chủ tài khoản</div>
+                            <div class="field-value" id="bankDisplayHolder">—</div>
+                        </div>
+                        <div class="bank-saved-field">
+                            <div class="field-label">Chi nhánh</div>
+                            <div class="field-value" id="bankDisplayBranch">—</div>
+                        </div>
+                    </div>
+                    <button class="bank-edit-btn" id="bankEditBtn">✏️ Chỉnh Sửa</button>
+                </div>
+
+                <!-- Edit Form (shown when editing or not configured) -->
+                <div id="bankEditForm">
+                    <div class="bank-form-grid">
+                        <div class="bank-full">
+                            <label>Ngân hàng *</label>
+                            <select id="bankName" required>
+                                <option value="">— Chọn ngân hàng —</option>
+                                <option>Vietcombank</option>
+                                <option>BIDV</option>
+                                <option>Agribank</option>
+                                <option>Techcombank</option>
+                                <option>VPBank</option>
+                                <option>MB Bank</option>
+                                <option>ACB</option>
+                                <option>Sacombank</option>
+                                <option>TPBank</option>
+                                <option>VIB</option>
+                                <option>SHB</option>
+                                <option>MSB</option>
+                                <option>OCB</option>
+                                <option>HDBank</option>
+                                <option>SeABank</option>
+                                <option>LienVietPostBank</option>
+                                <option>Nam A Bank</option>
+                                <option>Bac A Bank</option>
+                                <option>Momo</option>
+                                <option>ZaloPay</option>
+                                <option value="other">Khác</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Số tài khoản *</label>
+                            <input type="text" id="bankAccountNumber" placeholder="VD: 1234567890" pattern="[0-9]{8,20}"
+                                required />
+                        </div>
+                        <div>
+                            <label>Chủ tài khoản *</label>
+                            <input type="text" id="bankAccountHolder" placeholder="VD: NGUYEN VAN A"
+                                style="text-transform:uppercase" required />
+                        </div>
+                        <div class="bank-full">
+                            <label>Chi nhánh (tùy chọn)</label>
+                            <input type="text" id="bankBranch" placeholder="VD: Chi nhánh Hà Nội" />
+                        </div>
+                    </div>
+                    <div class="bank-btn-group">
+                        <button class="bank-save-btn" id="bankSaveBtn">💾 Lưu Thông Tin</button>
+                        <button class="bank-edit-btn" id="bankCancelBtn" style="display:none">Hủy</button>
+                    </div>
+                    <div class="bank-error" id="bankError"></div>
+                    <div class="bank-success" id="bankSuccess"></div>
                 </div>
             </div>
 
@@ -1452,11 +1724,12 @@
                 // Referral link
                 document.getElementById('refLinkInput').value = `${window.location.origin}/?ref=${data.referral_code}`;
 
-                // Load recent transactions + withdrawals + BTV posts
+                // Load recent transactions + withdrawals + BTV posts + banking
                 loadTransactions(refCode);
                 loadWithdrawals(data.referral_code, data.name);
                 loadBtvPosts(refCode);
                 loadNotifications(refCode);
+                loadBankingInfo(refCode);
 
                 // Store for withdrawal form
                 window._ctvData = data;
@@ -1605,6 +1878,150 @@
                 console.error('BTV posts load error:', err);
             }
         }
+
+        // --- Banking / Payment Info ---
+        let bankingData = null;
+
+        async function loadBankingInfo(refCode) {
+            try {
+                const { data, error } = await supabase.rpc('get_ctv_banking', { p_ref_code: refCode });
+                if (error) throw error;
+                bankingData = data;
+
+                const statusEl = document.getElementById('bankStatus');
+                const savedEl = document.getElementById('bankSavedDisplay');
+                const formEl = document.getElementById('bankEditForm');
+                const cancelBtn = document.getElementById('bankCancelBtn');
+
+                if (data?.has_banking && data?.bank_name) {
+                    // Show saved info
+                    statusEl.className = 'bank-status configured';
+                    statusEl.innerHTML = '<span>✅</span> Đã thiết lập';
+                    document.getElementById('bankDisplayName').textContent = data.bank_name;
+                    document.getElementById('bankDisplayNumber').textContent = data.bank_account_number || '—';
+                    document.getElementById('bankDisplayHolder').textContent = data.bank_account_holder || '—';
+                    document.getElementById('bankDisplayBranch').textContent = data.bank_branch || '—';
+                    savedEl.style.display = 'block';
+                    formEl.style.display = 'none';
+
+                    // Auto-fill withdrawal form
+                    autoFillWithdrawalForm(data);
+                } else {
+                    statusEl.className = 'bank-status not-configured';
+                    statusEl.innerHTML = '<span>⚠️</span> Chưa thiết lập — hãy nhập thông tin ngân hàng';
+                    savedEl.style.display = 'none';
+                    formEl.style.display = 'block';
+                    cancelBtn.style.display = 'none';
+                }
+            } catch (err) {
+                console.error('Banking load error:', err);
+            }
+        }
+
+        function autoFillWithdrawalForm(data) {
+            if (!data) return;
+            const wdBank = document.getElementById('wdBank');
+            const wdAccount = document.getElementById('wdAccount');
+            const wdHolder = document.getElementById('wdHolder');
+            if (data.bank_name) {
+                // Try to match bank name in withdrawal select
+                for (let opt of wdBank.options) {
+                    if (opt.textContent === data.bank_name || opt.value === data.bank_name) {
+                        wdBank.value = opt.value || opt.textContent;
+                        break;
+                    }
+                }
+            }
+            if (data.bank_account_number_full) wdAccount.value = data.bank_account_number_full;
+            if (data.bank_account_holder) wdHolder.value = data.bank_account_holder;
+        }
+
+        // Edit button
+        document.getElementById('bankEditBtn')?.addEventListener('click', () => {
+            document.getElementById('bankSavedDisplay').style.display = 'none';
+            const formEl = document.getElementById('bankEditForm');
+            formEl.style.display = 'block';
+            document.getElementById('bankCancelBtn').style.display = 'inline-flex';
+
+            // Pre-fill form with existing data
+            if (bankingData) {
+                const nameSelect = document.getElementById('bankName');
+                for (let opt of nameSelect.options) {
+                    if (opt.textContent === bankingData.bank_name) { nameSelect.value = opt.value || opt.textContent; break; }
+                }
+                document.getElementById('bankAccountNumber').value = bankingData.bank_account_number_full || '';
+                document.getElementById('bankAccountHolder').value = bankingData.bank_account_holder || '';
+                document.getElementById('bankBranch').value = bankingData.bank_branch || '';
+            }
+        });
+
+        // Cancel button
+        document.getElementById('bankCancelBtn')?.addEventListener('click', () => {
+            if (bankingData?.has_banking) {
+                document.getElementById('bankSavedDisplay').style.display = 'block';
+                document.getElementById('bankEditForm').style.display = 'none';
+            }
+        });
+
+        // Save button
+        document.getElementById('bankSaveBtn')?.addEventListener('click', async () => {
+            const bankName = document.getElementById('bankName').value;
+            const acctNum = document.getElementById('bankAccountNumber').value.trim();
+            const acctHolder = document.getElementById('bankAccountHolder').value.trim();
+            const branch = document.getElementById('bankBranch').value.trim();
+            const errEl = document.getElementById('bankError');
+            const successEl = document.getElementById('bankSuccess');
+            const btn = document.getElementById('bankSaveBtn');
+
+            errEl.style.display = 'none';
+            successEl.style.display = 'none';
+
+            if (!bankName || !acctNum || !acctHolder) {
+                errEl.textContent = 'Vui lòng điền đầy đủ ngân hàng, số tài khoản và tên chủ TK';
+                errEl.style.display = 'block';
+                return;
+            }
+            if (!/^[0-9]{8,20}$/.test(acctNum)) {
+                errEl.textContent = 'Số tài khoản phải từ 8-20 chữ số';
+                errEl.style.display = 'block';
+                return;
+            }
+
+            const refCode = localStorage.getItem('ctv_ref_code');
+            if (!refCode) { errEl.textContent = 'Chưa đăng nhập'; errEl.style.display = 'block'; return; }
+
+            btn.disabled = true;
+            btn.textContent = 'Đang lưu...';
+
+            try {
+                const { data, error } = await supabase.rpc('update_ctv_banking', {
+                    p_ref_code: refCode,
+                    p_bank_name: bankName,
+                    p_account_number: acctNum,
+                    p_account_holder: acctHolder.toUpperCase(),
+                    p_branch: branch || null
+                });
+                if (error) throw error;
+                if (!data?.ok) {
+                    errEl.textContent = data?.error || 'Lỗi không xác định';
+                    errEl.style.display = 'block';
+                    return;
+                }
+
+                successEl.textContent = '✅ ' + data.message;
+                successEl.style.display = 'block';
+                showCtvToast('Đã lưu thông tin ngân hàng thành công!');
+
+                // Reload banking display
+                setTimeout(() => loadBankingInfo(refCode), 500);
+            } catch (err) {
+                errEl.textContent = 'Lỗi: ' + err.message;
+                errEl.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '💾 Lưu Thông Tin';
+            }
+        });
 
         // --- Withdrawal ---
         window.submitWithdrawal = async function (e) {
