@@ -138,6 +138,7 @@
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 24px;
+            text-wrap: balance;
         }
 
         .r-hero h1 .hl {
@@ -242,6 +243,7 @@
             font-family: 'Lora', serif;
             font-size: 2.2rem;
             margin-bottom: 16px;
+            text-wrap: balance;
         }
 
         .r-section-title .hl {
@@ -417,37 +419,49 @@
             margin: 0 auto;
         }
 
-        .path-card {
+        .path-box {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 32px;
+            padding: 28px 24px;
         }
 
-        .path-icon {
-            font-size: 2rem;
-            margin-bottom: 12px;
-        }
-
-        .path-title {
+        .path-box h3 {
+            font-size: 1.1rem;
             font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-            color: var(--gold-light);
+            margin-bottom: 16px;
+            color: var(--text-sec);
         }
 
-        .path-list {
+        .path-box.highlight {
+            border-color: var(--gold);
+            background: linear-gradient(170deg, var(--bg-card), rgba(74, 222, 128, 0.04));
+        }
+
+        .path-box.highlight h3 {
+            color: var(--green);
+        }
+
+        .path-box ul {
             list-style: none;
+            padding: 0;
         }
 
-        .path-list li {
+        .path-box li {
             padding: 8px 0;
             font-size: 14px;
             color: var(--text-sec);
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            line-height: 1.6;
         }
 
-        .path-list li::before {
+        .path-box li::before {
+            content: '✗ ';
+            color: #f87171;
+            font-weight: 700;
+        }
+
+        .path-box.highlight li::before {
             content: '✓ ';
             color: var(--green);
             font-weight: 700;
@@ -513,6 +527,10 @@
                 margin-top: 0;
             }
 
+            .r-stat .num {
+                font-size: 1.6rem;
+            }
+
             .steps-grid,
             .tiers-grid {
                 grid-template-columns: 1fr;
@@ -529,6 +547,25 @@
             .calc-box {
                 padding: 24px;
             }
+
+            .r-section-title {
+                font-size: 1.8rem;
+            }
+
+            .r-cta-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .ctv-floating-widget {
+                bottom: 16px;
+                right: 16px;
+                max-width: 200px;
+            }
+        }
+
+        /* Extra safe padding so floating widget doesn't cover content */
+        .r-footer {
+            padding-bottom: 80px;
         }
 
         /* Reveal */
@@ -703,7 +740,7 @@
                     <h3>Nếu Làm CTV Tại Đây</h3>
                     <ul>
                         <li><strong>0₫ Vốn</strong>, rủi ro bằng không</li>
-                        <li>Chúng tôi đóng gói và giao hàng cho khách</li>
+                        <li>Em đóng gói và giao hàng tận tay khách</li>
                         <li>Hoa hồng tăng tự động theo doanh số</li>
                         <li>Theo dõi đơn siêu minh bạch qua Dashboard</li>
                     </ul>
