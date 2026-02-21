@@ -1,31 +1,57 @@
-# CÂU CHUYỆN — Content v3 (The One)
-> Story #1: "Giường bệnh" — Câu chuyện gốc, câu chuyện chạm nhất
-> Target: 8x/9x, 30–45 tuổi, đọc lúc 11 giờ đêm trên điện thoại
-> Giọng: Xưng "em" xuyên suốt. Không có "chúng tôi."
-> Rule: Sản phẩm không xuất hiện trước Chương 03. Không gọi tên Jung. Không tagline.
+# PROMPT CHO ANTIGRAVITY — Viết lại trang Câu Chuyện
+
+## Nhiệm vụ
+Thay toàn bộ nội dung text trong `cau-chuyen.html` bằng content mới bên dưới. Giữ nguyên CSS, JS, animation system. Thay đổi cấu trúc HTML theo hướng dẫn.
+
+## File cần sửa
+- `cau-chuyen.html` — thay toàn bộ content text
+
+## Những thay đổi về cấu trúc
+
+### BỎ:
+- **Bỏ pull-stats section** (78%, 40%, 3x) — thay bằng divider `· · ·`
+- **Bỏ chương "giá cả"** cũ (Chương 04 cũ về "Tại sao giá chỉ bằng một nửa")
+- **Bỏ quote "Thà bán ít..."** sau chương giá cả cũ
+
+### GIỮ NGUYÊN:
+- Toàn bộ CSS (design system, colors, typography, animations, responsive)
+- JS imports (`tracker.js`, `story-animations.js`)
+- Reading progress bar
+- Nav structure
+- Chapter system (`.chapter`, `.chapter-inner`, `.chapter-opening`, `.quote-block`, `.divider`, `.story-visual`, `.story-cta`)
+- Reveal/scroll animations
+
+### THAY ĐỔI:
+- **6 chương** thay vì 6 chương cũ (cắt chương giá, thêm chương "Ông Năm thuốc")
+- **Opening** mở bằng cảnh cụ thể, không tuyên bố
+- **Footer copyright**: đổi thành `Maldala Duy Đức` (không phải maldalladuyduc)
+- **SEO meta description** mới (xem cuối file)
 
 ---
 
-## OPENING (Full-screen, cinematic)
-
-**Kicker:** Câu chuyện số một
-
-**H1:** 2 giờ sáng, *phòng bệnh tầng 3*
-
-**Lead (italic, Lora):**
-Ba em nằm nghiêng trên giường bệnh. Mắt nhắm. Nhưng em biết ổng chưa ngủ — vì bàn tay ổng vẫn đang nắm chặt mép chăn, như sợ ai lấy mất.
-
-**Scroll hint:** ↓ Kéo xuống để đọc
+## NỘI DUNG MỚI — TỪNG SECTION
 
 ---
 
-## CHƯƠNG 01 — 2 giờ sáng
+### OPENING (giữ class `.chapter-opening`)
 
-**Chapter number:** Chương 01
+**Kicker:** `Câu chuyện số một`
 
-**H2:** *Mùi nước sát khuẩn và tiếng máy monitor —* những thứ bạn không bao giờ quên
+**H1:** `2 giờ sáng,` `phòng bệnh tầng 3` ← phần sau bọc `<span class="hl">`
 
-**Body:**
+**Lead:** `Ba em nằm nghiêng trên giường bệnh. Mắt nhắm. Nhưng em biết ổng chưa ngủ — vì bàn tay ổng vẫn đang nắm chặt mép chăn, như sợ ai lấy mất.`
+
+**Scroll hint:** `↓ Kéo xuống để đọc`
+
+---
+
+### CHƯƠNG 01 — "2 giờ sáng"
+
+**Chapter number:** `Chương 01`
+
+**H2:** `Mùi nước sát khuẩn và tiếng máy monitor —` `những thứ bạn không bao giờ quên` ← phần đầu (italic) bọc `<span class="hl">`
+
+**Body (mỗi đoạn = 1 thẻ `<p>`):**
 
 Em kể cho bạn nghe chuyện này. Không phải chuyện sản phẩm. Chuyện của em.
 
@@ -53,13 +79,17 @@ Và khoảnh khắc đó — 2 giờ sáng, phòng bệnh tầng 3, tiếng moni
 
 **Em sợ rằng mình sẽ sống cả đời, bon chen, bận rộn, kiếm tiền — rồi một ngày ngồi trên cái ghế nhựa này, nhìn người mình yêu nằm đó, và nhận ra mình chưa từng làm đủ.**
 
+*(Đoạn cuối cùng in đậm toàn bộ, bọc `<strong>`)*
+
+**[Divider `· · ·` sau chương này]**
+
 ---
 
-## CHƯƠNG 02 — Ông Năm thuốc
+### CHƯƠNG 02 — "Ông Năm thuốc"
 
-**Chapter number:** Chương 02
+**Chapter number:** `Chương 02`
 
-**H2:** *"10 người bán thì 9 người pha.* Con mua ngoài, may lắm được ba phần thiệt."
+**H2:** `"10 người bán thì 9 người pha.` `Con mua ngoài, may lắm được ba phần thiệt."` ← phần đầu bọc `<span class="hl">`
 
 **Body:**
 
@@ -89,13 +119,15 @@ Rồi một câu hỏi khác, to hơn, dữ hơn:
 
 *"Hay mình tự làm?"*
 
+**[Divider `· · ·` sau chương này]**
+
 ---
 
-## CHƯƠNG 03 — Phòng nuôi cấy nhỏ hơn phòng ngủ
+### CHƯƠNG 03 — "Phòng nuôi cấy nhỏ hơn phòng ngủ"
 
-**Chapter number:** Chương 03
+**Chapter number:** `Chương 03`
 
-**H2:** Em không xây xưởng. *Em xây lời hứa.*
+**H2:** `Em không xây xưởng.` `Em xây lời hứa.` ← phần sau bọc `<span class="hl">`
 
 **Body:**
 
@@ -115,26 +147,28 @@ Mẻ thứ bảy — lên. Thật sự lên. Quả thể Cordyceps militaris cam
 
 Viên nang đầu tiên em đóng xong — em không bán. **Em mang về cho ba.**
 
-**[Story Visual — ảnh phòng nuôi cấy]**
-*Ba uống viên đầu tiên. Không nói gì. Một tháng sau, má gọi: "Ba con dạo này khỏe hơn rồi nha. Sáng đi bộ được rồi."*
+**[Story Visual — dùng ảnh `story-lab.jpg` hiện có + badge "Ảnh mẫu"]**
+Caption: *Ba uống viên đầu tiên. Không nói gì. Một tháng sau, má gọi: "Ba con dạo này khỏe hơn rồi nha. Sáng đi bộ được rồi."*
 
 *Sáu chữ đó — đáng hơn sáu tháng trầy trật.*
 
 ---
 
-## QUOTE sau Chương 03
+### QUOTE sau Chương 03 (dùng class `.quote-block`)
 
 > "Mỗi viên nang em làm ra, em đều tự hỏi: mình có dám cho ba uống không? Nếu em do dự dù chỉ một giây — em bỏ cả mẻ."
->
-> — Không phải slogan. Là cách em sống.
+
+**cite:** `— Không phải slogan. Là cách em sống.`
+
+**[Divider `· · ·`]**
 
 ---
 
-## CHƯƠNG 04 — Trông con
+### CHƯƠNG 04 — "Trông con"
 
-**Chapter number:** Chương 04
+**Chapter number:** `Chương 04`
 
-**H2:** 45 ngày tĩnh lặng — *vì thiên nhiên không cho phép ai vội*
+**H2:** `45 ngày tĩnh lặng —` `vì thiên nhiên không cho phép ai vội` ← phần sau bọc `<span class="hl">`
 
 **Body:**
 
@@ -148,8 +182,8 @@ Năm ngày đầu — chọn giống. Như chọn hạt giống tốt nhất cho
 
 5 ngày cuối — thu hoạch. Phải đúng lúc. Sớm một ngày — chưa đủ. Muộn một ngày — đã qua. Cái khoảnh khắc đó không cho phép sai. Giống như **lần đầu con bước đi** — bạn không sắp xếp được, bạn chỉ có thể có mặt đúng lúc.
 
-**[Story Visual — ảnh quy trình]**
-*Sấy thăng hoa giữ nguyên dưỡng chất. Nghiền mịn. Đóng viên 500mg. Không pha. Không trộn. Không bảo quản. Không phụ gia.*
+**[Story Visual — dùng ảnh `process-cultivation.jpg` hiện có + badge "Ảnh mẫu"]**
+Caption: *Sấy thăng hoa giữ nguyên dưỡng chất. Nghiền mịn. Đóng viên 500mg. Không pha. Không trộn. Không bảo quản. Không phụ gia.*
 
 Người ta hay hỏi em: *"Sao không làm thêm sản phẩm khác? Thêm trà, thêm mật ong, thêm combo?"*
 
@@ -157,13 +191,15 @@ Em hỏi lại: *"Anh chị nuôi một đứa con — anh chị muốn nuôi ch
 
 **Em chọn một sản phẩm. Và em sẽ làm nó tới nơi.**
 
+**[Divider `· · ·`]**
+
 ---
 
-## CHƯƠNG 05 — Những tin nhắn lúc nửa đêm
+### CHƯƠNG 05 — "Những tin nhắn lúc nửa đêm"
 
-**Chapter number:** Chương 05
+**Chapter number:** `Chương 05`
 
-**H2:** Em không chữa bệnh. *Nhưng có người nhắn cho em lúc 1 giờ sáng.*
+**H2:** `Em không chữa bệnh.` `Nhưng có người nhắn cho em lúc 1 giờ sáng.` ← phần sau bọc `<span class="hl">`
 
 **Body:**
 
@@ -214,19 +250,21 @@ Con gái bác gọi cho em, cười:
 Cho đến khi họ thật sự ổn. Và nhận ra trước đó, mình chưa bao giờ ổn.
 
 **[Story Visual — emoji 💛]**
-*Sản phẩm tốt nhất không phải thứ bán chạy nhất. Mà là thứ mà khi người ta mua lần hai — họ mua cho người họ thương.*
+Caption: *Sản phẩm tốt nhất không phải thứ bán chạy nhất. Mà là thứ mà khi người ta mua lần hai — họ mua cho người họ thương.*
+
+**[Divider `· · ·`]**
 
 ---
 
-## CHƯƠNG CUỐI — Về nhà
+### CHƯƠNG CUỐI — "Về nhà"
 
-**Chapter number:** Chương cuối
+**Chapter number:** `Chương cuối`
 
-**H2:** *Câu chuyện này không phải của em.*
+**H2:** `Câu chuyện này` `không phải của em.` ← phần sau bọc `<span class="hl">`
 
 **Body:**
 
-Câu chuyện này là của bạn.
+Câu chuyện này là của **bạn.**
 
 Của buổi sáng bạn tỉnh dậy, nằm thêm 5 phút, tự hỏi: *"Mình đang sống — hay đang cố qua ngày?"*
 
@@ -252,49 +290,43 @@ Nhưng nếu một buổi sáng, bạn tỉnh dậy, và lần đầu tiên sau 
 
 ---
 
-## CTA SECTION
+### CTA SECTION (giữ class `.story-cta`)
 
-**H2:** Bạn đã đọc đến đây.
+**H2:** `Bạn đã đọc đến đây.`
 
-**Sub:** Vậy thì — đây không phải chỗ để em thuyết phục bạn. Đây là chỗ để bạn tự quyết định.
+**Sub:** `Vậy thì — đây không phải chỗ để em thuyết phục bạn. Đây là chỗ để bạn tự quyết định.`
 
-**Button 1 (Gold):** Đặt Hàng — Thử 30 Ngày
-**Button 2 (Outline):** Đọc Thêm Chia Sẻ Từ Thành Viên
-
----
-
-## FOOTER
-
-© 2026 Maldala Duy Đức — Một sản phẩm. Một lời hứa. Một con đường về nhà.
+**Button 1 (Gold, link → `/#contact`):** `Đặt Hàng — Thử 30 Ngày`
+**Button 2 (Outline, link → `/chia-se.html`):** `Đọc Thêm Chia Sẻ Từ Thành Viên`
 
 ---
 
-## GHI CHÚ CHO GRAVITY
+### FOOTER
 
-### Thay đổi cấu trúc so với bản cũ:
-1. **Giảm từ 7 chương → 6 chương** — cắt chương "giá cả" (không cần biện minh giá nếu story đủ mạnh)
-2. **Bỏ pull-stats** hoàn toàn — thay bằng divider/khoảng thở
-3. **Opening mở bằng CẢNH**, không bằng tuyên bố — người đọc bị ném thẳng vào phòng bệnh lúc 2 giờ sáng
-4. **Chương 01 + 02 hoàn toàn cảm xúc** — không nhắc sản phẩm, không nhắc ĐTHT
-5. **Sản phẩm xuất hiện tự nhiên ở Chương 03** — sau khi người đọc đã muốn tìm nó
-6. **Testimonials viết dạng tin nhắn/cuộc gọi thật** — xù xì, lộn xộn, có giọng miền, không mượt mà
-7. **Chương cuối quay về chiếc ghế nhựa xanh** — motif xuyên suốt, đóng vòng tròn
+`© 2026 Maldala Duy Đức — Một sản phẩm. Một lời hứa. Một con đường về nhà.`
 
-### Motifs xuyên suốt (không cần label, để người đọc tự cảm):
-- **Chiếc ghế nhựa xanh** — mở đầu và kết thúc
-- **Bàn tay ba** — gầy đi, run, nắm chăn
-- **"Tôi ổn"** — mặt nạ mọi người đều đeo
-- **"Muốn dậy"** — thước đo sức khỏe thật sự
+---
 
-### Tone voice:
-- Xưng **"em"** 100%, KHÔNG "chúng tôi"
-- Giọng **miền Nam nhẹ** (ổng, bả, thiệt, đàng hoàng)
-- Testimonials: giọng **từng vùng miền** (Đà Nẵng, SG, Cần Thơ)
+### SEO META TAGS — cập nhật
 
-### SEO meta description gợi ý:
-"2 giờ sáng, phòng bệnh tầng 3. Ba nằm nghiêng, giấu cơn đau để con không lo. Đó là đêm thay đổi mọi thứ."
+```html
+<meta name="description" content="2 giờ sáng, phòng bệnh tầng 3. Ba nằm nghiêng, giấu cơn đau để con không lo. Đó là đêm thay đổi mọi thứ." />
+<meta property="og:description" content="Câu chuyện bắt đầu từ một đêm ngồi cạnh giường bệnh ba. Không phải tìm thuốc — mà tìm một thứ đủ tử tế để đặt vào tay người mình thương." />
+```
 
-### BACKLOG (xem file BACKLOG.md):
-- Trang sẽ có NHIỀU story, random hiển thị
-- Story #1 này ("Giường bệnh") là story gốc
-- Các story tiếp: góc nhìn người vợ, góc nhìn CTV, góc nhìn người trẻ burnout...
+---
+
+## QUY TẮC QUAN TRỌNG
+
+1. **Xưng "em" 100%** — KHÔNG dùng "chúng tôi" ở bất kỳ đâu trong bài
+2. **Giọng miền Nam nhẹ**: ổng, bả, thiệt, đàng hoàng — giữ nguyên, KHÔNG sửa thành giọng Bắc
+3. **Testimonials giữ giọng vùng miền**: mỗi người nói khác nhau (Đà Nẵng, SG, Cần Thơ)
+4. **Ảnh**: Giữ `story-lab.jpg` và `process-cultivation.jpg` hiện có, kèm badge "Ảnh mẫu"
+5. **Sản phẩm KHÔNG được nhắc tên** trước Chương 03 — hai chương đầu hoàn toàn là cảm xúc
+6. **Motifs xuyên suốt** (không label, để người đọc tự cảm):
+   - Chiếc ghế nhựa xanh — xuất hiện ở Ch01 và Chương cuối
+   - Bàn tay ba — gầy, run, nắm chăn
+   - "Tôi ổn" — mặt nạ
+   - "Muốn dậy" — thước đo sức khỏe thật
+7. **In đậm / in nghiêng** theo đúng markdown trong content: `**bold**` = `<strong>`, `*italic*` = `<em>`
+8. Tuân thủ CLAUDE.md: không inline styles, dùng CSS variables, semantic HTML

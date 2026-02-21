@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Câu Chuyện Của Chúng Tôi — Đông Trùng Hạ Thảo maldalladuyduc</title>
+    <title>Câu Chuyện — Đông Trùng Hạ Thảo Maldala Duy Đức</title>
     <meta name="description"
-        content="Không phải ai cũng để ý rằng sức khỏe đang cạn dần — cho đến khi quá muộn. Đây là câu chuyện về lý do chúng tôi bắt đầu." />
-    <meta property="og:title" content="Câu Chuyện Của Chúng Tôi — maldalladuyduc" />
-    <meta property="og:description" content="Câu chuyện đằng sau viên nang Đông Trùng Hạ Thảo nguyên chất." />
+        content="2 giờ sáng, phòng bệnh tầng 3. Ba nằm nghiêng, giấu cơn đau để con không lo. Đó là đêm thay đổi mọi thứ." />
+    <meta property="og:title" content="Câu Chuyện — Maldala Duy Đức" />
+    <meta property="og:description"
+        content="Câu chuyện bắt đầu từ một đêm ngồi cạnh giường bệnh ba. Không phải tìm thuốc — mà tìm một thứ đủ tử tế để đặt vào tay người mình thương." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://dong-trung-ha-thao.vercel.app/cau-chuyen.html" />
     <meta property="og:image" content="https://dong-trung-ha-thao.vercel.app/images/og-share.png" />
@@ -252,32 +253,6 @@
             color: var(--text-muted);
         }
 
-        /* Pull stat */
-        .pull-stat {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            padding: 40px 24px;
-            flex-wrap: wrap;
-        }
-
-        .pull-stat-item {
-            text-align: center;
-        }
-
-        .pull-stat-item .num {
-            font-family: 'Lora', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--gold-light);
-        }
-
-        .pull-stat-item .desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
         /* Story illustration */
         .story-visual {
             margin: 32px 0;
@@ -298,6 +273,14 @@
             color: var(--text-muted);
             max-width: 400px;
             margin: 0 auto;
+        }
+
+        /* Testimonial separator */
+        .testimonial-sep {
+            width: 60px;
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 32px 0;
         }
 
         /* CTA section */
@@ -388,10 +371,6 @@
 
             .s-nav {
                 padding: 12px 16px;
-            }
-
-            .pull-stat {
-                gap: 24px;
             }
         }
 
@@ -491,31 +470,6 @@
             transform: translateY(0);
             transition-delay: 0.96s;
         }
-
-        /* Pull stat reveal */
-        .pull-stat-item {
-            opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .pull-stat.visible .pull-stat-item:nth-child(1) {
-            opacity: 1;
-            transform: scale(1);
-            transition-delay: 0s;
-        }
-
-        .pull-stat.visible .pull-stat-item:nth-child(2) {
-            opacity: 1;
-            transform: scale(1);
-            transition-delay: 0.15s;
-        }
-
-        .pull-stat.visible .pull-stat-item:nth-child(3) {
-            opacity: 1;
-            transform: scale(1);
-            transition-delay: 0.3s;
-        }
     </style>
 </head>
 
@@ -532,85 +486,173 @@
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter-opening">
         <div class="opening-content">
-            <div class="kicker">Một câu chuyện thật</div>
-            <h1>Có những thứ <span class="hl">tiền không mua được</span></h1>
+            <div class="kicker">Câu chuyện số một</div>
+            <h1>2 giờ sáng, <span class="hl">phòng bệnh tầng 3</span></h1>
             <p class="lead">
-                ...nhưng sức khỏe lại là thứ chúng ta thường quên chăm sóc,
-                cho đến khi nó lên tiếng.
+                Ba em nằm nghiêng trên giường bệnh. Mắt nhắm. Nhưng em biết ổng chưa ngủ
+                — vì bàn tay ổng vẫn đang nắm chặt mép chăn, như sợ ai lấy mất.
             </p>
             <div class="scroll-hint">↓ Kéo xuống để đọc</div>
         </div>
     </section>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- CHƯƠNG 1: VẤN ĐỀ -->
+    <!-- CHƯƠNG 01: 2 GIỜ SÁNG -->
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter">
         <div class="chapter-inner">
             <div class="chapter-number">Chương 01</div>
-            <h2>Khi cơ thể <span class="hl">gửi tín hiệu</span></h2>
+            <h2><span class="hl">Mùi nước sát khuẩn và tiếng máy monitor —</span> những thứ bạn không bao giờ quên</h2>
             <p>
-                35 tuổi. Bạn cảm thấy mệt mỏi hơn, ngủ không sâu, da xỉn màu,
-                đề kháng yếu đi. Đi khám thì "không có bệnh gì".
-                Nhưng bạn <strong>biết</strong> — cơ thể mình đang già đi nhanh hơn tuổi thật.
+                Em kể cho bạn nghe chuyện này. Không phải chuyện sản phẩm. Chuyện của em.
             </p>
             <p>
-                Bạn thử uống vitamin. Thử collagen. Thử đủ loại thực phẩm chức năng
-                với những lời quảng cáo hoa mỹ. Nhưng không gì thay đổi.
+                Hồi đó, má gọi. Giọng bình thường, không gấp: <em>"Ba con dạo này yếu quá. Con chở ba đi khám nha."</em>
             </p>
             <p>
-                <em>"Tại sao mình uống hoài mà vẫn mệt?"</em>
+                "Yếu quá." Má nói nhẹ như kể chuyện hàng xóm. Nhưng khi em chở ba ra phòng khám bằng xe máy,
+                ổng ngồi sau ôm eo em — em mới thấy. Cái eo em hồi xưa ổng ôm không hết.
+                Giờ hai cánh tay ba vòng qua mà <strong>thừa ra.</strong>
             </p>
             <p>
-                Câu trả lời không nằm ở việc bạn uống <strong>gì</strong>,
-                mà ở việc bạn uống <strong>cái gì thật sự nguyên chất</strong>.
+                Em ghì tay lái chặt hơn. Không phải vì đường xấu. Mà vì em sợ ổng tuột.
+            </p>
+            <p>
+                Bệnh viện. Lấy số. Chờ. Bác sĩ gọi vào. Ổng nhìn ba em — rồi quay sang nói chuyện với em.
+                Như thể ba không ngồi đó. <em>"Ổng bị suy nhược. Tuổi tác thôi. Bổ sung dinh dưỡng. Nghỉ ngơi."</em>
+                Kê đơn. Ký tên. Gọi bệnh nhân kế.
+            </p>
+            <p>
+                Hai phút. Ba em được quan tâm đúng hai phút.
+            </p>
+            <p>
+                Đêm đó ba phải ở lại viện theo dõi. Em ngồi trên cái ghế nhựa xanh — loại ghế ai từng nuôi bệnh
+                đều biết, cứng, lạnh, và không thể ngủ — nhìn ba nằm trên giường.
+            </p>
+            <p>
+                Mùi nước sát khuẩn. Tiếng máy monitor kêu tít... tít... tít... đều đặn.
+                Ánh đèn neon trắng nhợt. Người bệnh giường bên ho suốt đêm.
+            </p>
+            <p>
+                Ba nằm nghiêng. Mắt nhắm nhưng em biết ổng thức. Vì bàn tay ổng — bàn tay hồi xưa bế em lên cao,
+                hồi xưa sửa cái xe hỏng cho em đi học —
+                <strong>giờ đang nắm chặt mép chăn, run run, gân xanh nổi dưới lớp da mỏng.</strong>
+            </p>
+            <p>
+                Ổng giấu. Giấu cơn đau. Giấu sự sợ. Giấu tất cả — để con không lo.
+            </p>
+            <p>
+                Ba em diễn giỏi lắm. Mấy chục năm rồi.
+            </p>
+            <p>
+                Và khoảnh khắc đó — 2 giờ sáng, phòng bệnh tầng 3, tiếng monitor đều đều — em không sợ ba bệnh.
+            </p>
+            <p>
+                <strong>Em sợ rằng mình sẽ sống cả đời, bon chen, bận rộn, kiếm tiền — rồi một ngày ngồi trên
+                    cái ghế nhựa này, nhìn người mình yêu nằm đó, và nhận ra mình chưa từng làm đủ.</strong>
             </p>
         </div>
     </section>
 
-    <div class="pull-stat">
-        <div class="pull-stat-item">
-            <div class="num">78%</div>
-            <div class="desc">TPCN trên thị trường<br>không đạt hàm lượng cam kết</div>
-        </div>
-        <div class="pull-stat-item">
-            <div class="num">40%</div>
-            <div class="desc">Người trên 30 tuổi<br>bắt đầu suy giảm miễn dịch</div>
-        </div>
-        <div class="pull-stat-item">
-            <div class="num">3x</div>
-            <div class="desc">Nhu cầu bổ sung<br>tăng gấp 3 sau 40 tuổi</div>
-        </div>
-    </div>
-
     <div class="divider">· · ·</div>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- CHƯƠNG 2: KHỞI NGUỒN -->
+    <!-- CHƯƠNG 02: ÔNG NĂM THUỐC -->
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter">
         <div class="chapter-inner">
             <div class="chapter-number">Chương 02</div>
-            <h2>Câu chuyện bắt đầu từ <span class="hl">một bữa cơm gia đình</span></h2>
+            <h2><span class="hl">"10 người bán thì 9 người pha.</span> Con mua ngoài, may lắm được ba phần thiệt."</h2>
             <p>
-                Ba em bệnh. Không phải bệnh nặng, nhưng cái kiểu mệt triền miên,
-                ăn không ngon, ngủ không yên. Bệnh viện bảo "tuổi tác thôi".
+                Sau đêm đó, em bắt đầu tìm.
             </p>
             <p>
-                Em trở về nhà, ngồi bên ba, và tự hỏi:
-                <em>"Nếu mình là người làm ra sản phẩm sức khỏe, mình có dám cho ba mình dùng không?"</em>
+                Không phải tìm thuốc — bác sĩ đã kê đơn, ba uống đủ. Em tìm thứ khác.
+                Một thứ gì đó có thể <strong>bồi đắp</strong> lại những gì thời gian lấy đi từ cơ thể ba.
+                Từ từ. Nhẹ nhàng. Mỗi ngày một chút.
             </p>
             <p>
-                Câu hỏi đó thay đổi mọi thứ.
+                Em nhớ đến ông Năm — bạn ngoại, ông bác sĩ đông y già mà hồi nhỏ em gọi là "ông Năm thuốc."
+                Ổng hay ngồi uống trà với ngoại ở hiên nhà, mùi thuốc bắc phảng phất. Em lên tìm ổng.
             </p>
             <p>
-                Em bắt đầu nghiên cứu. Đông Trùng Hạ Thảo — Cordyceps militaris —
-                không phải thần dược, nhưng là <strong>thực phẩm quý</strong> mà y học cổ truyền
-                và khoa học hiện đại đều công nhận.
+                Ổng nghe em kể xong, rót thêm trà, chậm rãi:
             </p>
             <p>
-                Vấn đề là: <strong>hầu hết sản phẩm trên thị trường đều bị pha trộn,
-                    hoặc giá cao gấp 5-10 lần giá trị thực</strong>.
+                <em>"Trùng Thảo là thứ quý thiệt. Ông biết. Nhưng mà thị trường bây giờ...
+                    10 người bán thì 9 người pha. Con mua ngoài, may lắm được 30% nguyên chất.
+                    Phần còn lại là bột gạo, bột bắp, trộn màu cho đẹp."</em>
+            </p>
+            <p>
+                Em hỏi: <em>"Vậy con biết mua ở đâu?"</em>
+            </p>
+            <p>
+                Ổng nhìn em. Lắc đầu. Im.
+            </p>
+            <p>
+                Cái im lặng đó nặng hơn bất kỳ câu trả lời nào.
+            </p>
+            <p>
+                Em đi khảo thị trường. Mua thử. Hộp 800 ngàn. Hộp triệu rưỡi. Hộp 2 triệu.
+                Mở ra, nhìn, ngửi, so sánh. Ông Năm nói đúng — phần lớn
+                <strong>nhìn giống, nhưng không phải.</strong>
+                Cái ngành này sống nhờ một thứ: người mua không biết phân biệt.
+            </p>
+            <p>
+                Em ngồi giữa đống hộp, giữa đống thất vọng, và tự hỏi:
+            </p>
+            <p>
+                <em>"Nếu không tìm được thứ mình tin — thì sao?"</em>
+            </p>
+            <p>
+                Rồi một câu hỏi khác, to hơn, dữ hơn:
+            </p>
+            <p>
+                <em>"Hay mình tự làm?"</em>
+            </p>
+        </div>
+    </section>
+
+    <div class="divider">· · ·</div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- CHƯƠNG 03: PHÒNG NUÔI CẤY -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="chapter">
+        <div class="chapter-inner">
+            <div class="chapter-number">Chương 03</div>
+            <h2>Em không xây xưởng. <span class="hl">Em xây lời hứa.</span></h2>
+            <p>
+                Em nói thật: em không giỏi.
+            </p>
+            <p>
+                Em không có bằng dược. Không có vốn lớn. Không có quan hệ trong ngành.
+                Em chỉ có một thứ: <strong>cảm giác ngồi trên cái ghế nhựa xanh lúc 2 giờ sáng</strong>
+                — và lời hứa thầm với bản thân rằng em sẽ làm gì đó.
+            </p>
+            <p>
+                Phòng nuôi cấy đầu tiên — nhỏ hơn cái phòng ngủ. Em tìm đọc tài liệu. Hỏi chuyên gia.
+                Thử. Hỏng. Thử lại. Mẻ đầu tiên chết sạch. Mẻ thứ hai nhiễm khuẩn.
+                Mẻ thứ ba — lên được, nhưng hàm lượng không đạt. Bỏ.
+            </p>
+            <p>
+                Có những đêm em ngồi nhìn cái tủ nuôi cấy trống rỗng và tự hỏi:
+                <em>"Mình đang làm cái gì? Ai mà tin mình được?"</em>
+            </p>
+            <p>
+                Nhưng rồi em nhìn lọ thuốc trên bàn ba. Cái lọ em mua ngoài tiệm, không biết bên trong
+                thật sự là gì. Và cảm giác đó — cảm giác <strong>đặt một thứ mình không tin vào tay ba mình</strong>
+                — nó đau hơn bất kỳ lần thất bại nào.
+            </p>
+            <p>
+                Em tiếp tục.
+            </p>
+            <p>
+                Mẻ thứ bảy — lên. Thật sự lên. Quả thể Cordyceps militaris cam vàng, đều, đẹp,
+                đem kiểm nghiệm — <strong>đạt.</strong> Em ôm cái khay nuôi cấy mà run tay.
+            </p>
+            <p>
+                Viên nang đầu tiên em đóng xong — em không bán. <strong>Em mang về cho ba.</strong>
             </p>
 
             <div class="story-visual">
@@ -621,8 +663,10 @@
                     <span class="sample-badge">Ảnh mẫu</span>
                 </div>
                 <p>
-                    Em quyết định tự xây phòng nuôi cấy. Không phải để kinh doanh.
-                    Mà để ba có thứ tốt nhất để dùng.
+                    Ba uống viên đầu tiên. Không nói gì. Một tháng sau, má gọi:
+                    "Ba con dạo này khỏe hơn rồi nha. Sáng đi bộ được rồi."
+                    <br><br>
+                    <em>Sáu chữ đó — đáng hơn sáu tháng trầy trật.</em>
                 </p>
             </div>
         </div>
@@ -630,35 +674,42 @@
 
     <div class="quote-block">
         <blockquote>
-            "Mỗi viên nang em làm ra, em đều tự hỏi: mình có cho ba uống cái này không?"
+            "Mỗi viên nang em làm ra, em đều tự hỏi: mình có dám cho ba uống không?
+            Nếu em do dự dù chỉ một giây — em bỏ cả mẻ."
         </blockquote>
-        <cite>— Triết lý sản xuất</cite>
+        <cite>— Không phải slogan. Là cách em sống.</cite>
     </div>
 
     <div class="divider">· · ·</div>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- CHƯƠNG 3: QUY TRÌNH -->
+    <!-- CHƯƠNG 04: TRÔNG CON -->
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter">
         <div class="chapter-inner">
-            <div class="chapter-number">Chương 03</div>
-            <h2>45 ngày <span class="hl">tận tâm</span> cho mỗi viên nang</h2>
+            <div class="chapter-number">Chương 04</div>
+            <h2>45 ngày tĩnh lặng — <span class="hl">vì thiên nhiên không cho phép ai vội</span></h2>
             <p>
-                Mỗi mẻ nuôi cấy mất 45 ngày. Không có shortcuts. Không có cách nào
-                để "nhanh hơn" mà vẫn giữ nguyên chất lượng.
+                Bạn có biết nuôi cấy Đông Trùng Hạ Thảo giống gì không?
             </p>
             <p>
-                <strong>Ngày 1-5:</strong> Chọn giống Cordyceps militaris từ viện nghiên cứu.
-                Kiểm tra hoạt tính sinh học. Chỉ những bào tử khỏe mạnh nhất mới được dùng.
+                Giống trông con. Thiệt.
             </p>
             <p>
-                <strong>Ngày 6-40:</strong> Nuôi cấy trong phòng sạch. 18-22°C. Độ ẩm 80-85%.
-                Ánh sáng 12/12h. Kiểm soát 24/7. Không được sai lệch 1 độ.
+                Năm ngày đầu — chọn giống. Như chọn hạt giống tốt nhất cho con.
+                Chỉ giữ lại những bào tử khỏe mạnh. Phần còn lại — bỏ. Không thương tiếc.
             </p>
             <p>
-                <strong>Ngày 41-45:</strong> Thu hoạch đúng thời điểm — khi quả thể đạt 5-7cm
-                và hàm lượng Cordycepin cao nhất. Sớm 1 ngày, muộn 1 ngày, đều ảnh hưởng chất lượng.
+                35 ngày tiếp — phòng sạch, nhiệt độ ổn định, độ ẩm canh từng phần trăm.
+                Mỗi ngày em vào nhìn. Không làm được gì nhiều.
+                Giống như <strong>ngồi nhìn con ngủ</strong> — bạn không thể bắt nó lớn nhanh hơn.
+                Bạn chỉ có thể giữ cho nó an toàn, và chờ.
+            </p>
+            <p>
+                5 ngày cuối — thu hoạch. Phải đúng lúc. Sớm một ngày — chưa đủ. Muộn một ngày — đã qua.
+                Cái khoảnh khắc đó không cho phép sai.
+                Giống như <strong>lần đầu con bước đi</strong> — bạn không sắp xếp được,
+                bạn chỉ có thể có mặt đúng lúc.
             </p>
 
             <div class="story-visual">
@@ -668,18 +719,21 @@
                     <span class="sample-badge">Ảnh mẫu</span>
                 </div>
                 <p>
-                    Sấy thăng hoa ở nhiệt độ thấp. Nghiền siêu mịn nano.
-                    Đóng viên nang 500mg. Kiểm nghiệm trước khi xuất xưởng.
-                    Không pha trộn. Không chất bảo quản. Không phụ gia.
+                    Sấy thăng hoa giữ nguyên dưỡng chất. Nghiền mịn. Đóng viên 500mg.
+                    Không pha. Không trộn. Không bảo quản. Không phụ gia.
                 </p>
             </div>
 
             <p>
-                <em>Đó là lý do chúng tôi chỉ sản xuất một sản phẩm duy nhất.</em>
+                Người ta hay hỏi em: <em>"Sao không làm thêm sản phẩm khác?
+                    Thêm trà, thêm mật ong, thêm combo?"</em>
             </p>
             <p>
-                Không phải vì không biết làm nhiều hơn.
-                Mà vì <strong>muốn làm một thứ — thật sự tốt</strong>.
+                Em hỏi lại: <em>"Anh chị nuôi một đứa con — anh chị muốn nuôi cho nó đàng hoàng,
+                    hay muốn sinh thêm mười đứa rồi đứa nào cũng thiếu?"</em>
+            </p>
+            <p>
+                <strong>Em chọn một sản phẩm. Và em sẽ làm nó tới nơi.</strong>
             </p>
         </div>
     </section>
@@ -687,78 +741,100 @@
     <div class="divider">· · ·</div>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- CHƯƠNG 4: GIÁ TRỊ -->
-    <!-- ═══════════════════════════════════════════════ -->
-    <section class="chapter">
-        <div class="chapter-inner">
-            <div class="chapter-number">Chương 04</div>
-            <h2>Tại sao <span class="hl">giá chỉ bằng một nửa</span> thị trường?</h2>
-            <p>
-                Đông Trùng Hạ Thảo trên thị trường thường có giá 800.000₫ đến 2.000.000₫/hộp.
-                Vì nó đi qua 3-4 tầng trung gian. Mỗi tầng cộng thêm 30-50% lợi nhuận.
-            </p>
-            <p>
-                Chúng tôi không có trung gian. <strong>Từ phòng nuôi cấy đến tay bạn.</strong>
-                Không cửa hàng. Không đại lý. Không chi phí marketing triệu đô.
-            </p>
-            <p>
-                Thay vào đó, chúng tôi có những <strong>Cộng Tác Viên</strong> — những người
-                thật sự tin vào sản phẩm và chia sẻ với người thân.
-                Và những <strong>Thành Viên Thân Thiết</strong> — những người dùng lâu năm
-                viết bài chia sẻ trải nghiệm thật.
-            </p>
-            <p>
-                <em>Không quảng cáo. Chỉ có câu chuyện thật.</em>
-            </p>
-        </div>
-    </section>
-
-    <div class="quote-block">
-        <blockquote>
-            "Thà bán ít mà người mua thật sự cần,
-            còn hơn bán nhiều mà họ không bao giờ quay lại."
-        </blockquote>
-        <cite>— Kim chỉ nam kinh doanh</cite>
-    </div>
-
-    <div class="divider">· · ·</div>
-
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- CHƯƠNG 5: CHUYỆN CỦA HỌ -->
+    <!-- CHƯƠNG 05: TIN NHẮN NỬA ĐÊM -->
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter">
         <div class="chapter-inner">
             <div class="chapter-number">Chương 05</div>
-            <h2>Những câu chuyện <span class="hl">chúng tôi không kể được</span></h2>
+            <h2>Em không chữa bệnh. <span class="hl">Nhưng có người nhắn cho em lúc 1 giờ sáng.</span></h2>
             <p>
-                Vì chúng tôi không bao giờ hứa "chữa bệnh". Đông Trùng Hạ Thảo
-                là <strong>thực phẩm chức năng</strong>, không phải thuốc.
+                Em nói thẳng điều này — vì em ghét ai nói vòng vo:
             </p>
             <p>
-                Nhưng có những điều không cần chúng tôi nói —
-                <strong>khách hàng tự kể cho nhau nghe</strong>:
+                Đông Trùng Hạ Thảo là <strong>thực phẩm chức năng.</strong> Không phải thuốc.
+                Em không hứa chữa bệnh. Ai hứa — người đó nói dối bạn.
             </p>
             <p>
-                Cô Hoa, 52 tuổi, Đà Nẵng: <em>"Uống 3 tháng, ngủ được 7 tiếng mỗi đêm.
-                    Lần đầu tiên sau 5 năm."</em>
+                Nhưng có những tin nhắn mà em nhận lúc nửa đêm. Không phải em xin.
+                Người ta tự gửi.
+            </p>
+
+            <hr class="testimonial-sep">
+
+            <p>
+                <strong>Chị Hoa, 52 tuổi, Đà Nẵng.</strong>
             </p>
             <p>
-                Anh Minh, 38 tuổi, TP.HCM: <em>"Vợ bảo: sao dạo này anh khỏe vậy?
-                    Tôi chỉ cười."</em>
+                Chị nhắn Zalo cho em lúc 11 giờ đêm. Đúng ra là con gái chị nhắn, vì chị không rành:
             </p>
             <p>
-                Bác Tám, 65 tuổi, Cần Thơ: <em>"Con gái cho uống thử.
-                    Giờ hết đau mỏi, tôi tự mua cho cả xóm."</em>
+                <em>"Chú ơi cho chị hỏi. Má em uống hộp thứ ba rồi. Dạo này má ngủ được.
+                    Mà chú biết không, má em 5 năm không ngủ nổi. Bả nằm đếm ngói trên trần
+                    từ 12 giờ đêm tới sáng. Giờ bả gọi cho em, bả khóc. Bả nói:
+                    'Lần đầu tiên... mẹ nằm mơ con à.' Em nghe mà em khóc theo."</em>
             </p>
             <p>
-                Đó không phải quảng cáo. Đó là <strong>cuộc sống thật</strong>.
+                Em đọc tin nhắn đó, 11 giờ đêm, trên điện thoại, trong phòng nuôi cấy.
+                Em không trả lời liền được. Vì em cũng đang khóc.
+            </p>
+
+            <hr class="testimonial-sep">
+
+            <p>
+                <strong>Anh Minh, 38 tuổi, TP.HCM.</strong>
+            </p>
+            <p>
+                Anh gọi điện cho em. Giọng ngại ngùng, kiểu đàn ông Việt Nam không quen nói mấy thứ này:
+            </p>
+            <p>
+                <em>"Ê, tao nói nghe hơi kỳ nha. Mà... vợ tao hỏi sao dạo này tao khỏe vậy.
+                    Tao không biết nói sao. Chỉ biết là... mấy tháng nay tao dậy sớm được.
+                    Không phải vì chuông báo thức. Mà vì tao MUỐN dậy.
+                    Mày hiểu hông? Lâu lắm rồi tao mới muốn dậy sớm."</em>
+            </p>
+            <p>
+                Rồi anh im một hồi. Rồi nói nhỏ:
+            </p>
+            <p>
+                <em>"Hồi xưa tao mơ mở cái quán cà phê nhỏ. Giờ tao bắt đầu nghĩ lại. Cũng không xa lắm đâu."</em>
+            </p>
+
+            <hr class="testimonial-sep">
+
+            <p>
+                <strong>Bác Tám, 65 tuổi, Cần Thơ.</strong>
+            </p>
+            <p>
+                Con gái bác gọi cho em, cười:
+            </p>
+            <p>
+                <em>"Chú ơi, ba em hồi đầu nói 'mày mua chi mấy thứ vớ vẩn.' Uống cho con vui.
+                    Giờ ổng đạp xe ra chợ mỗi sáng. Tuần rồi ổng gọi em, biểu:
+                    'Mày mua thêm cho ba mấy hộp. Gửi cho thím Bảy với chú Chín kế bên luôn.
+                    Tụi nó cũng đau mỏi hoài.'"</em>
+            </p>
+            <p>
+                <em>"Em hỏi: Ba ghét mấy thứ này mà?"</em>
+            </p>
+            <p>
+                <em>"Ổng nói: 'Ghét là ghét. Nhưng mà nó thiệt.'"</em>
+            </p>
+
+            <hr class="testimonial-sep">
+
+            <p>
+                Đó không phải quảng cáo. Đó là những cuộc gọi, những tin nhắn, lúc nửa đêm,
+                từ những người <strong>mà trước đó — mỗi người đều nói "tôi ổn."</strong>
+            </p>
+            <p>
+                Cho đến khi họ thật sự ổn. Và nhận ra trước đó, mình chưa bao giờ ổn.
             </p>
 
             <div class="story-visual">
                 <div class="emoji">💛</div>
                 <p>
-                    Mỗi câu chuyện như vậy là lý do để chúng tôi thức dậy mỗi sáng,
-                    vào phòng nuôi cấy, và tiếp tục làm điều mình tin.
+                    Sản phẩm tốt nhất không phải thứ bán chạy nhất.
+                    Mà là thứ mà khi người ta mua lần hai — họ mua cho người họ thương.
                 </p>
             </div>
         </div>
@@ -767,45 +843,75 @@
     <div class="divider">· · ·</div>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- CHƯƠNG 6: LỜI MỜI -->
+    <!-- CHƯƠNG CUỐI: VỀ NHÀ -->
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter">
         <div class="chapter-inner">
             <div class="chapter-number">Chương cuối</div>
-            <h2>Đây không phải <span class="hl">lời mời mua hàng</span></h2>
+            <h2>Câu chuyện này <span class="hl">không phải của em.</span></h2>
             <p>
-                Đây là lời mời bạn <strong>quan tâm đến sức khỏe của mình</strong>.
+                Câu chuyện này là của <strong>bạn.</strong>
             </p>
             <p>
-                Nếu bạn đang khỏe mạnh — tuyệt vời. Hãy giữ gìn sức khỏe đó.
+                Của buổi sáng bạn tỉnh dậy, nằm thêm 5 phút, tự hỏi:
+                <em>"Mình đang sống — hay đang cố qua ngày?"</em>
             </p>
             <p>
-                Nếu bạn đang cảm thấy cơ thể cần được chăm sóc hơn —
-                hãy thử một hộp. 30 ngày. Cảm nhận sự khác biệt.
+                Của khoảnh khắc bạn nhìn ba mẹ — thấy tóc bạc nhiều hơn lần gặp trước,
+                thấy lưng còng hơn mùa trước — và cái gì đó bóp chặt trong ngực, nhưng bạn không nói ra.
             </p>
             <p>
-                <em>Không hài lòng? Không sao. Chúng tôi vẫn cảm ơn bạn đã cho chúng tôi cơ hội.</em>
+                Của những đêm nằm trên giường — không bệnh, nhưng cũng không khỏe.
+                Mắt mở. Đầu nghĩ. Về cái quán nhỏ muốn mở mà hoãn mãi.
+                Về chuyến đi muốn đưa mẹ đi một lần mà chưa bao giờ sắp xếp được.
+                Về buổi chiều muốn ra công viên chạy bộ cùng con mà không phải dừng lại thở.
             </p>
             <p>
-                Vì cuối cùng, <strong>sức khỏe của bạn</strong> mới là điều quan trọng nhất.
-                Không phải doanh thu của chúng tôi.
+                Bạn hoãn không phải vì lười. Không phải vì không muốn.
+                Mà vì mỗi ngày, <strong>cơ thể đã dùng hết sức chỉ để "bình thường"</strong>
+                — và không còn gì để đi xa hơn.
+            </p>
+            <p>
+                Em không hứa viên nang của em sẽ giúp bạn mở quán, đưa mẹ đi du lịch, hay chạy bộ 5km.
+            </p>
+            <p>
+                Nhưng em hứa một thứ nhỏ hơn, thật hơn:
+            </p>
+            <p>
+                <strong>Một tháng.</strong> Một viên mỗi ngày.
+                Để cơ thể bạn có cơ hội nói thật với bạn — thay vì cả hai cùng giả vờ ổn.
+            </p>
+            <p>
+                Nếu sau 30 ngày bạn không thấy gì khác — không sao.
+                Em vẫn biết ơn. Vì bạn đã tin em đủ để thử.
+            </p>
+            <p>
+                Nhưng nếu một buổi sáng, bạn tỉnh dậy, và lần đầu tiên sau rất lâu
+                — bạn <strong>muốn</strong> dậy...
+            </p>
+            <p>
+                ...thì bạn sẽ hiểu vì sao em làm tất cả những điều này.
+            </p>
+            <p>
+                <em>Không phải vì em giỏi. Mà vì em đã ngồi trên cái ghế nhựa xanh đó rồi.
+                    Và em không muốn ai phải ngồi đó mà tay trắng.</em>
             </p>
         </div>
     </section>
 
     <!-- CTA -->
     <section class="story-cta">
-        <h2>Sẵn sàng bắt đầu?</h2>
-        <p class="sub">Một viên nang mỗi ngày. Một thay đổi nhỏ cho sức khỏe lớn.</p>
+        <h2>Bạn đã đọc đến đây.</h2>
+        <p class="sub">Vậy thì — đây không phải chỗ để em thuyết phục bạn. Đây là chỗ để bạn tự quyết định.</p>
         <div class="cta-buttons">
-            <a href="/#contact" class="btn btn-gold">🛒 Đặt Hàng — Dùng Thử 30 Ngày</a>
-            <a href="/chia-se.html" class="btn btn-outline">✍️ Đọc Chia Sẻ Từ Thành Viên</a>
+            <a href="/#contact" class="btn btn-gold">Đặt Hàng — Thử 30 Ngày</a>
+            <a href="/chia-se.html" class="btn btn-outline">Đọc Thêm Chia Sẻ Từ Thành Viên</a>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="s-footer">
-        <p>© 2026 <a href="/">maldalladuyduc</a> — Một sản phẩm. Một câu chuyện. Một cam kết.</p>
+        <p>© 2026 <a href="/">Maldala Duy Đức</a> — Một sản phẩm. Một lời hứa. Một con đường về nhà.</p>
     </footer>
     <script type="module">
         import './src/utils/tracker.js';
