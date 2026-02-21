@@ -208,21 +208,26 @@ function renderTestimonials(testimonials) {
   const dots = document.getElementById('carouselDots');
   if (!track || !dots || !testimonials) return;
 
-  track.innerHTML = testimonials.map(t => `
+  track.innerHTML = testimonials.map(t => {
+    const avatarHtml = t.avatar && t.avatar.startsWith('/')
+      ? `<img src="${escapeHTML(t.avatar)}" alt="${escapeHTML(t.name)}" loading="lazy">`
+      : escapeHTML(t.avatar || '👤');
+    return `
     <div class="testimonial-card">
       <div class="testimonial-inner">
         <div class="testimonial-stars">${'★'.repeat(parseInt(t.rating) || 0)}${'☆'.repeat(5 - (parseInt(t.rating) || 0))}</div>
         <p class="testimonial-quote">${escapeHTML(t.quote)}</p>
         <div class="testimonial-author">
-          <div class="testimonial-avatar">${escapeHTML(t.avatar)}</div>
-          <div>
+          <div class="testimonial-avatar">${avatarHtml}</div>
+          <div class="testimonial-info">
             <div class="testimonial-name">${escapeHTML(t.name)}, ${parseInt(t.age) || ''} tuổi</div>
             <div class="testimonial-location">${escapeHTML(t.location)}</div>
           </div>
         </div>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 
   dots.innerHTML = testimonials.map((_, i) => `
     <div class="carousel-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>
@@ -692,6 +697,14 @@ function initContactWidget() {
 
   // Fetch contact info from DB and update links
   loadContactLinks();
+
+  // CTV Float Home collapse on scroll
+  const ctvFloat = document.getElementById('ctvFloatHome');
+  if (ctvFloat) {
+    window.addEventListener('scroll', () => {
+      ctvFloat.classList.toggle('collapsed', window.scrollY > 300);
+    }, { passive: true });
+  }
 }
 
 async function loadContactLinks() {
