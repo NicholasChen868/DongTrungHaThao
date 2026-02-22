@@ -42,11 +42,16 @@ export async function fetchProduct() {
             capsuleCount: products.capsule_count,
             capsuleUnit: products.capsule_unit,
             ingredients: products.ingredients || [],
-            benefits: (benefits || []).map(b => ({
-                icon: b.icon,
-                title: b.title,
-                desc: b.description,
-            })),
+            benefits: (benefits || []).map(b => {
+                // Fallback to local image if Supabase image_url is empty
+                const localBenefit = localProduct.benefits.find(lb => lb.title === b.title);
+                return {
+                    icon: b.icon,
+                    image: b.image_url || (localBenefit ? localBenefit.image : null),
+                    title: b.title,
+                    desc: b.description,
+                };
+            }),
             usage: products.usage_instructions,
             storage: products.storage,
             certification: products.certification,

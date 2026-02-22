@@ -17,6 +17,7 @@
     "vitest": "^4.0.18"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.97.0"
+    "@supabase/supabase-js": "^2.97.0",
+    "swiper": "^12.1.2"
   }
 }

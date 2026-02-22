@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#080505" />
+    <meta name="theme-color" content="#0A0E1A" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
     <title>Đông Trùng Hạ Thảo maldalladuyduc — Viên Nang Nguyên Chất</title>
     <meta
       name="description"
@@ -249,6 +252,8 @@
       </div>
     </section>
 
+    <hr class="golden-divider" />
+
     <!-- ======= ABOUT / BENEFITS ======= -->
     <section class="section section-about" id="about">
       <div class="container">
@@ -288,6 +293,8 @@
         </div>
       </div>
     </section>
+
+    <hr class="golden-divider" />
 
     <!-- ======= PRODUCTION PROCESS ======= -->
     <section class="section section-process" id="process">
@@ -391,7 +398,9 @@
       </div>
     </section>
 
-    <!-- ======= PRODUCT GALLERY ======= -->
+    <hr class="golden-divider" />
+
+    <!-- ======= PRODUCT GALLERY (Swiper Coverflow) ======= -->
     <section class="section section-gallery" id="gallery">
       <div class="container">
         <div class="section-header animate-on-scroll">
@@ -406,58 +415,69 @@
             trao cho cha mẹ, ông bà
           </p>
         </div>
-        <div class="product-gallery animate-on-scroll">
-          <div class="gallery-item">
-            <img
-              src="/images/premium-bottle.png"
-              alt="Lọ viên nang Đông Trùng Hạ Thảo cao cấp Maldala Duy Đức"
-              class="gallery-img"
-              loading="lazy"
-            />
-            <span class="sample-badge">Ảnh mẫu</span>
-            <div class="gallery-caption">
-              <h4>Lọ Thủy Tinh Cao Cấp</h4>
-              <p>
-                Thiết kế sang trọng, nắp mạ vàng bảo vệ tối đa dưỡng chất bên
-                trong viên nang
-              </p>
+        <div class="swiper gallery-swiper animate-on-scroll" id="gallerySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide gallery-slide">
+              <div class="gallery-item">
+                <img
+                  src="/images/premium-bottle.png"
+                  alt="Lọ viên nang Đông Trùng Hạ Thảo cao cấp Maldala Duy Đức"
+                  class="gallery-img"
+                  loading="lazy"
+                />
+                <span class="sample-badge">Ảnh mẫu</span>
+                <div class="gallery-caption">
+                  <h4>Lọ Thủy Tinh Cao Cấp</h4>
+                  <p>
+                    Thiết kế sang trọng, nắp mạ vàng bảo vệ tối đa dưỡng chất bên
+                    trong viên nang
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide gallery-slide">
+              <div class="gallery-item">
+                <img
+                  src="/images/golden-capsules.png"
+                  alt="Viên nang con nhộng nhũ vàng cám Đông Trùng Hạ Thảo"
+                  class="gallery-img"
+                  loading="lazy"
+                />
+                <div class="gallery-caption">
+                  <h4>Viên Nang Nhũ Vàng</h4>
+                  <p>
+                    100% bột nhộng trùng thảo nguyên chất, đóng viên nang thực vật
+                    HPMC
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide gallery-slide">
+              <div class="gallery-item">
+                <img
+                  src="/images/golden-powder.png"
+                  alt="Bột vàng cám Đông Trùng Hạ Thảo nguyên liệu"
+                  class="gallery-img"
+                  loading="lazy"
+                />
+                <div class="gallery-caption">
+                  <h4>Bột Nguyên Liệu Vàng Cám</h4>
+                  <p>
+                    Bột nhộng trùng thảo nghiền mịn, giữ nguyên hàm lượng Cordycepin
+                    và Adenosine quý giá
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="gallery-item">
-            <img
-              src="/images/golden-capsules.png"
-              alt="Viên nang con nhộng nhũ vàng cám Đông Trùng Hạ Thảo"
-              class="gallery-img"
-              loading="lazy"
-            />
-            <div class="gallery-caption">
-              <h4>Viên Nang Nhũ Vàng</h4>
-              <p>
-                100% bột nhộng trùng thảo nguyên chất, đóng viên nang thực vật
-                HPMC
-              </p>
-            </div>
-          </div>
-          <div class="gallery-item">
-            <img
-              src="/images/golden-powder.png"
-              alt="Bột vàng cám Đông Trùng Hạ Thảo nguyên liệu"
-              class="gallery-img"
-              loading="lazy"
-            />
-            <div class="gallery-caption">
-              <h4>Bột Nguyên Liệu Vàng Cám</h4>
-              <p>
-                Bột nhộng trùng thảo nghiền mịn, giữ nguyên hàm lượng Cordycepin
-                và Adenosine quý giá
-              </p>
-            </div>
-          </div>
+          <div class="swiper-pagination gallery-pagination"></div>
         </div>
       </div>
     </section>
 
-    <!-- ======= TESTIMONIALS ======= -->
+    <hr class="golden-divider" />
+
+    <!-- ======= TESTIMONIALS (Swiper) ======= -->
     <section class="section section-testimonials" id="testimonials">
       <div class="container">
         <div class="section-header animate-on-scroll">
@@ -466,45 +486,13 @@
             Khách Hàng <span class="text-gold">Nói Gì?</span>
           </h2>
         </div>
-        <div class="testimonials-carousel" id="testimonialsCarousel">
-          <div class="testimonials-track" id="testimonialsTrack">
+        <div class="swiper testimonials-swiper animate-on-scroll" id="testimonialsSwiper">
+          <div class="swiper-wrapper" id="testimonialsTrack">
             <!-- Rendered by JS -->
           </div>
-          <div class="carousel-controls">
-            <button
-              class="carousel-btn carousel-prev"
-              id="carouselPrev"
-              aria-label="Previous"
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
-            <div class="carousel-dots" id="carouselDots"></div>
-            <button
-              class="carousel-btn carousel-next"
-              id="carouselNext"
-              aria-label="Next"
-            >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </button>
-          </div>
+          <div class="swiper-pagination testimonials-pagination"></div>
+          <div class="swiper-button-prev testimonials-prev"></div>
+          <div class="swiper-button-next testimonials-next"></div>
         </div>
       </div>
     </section>
@@ -643,6 +631,8 @@
         </div>
       </div>
     </section>
+
+    <hr class="golden-divider" />
 
     <!-- ======= CONTACT / ORDER ======= -->
     <section class="section section-contact" id="contact">

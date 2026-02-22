@@ -6,6 +6,15 @@ import { checkRateLimit, recordAttempt, createSubmitGuard } from './utils/rateli
 import './utils/tracker.js';
 import './auth.js';
 
+// Swiper.js — premium slider/carousel
+import Swiper from 'swiper';
+import { Navigation, Pagination, Autoplay, EffectCoverflow, EffectCards } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/effect-cards';
+
 const contactGuard = createSubmitGuard(5000);
 
 // ===================================
@@ -53,7 +62,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderHealthStories(healthStories);
   renderAffiliateSteps(affiliateSteps);
   renderAffiliateTiers(affiliateTiers);
-  initCarousel(testimonials);
+  initTestimonialsSwiper();
+  initGallerySwiper();
   initQuantitySelector(product);
   initOrderForm();
   initCtvForm();
@@ -145,9 +155,11 @@ function renderBenefits(product) {
 
   grid.innerHTML = product.benefits.map((b, i) => `
     <div class="benefit-card animate-on-scroll" style="transition-delay: ${i * 0.1}s">
-      <span class="benefit-icon">${escapeHTML(b.icon)}</span>
-      <h3 class="benefit-title">${escapeHTML(b.title)}</h3>
-      <p class="benefit-desc">${escapeHTML(b.desc)}</p>
+      ${b.image ? `<div class="benefit-bg" style="background-image: url('${b.image}')"></div>` : ''}
+      <div class="benefit-content">
+        <h3 class="benefit-title">${escapeHTML(b.title)}</h3>
+        <p class="benefit-desc">${escapeHTML(b.desc)}</p>
+      </div>
     </div>
   `).join('');
 }
@@ -202,75 +214,104 @@ function renderProduct(product) {
 }
 
 // ===================================
-// RENDER TESTIMONIALS
+// RENDER TESTIMONIALS (Swiper slides)
 // ===================================
 function renderTestimonials(testimonials) {
   const track = document.getElementById('testimonialsTrack');
-  const dots = document.getElementById('carouselDots');
-  if (!track || !dots || !testimonials) return;
+  if (!track || !testimonials) return;
 
   track.innerHTML = testimonials.map(t => {
     const avatarHtml = t.avatar && t.avatar.startsWith('/')
       ? `<img src="${escapeHTML(t.avatar)}" alt="${escapeHTML(t.name)}" loading="lazy">`
       : escapeHTML(t.avatar || '👤');
     return `
-    <div class="testimonial-card">
-      <div class="testimonial-inner">
-        <div class="testimonial-stars">${'★'.repeat(parseInt(t.rating) || 0)}${'☆'.repeat(5 - (parseInt(t.rating) || 0))}</div>
-        <p class="testimonial-quote">${escapeHTML(t.quote)}</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">${avatarHtml}</div>
-          <div class="testimonial-info">
-            <div class="testimonial-name">${escapeHTML(t.name)}, ${parseInt(t.age) || ''} tuổi</div>
-            <div class="testimonial-location">${escapeHTML(t.location)}</div>
+    <div class="swiper-slide">
+      <div class="testimonial-card">
+        <div class="testimonial-inner">
+          <div class="testimonial-stars">${'★'.repeat(parseInt(t.rating) || 0)}${'☆'.repeat(5 - (parseInt(t.rating) || 0))}</div>
+          <p class="testimonial-quote">${escapeHTML(t.quote)}</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">${avatarHtml}</div>
+            <div class="testimonial-info">
+              <div class="testimonial-name">${escapeHTML(t.name)}, ${parseInt(t.age) || ''} tuổi</div>
+              <div class="testimonial-location">${escapeHTML(t.location)}</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   `;
   }).join('');
-
-  dots.innerHTML = testimonials.map((_, i) => `
-    <div class="carousel-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>
-  `).join('');
 }
 
 // ===================================
-// CAROUSEL
+// TESTIMONIALS SWIPER
 // ===================================
-function initCarousel(testimonials) {
-  const track = document.getElementById('testimonialsTrack');
-  const prevBtn = document.getElementById('carouselPrev');
-  const nextBtn = document.getElementById('carouselNext');
-  const dotsContainer = document.getElementById('carouselDots');
+function initTestimonialsSwiper() {
+  const el = document.getElementById('testimonialsSwiper');
+  if (!el) return;
 
-  if (!track || !prevBtn || !nextBtn || !testimonials) return;
-
-  let current = 0;
-  const total = testimonials.length;
-
-  function goTo(index) {
-    current = (index + total) % total;
-    track.style.transform = `translateX(-${current * 100}%)`;
-    dotsContainer.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-      dot.classList.toggle('active', i === current);
-    });
-  }
-
-  prevBtn.addEventListener('click', () => goTo(current - 1));
-  nextBtn.addEventListener('click', () => goTo(current + 1));
-
-  dotsContainer.addEventListener('click', (e) => {
-    if (e.target.classList.contains('carousel-dot')) {
-      goTo(parseInt(e.target.dataset.index));
+  new Swiper(el, {
+    modules: [Navigation, Pagination, Autoplay],
+    slidesPerView: 1,
+    spaceBetween: 24,
+    loop: true,
+    speed: 800,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
+    pagination: {
+      el: '.testimonials-pagination',
+      clickable: true,
+      dynamicBullets: true,
+    },
+    navigation: {
+      prevEl: '.testimonials-prev',
+      nextEl: '.testimonials-next',
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 1,
+        spaceBetween: 32,
+      }
     }
   });
+}
 
-  // Auto play
-  let interval = setInterval(() => goTo(current + 1), 5000);
-  track.closest('.testimonials-carousel').addEventListener('mouseenter', () => clearInterval(interval));
-  track.closest('.testimonials-carousel').addEventListener('mouseleave', () => {
-    interval = setInterval(() => goTo(current + 1), 5000);
+// ===================================
+// GALLERY SWIPER (Coverflow 3D)
+// ===================================
+function initGallerySwiper() {
+  const el = document.getElementById('gallerySwiper');
+  if (!el) return;
+
+  new Swiper(el, {
+    modules: [Pagination, Autoplay, EffectCoverflow],
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    loop: true,
+    speed: 700,
+    coverflowEffect: {
+      rotate: 0,
+      stretch: 0,
+      depth: 120,
+      modifier: 2,
+      slideShadows: false,
+    },
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
+    pagination: {
+      el: '.gallery-pagination',
+      clickable: true,
+      dynamicBullets: true,
+    },
   });
 }
 
