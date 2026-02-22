@@ -9,9 +9,9 @@ export const affiliateTiers = [
         color: '#c0c0c0',
         gradient: 'linear-gradient(135deg, #c0c0c0, #8a8a8a)',
         perks: [
-            'Chiết khấu 10% trên mỗi sản phẩm bán được',
-            'Hỗ trợ tư vấn bán hàng từ đội ngũ',
-            'Tài liệu marketing cơ bản',
+            'Chiết khấu 10% trên mỗi hộp bạn giới thiệu thành công',
+            'Đội ngũ hỗ trợ tư vấn 1:1 — bạn không bán một mình',
+            'Bộ tài liệu sản phẩm để bạn tự tin khi chia sẻ',
         ],
     },
     {
@@ -24,10 +24,10 @@ export const affiliateTiers = [
         color: '#d4a853',
         gradient: 'linear-gradient(135deg, #d4a853, #b8860b)',
         perks: [
-            'Chiết khấu 15% trên mỗi sản phẩm bán được',
-            'Landing page cá nhân',
-            'Ưu tiên nhận hàng đợt mới',
-            'Thưởng thêm khi đạt target tháng',
+            'Chiết khấu 15% — thu nhập tăng theo sự tin tưởng bạn xây dựng',
+            'Trang giới thiệu cá nhân mang tên bạn',
+            'Ưu tiên nhận hàng khi có lô mới',
+            'Thưởng thêm khi đạt mục tiêu tháng',
         ],
     },
     {
@@ -40,11 +40,11 @@ export const affiliateTiers = [
         color: '#00d4ff',
         gradient: 'linear-gradient(135deg, #00d4ff, #0088cc)',
         perks: [
-            'Chiết khấu 20% trên mỗi sản phẩm bán được',
-            'Hỗ trợ quảng cáo trực tuyến',
-            'Tham gia đào tạo nâng cao',
-            'Thưởng bonus quý',
-            'Mã giảm giá độc quyền cho khách hàng',
+            'Chiết khấu 20% — vì bạn đã chứng minh bằng kết quả',
+            'Hỗ trợ quảng cáo trực tuyến từ đội ngũ',
+            'Tham gia đào tạo chuyên sâu về sản phẩm và sức khỏe',
+            'Thưởng theo quý — ghi nhận sự đồng hành dài hạn',
+            'Mã ưu đãi riêng để tặng khách hàng của bạn',
         ],
     },
     {
@@ -57,24 +57,24 @@ export const affiliateTiers = [
         color: '#ff6b35',
         gradient: 'linear-gradient(135deg, #ff6b35, #cc4400)',
         perks: [
-            'Chiết khấu 25% trên mỗi sản phẩm bán được',
-            'Quyền phân phối khu vực',
-            'Đào tạo 1:1 với đội ngũ lãnh đạo',
-            'Thưởng doanh số không giới hạn',
-            'Tham dự sự kiện & hội nghị đặc biệt',
-            'Hoa hồng cấp 2 từ CTV bạn giới thiệu',
+            'Chiết khấu 25% — mức cao nhất, dành cho người đồng hành lâu nhất',
+            'Quyền phân phối khu vực — xây dựng đội nhóm của riêng bạn',
+            'Đào tạo 1:1 trực tiếp với người sáng lập',
+            'Thu nhập không giới hạn — bạn quyết định mức trần',
+            'Tham dự sự kiện và gặp mặt cộng đồng CTV',
+            'Hoa hồng cấp 2 từ những CTV bạn giới thiệu',
         ],
     },
 ];
 
 export const affiliateProgram = {
     title: 'Chương Trình Cộng Tác Viên',
-    subtitle: 'Kinh doanh không vốn — Thu nhập không giới hạn',
-    description: 'Trở thành Cộng Tác Viên (CTV) của maldalladuyduc và nhận chiết khấu hấp dẫn trên mỗi sản phẩm bán được. Không cần vốn, không cần kho hàng — chúng tôi lo toàn bộ logistics.',
+    subtitle: 'Chia sẻ sức khỏe, nhận thu nhập — không cần vốn, không cần kho',
+    description: 'Bạn không cần bán hàng. Bạn chỉ cần chia sẻ một thứ bạn tin. Khi người thân, bạn bè đặt hàng qua link của bạn — bạn nhận chiết khấu. Chúng tôi lo đóng gói, giao hàng, chăm sóc khách. Bạn lo một việc duy nhất: giới thiệu đúng người cần.',
     howItWorks: [
-        { step: 1, title: 'Đăng Ký', desc: 'Điền form đăng ký CTV, nhận phê duyệt trong 24h' },
-        { step: 2, title: 'Nhận Link', desc: 'Nhận link giới thiệu & mã CTV cá nhân' },
-        { step: 3, title: 'Chia Sẻ', desc: 'Giới thiệu sản phẩm đến bạn bè, người thân' },
-        { step: 4, title: 'Nhận Chiết Khấu', desc: 'Chiết khấu được thanh toán vào cuối mỗi tuần' },
+        { step: 1, title: 'Đăng Ký', desc: 'Điền form — nhận phê duyệt trong 24 giờ, không mất phí' },
+        { step: 2, title: 'Nhận Mã Riêng', desc: 'Mã CTV cá nhân + link giới thiệu chỉ của bạn' },
+        { step: 3, title: 'Chia Sẻ', desc: 'Gửi cho người bạn nghĩ là cần — qua Zalo, Facebook, hay trò chuyện trực tiếp' },
+        { step: 4, title: 'Nhận Chiết Khấu', desc: 'Mỗi đơn thành công = chiết khấu vào tài khoản, thanh toán cuối tuần' },
     ],
 };

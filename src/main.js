@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initGallerySwiper();
   initQuantitySelector(product);
   initOrderForm();
+  initPaymentModal();
   initCtvForm();
   initScrollAnimations();
 
@@ -89,15 +90,25 @@ function initNavbar() {
   // Mobile toggle
   navToggle.addEventListener('click', () => {
     navToggle.classList.toggle('active');
-    navLinks.classList.toggle('open');
+    navLinks.classList.toggle('active');
   });
 
   // Close on link click
   navLinks.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
       navToggle.classList.remove('active');
-      navLinks.classList.remove('open');
+      navLinks.classList.remove('active');
     });
+  });
+
+  // Close on click outside (overlay)
+  document.addEventListener('click', (e) => {
+    if (navLinks.classList.contains('active') &&
+        !navLinks.contains(e.target) &&
+        !navToggle.contains(e.target)) {
+      navToggle.classList.remove('active');
+      navLinks.classList.remove('active');
+    }
   });
 }
 
@@ -416,26 +427,69 @@ function initQuantitySelector(product) {
 }
 
 // ===================================
-// ORDER FORM
+// ORDER FORM (with Payment)
 // ===================================
+const SHIPPING_FEE = 30000;
+const BANK_CONFIG = {
+  bankId: 'MB',        // MB Bank — mã VietQR
+  accountNo: '0903940171',
+  accountName: 'MAL DALLA DUY DUC',
+  template: 'compact2',
+};
+
+function calcOrderTotals(qty) {
+  const unitPrice = PRICING.unit_price || 1450000;
+  const discountPercent = PRICING.discounts[qty] || 0;
+  const subtotal = qty * unitPrice;
+  const discountAmount = Math.round(subtotal * discountPercent / 100);
+  const freeShip = qty >= (PRICING.free_shipping_min || 3);
+  const shipping = freeShip ? 0 : SHIPPING_FEE;
+  const total = subtotal - discountAmount + shipping;
+  return { unitPrice, discountPercent, subtotal, discountAmount, shipping, total, freeShip };
+}
+
 function initOrderForm() {
   const form = document.getElementById('orderForm');
   const qtySelect = document.getElementById('orderQty');
   const subtotalEl = document.getElementById('orderSubtotal');
   const totalEl = document.getElementById('orderTotal');
+  const shippingEl = document.getElementById('orderShipping');
+  const discountEl = document.getElementById('orderDiscount');
+  const discountRow = document.getElementById('orderDiscountRow');
+  const freeShipNote = document.getElementById('freeShipNote');
 
   if (!form) return;
 
-  qtySelect.addEventListener('change', () => {
-    const qty = parseInt(qtySelect.value);
-    const unitPrice = PRICING.unit_price || 1450000;
-    const discountPercent = PRICING.discounts[qty] || 0;
-    const subtotal = qty * unitPrice;
-    const total = Math.round(subtotal * (1 - discountPercent / 100));
-
-    subtotalEl.textContent = subtotal.toLocaleString('vi-VN') + '₫';
-    totalEl.textContent = total.toLocaleString('vi-VN') + '₫';
+  // --- Payment method toggle ---
+  const paymentOptions = document.querySelectorAll('.payment-option');
+  paymentOptions.forEach(opt => {
+    opt.addEventListener('click', () => {
+      paymentOptions.forEach(o => o.classList.remove('active'));
+      opt.classList.add('active');
+      opt.querySelector('input[type="radio"]').checked = true;
+    });
   });
+
+  // --- Quantity change → recalculate ---
+  function updateSummary() {
+    const qty = parseInt(qtySelect.value);
+    const t = calcOrderTotals(qty);
+    subtotalEl.textContent = t.subtotal.toLocaleString('vi-VN') + '₫';
+    shippingEl.textContent = t.freeShip ? 'Miễn phí' : t.shipping.toLocaleString('vi-VN') + '₫';
+    if (t.freeShip && shippingEl) shippingEl.style.color = '#4ade80';
+    else if (shippingEl) shippingEl.style.color = '';
+    if (t.discountAmount > 0) {
+      discountRow.style.display = '';
+      discountEl.textContent = '-' + t.discountAmount.toLocaleString('vi-VN') + '₫';
+    } else {
+      discountRow.style.display = 'none';
+    }
+    freeShipNote.style.display = t.freeShip ? '' : 'none';
+    totalEl.textContent = t.total.toLocaleString('vi-VN') + '₫';
+  }
+
+  qtySelect.addEventListener('change', updateSummary);
+  updateSummary(); // Initial
 
   // Auto-detect CTV ref from cookie
   const autoRef = getAutoRef();
@@ -462,22 +516,27 @@ function initOrderForm() {
 
     const name = document.getElementById('orderName').value.trim();
     const phone = document.getElementById('orderPhone').value.trim();
+    const email = document.getElementById('orderEmail')?.value.trim() || null;
     const address = document.getElementById('orderAddress').value.trim();
     const qty = parseInt(qtySelect.value);
     const manualCode = document.getElementById('orderCtvCode')?.value.trim() || null;
     const rawCtvCode = manualCode || getAutoRef();
     const note = document.getElementById('orderNote')?.value.trim() || null;
+    const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'cod';
 
     if (!name || !phone || !address) {
       showToast('Vui lòng điền đầy đủ thông tin!', false);
       return;
     }
 
-    // Calculate total using dynamic pricing
-    const unitPrice = PRICING.unit_price || 1450000;
-    const discountPercent = PRICING.discounts[qty] || 0;
-    const subtotal = qty * unitPrice;
-    const total = Math.round(subtotal * (1 - discountPercent / 100));
+    // Phone validation
+    const phoneClean = phone.replace(/[\s\-().]/g, '');
+    if (!/^(0|\+84)\d{9,10}$/.test(phoneClean)) {
+      showToast('Số điện thoại không hợp lệ!', false);
+      return;
+    }
+
+    const t = calcOrderTotals(qty);
 
     // Disable button while submitting
     const submitBtn = form.querySelector('button[type="submit"]');
@@ -492,32 +551,57 @@ function initOrderForm() {
       const { data, error } = await supabase.from('orders').insert({
         customer_name: name,
         phone: phone,
+        email: email,
         address: address,
         quantity: qty,
-        unit_price: unitPrice,
-        discount_percent: discountPercent,
-        total_amount: total,
+        unit_price: t.unitPrice,
+        discount_percent: t.discountPercent,
+        shipping_fee: t.shipping,
+        total_amount: t.total,
         ctv_code: ctvCode,
         note: note,
         status: 'pending',
+        payment_method: paymentMethod,
+        payment_status: paymentMethod === 'cod' ? 'pending' : 'pending',
       }).select().single();
 
       if (error) throw error;
 
-      showToast(
-        `Cảm ơn ${escapeHTML(name)}! Đơn hàng <strong>#${parseInt(data.id)}</strong> đã được ghi nhận.`
-        + `<br><a href="/tra-cuu.html" style="color:var(--gold-light);font-weight:600">Tra cứu đơn</a>`
-        + ` &nbsp;|&nbsp; <a href="/thanh-vien.html" style="color:var(--gold-light);font-weight:600">Thành viên</a>`,
-        true,
-        { html: true, duration: 8000 }
-      );
       // Save customer info for returning customer greeting
       try {
         localStorage.setItem('mdd_customer', JSON.stringify({ name, phone, lastOrder: Date.now() }));
-      } catch (e) { /* quota exceeded */ }
+      } catch (_e) { /* quota exceeded */ }
+
+      if (paymentMethod === 'bank_transfer') {
+        // Mở modal QR chuyển khoản
+        showPaymentModal(data.order_code || `MDD-${String(data.id).padStart(6, '0')}`, t.total);
+        showToast(
+          `Đơn hàng <strong>${escapeHTML(data.order_code || '')}</strong> đã được tạo. Vui lòng hoàn tất thanh toán!`,
+          true,
+          { html: true, duration: 6000 }
+        );
+      } else {
+        // COD — hiển thị thông báo thành công
+        showToast(
+          `Cảm ơn ${escapeHTML(name)}! Đơn hàng <strong>${escapeHTML(data.order_code || '#' + data.id)}</strong> đã được ghi nhận.`
+          + `<br>Chúng tôi sẽ liên hệ xác nhận trong 30 phút.`
+          + `<br><a href="/tra-cuu.html" style="color:var(--gold-light);font-weight:600">Tra cứu đơn</a>`
+          + ` &nbsp;|&nbsp; <a href="/thanh-vien.html" style="color:var(--gold-light);font-weight:600">Thành viên</a>`,
+          true,
+          { html: true, duration: 8000 }
+        );
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
       form.reset();
-      qtySelect.dispatchEvent(new Event('change'));
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Re-select COD after reset
+      const codRadio = document.querySelector('input[name="paymentMethod"][value="cod"]');
+      if (codRadio) {
+        codRadio.checked = true;
+        paymentOptions.forEach(o => o.classList.remove('active'));
+        codRadio.closest('.payment-option')?.classList.add('active');
+      }
+      updateSummary();
     } catch (err) {
       console.error('Order submit error:', err);
       showToast('Đặt hàng thất bại. Vui lòng gọi Hotline hoặc thử lại!', false);
@@ -525,6 +609,77 @@ function initOrderForm() {
       submitBtn.disabled = false;
       submitBtn.textContent = origText;
     }
+  });
+}
+
+// ===================================
+// PAYMENT MODAL (VietQR)
+// ===================================
+function showPaymentModal(orderCode, amount) {
+  const modal = document.getElementById('paymentModal');
+  if (!modal) return;
+
+  // Populate modal
+  const codeEl = document.getElementById('modalOrderCode');
+  const amountEl = document.getElementById('modalAmount');
+  const qrImg = document.getElementById('modalQrImage');
+  const contentEl = document.getElementById('modalTransferContent');
+
+  const transferContent = orderCode.replace(/-/g, '');
+
+  if (codeEl) codeEl.textContent = orderCode;
+  if (amountEl) amountEl.textContent = amount.toLocaleString('vi-VN') + '₫';
+  if (contentEl) contentEl.textContent = transferContent;
+
+  // VietQR URL — chuẩn quốc gia, mọi app ngân hàng đều quét được
+  const qrUrl = `https://img.vietqr.io/image/${BANK_CONFIG.bankId}-${BANK_CONFIG.accountNo}-${BANK_CONFIG.template}.png?amount=${amount}&addInfo=${encodeURIComponent(transferContent)}&accountName=${encodeURIComponent(BANK_CONFIG.accountName)}`;
+  if (qrImg) qrImg.src = qrUrl;
+
+  // Show modal
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function initPaymentModal() {
+  const modal = document.getElementById('paymentModal');
+  const closeBtn = document.getElementById('paymentModalClose');
+  if (!modal) return;
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Copy buttons
+  modal.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const type = btn.dataset.copy;
+      let text = '';
+      if (type === 'bankAccount') {
+        text = document.getElementById('modalBankAccount')?.textContent || '';
+      } else if (type === 'transferContent') {
+        text = document.getElementById('modalTransferContent')?.textContent || '';
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        const orig = btn.textContent;
+        btn.textContent = '✓ Đã sao chép';
+        btn.style.background = 'var(--gold-primary)';
+        btn.style.color = '#0A0E1A';
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 2000);
+      } catch (_e) {
+        showToast('Không thể sao chép. Vui lòng copy thủ công.', false);
+      }
+    });
   });
 }
 

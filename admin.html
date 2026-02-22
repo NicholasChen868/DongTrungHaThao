@@ -8,7 +8,7 @@
     <meta name="description" content="Bảng quản trị toàn bộ hệ thống maldalladuyduc" />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         rel="stylesheet" />
     <style>
         *,
@@ -20,20 +20,25 @@
         }
 
         :root {
-            --bg-primary: #060606;
-            --bg-sidebar: #0c0c0c;
-            --bg-card: #111111;
-            --bg-card-hover: #1a1a1a;
-            --gold-primary: #d4a853;
-            --gold-light: #e8c97a;
-            --text-primary: #f5f0e8;
-            --text-secondary: #a09888;
-            --text-muted: #665e52;
-            --border-color: rgba(212, 168, 83, 0.15);
-            --success: #4ade80;
-            --error: #f87171;
-            --warning: #fbbf24;
-            --info: #60a5fa;
+            --bg-primary: #f5f3ef;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #faf8f5;
+            --gold-primary: #b8860b;
+            --gold-light: #a0750a;
+            --gold-gradient: linear-gradient(135deg, #c9952e 0%, #a0750a 100%);
+            --text-primary: #1a1612;
+            --text-secondary: #5c5347;
+            --text-muted: #9a8e80;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --success: #16a34a;
+            --error: #dc2626;
+            --warning: #d97706;
+            --info: #2563eb;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+            --radius: 12px;
         }
 
         body {
@@ -53,60 +58,118 @@
             justify-content: center;
             min-height: 100vh;
             width: 100%;
+            background: linear-gradient(135deg, #f5f3ef 0%, #ece7dd 50%, #f0ebe3 100%);
         }
 
         .admin-login-box {
-            max-width: 400px;
+            max-width: 420px;
             width: 100%;
-            padding: 40px;
+            padding: 48px 40px;
             text-align: center;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .admin-login-logo {
+            width: 56px;
+            height: 56px;
+            background: var(--gold-gradient);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 16px rgba(184, 134, 11, 0.25);
         }
 
         .admin-login-box h1 {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-primary);
         }
 
         .admin-login-box p {
-            color: var(--text-secondary);
-            margin-bottom: 28px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            font-size: 14px;
         }
 
         .admin-login-box form {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
         .admin-login-box input {
             padding: 14px 18px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
+            background: var(--bg-primary);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius);
             color: var(--text-primary);
             font-size: 15px;
             font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .admin-login-box input:focus {
             outline: none;
             border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.12);
         }
 
-        .admin-login-box button {
+        .admin-login-box .btn-login {
             padding: 14px;
-            background: var(--gold-primary);
-            color: #0a0a0a;
+            background: var(--gold-gradient);
+            color: #ffffff;
             border: none;
-            border-radius: 10px;
+            border-radius: var(--radius);
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
+            transition: transform 0.15s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(184, 134, 11, 0.3);
+            letter-spacing: 0.02em;
         }
 
-        .admin-login-box button:hover {
-            background: var(--gold-light);
+        .admin-login-box .btn-login:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(184, 134, 11, 0.4);
+        }
+
+        .admin-login-box .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .btn-bypass {
+            padding: 12px;
+            background: transparent;
+            color: var(--text-muted);
+            border: 1.5px dashed var(--border-color);
+            border-radius: var(--radius);
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            margin-top: 4px;
+        }
+
+        .btn-bypass:hover {
+            border-color: var(--warning);
+            color: var(--warning);
+            background: rgba(217, 119, 6, 0.05);
+        }
+
+        .bypass-note {
+            font-size: 11px;
+            color: var(--warning);
+            margin-top: 8px;
+            display: none;
         }
 
         .admin-login-error {
@@ -118,7 +181,7 @@
 
         /* ===== SIDEBAR ===== */
         .admin-sidebar {
-            width: 240px;
+            width: 250px;
             min-height: 100vh;
             background: var(--bg-sidebar);
             border-right: 1px solid var(--border-color);
@@ -126,6 +189,7 @@
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.03);
         }
 
         .sidebar-logo {
@@ -133,7 +197,7 @@
             border-bottom: 1px solid var(--border-color);
             font-weight: 700;
             font-size: 1rem;
-            color: var(--gold-light);
+            color: var(--gold-primary);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -154,7 +218,7 @@
             align-items: center;
             gap: 10px;
             padding: 10px 14px;
-            border-radius: 8px;
+            border-radius: 10px;
             color: var(--text-secondary);
             cursor: pointer;
             font-size: 14px;
@@ -163,12 +227,18 @@
             width: 100%;
             text-align: left;
             font-family: inherit;
+            transition: all 0.15s;
         }
 
-        .sidebar-item:hover,
+        .sidebar-item:hover {
+            background: rgba(184, 134, 11, 0.06);
+            color: var(--text-primary);
+        }
+
         .sidebar-item.active {
-            background: rgba(212, 168, 83, 0.1);
-            color: var(--gold-light);
+            background: rgba(184, 134, 11, 0.1);
+            color: var(--gold-primary);
+            font-weight: 600;
         }
 
         .sidebar-bottom {
@@ -182,23 +252,29 @@
             font-size: 13px;
         }
 
+        .sidebar-bottom a:hover {
+            color: var(--gold-primary);
+        }
+
         .sidebar-bottom button {
             display: block;
             width: 100%;
             margin-top: 8px;
-            padding: 8px;
+            padding: 9px;
             background: none;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1.5px solid var(--border-color);
             color: var(--text-secondary);
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 13px;
             cursor: pointer;
             font-family: inherit;
+            transition: all 0.15s;
         }
 
         .sidebar-bottom button:hover {
             border-color: var(--error);
             color: var(--error);
+            background: rgba(220, 38, 38, 0.04);
         }
 
         /* ===== MAIN CONTENT ===== */
@@ -209,7 +285,7 @@
         }
 
         .admin-topbar {
-            background: linear-gradient(180deg, #141414 0%, #0e0e0e 100%);
+            background: #ffffff;
             border-bottom: 1px solid var(--border-color);
             padding: 14px 28px;
             display: flex;
@@ -218,6 +294,7 @@
             position: sticky;
             top: 0;
             z-index: 10;
+            box-shadow: var(--shadow-sm);
         }
 
         .admin-topbar h2 {
@@ -245,8 +322,15 @@
         .overview-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 20px;
+            border-radius: var(--radius);
+            padding: 22px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .overview-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
         }
 
         .overview-card .label {
@@ -258,7 +342,7 @@
         .overview-card .value {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--gold-light);
+            color: var(--gold-primary);
         }
 
         .overview-card .change {
@@ -278,9 +362,10 @@
         .admin-panel {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: var(--radius);
             padding: 24px;
             margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
         }
 
         .admin-panel h3 {
@@ -311,40 +396,40 @@
         .admin-table td {
             padding: 12px 12px;
             font-size: 14px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--border-color);
             color: var(--text-secondary);
         }
 
         .admin-table tbody tr:hover td {
-            background: rgba(212, 168, 83, 0.03);
+            background: rgba(184, 134, 11, 0.03);
         }
 
         /* Badges */
         .badge {
             display: inline-block;
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
         }
 
         .badge-success {
-            background: rgba(74, 222, 128, 0.12);
+            background: rgba(22, 163, 74, 0.1);
             color: var(--success);
         }
 
         .badge-warning {
-            background: rgba(251, 191, 36, 0.12);
+            background: rgba(217, 119, 6, 0.1);
             color: var(--warning);
         }
 
         .badge-danger {
-            background: rgba(248, 113, 113, 0.12);
+            background: rgba(220, 38, 38, 0.1);
             color: var(--error);
         }
 
         .badge-info {
-            background: rgba(96, 165, 250, 0.12);
+            background: rgba(37, 99, 235, 0.1);
             color: var(--info);
         }
 
@@ -391,47 +476,51 @@
 
         /* Action buttons */
         .btn-action {
-            padding: 4px 12px;
+            padding: 6px 14px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
             margin-right: 4px;
+            transition: all 0.15s;
         }
 
         .btn-approve {
-            background: rgba(74, 222, 128, 0.15);
+            background: rgba(22, 163, 74, 0.1);
             color: var(--success);
         }
 
         .btn-approve:hover {
-            background: rgba(74, 222, 128, 0.3);
+            background: rgba(22, 163, 74, 0.18);
+            box-shadow: 0 2px 6px rgba(22, 163, 74, 0.15);
         }
 
         .btn-reject {
-            background: rgba(248, 113, 113, 0.15);
+            background: rgba(220, 38, 38, 0.1);
             color: var(--error);
         }
 
         .btn-reject:hover {
-            background: rgba(248, 113, 113, 0.3);
+            background: rgba(220, 38, 38, 0.18);
+            box-shadow: 0 2px 6px rgba(220, 38, 38, 0.15);
         }
 
         .btn-ship {
-            background: rgba(96, 165, 250, 0.15);
+            background: rgba(37, 99, 235, 0.1);
             color: var(--info);
         }
 
         .btn-ship:hover {
-            background: rgba(96, 165, 250, 0.3);
+            background: rgba(37, 99, 235, 0.18);
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.15);
         }
 
         .btn-refresh {
-            padding: 6px 14px;
-            background: rgba(212, 168, 83, 0.1);
-            color: var(--gold-light);
+            padding: 7px 16px;
+            background: rgba(184, 134, 11, 0.08);
+            color: var(--gold-primary);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 13px;
@@ -439,10 +528,12 @@
             cursor: pointer;
             font-family: inherit;
             margin-left: auto;
+            transition: all 0.15s;
         }
 
         .btn-refresh:hover {
-            background: rgba(212, 168, 83, 0.2);
+            background: rgba(184, 134, 11, 0.15);
+            box-shadow: 0 2px 6px rgba(184, 134, 11, 0.12);
         }
 
         /* Panel header flex */
@@ -457,9 +548,9 @@
             position: fixed;
             bottom: 24px;
             right: 24px;
-            background: #1a1a1a;
+            background: #ffffff;
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: var(--radius);
             padding: 14px 20px;
             font-size: 14px;
             color: var(--text-primary);
@@ -468,6 +559,7 @@
             transform: translateY(20px);
             transition: opacity 0.3s, transform 0.3s;
             max-width: 400px;
+            box-shadow: var(--shadow-lg);
         }
 
         .admin-toast.show {
@@ -528,19 +620,23 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"
         integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous">
-</head >
+    </script>
+</head>
 
                 <body>
 
     <!-- LOGIN -->
                     <div class="admin-login" id="adminLogin">
                         <div class="admin-login-box">
-                            <h1>🔒 Admin Panel</h1>
+                            <div class="admin-login-logo">🌿</div>
+                            <h1>Admin Panel</h1>
                             <p>Đông Trùng Hạ Thảo — maldalladuyduc</p>
                             <form id="adminLoginForm">
-                                <input type="password" id="adminPassword" placeholder="Mật khẩu quản trị" required />
-                                <button type="submit">Đăng Nhập</button>
+                                <input type="password" id="adminPassword" placeholder="Nhập mật khẩu quản trị" required />
+                                <button type="submit" class="btn-login">Đăng Nhập</button>
+                                <button type="button" class="btn-bypass" id="btnBypass">⚡ Truy cập nhanh (DEV)</button>
                             </form>
+                            <div class="bypass-note" id="bypassNote">⚠ Chế độ bypass — chỉ dùng khi test nội bộ</div>
                             <div class="admin-login-error" id="adminLoginError">Mật khẩu không đúng</div>
                         </div>
                     </div>
@@ -854,6 +950,15 @@
         document.getElementById('adminLogout').addEventListener('click', () => {
                             sessionStorage.removeItem('admin_hash');
                         location.reload();
+        });
+
+        // --- Bypass Login (DEV ONLY) ---
+        document.getElementById('btnBypass').addEventListener('click', () => {
+            sessionStorage.setItem('admin_hash', ADMIN_HASH);
+            document.getElementById('bypassNote').style.display = 'block';
+            resetSessionTimer();
+            showDashboard();
+            showAdminToast('⚡ Đã bypass đăng nhập (DEV mode)', 'success');
         });
 
         // --- Sidebar navigation ---

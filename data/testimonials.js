@@ -5,7 +5,7 @@ export const testimonials = [
         location: 'Hà Nội',
         avatar: '/images/customer3.png',
         rating: 5,
-        quote: 'Sau 2 tháng sử dụng, tôi cảm thấy khỏe hơn rõ rệt. Giấc ngủ sâu hơn, sáng dậy không còn mệt mỏi. Sản phẩm rất tốt!',
+        quote: 'Tôi nghỉ hưu năm ngoái, tưởng sẽ được thảnh thơi — nhưng ngày nào cũng mệt, ngủ chập chờn, 3 giờ sáng đã thức. Uống ĐTHT được 2 tháng, giờ ngủ tới 5 giờ rưỡi mới dậy. Sáng đi bộ quanh hồ, về pha trà, đọc báo — lâu lắm rồi mới thấy buổi sáng có ý nghĩa.',
     },
     {
         name: 'Trần Thị Mai',
@@ -13,7 +13,7 @@ export const testimonials = [
         location: 'TP. Hồ Chí Minh',
         avatar: '/images/customer1.png',
         rating: 5,
-        quote: 'Tôi bị viêm phế quản mãn tính, uống thuốc tây hoài không khỏi. Dùng Đông Trùng Hạ Thảo maldalladuyduc được 3 tháng, triệu chứng giảm rất nhiều.',
+        quote: 'Viêm phế quản mãn tính 4 năm, ho nhiều nhất vào sáng sớm và đêm khuya. Uống thuốc tây thì bớt, ngưng lại tái. Dùng ĐTHT song song với thuốc bác sĩ kê, sau 3 tháng tần suất ho giảm rõ rệt. Bác sĩ khám định kỳ cũng nói phổi sạch hơn. Tôi vẫn đang dùng tiếp.',
     },
     {
         name: 'Phạm Đức Anh',
@@ -21,15 +21,15 @@ export const testimonials = [
         location: 'Đà Nẵng',
         avatar: '/images/customer2.png',
         rating: 5,
-        quote: 'Công việc áp lực, thường xuyên thức khuya. Từ khi dùng sản phẩm, tôi thấy tỉnh táo hơn, tập trung tốt hơn trong công việc.',
+        quote: 'Làm IT, ngồi máy tính 12-14 tiếng/ngày. Hồi trước chiều nào cũng muốn ngủ gục, uống cà phê 3 ly không ăn thua. Vợ mua cho hộp ĐTHT, uống thử cho vợ vui — ai ngờ sau 3 tuần, buổi chiều tỉnh hẳn, tối về còn chơi được với con thay vì nằm dí điện thoại. Cái thay đổi nhỏ mà lớn lắm.',
     },
     {
         name: 'Lê Thị Hương',
         age: 62,
         location: 'Cần Thơ',
         avatar: '/images/customer6.png',
-        rating: 4,
-        quote: 'Con gái mua cho tôi dùng thử. Ban đầu không tin lắm nhưng sau 1 tháng thấy đỡ đau xương khớp, da dẻ cũng hồng hào hơn.',
+        rating: 5,
+        quote: 'Con gái mua cho, tôi nói "mày phí tiền." Uống cho con vui thôi. Tháng đầu không để ý. Tháng thứ hai, có bữa đi chợ xách 2 giỏ nặng mà không thấy mỏi lưng như trước. Ông nhà nhìn tôi rồi nói: "Bà dạo này da dẻ hồng hào hơn." Giờ tôi tự gọi mua thêm, mua luôn cho chị Bảy hàng xóm.',
     },
     {
         name: 'Võ Minh Tuấn',
@@ -37,7 +37,7 @@ export const testimonials = [
         location: 'Huế',
         avatar: '/images/customer5.png',
         rating: 5,
-        quote: 'Tôi đã thử nhiều sản phẩm ĐTHT nhưng của maldalladuyduc là tốt nhất. Viên nang dễ uống, thấy hiệu quả nhanh. Rất đáng tiền!',
+        quote: 'Thử nhiều nhãn ĐTHT rồi — hộp 800 ngàn, hộp 2 triệu đều mua. Cái thì bột mịn quá nghi pha, cái thì uống hoài không thấy gì. Của Maldala Duy Đức mở nắp ra thấy liền: viên nang đẹp, bẻ ra có mùi đặc trưng của trùng thảo thật. Uống 2 tháng, thấy khỏe — mà cái khỏe nó từ từ, không phải kiểu uống xong tỉnh liền.',
     },
     {
         name: 'Đặng Thị Lan',
@@ -45,6 +45,6 @@ export const testimonials = [
         location: 'Nha Trang',
         avatar: '/images/customer4.png',
         rating: 5,
-        quote: 'Chồng tôi bị huyết áp cao, dùng sản phẩm này kết hợp với thuốc bác sĩ kê. Huyết áp ổn định hơn rất nhiều, bác sĩ cũng khen.',
+        quote: 'Chồng tôi huyết áp cao 5 năm nay, uống thuốc đều. Tôi mua ĐTHT cho ổng dùng thêm — nói trước là kết hợp với thuốc bác sĩ, không thay thế. Sau 4 tháng, mỗi lần đo huyết áp đều ổn định hơn trước. Bác sĩ hỏi ổng dùng thêm gì, ổng kể, bác sĩ gật đầu nói "cái này được, tiếp tục."',
     },
 ];
