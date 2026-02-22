@@ -1088,6 +1088,298 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* ===== SHARE CENTER ===== */
+        .share-center {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 28px;
+        }
+
+        .share-center h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .share-center-desc {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Main link display */
+        .share-link-box {
+            background: rgba(212, 168, 83, 0.06);
+            border: 1px solid rgba(212, 168, 83, 0.25);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .share-link-url {
+            flex: 1;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: var(--gold-light);
+            word-break: break-all;
+            line-height: 1.4;
+        }
+
+        .share-link-copy {
+            padding: 8px 18px;
+            background: var(--gold-primary);
+            color: #0a0a0a;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .share-link-copy:hover {
+            background: var(--gold-light);
+            transform: translateY(-1px);
+        }
+
+        .share-link-copy.copied {
+            background: var(--success);
+            color: #0a0a0a;
+        }
+
+        /* Share channels grid */
+        .share-channels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .share-channel-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 14px 8px;
+            background: var(--bg-card-hover);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .share-channel-btn:hover {
+            border-color: var(--gold-primary);
+            background: rgba(212, 168, 83, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .share-channel-icon {
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .share-channel-btn.zalo { border-color: rgba(0, 106, 255, 0.3); }
+        .share-channel-btn.zalo:hover { background: rgba(0, 106, 255, 0.1); border-color: #006AFF; }
+        .share-channel-btn.facebook { border-color: rgba(24, 119, 242, 0.3); }
+        .share-channel-btn.facebook:hover { background: rgba(24, 119, 242, 0.1); border-color: #1877F2; }
+        .share-channel-btn.messenger { border-color: rgba(168, 0, 255, 0.3); }
+        .share-channel-btn.messenger:hover { background: rgba(168, 0, 255, 0.1); border-color: #A800FF; }
+        .share-channel-btn.sms { border-color: rgba(74, 222, 128, 0.3); }
+        .share-channel-btn.sms:hover { background: rgba(74, 222, 128, 0.1); border-color: var(--success); }
+
+        /* QR Code section */
+        .share-qr-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .share-qr-canvas {
+            width: 120px;
+            height: 120px;
+            background: #fff;
+            border-radius: 8px;
+            padding: 6px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .share-qr-canvas canvas,
+        .share-qr-canvas img {
+            width: 100%;
+            height: 100%;
+            image-rendering: pixelated;
+        }
+
+        .share-qr-info {
+            flex: 1;
+        }
+
+        .share-qr-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .share-qr-info p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .share-qr-download {
+            padding: 6px 14px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .share-qr-download:hover {
+            border-color: var(--gold-primary);
+            color: var(--gold-light);
+        }
+
+        /* Pre-written messages */
+        .share-messages {
+            margin-bottom: 20px;
+        }
+
+        .share-messages h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+
+        .share-msg-card {
+            background: var(--bg-card-hover);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 8px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .share-msg-card:hover {
+            border-color: var(--gold-primary);
+        }
+
+        .share-msg-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.5;
+            padding-right: 50px;
+        }
+
+        .share-msg-copy {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 10px;
+            background: rgba(212, 168, 83, 0.12);
+            border: 1px solid rgba(212, 168, 83, 0.25);
+            border-radius: 6px;
+            color: var(--gold-light);
+            font-size: 11px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .share-msg-copy:hover {
+            background: var(--gold-primary);
+            color: #0a0a0a;
+        }
+
+        .share-msg-copy.copied {
+            background: var(--success);
+            color: #0a0a0a;
+            border-color: var(--success);
+        }
+
+        /* Share tips */
+        .share-tips {
+            background: rgba(212, 168, 83, 0.05);
+            border: 1px solid rgba(212, 168, 83, 0.15);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .share-tips h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+        }
+
+        .share-tips ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .share-tips li {
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 3px 0;
+            padding-left: 18px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .share-tips li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--gold-primary);
+            font-size: 10px;
+        }
+
+        @media (max-width: 640px) {
+            .share-channels {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .share-qr-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .share-center {
+                padding: 20px 16px;
+            }
+        }
     </style>
 </head>
 
@@ -1251,12 +1543,75 @@
                 <span>Điểm chờ duyệt: <strong>48 giờ</strong></span>
             </div>
 
-            <!-- Referral Link -->
-            <div class="ctv-ref-section">
-                <h3>Link Giới Thiệu Của Bạn</h3>
-                <div class="ctv-ref-row">
-                    <input type="text" class="ctv-ref-input" id="refLinkInput" readonly />
-                    <button class="ctv-ref-copy-btn" id="refCopyBtn">Copy Link</button>
+            <!-- ===== TRUNG TÂM CHIA SẺ ===== -->
+            <div class="share-center" id="shareCenter">
+                <h3>📲 Trung Tâm Chia Sẻ</h3>
+                <p class="share-center-desc">Chia sẻ link giới thiệu để nhận hoa hồng khi khách đặt hàng. Link tự động gắn mã CTV — khách không cần nhập gì.</p>
+
+                <!-- Main Link -->
+                <div class="share-link-box">
+                    <span class="share-link-url" id="shareLinkUrl">Đang tải...</span>
+                    <button class="share-link-copy" id="shareLinkCopy" onclick="copyShareLink()">Copy Link</button>
+                </div>
+
+                <!-- Share Channels -->
+                <div class="share-channels">
+                    <a class="share-channel-btn zalo" id="shareZalo" href="#" target="_blank" rel="noopener">
+                        <span class="share-channel-icon">💬</span>
+                        Gửi qua Zalo
+                    </a>
+                    <a class="share-channel-btn facebook" id="shareFacebook" href="#" target="_blank" rel="noopener">
+                        <span class="share-channel-icon">📘</span>
+                        Đăng Facebook
+                    </a>
+                    <a class="share-channel-btn messenger" id="shareMessenger" href="#" target="_blank" rel="noopener">
+                        <span class="share-channel-icon">💜</span>
+                        Gửi Messenger
+                    </a>
+                    <a class="share-channel-btn sms" id="shareSMS" href="#" rel="noopener">
+                        <span class="share-channel-icon">📱</span>
+                        Gửi SMS
+                    </a>
+                </div>
+
+                <!-- QR Code -->
+                <div class="share-qr-section">
+                    <div class="share-qr-canvas" id="shareQrCanvas">
+                        <span style="font-size:11px;color:#999;text-align:center">Đang tạo QR...</span>
+                    </div>
+                    <div class="share-qr-info">
+                        <h4>Mã QR cá nhân</h4>
+                        <p>Cho khách quét mã khi gặp trực tiếp. Tự động dẫn về trang đặt hàng với mã CTV của bạn.</p>
+                        <button class="share-qr-download" onclick="downloadQR()">⬇ Tải ảnh QR</button>
+                    </div>
+                </div>
+
+                <!-- Pre-written Messages -->
+                <div class="share-messages">
+                    <h4>Tin nhắn mẫu — chạm để copy</h4>
+                    <div class="share-msg-card" onclick="copyShareMsg(this)">
+                        <div class="share-msg-text" id="shareMsg1">Mình đang dùng Đông Trùng Hạ Thảo của maldalladuyduc, chất lượng rất tốt. Bạn xem thử nhé: [LINK]</div>
+                        <button class="share-msg-copy">Copy</button>
+                    </div>
+                    <div class="share-msg-card" onclick="copyShareMsg(this)">
+                        <div class="share-msg-text" id="shareMsg2">Đông Trùng Hạ Thảo sấy thăng hoa — hỗ trợ sức khỏe, tăng đề kháng. Mua 3 hộp giảm 5%, mua 5 giảm 10%. Đặt hàng tại đây: [LINK]</div>
+                        <button class="share-msg-copy">Copy</button>
+                    </div>
+                    <div class="share-msg-card" onclick="copyShareMsg(this)">
+                        <div class="share-msg-text" id="shareMsg3">Má/Ba ơi, cái này tốt cho sức khỏe lắm, con đang dùng. Đặt qua link này giúp con nhé: [LINK]</div>
+                        <button class="share-msg-copy">Copy</button>
+                    </div>
+                </div>
+
+                <!-- Tips -->
+                <div class="share-tips">
+                    <h4>Mẹo chia sẻ hiệu quả</h4>
+                    <ul>
+                        <li>Gửi link cùng lời giới thiệu chân thật — hiệu quả hơn gửi link trống</li>
+                        <li>In QR dán vào card visit cá nhân hoặc quầy hàng</li>
+                        <li>Đăng story Facebook/Zalo kèm trải nghiệm thật của bạn</li>
+                        <li>Link có hiệu lực 30 ngày — khách click rồi mua sau vẫn tính cho bạn</li>
+                    </ul>
                 </div>
             </div>
 
@@ -1603,7 +1958,14 @@
 
                 if (error) throw error;
                 if (!data || !data.ok) {
-                    errEl.textContent = data?.error || 'Không tìm thấy tài khoản. Vui lòng kiểm tra SĐT và Email.';
+                    const errMsg = data?.error || '';
+                    if (errMsg.toLowerCase().includes('phone') || errMsg.toLowerCase().includes('sdt')) {
+                        errEl.textContent = 'Số điện thoại này chưa đăng ký tài khoản CTV. Vui lòng kiểm tra lại.';
+                    } else if (errMsg.toLowerCase().includes('email')) {
+                        errEl.textContent = 'Email không khớp với số điện thoại đã đăng ký.';
+                    } else {
+                        errEl.textContent = 'Không thể đặt lại mật khẩu. Vui lòng kiểm tra SĐT và Email đã đăng ký.';
+                    }
                     errEl.style.display = 'block'; return;
                 }
 
@@ -1735,8 +2097,8 @@
                 document.getElementById('statClicks').textContent = data.total_clicks || 0;
                 document.getElementById('statToday').textContent = `${data.today_points || 0}/50 điểm`;
 
-                // Referral link
-                document.getElementById('refLinkInput').value = `${window.location.origin}/?ref=${data.referral_code}`;
+                // Share Center
+                initShareCenter(data.referral_code);
 
                 // Load recent transactions + withdrawals + BTV posts + banking
                 loadTransactions(refCode);
@@ -2288,17 +2650,113 @@
             document.getElementById('obWizard').style.display = 'none';
         };
 
-        // Track copy link for onboarding
-        const copyBtn = document.getElementById('refCopyBtn');
-        if (copyBtn) {
-            copyBtn.addEventListener('click', () => {
+        // ===== SHARE CENTER LOGIC =====
+        let _shareUrl = '';
+
+        function initShareCenter(refCode) {
+            _shareUrl = `${window.location.origin}/?ref=${refCode}`;
+            const encoded = encodeURIComponent(_shareUrl);
+            const shareText = encodeURIComponent('Đông Trùng Hạ Thảo sấy thăng hoa — hỗ trợ sức khỏe tự nhiên. Xem tại đây:');
+
+            // Populate link
+            document.getElementById('shareLinkUrl').textContent = _shareUrl;
+
+            // Social share URLs
+            document.getElementById('shareZalo').href = `https://zalo.me/share?url=${encoded}`;
+            document.getElementById('shareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encoded}&quote=${shareText}`;
+            document.getElementById('shareMessenger').href = `https://www.facebook.com/dialog/send?link=${encoded}&app_id=0&redirect_uri=${encoded}`;
+            document.getElementById('shareSMS').href = `sms:?body=${shareText}%20${encoded}`;
+
+            // QR Code via Google Charts API
+            const qrContainer = document.getElementById('shareQrCanvas');
+            const qrImg = document.createElement('img');
+            qrImg.src = `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${encoded}&choe=UTF-8`;
+            qrImg.alt = 'QR Code giới thiệu';
+            qrImg.id = 'shareQrImg';
+            qrContainer.innerHTML = '';
+            qrContainer.appendChild(qrImg);
+
+            // Replace [LINK] in pre-written messages
+            document.querySelectorAll('.share-msg-text').forEach(el => {
+                el.textContent = el.textContent.replace('[LINK]', _shareUrl);
+            });
+        }
+
+        // Copy share link
+        window.copyShareLink = function () {
+            navigator.clipboard.writeText(_shareUrl).then(() => {
+                const btn = document.getElementById('shareLinkCopy');
+                btn.textContent = 'Đã copy!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy Link';
+                    btn.classList.remove('copied');
+                }, 2000);
+
+                // Track for onboarding
                 localStorage.setItem('ctv_link_copied', 'true');
                 const step1 = document.getElementById('obStep1');
                 if (step1) { step1.classList.remove('active'); step1.classList.add('done'); }
                 const refCode = localStorage.getItem('ctv_ref_code');
                 if (refCode) saveOnboardingStep(refCode, 1);
+            }).catch(() => {
+                // Fallback for older browsers
+                const ta = document.createElement('textarea');
+                ta.value = _shareUrl;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                const btn = document.getElementById('shareLinkCopy');
+                btn.textContent = 'Đã copy!';
+                setTimeout(() => { btn.textContent = 'Copy Link'; }, 2000);
             });
-        }
+        };
+
+        // Copy pre-written message
+        window.copyShareMsg = function (card) {
+            const text = card.querySelector('.share-msg-text').textContent;
+            const copyBtn = card.querySelector('.share-msg-copy');
+            navigator.clipboard.writeText(text).then(() => {
+                copyBtn.textContent = 'Đã copy!';
+                copyBtn.classList.add('copied');
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                copyBtn.textContent = 'Đã copy!';
+                setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+            });
+        };
+
+        // Download QR code as image
+        window.downloadQR = function () {
+            const img = document.getElementById('shareQrImg');
+            if (!img) return;
+            const canvas = document.createElement('canvas');
+            canvas.width = 400;
+            canvas.height = 400;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, 400, 400);
+            const tmpImg = new Image();
+            tmpImg.crossOrigin = 'anonymous';
+            tmpImg.onload = () => {
+                ctx.drawImage(tmpImg, 0, 0, 400, 400);
+                const link = document.createElement('a');
+                link.download = 'mdd-qr-code.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
+            tmpImg.src = img.src;
+        };
     </script>
 </body>
 

@@ -15,6 +15,9 @@ export function initRefTracking() {
     const ref = params.get('ref');
     if (!ref) return;
 
+    // Save ref code to localStorage for auto-fill in order form (30-day cookie)
+    saveRefCookie(ref);
+
     // Track the visit — record after 5 seconds (minimum dwell time)
     const contentType = params.get('t') || 'page';
     const contentId = params.get('id') || null;
@@ -36,6 +39,31 @@ export function initRefTracking() {
             console.warn('Click tracking failed:', err.message);
         }
     }, 5000); // Wait 5 seconds before recording (anti-bot)
+}
+
+// --- Save referral cookie (30-day TTL) ---
+const REF_COOKIE_KEY = 'mdd_ref';
+const REF_COOKIE_TTL = 30 * 24 * 60 * 60 * 1000; // 30 days in ms
+
+function saveRefCookie(refCode) {
+    const data = { code: refCode, ts: Date.now() };
+    localStorage.setItem(REF_COOKIE_KEY, JSON.stringify(data));
+}
+
+// --- Get auto-ref code (for order form auto-fill) ---
+export function getAutoRef() {
+    try {
+        const raw = localStorage.getItem(REF_COOKIE_KEY);
+        if (!raw) return null;
+        const { code, ts } = JSON.parse(raw);
+        if (Date.now() - ts > REF_COOKIE_TTL) {
+            localStorage.removeItem(REF_COOKIE_KEY);
+            return null;
+        }
+        return code;
+    } catch {
+        return null;
+    }
 }
 
 // --- Register CTV ---

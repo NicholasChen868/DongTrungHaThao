@@ -1,5 +1,5 @@
 import { fetchAllData } from './data.js';
-import { initCTVSystem, registerCTV } from './ctv.js';
+import { initCTVSystem, registerCTV, getAutoRef } from './ctv.js';
 import { supabase } from './supabase.js';
 import { escapeHTML, escapeCSS } from './utils/sanitize.js';
 import { checkRateLimit, recordAttempt, createSubmitGuard } from './utils/ratelimit.js';
@@ -396,6 +396,19 @@ function initOrderForm() {
     totalEl.textContent = total.toLocaleString('vi-VN') + '₫';
   });
 
+  // Auto-detect CTV ref from cookie
+  const autoRef = getAutoRef();
+  if (autoRef) {
+    const autoGroup = document.getElementById('ctvAutoRefGroup');
+    const manualGroup = document.getElementById('ctvManualGroup');
+    const autoText = document.getElementById('ctvAutoRefText');
+    if (autoGroup && manualGroup && autoText) {
+      autoGroup.style.display = 'block';
+      manualGroup.style.display = 'none';
+      autoText.textContent = `Bạn được giới thiệu bởi ${autoRef}`;
+    }
+  }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -410,7 +423,8 @@ function initOrderForm() {
     const phone = document.getElementById('orderPhone').value.trim();
     const address = document.getElementById('orderAddress').value.trim();
     const qty = parseInt(qtySelect.value);
-    const ctvCode = document.getElementById('orderCtvCode')?.value.trim() || null;
+    const manualCode = document.getElementById('orderCtvCode')?.value.trim() || null;
+    const ctvCode = manualCode || getAutoRef();
     const note = document.getElementById('orderNote')?.value.trim() || null;
 
     if (!name || !phone || !address) {
