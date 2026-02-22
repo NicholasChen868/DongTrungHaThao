@@ -1,5 +1,5 @@
 import { fetchAllData } from './data.js';
-import { initCTVSystem, registerCTV, getAutoRef } from './ctv.js';
+import { initCTVSystem, registerCTV, getAutoRef, validateCtvCode } from './ctv.js';
 import { supabase } from './supabase.js';
 import { escapeHTML, escapeCSS } from './utils/sanitize.js';
 import { checkRateLimit, recordAttempt, createSubmitGuard } from './utils/ratelimit.js';
@@ -424,7 +424,7 @@ function initOrderForm() {
     const address = document.getElementById('orderAddress').value.trim();
     const qty = parseInt(qtySelect.value);
     const manualCode = document.getElementById('orderCtvCode')?.value.trim() || null;
-    const ctvCode = manualCode || getAutoRef();
+    const rawCtvCode = manualCode || getAutoRef();
     const note = document.getElementById('orderNote')?.value.trim() || null;
 
     if (!name || !phone || !address) {
@@ -445,6 +445,9 @@ function initOrderForm() {
     submitBtn.textContent = 'Đang xử lý...';
 
     try {
+      // Anti-self-referral: chặn CTV tự giới thiệu chính mình
+      const ctvCode = await validateCtvCode(rawCtvCode, phone);
+
       const { data, error } = await supabase.from('orders').insert({
         customer_name: name,
         phone: phone,

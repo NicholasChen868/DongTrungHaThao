@@ -1,0 +1,75 @@
+# ===================================
+# CI/CD Pipeline — Open Beta
+# ===================================
+# Mục tiêu: Build check + Deploy preview cho mỗi PR
+# Không deploy production tự động — anh Kha duyệt PR trước
+
+name: CI — Build & Verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          echo "=== Build Output ==="
+          ls -la dist/
+          echo ""
+          echo "=== HTML Files ==="
+          ls dist/*.html
+          echo ""
+          echo "=== Asset Files ==="
+          ls dist/assets/
+          echo ""
+          # Check critical files exist
+          test -f dist/index.html || (echo "❌ index.html missing!" && exit 1)
+          test -f dist/ctv-dashboard.html || (echo "❌ ctv-dashboard.html missing!" && exit 1)
+          echo "✅ All critical files present"
+
+      - name: Check for security issues
+        run: |
+          echo "=== Security Checks ==="
+          # Check no hardcoded API keys in built files
+          if grep -riEl "(supabase|sk_live|secret_key|api_key).*=.*['\"][a-zA-Z0-9]{20,}" dist/ 2>/dev/null; then
+            echo "❌ Potential hardcoded secrets found in build output!"
+            exit 1
+          fi
+          echo "✅ No hardcoded secrets detected"
+
+          # Check DEV_BYPASS_AUTH is not enabled
+          if grep -rl "DEV_BYPASS_AUTH.*true" dist/ 2>/dev/null; then
+            echo "❌ DEV_BYPASS_AUTH is enabled in production build!"
+            exit 1
+          fi
+          echo "✅ No dev bypass auth found"
+
+      - name: Upload build artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-build
+          path: dist/
+          retention-days: 7

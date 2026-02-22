@@ -66,6 +66,37 @@ export function getAutoRef() {
     }
 }
 
+// --- Validate CTV code: chặn tự ref chính mình ---
+export async function validateCtvCode(ctvCode, customerPhone) {
+    if (!ctvCode || !customerPhone) return ctvCode;
+
+    try {
+        // Query CTV profile by ref code → check phone match
+        const { data, error } = await supabase
+            .from('ctv_profiles')
+            .select('phone')
+            .eq('referral_code', ctvCode)
+            .single();
+
+        if (error || !data) return ctvCode; // CTV not found → let backend handle
+
+        // Normalize phone (remove spaces, +84 → 0)
+        const normalize = (p) => p.replace(/\s+/g, '').replace(/^\+84/, '0');
+        const ctvPhone = normalize(data.phone);
+        const orderPhone = normalize(customerPhone);
+
+        if (ctvPhone === orderPhone) {
+            console.warn(`⚠️ Self-referral detected: ${ctvCode} → phone match`);
+            return null; // Block self-referral
+        }
+
+        return ctvCode;
+    } catch (err) {
+        console.warn('CTV validation error:', err.message);
+        return ctvCode; // On error, keep code (let backend verify)
+    }
+}
+
 // --- Register CTV ---
 export async function registerCTV(name, phone, email) {
     try {
