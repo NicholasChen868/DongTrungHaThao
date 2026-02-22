@@ -8,7 +8,7 @@
     <meta name="description" content="Bảng quản trị toàn bộ hệ thống maldalladuyduc" />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         rel="stylesheet" />
     <style>
         *,
@@ -42,7 +42,7 @@
         }
 
         body {
-            font-family: 'Be Vietnam Pro', -apple-system, sans-serif;
+            font-family: 'Nunito', -apple-system, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
@@ -575,6 +575,151 @@
             border-left: 3px solid var(--error);
         }
 
+        /* ===== ORDER CARDS (Mobile) ===== */
+        .order-cards {
+            display: none;
+        }
+
+        .order-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .order-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: box-shadow 0.2s, transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold-gradient);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .order-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .order-card:hover::before {
+            opacity: 1;
+        }
+
+        .order-card.status-pending {
+            border-color: rgba(217, 119, 6, 0.25);
+        }
+
+        .order-card.status-pending::before {
+            background: linear-gradient(90deg, var(--warning), #f59e0b);
+            opacity: 1;
+        }
+
+        .order-card.status-completed {
+            border-color: rgba(22, 163, 74, 0.2);
+        }
+
+        .order-card.status-cancelled {
+            border-color: rgba(220, 38, 38, 0.15);
+            opacity: 0.7;
+        }
+
+        .order-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .order-card-id {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gold-primary);
+            background: rgba(184, 134, 11, 0.08);
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .order-card-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .order-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .order-card-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .order-card-row .label {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .order-card-row .value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .order-card-amount {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gold-primary);
+        }
+
+        .order-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            margin-top: 4px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .order-card-footer .btn-action {
+            flex: 1;
+            text-align: center;
+            padding: 6px 8px;
+            font-size: 11px;
+            margin-right: 0;
+        }
+
+        .order-card-date {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .order-table-wrapper {
+            display: block;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             body {
@@ -610,6 +755,37 @@
 
             .admin-content {
                 padding: 16px;
+            }
+
+            /* Mobile: show cards, hide table */
+            .order-cards {
+                display: block;
+            }
+
+            .order-table-wrapper {
+                display: none;
+            }
+
+            .admin-panel {
+                padding: 16px;
+            }
+
+            .admin-topbar {
+                padding: 12px 16px;
+            }
+
+            .admin-topbar h2 {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .order-cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .order-card {
+                padding: 12px;
             }
         }
 
@@ -1112,23 +1288,27 @@
                         return `<span class="badge ${cls}">${text}</span>`;
             };
 
+            // --- Build action buttons ---
+            function getActions(o) {
+                const oid = parseInt(o.id);
+                if (o.status === 'pending') return `<button class="btn-action btn-approve" onclick="updateOrder(${oid},'confirmed')">✓ Duyệt</button><button class="btn-action btn-reject" onclick="updateOrder(${oid},'cancelled')">✗ Hủy</button>`;
+                if (o.status === 'confirmed') return `<button class="btn-action btn-ship" onclick="updateOrder(${oid},'shipping')">🚚 Giao</button>`;
+                if (o.status === 'shipping') return `<button class="btn-action btn-approve" onclick="updateOrder(${oid},'completed')">✓ Xong</button>`;
+                return '—';
+            }
+
+            // --- TABLE VIEW (Desktop) ---
                         const headers = compact
                         ? '<th>ID</th><th>Khách hàng</th><th>Tổng</th><th>Trạng thái</th><th>Thao tác</th>'
                         : '<th>ID</th><th>Khách hàng</th><th>SĐT</th><th>Địa chỉ</th><th>SL</th><th>Tổng</th><th>CTV</th><th>Trạng thái</th><th>Ngày</th><th>Thao tác</th>';
 
-                        container.innerHTML = `
+            const tableHTML = `
+            <div class="order-table-wrapper">
                         <table class="admin-table">
                             <thead><tr>${headers}</tr></thead>
                             <tbody>
                                 ${data.map(o => {
-                                    const oid = parseInt(o.id);
-                                    const actions = o.status === 'pending'
-                                        ? `<button class="btn-action btn-approve" onclick="updateOrder(${oid},'confirmed')">✓ Duyệt</button><button class="btn-action btn-reject" onclick="updateOrder(${oid},'cancelled')">✗ Hủy</button>`
-                                        : o.status === 'confirmed'
-                                            ? `<button class="btn-action btn-ship" onclick="updateOrder(${oid},'shipping')">🚚 Giao</button>`
-                                            : o.status === 'shipping'
-                                                ? `<button class="btn-action btn-approve" onclick="updateOrder(${oid},'completed')">✓ Xong</button>`
-                                                : '—';
+                                    const actions = getActions(o);
                                     if (compact) {
                                         return `<tr>
                                     <td>#${parseInt(o.id)}</td>
@@ -1153,7 +1333,47 @@
                                 }).join('')}
                             </tbody>
                         </table>
-                        `;
+            </div>`;
+
+            // --- CARD VIEW (Mobile) ---
+            const cardsHTML = `
+            <div class="order-cards">
+                <div class="order-cards-grid">
+                    ${data.map(o => {
+                        const oid = parseInt(o.id);
+                        const actions = getActions(o);
+                        const actionsHTML = actions !== '—'
+                            ? `<div class="order-card-footer">${actions}</div>`
+                            : '';
+                        return `
+                        <div class="order-card status-${o.status}">
+                            <div class="order-card-header">
+                                <span class="order-card-id">#${oid}</span>
+                                ${statusBadge(o.status)}
+                            </div>
+                            <div class="order-card-name">${escapeHTML(o.customer_name)}</div>
+                            <div class="order-card-info">
+                                <div class="order-card-row">
+                                    <span class="label">Tổng tiền</span>
+                                    <span class="order-card-amount">${fmtMoney(o.total_amount)}</span>
+                                </div>
+                                ${!compact ? `<div class="order-card-row">
+                                    <span class="label">SL</span>
+                                    <span class="value">${parseInt(o.quantity) || 1} hộp</span>
+                                </div>` : ''}
+                                ${!compact && o.ctv_code ? `<div class="order-card-row">
+                                    <span class="label">CTV</span>
+                                    <span class="value">${escapeHTML(o.ctv_code)}</span>
+                                </div>` : ''}
+                            </div>
+                            <div class="order-card-date">${fmtDate(o.created_at)}</div>
+                            ${actionsHTML}
+                        </div>`;
+                    }).join('')}
+                </div>
+            </div>`;
+
+            container.innerHTML = tableHTML + cardsHTML;
         }
 
                         // --- Update order status ---

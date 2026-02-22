@@ -9,9 +9,9 @@ export const affiliateTiers = [
         color: '#c0c0c0',
         gradient: 'linear-gradient(135deg, #c0c0c0, #8a8a8a)',
         perks: [
-            'Chiết khấu 10% trên mỗi hộp bạn giới thiệu thành công',
-            'Đội ngũ hỗ trợ tư vấn 1:1 — bạn không bán một mình',
-            'Bộ tài liệu sản phẩm để bạn tự tin khi chia sẻ',
+            '10% mỗi hộp giới thiệu thành công = 145.000₫/hộp',
+            'Đội ngũ hỗ trợ 1:1 — không bán một mình',
+            'Tài liệu sản phẩm đầy đủ để tự tin chia sẻ',
         ],
     },
     {
@@ -24,10 +24,10 @@ export const affiliateTiers = [
         color: '#d4a853',
         gradient: 'linear-gradient(135deg, #d4a853, #b8860b)',
         perks: [
-            'Chiết khấu 15% — thu nhập tăng theo sự tin tưởng bạn xây dựng',
+            '15% = 217.500₫/hộp — thu nhập tăng theo kết quả',
             'Trang giới thiệu cá nhân mang tên bạn',
-            'Ưu tiên nhận hàng khi có lô mới',
-            'Thưởng thêm khi đạt mục tiêu tháng',
+            'Ưu tiên nhận hàng lô mới',
+            'Thưởng khi đạt target tháng',
         ],
     },
     {
@@ -40,11 +40,11 @@ export const affiliateTiers = [
         color: '#00d4ff',
         gradient: 'linear-gradient(135deg, #00d4ff, #0088cc)',
         perks: [
-            'Chiết khấu 20% — vì bạn đã chứng minh bằng kết quả',
-            'Hỗ trợ quảng cáo trực tuyến từ đội ngũ',
-            'Tham gia đào tạo chuyên sâu về sản phẩm và sức khỏe',
-            'Thưởng theo quý — ghi nhận sự đồng hành dài hạn',
-            'Mã ưu đãi riêng để tặng khách hàng của bạn',
+            '20% = 290.000₫/hộp — bạn đã chứng minh bằng kết quả',
+            'Đội ngũ hỗ trợ quảng cáo trực tuyến',
+            'Đào tạo chuyên sâu sản phẩm + sức khỏe',
+            'Thưởng theo quý — ghi nhận đồng hành dài hạn',
+            'Mã ưu đãi riêng tặng khách hàng của bạn',
         ],
     },
     {
@@ -57,24 +57,23 @@ export const affiliateTiers = [
         color: '#ff6b35',
         gradient: 'linear-gradient(135deg, #ff6b35, #cc4400)',
         perks: [
-            'Chiết khấu 25% — mức cao nhất, dành cho người đồng hành lâu nhất',
-            'Quyền phân phối khu vực — xây dựng đội nhóm của riêng bạn',
-            'Đào tạo 1:1 trực tiếp với người sáng lập',
-            'Thu nhập không giới hạn — bạn quyết định mức trần',
+            '25% = 362.500₫/hộp — mức cao nhất, không giới hạn thu nhập',
+            'Quyền phân phối khu vực — xây đội nhóm riêng',
+            'Đào tạo 1:1 với người sáng lập',
             'Tham dự sự kiện và gặp mặt cộng đồng CTV',
-            'Hoa hồng cấp 2 từ những CTV bạn giới thiệu',
+            'Hoa hồng cấp 2 từ CTV bạn giới thiệu',
         ],
     },
 ];
 
 export const affiliateProgram = {
     title: 'Chương Trình Cộng Tác Viên',
-    subtitle: 'Chia sẻ sức khỏe, nhận thu nhập — không cần vốn, không cần kho',
-    description: 'Bạn không cần bán hàng. Bạn chỉ cần chia sẻ một thứ bạn tin. Khi người thân, bạn bè đặt hàng qua link của bạn — bạn nhận chiết khấu. Chúng tôi lo đóng gói, giao hàng, chăm sóc khách. Bạn lo một việc duy nhất: giới thiệu đúng người cần.',
+    subtitle: 'Tin thì chia sẻ. Có người mua, có thu nhập.',
+    description: 'Không cần bán hàng. Không cần vốn. Không cần kho. Bạn giới thiệu sản phẩm cho người bạn tin là cần — chúng tôi lo đóng gói, giao hàng, chăm sóc khách. Mỗi đơn thành công = chiết khấu vào tài khoản. Vậy thôi.',
     howItWorks: [
-        { step: 1, title: 'Đăng Ký', desc: 'Điền form — nhận phê duyệt trong 24 giờ, không mất phí' },
-        { step: 2, title: 'Nhận Mã Riêng', desc: 'Mã CTV cá nhân + link giới thiệu chỉ của bạn' },
-        { step: 3, title: 'Chia Sẻ', desc: 'Gửi cho người bạn nghĩ là cần — qua Zalo, Facebook, hay trò chuyện trực tiếp' },
-        { step: 4, title: 'Nhận Chiết Khấu', desc: 'Mỗi đơn thành công = chiết khấu vào tài khoản, thanh toán cuối tuần' },
+        { step: 1, title: 'Đăng Ký', desc: 'Điền form. Duyệt trong 24 giờ. Không mất phí.' },
+        { step: 2, title: 'Nhận Mã', desc: 'Mã CTV riêng + link giới thiệu chỉ của bạn.' },
+        { step: 3, title: 'Chia Sẻ', desc: 'Gửi cho đúng người — Zalo, Facebook, hay gặp mặt trực tiếp.' },
+        { step: 4, title: 'Nhận Tiền', desc: 'Đơn thành công = chiết khấu vào tài khoản. Thanh toán cuối tuần.' },
     ],
 };

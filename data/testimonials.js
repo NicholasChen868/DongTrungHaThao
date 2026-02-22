@@ -5,7 +5,7 @@ export const testimonials = [
         location: 'Hà Nội',
         avatar: '/images/customer3.png',
         rating: 5,
-        quote: 'Tôi nghỉ hưu năm ngoái, tưởng sẽ được thảnh thơi — nhưng ngày nào cũng mệt, ngủ chập chờn, 3 giờ sáng đã thức. Uống ĐTHT được 2 tháng, giờ ngủ tới 5 giờ rưỡi mới dậy. Sáng đi bộ quanh hồ, về pha trà, đọc báo — lâu lắm rồi mới thấy buổi sáng có ý nghĩa.',
+        quote: 'Nghỉ hưu rồi mà ngày nào cũng mệt. 3 giờ sáng đã thức. Uống 2 tháng — giờ ngủ tới 5 rưỡi. Sáng đi bộ quanh hồ, pha trà, đọc báo. Lâu lắm rồi mới thấy buổi sáng có ý nghĩa.',
     },
     {
         name: 'Trần Thị Mai',
@@ -13,7 +13,7 @@ export const testimonials = [
         location: 'TP. Hồ Chí Minh',
         avatar: '/images/customer1.png',
         rating: 5,
-        quote: 'Viêm phế quản mãn tính 4 năm, ho nhiều nhất vào sáng sớm và đêm khuya. Uống thuốc tây thì bớt, ngưng lại tái. Dùng ĐTHT song song với thuốc bác sĩ kê, sau 3 tháng tần suất ho giảm rõ rệt. Bác sĩ khám định kỳ cũng nói phổi sạch hơn. Tôi vẫn đang dùng tiếp.',
+        quote: 'Viêm phế quản 4 năm. Ho sáng sớm, ho đêm khuya. Thuốc tây uống thì bớt, ngưng là tái. Kết hợp ĐTHT với thuốc bác sĩ — 3 tháng sau tần suất ho giảm rõ. Bác sĩ khám nói phổi sạch hơn. Vẫn đang dùng tiếp.',
     },
     {
         name: 'Phạm Đức Anh',
@@ -21,7 +21,7 @@ export const testimonials = [
         location: 'Đà Nẵng',
         avatar: '/images/customer2.png',
         rating: 5,
-        quote: 'Làm IT, ngồi máy tính 12-14 tiếng/ngày. Hồi trước chiều nào cũng muốn ngủ gục, uống cà phê 3 ly không ăn thua. Vợ mua cho hộp ĐTHT, uống thử cho vợ vui — ai ngờ sau 3 tuần, buổi chiều tỉnh hẳn, tối về còn chơi được với con thay vì nằm dí điện thoại. Cái thay đổi nhỏ mà lớn lắm.',
+        quote: 'IT, ngồi máy 14 tiếng/ngày. Chiều nào cũng muốn gục. 3 ly cà phê không ăn thua. Vợ mua ĐTHT, uống cho vợ vui — 3 tuần sau chiều tỉnh hẳn, tối về chơi được với con thay vì nằm dí điện thoại. Thay đổi nhỏ mà lớn.',
     },
     {
         name: 'Lê Thị Hương',
@@ -29,7 +29,7 @@ export const testimonials = [
         location: 'Cần Thơ',
         avatar: '/images/customer6.png',
         rating: 5,
-        quote: 'Con gái mua cho, tôi nói "mày phí tiền." Uống cho con vui thôi. Tháng đầu không để ý. Tháng thứ hai, có bữa đi chợ xách 2 giỏ nặng mà không thấy mỏi lưng như trước. Ông nhà nhìn tôi rồi nói: "Bà dạo này da dẻ hồng hào hơn." Giờ tôi tự gọi mua thêm, mua luôn cho chị Bảy hàng xóm.',
+        quote: 'Con gái mua, tôi nói "phí tiền." Uống cho con vui. Tháng thứ hai đi chợ xách 2 giỏ nặng — không mỏi lưng. Ông nhà nhìn nói: "Bà da dẻ hồng hào hơn." Giờ tự gọi mua thêm, mua luôn cho chị Bảy hàng xóm.',
     },
     {
         name: 'Võ Minh Tuấn',
@@ -37,7 +37,7 @@ export const testimonials = [
         location: 'Huế',
         avatar: '/images/customer5.png',
         rating: 5,
-        quote: 'Thử nhiều nhãn ĐTHT rồi — hộp 800 ngàn, hộp 2 triệu đều mua. Cái thì bột mịn quá nghi pha, cái thì uống hoài không thấy gì. Của Maldala Duy Đức mở nắp ra thấy liền: viên nang đẹp, bẻ ra có mùi đặc trưng của trùng thảo thật. Uống 2 tháng, thấy khỏe — mà cái khỏe nó từ từ, không phải kiểu uống xong tỉnh liền.',
+        quote: 'Thử nhiều nhãn rồi. Hộp 800 ngàn, hộp 2 triệu. Cái thì bột mịn quá — nghi pha. Cái uống hoài không thấy gì. Maldala Duy Đức mở ra thấy liền: viên đẹp, bẻ ra có mùi trùng thảo thật. 2 tháng, khỏe hẳn — cái khỏe từ từ, không giả.',
     },
     {
         name: 'Đặng Thị Lan',
@@ -45,6 +45,6 @@ export const testimonials = [
         location: 'Nha Trang',
         avatar: '/images/customer4.png',
         rating: 5,
-        quote: 'Chồng tôi huyết áp cao 5 năm nay, uống thuốc đều. Tôi mua ĐTHT cho ổng dùng thêm — nói trước là kết hợp với thuốc bác sĩ, không thay thế. Sau 4 tháng, mỗi lần đo huyết áp đều ổn định hơn trước. Bác sĩ hỏi ổng dùng thêm gì, ổng kể, bác sĩ gật đầu nói "cái này được, tiếp tục."',
+        quote: 'Chồng huyết áp cao 5 năm, thuốc đều. Mua ĐTHT cho ổng dùng thêm — kết hợp, không thay thế. 4 tháng, huyết áp ổn định hơn hẳn. Bác sĩ hỏi dùng thêm gì, ổng kể, bác sĩ gật đầu: "Cái này được. Tiếp tục."',
     },
 ];
