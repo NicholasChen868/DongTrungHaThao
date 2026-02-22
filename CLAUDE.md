@@ -5,6 +5,49 @@
 
 ---
 
+## 🚨 LUẬT SỐ 0 — ĐẦU TIÊN VÀ QUAN TRỌNG NHẤT
+
+### 0.1 VIẾT TIẾNG VIỆT
+
+- **Mọi output** (commit message, PR description, comment, report, toast, UI text) phải bằng **tiếng Việt**
+- Technical terms giữ nguyên gốc tiếng Anh + giải thích trong ngoặc đơn khi cần
+- Ví dụ: "Sửa lỗi RLS (Row Level Security) cho bảng orders"
+- **KHÔNG** viết tiếng Anh thuần trừ khi là tên biến, tên hàm, hoặc code
+
+### 0.2 PHÂN CHIA VAI TRÒ CỨNG
+
+| Agent | Phụ trách | Phạm vi cụ thể |
+|-------|-----------|-----------------|
+| **Gravity (Antigravity)** | **Frontend + Database + QC** | HTML, CSS, UI/UX, Supabase migrations, review code, kiểm tra chất lượng |
+| **ClaudeCode** | **Backend + Testing** | JS logic, RPC functions, API, Vitest, Playwright, E2E tests |
+
+**Quy tắc:**
+- Gravity **KHÔNG** viết logic backend phức tạp → chuyển cho ClaudeCode
+- ClaudeCode **KHÔNG** tự ý đổi UI/CSS → phải hỏi Gravity
+- Khi có va chạm → Gravity là **QC cuối cùng**, quyết định merge hay không
+
+### 0.3 GITHUB ACTIONS — VIẾT CHO NGƯỜI LOWCODE HIỂU
+
+**Commit message & PR phải có 2 phần:**
+
+```
+📝 [Loại] Tiêu đề ngắn gọn
+
+TRƯỚC KHI LÀM:
+- Mô tả tình trạng hiện tại (vấn đề gì, ở đâu)
+- Ví dụ: "Trang admin chưa có nút xuất dữ liệu CSV"
+
+SAU KHI LÀM:
+- Mô tả kết quả sau khi sửa xong
+- Ví dụ: "Đã thêm nút 'Xuất CSV' ở tab Đơn Hàng, bấm là tải file về máy"
+```
+
+**Mục đích:** Anh Kha (hoặc bất kỳ ai không biết code) đọc commit/PR là hiểu ngay:
+1. **Trước đó** website/hệ thống như thế nào?
+2. **Sau khi merge** thì thay đổi gì, người dùng thấy gì khác?
+
+---
+
 ## 🏷️ BRAND IDENTITY
 
 - **Tên thương hiệu**: `Maldala Duy Đức` (KHÔNG phải "maldalladuyduc")
@@ -124,26 +167,37 @@ git commit -m "emoji Mô tả chi tiết tiếng Việt"
 git push origin main
 ```
 
-### Commit Message Format
+### Commit Message Format (Bắt buộc tiếng Việt — xem Luật Số 0)
 
 ```
-🎨 UI/styling changes
-🔧 Fix bugs
-✨ New features
-📸 Image/asset changes
-🗃️ Database/migration changes
-🧪 Tests
-📝 Documentation
+🎨 [Giao diện] Mô tả thay đổi UI/CSS
+🔧 [Sửa lỗi] Mô tả bug và cách sửa
+✨ [Tính năng] Mô tả tính năng mới
+📸 [Hình ảnh] Mô tả thay đổi ảnh/asset
+🗃️ [Database] Mô tả thay đổi migration/bảng
+🧪 [Test] Mô tả test thêm/sửa
+📝 [Tài liệu] Mô tả cập nhật docs
+
+TRƯỚC KHI LÀM: <mô tả tình trạng cũ>
+SAU KHI LÀM: <mô tả kết quả mới>
+```
+
+**Ví dụ:**
+```
+🔧 [Sửa lỗi] Sửa số điện thoại hiển thị sai trên trang chủ
+
+TRƯỚC KHI LÀM: Hotline hiện 0903.940.171 nhưng widget liên hệ lại hiện 0374.867.868
+SAU KHI LÀM: Thống nhất tất cả về 0903.940.171, widget + footer + contact đều cùng 1 số
 ```
 
 ## 🤝 PHỐI HỢP GIỮA CÁC AI AGENTS
 
-### Nguyên tắc phân chia
+### Nguyên tắc phân chia (Chi tiết — xem thêm Luật Số 0)
 
-| Agent | Phạm vi chính |
-|-------|--------------|
-| **Antigravity** | `index.html`, `src/style.css`, design system, images, pages UI |
-| **ClaudeCode** | `src/main.js`, `src/ctv.js`, `admin.html` (JS logic), Supabase migrations |
+| Agent | Vai trò | File chính | Không được làm |
+|-------|---------|------------|----------------|
+| **Gravity** | Frontend + DB + QC | HTML, CSS, images, Supabase migrations, review | Viết backend logic phức tạp |
+| **ClaudeCode** | Backend + Testing | JS logic, RPC functions, tests | Tự ý đổi UI/CSS |
 
 ### Quy tắc va chạm
 
@@ -151,6 +205,7 @@ git push origin main
 2. Nếu cần sửa file của agent khác → báo trước, ghi lý do
 3. Conflict resolution: agent sau pull phải resolve conflict
 4. Không refactor / đổi tên lớn khi agent khác đang active
+5. **Gravity là QC cuối cùng** — merge hay reject do Gravity quyết định
 
 ## ⚠️ NHỮNG ĐIỀU TUYỆT ĐỐI KHÔNG LÀM
 
@@ -181,4 +236,5 @@ git push origin main
 ---
 
 *File này được tạo bởi Antigravity AI — 20/02/2026*
+*Cập nhật lần cuối: 22/02/2026 — Thêm Luật Số 0 (Tiếng Việt, phân vai, GitHub Actions)*
 *Cập nhật khi có thay đổi lớn về brand, architecture, hoặc workflow.*
