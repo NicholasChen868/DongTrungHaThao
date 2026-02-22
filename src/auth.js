@@ -158,16 +158,15 @@ export function renderAuthBanner() {
     const navLinks = nav.querySelector('.nav-links, ul');
 
     if (!user) {
-        // Not logged in — add login link
-        const loginEl = document.createElement(navLinks ? 'li' : 'a');
+        // Not logged in — add login button
+        const loginEl = document.createElement(navLinks ? 'li' : 'div');
         loginEl.id = 'authBanner';
+        loginEl.className = 'auth-login-wrapper';
         if (navLinks) {
-            loginEl.innerHTML = '<a href="/ctv-dashboard.html" class="nav-link auth-login-link">🔐 Đăng Nhập</a>';
+            loginEl.innerHTML = '<a href="/ctv-dashboard.html" class="auth-login-btn"><span class="auth-login-icon">🔐</span><span class="auth-login-text">Đăng Nhập</span></a>';
             navLinks.appendChild(loginEl);
         } else {
-            loginEl.href = '/ctv-dashboard.html';
-            loginEl.className = 'auth-login-link';
-            loginEl.textContent = '🔐 Đăng Nhập';
+            loginEl.innerHTML = '<a href="/ctv-dashboard.html" class="auth-login-btn"><span class="auth-login-icon">🔐</span><span class="auth-login-text">Đăng Nhập</span></a>';
             nav.appendChild(loginEl);
         }
         return;
@@ -371,28 +370,64 @@ export function injectAuthStyles() {
             color: #f87171 !important;
         }
 
-        .auth-login-link {
-            color: #a09888 !important;
+        /* === LOGIN BUTTON (chưa đăng nhập) === */
+        .auth-login-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-login-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1.5px solid rgba(212,168,83,0.55);
+            border-radius: 24px;
+            color: #e8c97a !important;
             text-decoration: none !important;
             font-size: 13px;
-            padding: 6px 12px;
-            border: 1px solid rgba(212,168,83,0.15);
-            border-radius: 20px;
-            transition: all 0.3s;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            transition: all 0.25s ease;
+            white-space: nowrap;
         }
 
-        .auth-login-link:hover {
-            color: #e8c97a !important;
-            border-color: rgba(212,168,83,0.4);
+        .auth-login-btn:hover {
+            background: rgba(212,168,83,0.12);
+            border-color: rgba(212,168,83,0.85);
+            color: #f5d78a !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(212,168,83,0.2);
         }
 
-        @media (max-width: 768px) {
+        .auth-login-icon {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        /* Mobile: nút login chiếm full width trong drawer */
+        @media (max-width: 900px) {
+            .auth-login-wrapper {
+                width: 100%;
+                padding: 4px 0 8px;
+            }
+            .auth-login-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 16px;
+                font-size: 14px;
+                border-radius: 12px;
+                background: rgba(212,168,83,0.07);
+            }
             .auth-name {
-                display: none;
+                max-width: 80px;
+                font-size: 12px;
             }
             .auth-user-btn {
-                padding: 6px 8px;
-                gap: 4px;
+                padding: 6px 10px;
+                gap: 6px;
+                font-size: 12px;
             }
             .auth-dropdown {
                 right: -12px;

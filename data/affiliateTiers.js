@@ -10,7 +10,7 @@ export const affiliateTiers = [
         gradient: 'linear-gradient(135deg, #c0c0c0, #8a8a8a)',
         perks: [
             '10% mỗi hộp giới thiệu thành công = 145.000₫/hộp',
-            'Đội ngũ hỗ trợ 1:1 — không bán một mình',
+            'Đội ngũ hỗ trợ 1:1 — luôn đồng hành cùng bạn',
             'Tài liệu sản phẩm đầy đủ để tự tin chia sẻ',
         ],
     },
@@ -24,7 +24,7 @@ export const affiliateTiers = [
         color: '#d4a853',
         gradient: 'linear-gradient(135deg, #d4a853, #b8860b)',
         perks: [
-            '15% = 217.500₫/hộp — thu nhập tăng theo kết quả',
+            '15% = 217.500₫/hộp — ghi nhận sự nỗ lực của bạn',
             'Trang giới thiệu cá nhân mang tên bạn',
             'Ưu tiên nhận hàng lô mới',
             'Thưởng khi đạt target tháng',
@@ -40,7 +40,7 @@ export const affiliateTiers = [
         color: '#00d4ff',
         gradient: 'linear-gradient(135deg, #00d4ff, #0088cc)',
         perks: [
-            '20% = 290.000₫/hộp — bạn đã chứng minh bằng kết quả',
+            '20% = 290.000₫/hộp — xứng đáng với hành trình của bạn',
             'Đội ngũ hỗ trợ quảng cáo trực tuyến',
             'Đào tạo chuyên sâu sản phẩm + sức khỏe',
             'Thưởng theo quý — ghi nhận đồng hành dài hạn',
@@ -57,8 +57,8 @@ export const affiliateTiers = [
         color: '#ff6b35',
         gradient: 'linear-gradient(135deg, #ff6b35, #cc4400)',
         perks: [
-            '25% = 362.500₫/hộp — mức cao nhất, không giới hạn thu nhập',
-            'Quyền phân phối khu vực — xây đội nhóm riêng',
+            '25% = 362.500₫/hộp — mức cao nhất, thu nhập tương xứng',
+            'Quyền phân phối khu vực — xây dựng đội nhóm riêng',
             'Đào tạo 1:1 với người sáng lập',
             'Tham dự sự kiện và gặp mặt cộng đồng CTV',
             'Hoa hồng cấp 2 từ CTV bạn giới thiệu',
@@ -68,12 +68,12 @@ export const affiliateTiers = [
 
 export const affiliateProgram = {
     title: 'Chương Trình Cộng Tác Viên',
-    subtitle: 'Tin thì chia sẻ. Có người mua, có thu nhập.',
-    description: 'Không cần bán hàng. Không cần vốn. Không cần kho. Bạn giới thiệu sản phẩm cho người bạn tin là cần — chúng tôi lo đóng gói, giao hàng, chăm sóc khách. Mỗi đơn thành công = chiết khấu vào tài khoản. Vậy thôi.',
+    subtitle: 'Chia sẻ sức khỏe, nhận thu nhập cùng nhau.',
+    description: 'Bạn giới thiệu sản phẩm cho người bạn tin là cần — chúng tôi lo đóng gói, giao hàng, chăm sóc khách hàng. Mỗi đơn thành công, bạn nhận chiết khấu xứng đáng. Cùng nhau lan tỏa sức khỏe, cùng nhau tạo thu nhập bền vững.',
     howItWorks: [
-        { step: 1, title: 'Đăng Ký', desc: 'Điền form. Duyệt trong 24 giờ. Không mất phí.' },
-        { step: 2, title: 'Nhận Mã', desc: 'Mã CTV riêng + link giới thiệu chỉ của bạn.' },
-        { step: 3, title: 'Chia Sẻ', desc: 'Gửi cho đúng người — Zalo, Facebook, hay gặp mặt trực tiếp.' },
-        { step: 4, title: 'Nhận Tiền', desc: 'Đơn thành công = chiết khấu vào tài khoản. Thanh toán cuối tuần.' },
+        { step: 1, title: 'Đăng Ký', desc: 'Điền form đơn giản, duyệt trong 24 giờ. Hoàn toàn miễn phí.' },
+        { step: 2, title: 'Nhận Mã', desc: 'Mã CTV riêng và link giới thiệu chỉ dành cho bạn.' },
+        { step: 3, title: 'Chia Sẻ', desc: 'Gửi đến người bạn quan tâm — qua Zalo, Facebook, hay gặp mặt trực tiếp.' },
+        { step: 4, title: 'Nhận Thu Nhập', desc: 'Đơn thành công, chiết khấu vào tài khoản. Thanh toán cuối tuần.' },
     ],
 };

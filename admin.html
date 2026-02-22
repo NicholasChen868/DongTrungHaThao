@@ -46,8 +46,8 @@
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
-            font-size: 15px;
-            line-height: 1.5;
+            font-size: 16px;
+            line-height: 1.6;
             display: flex;
         }
 
@@ -181,11 +181,11 @@
 
         /* ===== SIDEBAR ===== */
         .admin-sidebar {
-            width: 250px;
+            width: 280px;
             min-height: 100vh;
             background: var(--bg-sidebar);
             border-right: 1px solid var(--border-color);
-            padding: 20px 0;
+            padding: 24px 0;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
@@ -193,10 +193,10 @@
         }
 
         .sidebar-logo {
-            padding: 0 20px 20px;
+            padding: 0 24px 24px;
             border-bottom: 1px solid var(--border-color);
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--gold-primary);
             display: flex;
             align-items: center;
@@ -217,11 +217,11 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 14px;
+            padding: 12px 16px;
             border-radius: 10px;
             color: var(--text-secondary);
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
             border: none;
             background: none;
             width: 100%;
@@ -298,17 +298,17 @@
         }
 
         .admin-topbar h2 {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.25rem;
+            font-weight: 700;
         }
 
         .admin-topbar-meta {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-muted);
         }
 
         .admin-content {
-            padding: 28px;
+            padding: 32px;
         }
 
         /* ===== OVERVIEW CARDS ===== */
@@ -334,20 +334,23 @@
         }
 
         .overview-card .label {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-muted);
             margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
 
         .overview-card .value {
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 2.2rem;
+            font-weight: 800;
             color: var(--gold-primary);
         }
 
         .overview-card .change {
-            margin-top: 4px;
-            font-size: 12px;
+            margin-top: 6px;
+            font-size: 13px;
         }
 
         .change-up {
@@ -369,8 +372,9 @@
         }
 
         .admin-panel h3 {
-            font-size: 1rem;
-            margin-bottom: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -383,9 +387,9 @@
 
         .admin-table th {
             text-align: left;
-            padding: 10px 12px;
-            font-size: 12px;
-            font-weight: 600;
+            padding: 12px 14px;
+            font-size: 13px;
+            font-weight: 700;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -394,8 +398,8 @@
         }
 
         .admin-table td {
-            padding: 12px 12px;
-            font-size: 14px;
+            padding: 14px 14px;
+            font-size: 15px;
             border-bottom: 1px solid var(--border-color);
             color: var(--text-secondary);
         }
@@ -787,6 +791,92 @@
             .order-card {
                 padding: 12px;
             }
+        }
+
+        /* ===== CTV CARD VIEW (Mobile) ===== */
+        .ctv-cards {
+            display: none;
+        }
+
+        .ctv-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .ctv-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 18px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .ctv-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .ctv-card-code {
+            font-family: monospace;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--gold-primary);
+            background: rgba(212,168,75,0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .ctv-card-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .ctv-card-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .ctv-card-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .ctv-card-row .label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .ctv-card-row .val {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .ctv-card-footer {
+            display: flex;
+            gap: 8px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .admin-sidebar { display: none; }
+            .admin-content { padding: 16px; }
+            .overview-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .overview-card .value { font-size: 1.6rem; }
+            /* CTV: ẩn table, hiện card */
+            .ctv-table-wrapper { display: none; }
+            .ctv-cards { display: block; }
         }
 
         /* Hidden */
@@ -1405,24 +1495,26 @@
 
                         function renderCTVTable(containerId, data) {
             const container = document.getElementById(containerId);
-                        if (!data?.length) {
-                            container.innerHTML = '<div class="admin-empty">Chưa có CTV</div>';
-                        return;
+            if (!data?.length) {
+                container.innerHTML = '<div class="admin-empty">Chưa có CTV</div>';
+                return;
             }
 
-                        const tierMap = {silver: '🥈 Bạc', gold: '🥇 Vàng', diamond: '💎 Kim Cương' };
-            const fmtDate = (d) => new Date(d).toLocaleDateString('vi-VN', {day: '2-digit', month: '2-digit', year: '2-digit' });
+            const tierMap = {silver: '🥈 Bạc', gold: '🥇 Vàng', diamond: '💎 Kim Cương'};
+            const fmtDate = (d) => new Date(d).toLocaleDateString('vi-VN', {day: '2-digit', month: '2-digit', year: '2-digit'});
 
-                        container.innerHTML = `
-                        <table class="admin-table">
-                            <thead><tr><th>Mã CTV</th><th>Tên</th><th>SĐT</th><th>Email</th><th>Hạng</th><th>Điểm</th><th>VNĐ</th><th>Ngày ĐK</th><th>Nâng hạng</th></tr></thead>
-                            <tbody>
-                                ${data.map(c => {
-                                    const nextTier = c.tier === 'silver' ? 'gold' : c.tier === 'gold' ? 'diamond' : null;
-                                    const upgradeBtn = nextTier
-                                        ? `<button class="btn-action btn-approve" data-ref="${escapeHTML(c.referral_code)}" data-tier="${escapeHTML(nextTier)}" onclick="upgradeCTV(this.dataset.ref,this.dataset.tier)">${tierMap[nextTier]}</button>`
-                                        : '<span class="text-muted">Max</span>';
-                                    return `<tr>
+            // --- TABLE VIEW (Desktop) ---
+            const tableHTML = `
+            <div class="ctv-table-wrapper">
+                <table class="admin-table">
+                    <thead><tr><th>Mã CTV</th><th>Tên</th><th>SĐT</th><th>Email</th><th>Hạng</th><th>Điểm</th><th>VNĐ</th><th>Ngày ĐK</th><th>Nâng hạng</th></tr></thead>
+                    <tbody>
+                        ${data.map(c => {
+                            const nextTier = c.tier === 'silver' ? 'gold' : c.tier === 'gold' ? 'diamond' : null;
+                            const upgradeBtn = nextTier
+                                ? `<button class="btn-action btn-approve" data-ref="${escapeHTML(c.referral_code)}" data-tier="${escapeHTML(nextTier)}" onclick="upgradeCTV(this.dataset.ref,this.dataset.tier)">${tierMap[nextTier]}</button>`
+                                : '<span class="text-muted">Max</span>';
+                            return `<tr>
                                 <td><code>${escapeHTML(c.referral_code)}</code></td>
                                 <td>${escapeHTML(c.name)}</td>
                                 <td>${escapeHTML(c.phone)}</td>
@@ -1433,10 +1525,52 @@
                                 <td>${fmtDate(c.created_at)}</td>
                                 <td>${upgradeBtn}</td>
                             </tr>`;
-                                }).join('')}
-                            </tbody>
-                        </table>
-                        `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            </div>`;
+
+            // --- CARD VIEW (Mobile) ---
+            const cardsHTML = `
+            <div class="ctv-cards">
+                <div class="ctv-cards-grid">
+                    ${data.map(c => {
+                        const nextTier = c.tier === 'silver' ? 'gold' : c.tier === 'gold' ? 'diamond' : null;
+                        const upgradeBtn = nextTier
+                            ? `<button class="btn-action btn-approve" data-ref="${escapeHTML(c.referral_code)}" data-tier="${escapeHTML(nextTier)}" onclick="upgradeCTV(this.dataset.ref,this.dataset.tier)">${tierMap[nextTier]}</button>`
+                            : '';
+                        return `
+                        <div class="ctv-card">
+                            <div class="ctv-card-header">
+                                <span class="ctv-card-code">${escapeHTML(c.referral_code)}</span>
+                                <span class="badge badge-info">${tierMap[c.tier] || escapeHTML(c.tier)}</span>
+                            </div>
+                            <div class="ctv-card-name">${escapeHTML(c.name)}</div>
+                            <div class="ctv-card-info">
+                                <div class="ctv-card-row">
+                                    <span class="label">SĐT</span>
+                                    <span class="val">${escapeHTML(c.phone)}</span>
+                                </div>
+                                <div class="ctv-card-row">
+                                    <span class="label">Điểm</span>
+                                    <span class="val">${parseInt(c.total_points) || 0}</span>
+                                </div>
+                                <div class="ctv-card-row">
+                                    <span class="label">VNĐ khả dụng</span>
+                                    <span class="val">${Number(c.available_vnd || 0).toLocaleString('vi-VN')}₫</span>
+                                </div>
+                                <div class="ctv-card-row">
+                                    <span class="label">Ngày ĐK</span>
+                                    <span class="val">${fmtDate(c.created_at)}</span>
+                                </div>
+                            </div>
+                            ${upgradeBtn ? `<div class="ctv-card-footer">${upgradeBtn}</div>` : ''}
+                        </div>`;
+                    }).join('')}
+                </div>
+            </div>`;
+
+            container.innerHTML = tableHTML + cardsHTML;
         }
 
                         // --- Upgrade CTV tier ---
