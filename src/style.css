@@ -16,20 +16,20 @@
 
 /* --- CSS Variables --- */
 :root {
-  /* Nền — sáng kem ấm, sang trọng */
-  --bg-primary: #f5f3ef;
-  --bg-secondary: #edeae4;
-  --bg-card: #ffffff;
-  --bg-card-hover: #faf8f5;
-  --bg-glass: rgba(184, 134, 11, 0.04);
-  --bg-glass-hover: rgba(184, 134, 11, 0.08);
+  /* Nền — tối sâu, huyền bí, sang trọng */
+  --bg-primary: #090c15;
+  --bg-secondary: #0f1322;
+  --bg-card: #141824;
+  --bg-card-hover: #1a1f2e;
+  --bg-glass: rgba(184, 134, 11, 0.06);
+  --bg-glass-hover: rgba(184, 134, 11, 0.12);
 
   /* Vàng Gold — linh hồn viên nhộng, bột vàng cám */
-  --gold-primary: #b8860b;
-  --gold-light: #a0750a;
-  --gold-dark: #8b6914;
-  --gold-gradient: linear-gradient(135deg, #c9952e, #b8860b, #a0750a, #b8860b);
-  --gold-text-gradient: linear-gradient(135deg, #c9952e, #b8860b, #8b6914);
+  --gold-primary: #d4a84b;
+  --gold-light: #e8c06a;
+  --gold-dark: #b8860b;
+  --gold-gradient: linear-gradient(135deg, #e8c06a, #d4a84b, #b8860b, #d4a84b);
+  --gold-text-gradient: linear-gradient(135deg, #e8c06a, #d4a84b, #b8860b);
 
   /* Đỏ thẫm — điểm nhấn trang trọng */
   --crimson: #8B2030;
@@ -37,17 +37,17 @@
   --crimson-dark: #6B1520;
   --crimson-gradient: linear-gradient(135deg, #6B1520, #8B2030, #a8303f);
 
-  /* Text — tối, sâu, dễ đọc trên nền sáng */
-  --text-primary: #1a1612;
-  --text-secondary: #5c5347;
-  --text-muted: #9a8e80;
+  /* Text — sáng kem ấm, dễ đọc trên nền tối */
+  --text-primary: #f5edd7;
+  --text-secondary: #c8b99a;
+  --text-muted: #7a6e5f;
 
-  /* Border — tối nhẹ */
-  --border-color: rgba(0, 0, 0, 0.08);
-  --border-hover: rgba(184, 134, 11, 0.3);
+  /* Border — sáng nhẹ trên nền tối */
+  --border-color: rgba(255, 255, 255, 0.07);
+  --border-hover: rgba(212, 168, 75, 0.4);
 
-  --success: #16a34a;
-  --error: #dc2626;
+  --success: #22c55e;
+  --error: #ef4444;
 
   /* Typography */
   --font-heading: "Playfair Display", "Lora", "Be Vietnam Pro", serif;
@@ -63,14 +63,14 @@
   --transition-base: 0.25s ease;
   --transition-slow: 0.4s ease;
 
-  /* Shadows — nhẹ nhàng trên nền sáng */
-  --shadow-gold: 0 0 30px rgba(184, 134, 11, 0.06);
-  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.08);
+  /* Shadows — sâu hơn trên nền tối */
+  --shadow-gold: 0 0 40px rgba(212, 168, 75, 0.12);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.4);
 
   /* Quote — gold accent */
-  --quote-bg: rgba(184, 134, 11, 0.04);
-  --quote-border: rgba(184, 134, 11, 0.3);
+  --quote-bg: rgba(212, 168, 75, 0.06);
+  --quote-border: rgba(212, 168, 75, 0.35);
 }
 
 /* --- Reset & Base --- */
@@ -227,10 +227,10 @@ img {
 
 /* --- Secondary Button — Elegant Outline --- */
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(20, 24, 36, 0.9);
   color: var(--text-primary);
-  border: 1.5px solid rgba(184, 134, 11, 0.2);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1.5px solid rgba(212, 168, 75, 0.25);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
@@ -778,8 +778,8 @@ img {
 }
 
 .benefit-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 0;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -789,7 +789,7 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
 .benefit-bg {
@@ -797,7 +797,7 @@ img {
   inset: 0;
   background-size: cover;
   background-position: center;
-  opacity: 0.2;
+  opacity: 0.35;
   transition: opacity 0.5s ease, transform 0.6s ease;
   z-index: 0;
 }
@@ -813,9 +813,9 @@ img {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(26, 22, 18, 0.78) 0%,
-    rgba(26, 22, 18, 0.4) 45%,
-    rgba(26, 22, 18, 0.08) 100%
+    rgba(9, 12, 21, 0.9) 0%,
+    rgba(9, 12, 21, 0.5) 45%,
+    rgba(9, 12, 21, 0.1) 100%
   );
   z-index: 1;
   pointer-events: none;
@@ -936,12 +936,12 @@ img {
 }
 
 .process-content {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   padding: 24px;
   transition: all 0.25s ease;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
 }
 
 .process-item:hover .process-content {
@@ -1013,15 +1013,15 @@ img {
   max-width: 400px;
   aspect-ratio: 1;
   border-radius: 24px;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   z-index: 1;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
   transition: box-shadow 0.3s ease;
 }
 
@@ -1220,10 +1220,10 @@ img {
   position: relative;
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  background: #ffffff;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
 }
 
 .gallery-slide.swiper-slide-active .gallery-item {
@@ -1306,14 +1306,14 @@ img {
 }
 
 .testimonial-inner {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 24px;
   padding: 40px;
   text-align: center;
   position: relative;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
 .swiper-slide-active .testimonial-inner {
@@ -1458,12 +1458,12 @@ img {
 }
 
 .story-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 32px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
 .story-card:hover {
@@ -1621,12 +1621,12 @@ img {
 .affiliate-step {
   text-align: center;
   padding: 32px 20px;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
 }
 
 .affiliate-step:hover {
@@ -1668,15 +1668,15 @@ img {
 }
 
 .tier-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 20px;
   padding: 32px 24px;
   text-align: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
 }
 
 .tier-card::before {
@@ -1757,14 +1757,14 @@ img {
 
 /* CTV Form */
 .affiliate-cta-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 24px;
   padding: 48px;
   text-align: center;
   max-width: 700px;
   margin: 0 auto;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
 .affiliate-cta-card h3 {
@@ -1803,8 +1803,8 @@ select,
 textarea {
   width: 100%;
   padding: 14px 18px;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -1990,11 +1990,11 @@ textarea {
 
 .contact-form,
 .contact-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 24px;
   padding: 40px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
 .contact-form h3,
@@ -2202,7 +2202,7 @@ textarea {
   height: 240px;
   border-radius: 16px;
   border: 2px solid var(--border-hover);
-  background: #fff;
+  background: #f5edd7;
   padding: 8px;
 }
 
@@ -2375,14 +2375,14 @@ textarea {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
   transition: all 0.25s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .social-link:hover {
@@ -2459,7 +2459,7 @@ textarea {
   position: fixed;
   bottom: 32px;
   right: 32px;
-  background: #ffffff;
+  background: var(--bg-card);
   border: 1px solid var(--success);
   border-radius: 12px;
   padding: 16px 24px;
@@ -2470,7 +2470,7 @@ textarea {
   transform: translateY(100px);
   opacity: 0;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
   max-width: calc(100vw - 32px);
 }
 
@@ -3442,12 +3442,12 @@ textarea {
   align-items: center;
   gap: 14px;
   padding: 14px 20px 14px 16px;
-  background: #ffffff;
-  border: 1px solid rgba(184, 134, 11, 0.12);
+  background: var(--bg-card);
+  border: 1px solid rgba(212, 168, 75, 0.15);
   border-radius: 16px;
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    0 2px 8px rgba(0, 0, 0, 0.04);
+    0 8px 40px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.2);
   max-width: 360px;
   transform: translateX(-120%);
   opacity: 0;
@@ -3855,7 +3855,7 @@ textarea {
     height: 100vh;
     height: 100dvh;
     flex-direction: column;
-    background: rgba(245, 243, 239, 0.97);
+    background: rgba(9, 12, 21, 0.97);
     -webkit-backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
     padding: 90px 24px 40px;
@@ -3863,7 +3863,7 @@ textarea {
     align-items: stretch;
     z-index: 999;
     border-left: 1px solid var(--border-color);
-    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.08);
+    box-shadow: -8px 0 40px rgba(0, 0, 0, 0.5);
     transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     overflow-y: auto;
   }
