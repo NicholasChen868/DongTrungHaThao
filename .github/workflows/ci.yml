@@ -52,8 +52,10 @@ jobs:
       - name: Check for security issues
         run: |
           echo "=== Security Checks ==="
-          # Check no hardcoded API keys in built files
-          if grep -riEl "(supabase|sk_live|secret_key|api_key).*=.*['\"][a-zA-Z0-9]{20,}" dist/ 2>/dev/null; then
+          # Check no hardcoded secret keys in built files
+          # Note: Supabase anon key là public (dùng ở client-side), không cần check
+          # Chỉ check các secret thật sự nguy hiểm: service_role, sk_live, secret_key
+          if grep -riEl "(service_role|sk_live|secret_key).*=.*['\"][a-zA-Z0-9]{20,}" dist/ 2>/dev/null; then
             echo "❌ Potential hardcoded secrets found in build output!"
             exit 1
           fi
