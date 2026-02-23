@@ -180,10 +180,16 @@ function bindRegisterSwitch() {
             switchEl.addEventListener('click', (e) => {
                 e.preventDefault();
                 closeLoginPopup();
-                const ctvPopup = document.getElementById('ctvPopup');
-                if (ctvPopup) {
-                    ctvPopup.classList.add('active');
-                    document.body.style.overflow = 'hidden';
+                if (currentRole === 'customer') {
+                    // Khách hàng → chuyển trang Thành Viên để đăng ký
+                    window.location.href = '/thanh-vien.html';
+                } else {
+                    // CTV → mở popup đăng ký CTV
+                    const ctvPopup = document.getElementById('ctvPopup');
+                    if (ctvPopup) {
+                        ctvPopup.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
                 }
             });
         }

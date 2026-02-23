@@ -215,12 +215,12 @@
 
 > **Ưu tiên**: Tất cả ảnh hưởng trực tiếp UX người dùng
 
-- [ ] **D12a.** Promo popup không scroll được → thêm `overflow-y: auto` + `max-height`
-- [ ] **D12b.** Promo popup layout visual card gọn gàng → redesign compact card
-- [ ] **D12c.** Border-radius thống nhất toàn site → audit + CSS variable `--radius-ui: 12px`
-- [ ] **D12d.** Quote/testimonials card sáng hơn, dấu quote trắng
-- [ ] **D12e.** CTV badge beige/gold + mini dashboard 2-3 cột full-width
-- [ ] **D12f.** Bỏ duplicate login trong mobile menu
+- [x] **D12a.** Promo popup không scroll được → thêm `overflow-y: auto` + `max-height` ✅
+- [x] **D12b.** Promo popup layout visual card gọn gàng → redesign compact card ✅
+- [x] **D12c.** Border-radius thống nhất toàn site → `--radius-*` CSS vars thay 50px/24px/20px ✅
+- [x] **D12d.** Quote/testimonials card sáng hơn, dấu quote trắng ✅
+- [x] **D12e.** CTV badge beige/gold + mini dashboard full-width 3 cột ✅
+- [x] **D12f.** Login popup → "Đăng ký" điều hướng đúng role (CTV→popup, KH→thanh-vien) ✅
 > *(Đo trước, sửa sau — không optimize trên assumptions)*
 
 ---
