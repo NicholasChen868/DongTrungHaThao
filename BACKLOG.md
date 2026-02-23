@@ -81,11 +81,11 @@
 - IntersectionObserver: hiện sau hero, ẩn tại #contact
 - Safe area cho notched phones
 
-### 🪞 D7. A/B Test CTA — Giọng Tây vs Giọng Việt (ƯU TIÊN #3)
-- 2 bộ CTA: empowerment vs bình dân-thực tế
-- JS module A/B test + Supabase tracking
-- Chạy 2 tuần, quyết định dựa trên data
-- **Xem chi tiết**: `TASKS.md` → D7
+### 🪞 D7. A/B Test CTA — Module sẵn sàng, chờ bật
+- ✅ Module `ab-test.js` đã code: Variant A (empowerment) vs B (bình dân)
+- ✅ Track impression/click/conversion vào event_logs
+- ⭕ **Kích hoạt**: sửa `isABTestActive()` → `return true` trong `ab-test.js`
+- ⭕ Chạy 2 tuần, phân tích data trong Admin Analytics
 
 ### ~~🪞 D8. Soften "Trí Lực" Messaging~~ ✅ (Đã xong trong V3 Content Rewrite)
 - ~~Review overclaim risk~~ → Đã soften toàn bộ trong V3
@@ -181,5 +181,5 @@
 
 ---
 
-*Cập nhật bởi Antigravity AI — 23/02/2026 23:20*
-*D10+D11+D6+Promotion: all done — còn D7 (A/B test), D9 (Content Bible test)*
+*Cập nhật bởi Antigravity AI — 23/02/2026 23:25*
+*D7 module ready — D9 chờ test — Sprint D 94% complete*
