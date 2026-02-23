@@ -115,6 +115,113 @@
   margin-bottom: 56px;
 }
 
+/* --- Hero CTA Card Mini — Glassmorphism --- */
+.hero-cta-card {
+  width: 100%;
+  max-width: 520px;
+}
+
+.hero-cta-card-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 168, 75, 0.15);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cta-card-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg,
+      transparent 40%,
+      rgba(212, 168, 75, 0.06) 50%,
+      transparent 60%);
+  animation: ctaShimmer 4s ease-in-out infinite;
+}
+
+@keyframes ctaShimmer {
+
+  0%,
+  100% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+.hero-cta-card-inner:hover {
+  border-color: rgba(212, 168, 75, 0.3);
+  box-shadow: 0 6px 32px rgba(212, 168, 75, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.hero-cta-msg {
+  flex: 1;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  line-height: 1.4;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #e8bc5a, #c49540);
+  color: #0A0E1A;
+  font-weight: 800;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 12px rgba(212, 168, 75, 0.3);
+  transition: all 0.25s;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-cta-btn:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 4px 20px rgba(212, 168, 75, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Mobile portrait — stack + shorter text via JS */
+@media (max-width: 480px) {
+  .hero-cta-card-inner {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+
+  .hero-cta-msg {
+    font-size: 0.9rem;
+  }
+
+  .hero-cta-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}
+
 .hero-stats {
   display: flex;
   gap: 40px;
