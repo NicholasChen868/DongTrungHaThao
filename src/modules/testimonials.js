@@ -5,14 +5,25 @@ import { escapeHTML } from '../utils/sanitize.js';
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
 
+// Customer photos for testimonial visual cards
+const TESTIMONIAL_AVATARS = [
+    '/images/customer3.png', // Ông lớn tuổi
+    '/images/customer1.png', // Phụ nữ trung niên
+    '/images/customer5.png', // Nam trung niên
+    '/images/customer6.png', // Bà lớn tuổi
+    '/images/customer2.png', // Nam trẻ
+    '/images/customer4.png', // Nữ trẻ
+];
+
 export function renderTestimonials(testimonials) {
     const track = document.getElementById('testimonialsTrack');
     if (!track || !testimonials) return;
 
-    track.innerHTML = testimonials.map(t => {
-        const avatarHtml = t.avatar && t.avatar.startsWith('/')
-            ? `<img src="${escapeHTML(t.avatar)}" alt="${escapeHTML(t.name)}" loading="lazy">`
-            : escapeHTML(t.avatar || '👤');
+    track.innerHTML = testimonials.map((t, i) => {
+        const avatarSrc = t.avatar && t.avatar.startsWith('/')
+            ? t.avatar
+            : TESTIMONIAL_AVATARS[i % TESTIMONIAL_AVATARS.length];
+        const avatarHtml = `<img src="${escapeHTML(avatarSrc)}" alt="${escapeHTML(t.name)}" loading="lazy">`;
         return `
     <div class="swiper-slide">
       <div class="testimonial-card">
