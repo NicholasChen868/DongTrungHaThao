@@ -780,12 +780,12 @@
 
     .nav-toggle {
         display: flex;
-        z-index: 1001;
+        z-index: 1060;
     }
 
     /* Account card stays visible on bar, not in popup */
     .nav-account {
-        z-index: 1001;
+        z-index: 1060;
     }
 
     /* ---- Mobile Nav Links: Uniform frosted glass cards ---- */

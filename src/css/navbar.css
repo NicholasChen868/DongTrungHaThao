@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1055;
   background: rgba(9, 12, 21, 0.88);
   border-bottom: 1px solid rgba(212, 168, 75, 0.12);
   border-top: 2px solid var(--gold-primary);
