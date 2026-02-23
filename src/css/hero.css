@@ -99,12 +99,30 @@
 }
 
 .hero-description {
-  font-size: 1.05rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  font-weight: 400;
   color: var(--text-secondary);
-  margin-bottom: 40px;
-  max-width: 580px;
+  margin-bottom: 20px;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  letter-spacing: 0.02em;
+}
+
+.hero-quote {
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  font-style: italic;
+  color: var(--gold-primary);
+  border-left: 3px solid var(--gold-primary);
+  padding: 12px 20px;
+  margin: 0 auto 36px;
+  max-width: 560px;
+  text-align: left;
+  line-height: 1.7;
+  background: rgba(212, 168, 75, 0.04);
+  border-radius: 0 8px 8px 0;
 }
 
 .hero-actions {

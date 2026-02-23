@@ -64,7 +64,7 @@ function isMobilePortrait() {
 export function initHeroCTARotator() {
   const heroCtaMsg = document.getElementById('heroCtaMsg');
   const heroSubCTA = document.querySelector('.hero-actions .btn-secondary');
-  const heroSubtitle = document.querySelector('.hero-subtitle');
+  const heroSubtitle = document.querySelector('.hero-description');
 
   if (!heroCtaMsg) return;
 
