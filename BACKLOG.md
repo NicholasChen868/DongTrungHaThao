@@ -1,14 +1,21 @@
 # 📦 BACKLOG — Tính Năng & Ý Tưởng
 
-> **Trạng thái**: 🔓 MỞ KHÓA — Sprint A-B-C hoàn thành, Sprint D đang triển khai
-> **Cập nhật**: 2026-02-23 13:25
+> **Trạng thái**: 🔓 MỞ KHÓA — Sprint A-B-C hoàn thành, Sprint D đang triển khai (D7-D11 Shadow tasks)
+> **Cập nhật**: 2026-02-23 15:08
 > **Quy tắc**: Ưu tiên từ trên xuống. Items đã triển khai được đánh dấu ✅.
 
 ---
 
 ## ✅ ĐÃ TRIỂN KHAI (Sprint D — 23/02/2026)
 
-### 🎁 Promotion Popup ✅
+### CTA Audit + Content Bible ✅
+- Nâng cấp toàn bộ CTA/messaging: transactional → emotional
+- Hero, About, CTA Journey, Order, Promo, CTV, Health Map — all updated
+- Content Bible v2.0 cho Claude Code handoff
+- FAB tooltips + Social proof: trí lực + thể lực messaging
+- **5 Shadow tasks** phát sinh từ tự phản biện → D7-D11 trong TASKS.md
+
+### 💡 Promotion Popup ✅
 - Nút Promo trong FAB orbit (rose gradient)
 - Popup content "Bứt Phá Đinh Ngọ 2026" — tâm lý, tinh tế
 - Hero image, staggered animations, badge pop
@@ -25,11 +32,40 @@
 
 ---
 
-## 🔴 CẦN LÀM TIẾP (ƯU TIÊN CAO)
+## 🔴 CẦN LÀM TIẾP (ƯU TIÊN CAO) — Shadow Tasks D7-D11
+
+### 🪞 D11. Thu Thập Data — Đo Lường Trước Khi Đổi Thêm (ƯU TIÊN #1)
+- Setup Supabase analytics (page views, CTA clicks, scroll depth, conversions)
+- Baseline metrics trước khi đổi thêm gì
+- Hỏi anh Kha data thực tế về khách hàng
+- **Xem chi tiết**: `TASKS.md` → D11
+
+### 🪞 D10. Sticky CTA Mobile + Shorten Flow (ƯU TIÊN #2)
+- Sticky bottom CTA trên mobile
+- Đo scroll depth: bao nhiêu % user đến #contact?
+- Responsive audit cho CTA text dài trên 360px
+- **Xem chi tiết**: `TASKS.md` → D10
+
+### 🪞 D7. A/B Test CTA — Giọng Tây vs Giọng Việt (ƯU TIÊN #3)
+- 2 bộ CTA: empowerment vs bình dân-thực tế
+- JS module A/B test + Supabase tracking
+- Chạy 2 tuần, quyết định dựa trên data
+- **Xem chi tiết**: `TASKS.md` → D7
+
+### 🪞 D8. Soften "Trí Lực" Messaging — Compliance (ƯU TIÊN #4)
+- Review overclaim risk: "Trí Lực Sắc Bén" có thể va ATTP
+- Soften thành experience-based language
+- Thêm inline disclaimer tại section About
+- **Xem chi tiết**: `TASKS.md` → D8
+
+### 🪞 D9. Test Content Bible — Real Output Claude Code (ƯU TIÊN #5)
+- Cho Claude Code viết promotion thử → review giọng văn
+- Iterate prompt nếu cần (tách file, rút gọn)
+- **Xem chi tiết**: `TASKS.md` → D9
 
 ### 🔐 D6. Login Integration (Còn lại từ Sprint D)
-- Tích hợp `openLoginPopup()` vào CTV dashboard, tracking đơn, etc.
-- Tạo Supabase RPC `customer_login` (chưa có)
+- Tích hợp `openLoginPopup()` vào CTV dashboard, tracking đơn
+- Tạo Supabase RPC `customer_login`
 - E2E tests cho login + promo popup flows
 
 ### 🏷️ Promotion System — Dynamic
@@ -99,4 +135,5 @@
 
 ---
 
-*Cập nhật bởi Antigravity AI — 23/02/2026 13:25*
+*Cập nhật bởi Antigravity AI — 23/02/2026 15:08*
+*Shadow Tasks D7-D11 = tự phản biện Carl Jung SELF sau CTA Audit*
