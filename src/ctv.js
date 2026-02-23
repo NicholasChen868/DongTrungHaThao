@@ -3,6 +3,7 @@
 // ===================================
 import { supabase } from './supabase.js';
 import { escapeHTML } from './utils/sanitize.js';
+import { apiCall } from './utils/api.js';
 
 // --- Local Storage helpers ---
 const CTV_KEY = 'ctv_ref_code';
@@ -105,13 +106,16 @@ export async function registerCTV(name, phone, email) {
         const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(phone));
         const defaultPasswordHash = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
 
-        const { data, error } = await supabase.rpc('register_ctv', {
-            p_name: name,
-            p_phone: phone,
-            p_email: email || null,
-            p_password_hash: defaultPasswordHash,
-            p_referrer_code: null,
-        });
+        const { data, error } = await apiCall(
+            () => supabase.rpc('register_ctv', {
+                p_name: name,
+                p_phone: phone,
+                p_email: email || null,
+                p_password_hash: defaultPasswordHash,
+                p_referrer_code: null,
+            }),
+            { retries: 2, context: 'Đăng ký CTV' }
+        );
         if (error) throw error;
         if (data?.ok) {
             setStoredRef(data.referral_code);
@@ -127,9 +131,12 @@ export async function registerCTV(name, phone, email) {
 // --- Get CTV Dashboard ---
 export async function getCTVDashboard(refCode) {
     try {
-        const { data, error } = await supabase.rpc('get_ctv_dashboard', {
-            p_ref_code: refCode,
-        });
+        const { data, error } = await apiCall(
+            () => supabase.rpc('get_ctv_dashboard', {
+                p_ref_code: refCode,
+            }),
+            { retries: 2, context: 'Tải dashboard CTV' }
+        );
         if (error) throw error;
         return data;
     } catch (err) {
@@ -266,13 +273,16 @@ export function renderCTVDashboard(data) {
 // --- Register CTV (dashboard page) ---
 export async function handleCTVRegister({ name, phone, email, passwordHash, referrerCode }) {
     try {
-        const { data, error } = await supabase.rpc('register_ctv', {
-            p_name: name,
-            p_phone: phone,
-            p_email: email || null,
-            p_password_hash: passwordHash,
-            p_referrer_code: referrerCode || null,
-        });
+        const { data, error } = await apiCall(
+            () => supabase.rpc('register_ctv', {
+                p_name: name,
+                p_phone: phone,
+                p_email: email || null,
+                p_password_hash: passwordHash,
+                p_referrer_code: referrerCode || null,
+            }),
+            { retries: 2, context: 'Đăng ký CTV (dashboard)' }
+        );
         if (error) throw error;
         if (data?.ok) {
             setStoredRef(data.referral_code);

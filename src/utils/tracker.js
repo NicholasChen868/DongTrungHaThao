@@ -4,6 +4,7 @@
  * No PII. No cookies. Fire-and-forget.
  */
 import { supabase } from '../supabase.js';
+import { fireAndForget } from './api.js';
 
 function getDevice() {
     const w = window.innerWidth;
@@ -36,7 +37,7 @@ export function trackPageView() {
     };
 
     // Fire and forget — don't await, don't block
-    supabase.from('page_views').insert(data).then(() => { });
+    fireAndForget(() => supabase.from('page_views').insert(data), 'trackPageView');
 }
 
 // Auto-track on import

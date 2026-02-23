@@ -5,6 +5,7 @@ import { supabase } from '../supabase.js';
 import { escapeHTML } from '../utils/sanitize.js';
 import { checkRateLimit, recordAttempt } from '../utils/ratelimit.js';
 import { registerCTV, getAutoRef, validateCtvCode } from '../ctv.js';
+import { apiCall, handleApiError } from '../utils/api.js';
 
 const SHIPPING_FEE = 30000;
 const BANK_CONFIG = {
@@ -143,22 +144,25 @@ export function initOrderForm(PRICING, showToast) {
         try {
             const ctvCode = await validateCtvCode(rawCtvCode, phone);
 
-            const { data, error } = await supabase.from('orders').insert({
-                customer_name: name,
-                phone: phone,
-                email: email,
-                address: address,
-                quantity: qty,
-                unit_price: t.unitPrice,
-                discount_percent: t.discountPercent,
-                shipping_fee: t.shipping,
-                total_amount: t.total,
-                ctv_code: ctvCode,
-                note: note,
-                status: 'pending',
-                payment_method: paymentMethod,
-                payment_status: paymentMethod === 'cod' ? 'pending' : 'pending',
-            }).select().single();
+            const { data, error } = await apiCall(
+                () => supabase.from('orders').insert({
+                    customer_name: name,
+                    phone: phone,
+                    email: email,
+                    address: address,
+                    quantity: qty,
+                    unit_price: t.unitPrice,
+                    discount_percent: t.discountPercent,
+                    shipping_fee: t.shipping,
+                    total_amount: t.total,
+                    ctv_code: ctvCode,
+                    note: note,
+                    status: 'pending',
+                    payment_method: paymentMethod,
+                    payment_status: paymentMethod === 'cod' ? 'pending' : 'pending',
+                }).select().single(),
+                { retries: 2, context: 'Gửi đơn hàng' }
+            );
 
             if (error) throw error;
 
@@ -194,8 +198,7 @@ export function initOrderForm(PRICING, showToast) {
             }
             updateSummary();
         } catch (err) {
-            console.error('Order submit error:', err);
-            showToast('Đặt hàng thất bại. Vui lòng gọi Hotline hoặc thử lại!', false);
+            handleApiError(err, 'Gửi đơn hàng', showToast);
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = origText;
