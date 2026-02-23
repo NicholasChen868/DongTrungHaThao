@@ -142,6 +142,15 @@
 - [x] D12e. Login popup "Đăng ký" điều hướng đúng role
 - [x] D12f. Desktop scroll lock fix (popups display:none mặc định)
 
+
+### D13. UI/UX Audit Polish ✅ DONE
+
+- [x] Nav account pill: `→` arrow → proper user SVG icon (feather icons)
+- [x] Login popup icon: `→` → 🔐 emoji
+- [x] Role badge: `display:none` moved from inline HTML to CSS
+- [x] CSS vendor prefix: `-webkit-backdrop-filter` before `backdrop-filter`
+- [x] Full browser audit: desktop (1440px) + mobile (375px)
+
 ---
 
 ## ✨ P1 Features (từ Claude Code branch, re-implemented) ✅ DONE
@@ -165,8 +174,9 @@
 | **D8: Soften Messaging** | 1/1 | ✅ DONE |
 | **D9: Content Bible** | 0/1 | ⏳ Cần test |
 | **D10-D12: Mobile + Analytics + Polish** | 3/3 | ✅ DONE |
+| **D13: UI/UX Audit** | 1/1 | ✅ DONE |
 | **P1: Claude Code Features** | 4/4 | ✅ DONE |
-| **Tổng** | **29/31** | **94%** |
+| **Tổng** | **30/32** | **94%** |
 
 ### Test Coverage
 
@@ -190,5 +200,5 @@
 
 ---
 
-*Cập nhật bởi Antigravity AI — 23/02/2026 23:21*
-*Sprint D 94% — D7 (A/B test) + D9 (Content Bible) còn lại*
+*Cập nhật bởi Antigravity AI — 23/02/2026 23:58*
+*Sprint D 94% — D7 (A/B module ready) + D9 (Content Bible) còn lại*
