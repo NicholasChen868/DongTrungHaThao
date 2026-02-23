@@ -74,11 +74,12 @@ export function initSocialProof() {
             const name = pick(FIRST_NAMES);
             const rel = pick(RELATIONS);
             const shares = [
-                'Uống 2 tuần, giấc ngủ sâu hẳn, sáng dậy không còn nặng đầu',
-                'Dùng 1 tháng — đầu óc tỉnh táo, làm việc mượt hơn hẳn',
+                'Uống chưa tới 1 tháng, ngủ được rồi. 5 năm nay mới ngủ ngon như vậy',
+                'Mua cho mẹ, mẹ cho hàng xóm thử, hàng xóm gọi hỏi mua 😅',
                 'Mua tặng ba mẹ, hai bác nói sáng ra đi bộ được rồi',
-                'Đợt này đặt thêm cho cả nhà — ai cũng thấy khỏe',
-                'Sáng dậy nhẹ nhõm, tập trung cả ngày không đuối'
+                'Mình thấy bớt mệt, chiều không còn đuối như trước',
+                'Ba em hồi đầu nói mấy thứ vớ vẩn. Giờ ổng tự gọi biểu mua thêm 😂',
+                'Dạo này dậy sớm được — không phải vì chuông, mà vì muốn dậy'
             ];
             return {
                 type: 'share',
@@ -90,9 +91,9 @@ export function initSocialProof() {
         () => {
             const milestones = [
                 { icon: '🏆', text: `Hôm nay đã có <strong>${rand(80, 200)}+ đơn hàng</strong> được gửi đi` },
-                { icon: '📈', text: `<strong>${rand(15, 45)} người mới</strong> bắt đầu hành trình khỏe tuần này` },
-                { icon: '🧠', text: `Hơn <strong>${rand(2000, 5000)} người</strong> đang trải nghiệm sự minh mẫn mỗi ngày` },
-                { icon: '⭐', text: `Đánh giá trung bình: <strong>4.${rand(7, 9)}/5</strong> — "tỉnh táo hơn, bền bỉ hơn"` }
+                { icon: '📈', text: `<strong>${rand(15, 45)} người mới</strong> đặt thử tuần này` },
+                { icon: '🌙', text: `Hơn <strong>${rand(2000, 5000)} người</strong> chia sẻ: ngủ ngon hơn sau 2 tuần` },
+                { icon: '⭐', text: `Đánh giá trung bình: <strong>4.${rand(7, 9)}/5</strong> — "khỏe hơn, ít mệt hơn"` }
             ];
             const m = pick(milestones);
             return {

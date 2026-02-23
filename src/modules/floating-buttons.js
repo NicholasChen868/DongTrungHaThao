@@ -7,16 +7,16 @@ import { registerCTV, getAutoRef } from '../ctv.js';
 import { checkRateLimit, recordAttempt } from '../utils/ratelimit.js';
 import { saveCtvSession, initCtvBanner } from './ctv-banner.js';
 
-// Rotating tooltip messages (cute, inviting)
+// Rotating tooltip messages (natural, practical)
 const TOOLTIP_MESSAGES = [
-    'Sáng mai tỉnh táo hơn — bắt đầu hôm nay 🌿',
+    'Ngủ ngon hơn? Thử 1 hộp xem sao 🌿',
     'Tư vấn riêng qua Zalo — miễn phí 💬',
     'Gọi ngay 0903.940.171 📞',
-    'Lan tỏa sức khỏe, nhận chiết khấu 💛',
-    'Ưu đãi đặc biệt — đừng bỏ lỡ ✨',
+    'Giới thiệu bạn bè — nhận chiết khấu 10-20% 💰',
+    'Đặt thử hôm nay — giao tận nhà ✨',
     'Miễn phí vận chuyển từ 3 hộp 🚚',
-    'Minh mẫn hơn, bền bỉ hơn — mỗi ngày 🧠',
-    'Cho mình cơ hội khỏe thật 💪',
+    'Nhiều người chia sẻ: ít mệt hơn sau 2 tuần 💪',
+    '48.000₫/ngày — rẻ hơn 1 ly cà phê ☕',
 ];
 
 let tooltipIndex = 0;
