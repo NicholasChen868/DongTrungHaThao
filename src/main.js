@@ -28,7 +28,8 @@ import { initReorderReminder } from './modules/reorder-reminder.js';
 import { initFloatingOrderBtn, initContactWidget, initCtvPopup } from './modules/floating-buttons.js';
 import { initCtvBanner, saveCtvSession } from './modules/ctv-banner.js';
 import { initPromoPopup } from './modules/promo-popup.js';
-import { initLoginPopup } from './modules/login-popup.js';
+import { initLoginPopup, openLoginPopup } from './modules/login-popup.js';
+import { getCurrentUser } from './auth.js';
 import './css/bottom-bar.css';
 import { initSocialProof } from './modules/social-proof.js';
 
@@ -124,6 +125,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   initPromoPopup(showToast);
   initLoginPopup(showToast);
   initReorderReminder();
+
+  // Auth interceptor — links with data-auth="ctv|customer" require login
+  document.addEventListener('click', (e) => {
+    const authLink = e.target.closest('[data-auth]');
+    if (!authLink) return;
+    const user = getCurrentUser();
+    if (user) return; // Already logged in, let normal navigation proceed
+    e.preventDefault();
+    const role = authLink.dataset.auth || 'ctv';
+    const href = authLink.getAttribute('href');
+    openLoginPopup({
+      role,
+      onSuccess: () => { if (href) window.location.href = href; },
+    });
+  });
 
   // Load pricing from backend (parallel with fetchAllData)
   const [allData] = await Promise.all([fetchAllData(), loadPricing()]);
