@@ -8,52 +8,62 @@ export function renderBenefits(product) {
   if (!grid || !product) return;
 
   const benefits = product.benefits || [];
+  if (benefits.length < 6) return;
 
-  // AG-3: Split into 2 thematic columns if 6 benefits
-  if (benefits.length >= 6) {
-    const colA = benefits.filter((_, i) => [0, 2, 3].includes(i)); // Miễn dịch, Phổi, Tim
-    const colB = benefits.filter((_, i) => [1, 4, 5].includes(i)); // Năng lượng, Ngủ, Trẻ lâu
+  // Split: 0,2,3 = Internal Health; 1,4,5 = Daily Recovery
+  const colA = [benefits[0], benefits[2], benefits[3]];
+  const colB = [benefits[1], benefits[4], benefits[5]];
 
-    const renderCards = (items) => items.map((b, i) => `
-          <div class="benefit-card animate-on-scroll" style="transition-delay: ${i * 0.1}s">
-            ${b.image ? `<div class="benefit-bg" style="background-image: url('${b.image}')"></div>` : ''}
-            <div class="benefit-content">
-              <h3 class="benefit-title">${escapeHTML(b.title)}</h3>
-              <p class="benefit-desc">${escapeHTML(b.desc)}</p>
-            </div>
-          </div>
-        `).join('');
+  // Highlight key terms in descriptions
+  const highlight = (text) => {
+    const terms = [
+      'Cordycepin', 'Adenosine', 'SOD', 'Catalase', 'Polysaccharide',
+      'tế bào NK', 'Natural Killer', 'GMP', 'WHO',
+      'hệ miễn dịch', 'chống oxy hóa', 'giãn mạch', 'giãn phế quản',
+      'giấc ngủ sâu', 'năng lượng', 'cholesterol', 'gốc tự do',
+      'kháng viêm', 'tuần hoàn', 'hấp thu oxy',
+    ];
+    let result = escapeHTML(text);
+    terms.forEach(term => {
+      const re = new RegExp(`(${term})`, 'gi');
+      result = result.replace(re, '<strong class="benefit-highlight">$1</strong>');
+    });
+    return result;
+  };
 
-    grid.innerHTML = `
-          <div class="benefits-column">
-            <div class="benefits-col-header animate-on-scroll">
-              <span class="benefits-col-icon">🛡️</span>
-              <h3>Khỏe Từ Bên Trong</h3>
-              <p>Đề kháng · Hô hấp · Tim mạch</p>
-            </div>
-            ${renderCards(colA)}
-          </div>
-          <div class="benefits-column">
-            <div class="benefits-col-header animate-on-scroll">
-              <span class="benefits-col-icon">✨</span>
-              <h3>Phục Hồi Mỗi Ngày</h3>
-              <p>Năng lượng · Giấc ngủ · Trẻ lâu</p>
-            </div>
-            ${renderCards(colB)}
-          </div>
-        `;
-  } else {
-    // Fallback: flat grid
-    grid.innerHTML = benefits.map((b, i) => `
-          <div class="benefit-card animate-on-scroll" style="transition-delay: ${i * 0.1}s">
-            ${b.image ? `<div class="benefit-bg" style="background-image: url('${b.image}')"></div>` : ''}
-            <div class="benefit-content">
-              <h3 class="benefit-title">${escapeHTML(b.title)}</h3>
-              <p class="benefit-desc">${escapeHTML(b.desc)}</p>
-            </div>
-          </div>
-        `).join('');
-  }
+  const renderItems = (items) => items.map((b, i) => `
+    <div class="benefit-item animate-on-scroll" style="transition-delay: ${i * 0.1}s">
+      <h4 class="benefit-item-title">${escapeHTML(b.title)}</h4>
+      <p class="benefit-item-desc">${highlight(b.desc)}</p>
+    </div>
+  `).join('');
+
+  grid.innerHTML = `
+    <div class="benefits-block animate-on-scroll">
+      <div class="benefits-block-header">
+        <span class="benefits-block-icon">🛡️</span>
+        <div>
+          <h3 class="benefits-block-title">Khỏe Từ Bên Trong</h3>
+          <p class="benefits-block-sub">Đề kháng · Hô hấp · Tim mạch</p>
+        </div>
+      </div>
+      <div class="benefits-block-items">
+        ${renderItems(colA)}
+      </div>
+    </div>
+    <div class="benefits-block animate-on-scroll">
+      <div class="benefits-block-header">
+        <span class="benefits-block-icon">✨</span>
+        <div>
+          <h3 class="benefits-block-title">Phục Hồi Mỗi Ngày</h3>
+          <p class="benefits-block-sub">Năng lượng · Giấc ngủ · Trẻ lâu</p>
+        </div>
+      </div>
+      <div class="benefits-block-items">
+        ${renderItems(colB)}
+      </div>
+    </div>
+  `;
 }
 
 export function renderProcess(processSteps) {
