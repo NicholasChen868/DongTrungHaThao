@@ -157,6 +157,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const iconEl = document.getElementById('navAccountIcon');
       const nameEl = document.getElementById('navAccountName');
       const infoEl = document.getElementById('navAccountInfo');
+      const badgeEl = document.getElementById('navAccountRoleBadge');
 
       if (user) {
         const name = user.display_name || user.name || 'Tài khoản';
@@ -164,8 +165,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const tier = user.tier || 'bronze';
         const points = user.total_points || 0;
 
-        if (iconEl) iconEl.textContent = RANK_ICONS[tier] || '👤';
+        // Show initials (2 chars) as avatar
+        const initials = name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+        if (iconEl) iconEl.textContent = initials || '👤';
         if (nameEl) nameEl.textContent = shortName;
+
         // Add meta line with points
         let metaEl = infoEl?.querySelector('.nav-account-meta');
         if (!metaEl && infoEl) {
@@ -176,6 +180,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (metaEl) metaEl.textContent = `${points} điểm`;
 
         navAccount.classList.add('logged-in');
+
+        // CTV role badge
+        if (badgeEl) {
+          if (user.role === 'ctv') {
+            badgeEl.textContent = 'CTV';
+            badgeEl.style.display = '';
+          } else {
+            badgeEl.textContent = 'TV';
+            badgeEl.style.background = 'linear-gradient(135deg, #60a5fa, #3b82f6)';
+            badgeEl.style.display = '';
+          }
+        }
 
         // Update dropdown details
         const rankEl = document.getElementById('navAccountRank');
@@ -201,6 +217,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (nameEl) nameEl.textContent = 'Đăng Nhập';
         const metaEl = infoEl?.querySelector('.nav-account-meta');
         if (metaEl) metaEl.remove();
+        if (badgeEl) badgeEl.style.display = 'none';
         navAccount.classList.remove('logged-in');
       }
     }
