@@ -103,6 +103,15 @@ export function initOrderForm(PRICING, showToast) {
         }
     }
 
+    // AG-16: Gift option toggle
+    const giftCheckbox = document.getElementById('orderGift');
+    const giftFields = document.getElementById('giftFields');
+    if (giftCheckbox && giftFields) {
+        giftCheckbox.addEventListener('change', () => {
+            giftFields.classList.toggle('visible', giftCheckbox.checked);
+        });
+    }
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -122,6 +131,13 @@ export function initOrderForm(PRICING, showToast) {
         const rawCtvCode = manualCode || getAutoRef();
         const note = document.getElementById('orderNote')?.value.trim() || null;
         const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value || 'cod';
+
+        // AG-16: Gift data
+        const isGift = document.getElementById('orderGift')?.checked || false;
+        const giftName = document.getElementById('orderGiftName')?.value.trim() || '';
+        const giftMsg = document.getElementById('orderGiftMsg')?.value.trim() || '';
+        const giftNote = isGift ? `\n🎁 QUÀ TẶNG → ${giftName || 'Không ghi tên'}${giftMsg ? ' | Lời nhắn: ' + giftMsg : ''}` : '';
+        const fullNote = (note || '') + giftNote || null;
 
         if (!name || !phone || !address) {
             showToast('Vui lòng điền đầy đủ thông tin!', false);
@@ -156,7 +172,7 @@ export function initOrderForm(PRICING, showToast) {
                     shipping_fee: t.shipping,
                     total_amount: t.total,
                     ctv_code: ctvCode,
-                    note: note,
+                    note: fullNote,
                     status: 'pending',
                     payment_method: paymentMethod,
                     payment_status: paymentMethod === 'cod' ? 'pending' : 'pending',

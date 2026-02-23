@@ -339,11 +339,9 @@
           <div class="product-pricing">
             <div class="product-price" id="productPrice"></div>
             <!-- AG-4: Price Framing -->
-            <div class="price-framing"
-              style="margin: 12px 0 16px; padding: 12px 16px; background: rgba(212, 168, 75, 0.06); border: 1px solid rgba(212, 168, 75, 0.12); border-radius: var(--radius-sm); font-size: 13px; line-height: 1.7; color: var(--text-secondary);">
-              <p style="margin: 0 0 6px; font-weight: 600; color: var(--gold-primary);">💡 48.000₫/ngày — rẻ hơn 1 ly cà
-                phê</p>
-              <p style="margin: 0;">100% con nhộng nguyên chất. Không pha bột, không phụ gia.
+            <div class="price-framing">
+              <p class="price-framing-title">💡 48.000₫/ngày — rẻ hơn 1 ly cà phê</p>
+              <p class="price-framing-body">100% con nhộng nguyên chất. Không pha bột, không phụ gia.
                 Bẻ viên ra: bột vàng cám, mùi trùng thảo đặc trưng — đó là dấu hiệu của hàng thật.</p>
             </div>
             <div class="product-order">
@@ -496,40 +494,31 @@
   <hr class="golden-divider" />
 
   <!-- ======= AG-7: VÌ SAO TIN ĐƯỢC? ======= -->
-  <section class="section" id="whyTrust" style="padding: 48px 0;">
+  <section class="section" id="whyTrust">
     <div class="container">
       <div class="section-header animate-on-scroll">
         <h2 class="section-title">Vì Sao <span class="text-gold">Tin Được?</span></h2>
       </div>
-      <div
-        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; max-width: 900px; margin: 32px auto 0;">
-        <div class="animate-on-scroll"
-          style="padding: 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-md); text-align: center;">
-          <div style="font-size: 2rem; margin-bottom: 8px;">🏭</div>
-          <strong style="color: var(--gold-primary);">GMP — WHO</strong>
-          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px;">Nhà máy đạt chuẩn quốc tế. Quy
-            trình khép kín từ bào tử đến viên nang.</p>
+      <div class="why-trust-grid">
+        <div class="trust-card animate-on-scroll">
+          <div class="trust-card-icon">🏭</div>
+          <strong>GMP — WHO</strong>
+          <p>Nhà máy đạt chuẩn quốc tế. Quy trình khép kín từ bào tử đến viên nang.</p>
         </div>
-        <div class="animate-on-scroll"
-          style="padding: 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-md); text-align: center;">
-          <div style="font-size: 2rem; margin-bottom: 8px;">🌿</div>
-          <strong style="color: var(--gold-primary);">100% Nguyên Chất</strong>
-          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px;">Bẻ viên ra: bột vàng cám, mùi trùng
-            thảo đặc trưng — không pha bột, không phụ gia.</p>
+        <div class="trust-card animate-on-scroll">
+          <div class="trust-card-icon">🌿</div>
+          <strong>100% Nguyên Chất</strong>
+          <p>Bẻ viên ra: bột vàng cám, mùi trùng thảo đặc trưng — không pha bột, không phụ gia.</p>
         </div>
-        <div class="animate-on-scroll"
-          style="padding: 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-md); text-align: center;">
-          <div style="font-size: 2rem; margin-bottom: 8px;">💛</div>
-          <strong style="color: var(--gold-primary);">15 Năm Uy Tín</strong>
-          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px;">Kinh doanh bằng truyền miệng suốt
-            15 năm — 10.000+ khách hàng tin dùng.</p>
+        <div class="trust-card animate-on-scroll">
+          <div class="trust-card-icon">💛</div>
+          <strong>15 Năm Uy Tín</strong>
+          <p>Kinh doanh bằng truyền miệng suốt 15 năm — 10.000+ khách hàng tin dùng.</p>
         </div>
-        <div class="animate-on-scroll"
-          style="padding: 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-md); text-align: center;">
-          <div style="font-size: 2rem; margin-bottom: 8px;">📦</div>
-          <strong style="color: var(--gold-primary);">An Tâm Đặt Hàng</strong>
-          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px;">Miễn phí vận chuyển từ 3 hộp. Đổi
-            trả trong 7 ngày. Tư vấn: 0903.940.171.</p>
+        <div class="trust-card animate-on-scroll">
+          <div class="trust-card-icon">📦</div>
+          <strong>An Tâm Đặt Hàng</strong>
+          <p>Miễn phí vận chuyển từ 3 hộp. Đổi trả trong 7 ngày. Tư vấn: 0903.940.171.</p>
         </div>
       </div>
     </div>
@@ -623,25 +612,17 @@
       <div class="contact-grid">
         <div class="contact-form-wrapper animate-on-scroll">
           <!-- AG-5: Trust badges -->
-          <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; justify-content: center;">
-            <span
-              style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: rgba(212,168,75,0.08); border: 1px solid rgba(212,168,75,0.15); border-radius: var(--radius-xs); font-size: 12px; color: var(--gold-primary); font-weight: 600;">✅
-              GMP-WHO</span>
-            <span
-              style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: rgba(212,168,75,0.08); border: 1px solid rgba(212,168,75,0.15); border-radius: var(--radius-xs); font-size: 12px; color: var(--gold-primary); font-weight: 600;">🚚
-              Freeship từ 3 hộp</span>
-            <span
-              style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: rgba(212,168,75,0.08); border: 1px solid rgba(212,168,75,0.15); border-radius: var(--radius-xs); font-size: 12px; color: var(--gold-primary); font-weight: 600;">🔄
-              Đổi trả 7 ngày</span>
-            <span
-              style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: rgba(212,168,75,0.08); border: 1px solid rgba(212,168,75,0.15); border-radius: var(--radius-xs); font-size: 12px; color: var(--gold-primary); font-weight: 600;">☎
-              Tư vấn 24/7</span>
+          <div class="trust-badges-row">
+            <span class="trust-badge-pill">✅ GMP-WHO</span>
+            <span class="trust-badge-pill">🚚 Freeship từ 3 hộp</span>
+            <span class="trust-badge-pill">🔄 Đổi trả 7 ngày</span>
+            <span class="trust-badge-pill">☎ Tư vấn 24/7</span>
           </div>
           <form class="contact-form" id="orderForm">
             <h3>Đặt Hàng Trực Tiếp</h3>
             <!-- AG-8: Form reassurance -->
-            <p style="font-size: 13px; color: var(--text-secondary); margin: -4px 0 16px; line-height: 1.6;">Bạn chỉ cần
-              điền <strong>tên + SĐT</strong>. Chúng tôi sẽ gọi xác nhận trong 30 phút.</p>
+            <p class="form-reassurance">Bạn chỉ cần điền <strong>tên + SĐT</strong>. Chúng tôi sẽ gọi xác nhận trong 30
+              phút.</p>
             <div class="form-row">
               <div class="form-group">
                 <input type="text" id="orderName" placeholder="Họ và tên *" required />
@@ -713,6 +694,19 @@
             <div class="form-group">
               <textarea id="orderNote" placeholder="Ghi chú thêm..." rows="3"></textarea>
             </div>
+            <!-- AG-16: Gift option -->
+            <div class="form-group">
+              <label class="gift-option" for="orderGift">
+                <input type="checkbox" id="orderGift">
+                <span class="gift-option-text">🎁 <strong>Gửi như quà tặng</strong> — cho ba mẹ, người thân, bạn
+                  bè</span>
+              </label>
+              <div class="gift-recipient-fields" id="giftFields">
+                <input type="text" id="orderGiftName" placeholder="Tên người nhận quà">
+                <input type="text" id="orderGiftMsg" placeholder="Lời nhắn gửi (ví dụ: Con tặng Ba Mẹ ❤️)"
+                  style="margin-top: 8px">
+              </div>
+            </div>
             <div class="order-summary" id="orderSummary">
               <div class="order-summary-row">
                 <span>Tạm tính:</span>
@@ -735,9 +729,8 @@
                 <span id="orderTotal">1.480.000₫</span>
               </div>
               <!-- AG-14: Payment trust -->
-              <p
-                style="font-size: 11px; color: var(--text-muted); margin-top: 8px; text-align: center; line-height: 1.5;">
-                🔒 Thanh toán an toàn · 📦 Giao 2-4 ngày · ✅ Không hài lòng? Đổi trả trong 7 ngày</p>
+              <p class="payment-trust-line">🔒 Thanh toán an toàn · 📦 Giao 2-4 ngày · ✅ Không hài lòng? Đổi trả trong 7
+                ngày</p>
             </div>
             <button type="submit" class="btn btn-primary btn-glow btn-full">
               Gửi Đơn — Tôi Sẵn Sàng
