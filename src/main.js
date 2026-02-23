@@ -32,6 +32,7 @@ import { initLoginPopup, openLoginPopup } from './modules/login-popup.js';
 import { getCurrentUser } from './auth.js';
 import './css/bottom-bar.css';
 import { initSocialProof } from './modules/social-proof.js';
+import { initHeroCTARotator } from './modules/hero-cta-rotator.js';
 
 // ===================================
 // DYNAMIC PRICING
@@ -115,6 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Start non-data-dependent init immediately
   initNavbar();
+  initHeroCTARotator();
   initHeroParticles();
   initCountUp();
   initReturningCustomer();
