@@ -7,6 +7,7 @@ import { fetchAllData } from './data.js';
 import { initCTVSystem } from './ctv.js';
 import { supabase } from './supabase.js';
 import { createSubmitGuard } from './utils/ratelimit.js';
+import { initNetworkStatus } from './utils/api.js';
 import './utils/tracker.js';
 import './auth.js';
 
@@ -101,6 +102,12 @@ function showToast(message, success = true, { html = false, duration = 4000 } = 
 // INITIALIZATION
 // ===================================
 document.addEventListener('DOMContentLoaded', async () => {
+  // Network status monitoring
+  initNetworkStatus(
+    () => showToast('Mất kết nối mạng. Một số tính năng có thể không hoạt động.', false, { duration: 10000 }),
+    () => showToast('Đã kết nối lại!', true, { duration: 3000 })
+  );
+
   // Start non-data-dependent init immediately
   initNavbar();
   initHeroParticles();

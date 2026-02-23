@@ -3,6 +3,7 @@ import { supabase } from './supabase.js';
 import { escapeHTML } from './utils/sanitize.js';
 import { checkRateLimit, recordAttempt } from './utils/ratelimit.js';
 import { getSessionToken, isSessionValid, adminLogin, adminLogout, clearSession } from './admin-session.js';
+import { apiCall, handleApiError } from './utils/api.js';
 
 // --- Config ---
 const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
@@ -201,7 +202,10 @@ window.exportCSV = async function (type) {
 // --- OVERVIEW (via admin RPC) ---
 async function loadOverview() {
     try {
-        const { data: ov, error } = await supabase.rpc('admin_get_overview', { p_session_token: getSessionToken() });
+        const { data: ov, error } = await apiCall(
+            () => supabase.rpc('admin_get_overview', { p_session_token: getSessionToken() }),
+            { retries: 2, context: 'Tải tổng quan' }
+        );
         if (error) throw error;
 
         document.getElementById('ovOrders').textContent = ov.order_count || 0;
@@ -214,15 +218,22 @@ async function loadOverview() {
             ['Mã CTV', 'Tên', 'SĐT', 'Hạng', 'Điểm', 'Ngày ĐK']);
 
     } catch (err) {
-        console.error('Overview load error:', err);
+        handleApiError(err, 'Tải tổng quan', showAdminToast);
     }
 }
 
 // --- ORDERS with action buttons (via admin RPC) ---
 async function loadOrders() {
-    const { data, error } = await supabase.rpc('admin_list_orders', { p_session_token: getSessionToken() });
-    if (error) { console.error('Orders load error:', error); return; }
-    renderOrderTable('allOrders', data || [], false);
+    try {
+        const { data, error } = await apiCall(
+            () => supabase.rpc('admin_list_orders', { p_session_token: getSessionToken() }),
+            { retries: 2, context: 'Tải đơn hàng' }
+        );
+        if (error) throw error;
+        renderOrderTable('allOrders', data || [], false);
+    } catch (err) {
+        handleApiError(err, 'Tải đơn hàng', showAdminToast);
+    }
 }
 
 function renderOrderTable(containerId, data, compact) {
@@ -356,9 +367,16 @@ window.updateOrder = async function (id, newStatus) {
 
 // --- CTV LIST with tier upgrade (via admin RPC) ---
 async function loadCTVList() {
-    const { data, error } = await supabase.rpc('admin_list_ctv', { p_session_token: getSessionToken() });
-    if (error) { console.error('CTV load error:', error); return; }
-    renderCTVTable('allCTV', data || []);
+    try {
+        const { data, error } = await apiCall(
+            () => supabase.rpc('admin_list_ctv', { p_session_token: getSessionToken() }),
+            { retries: 2, context: 'Tải danh sách CTV' }
+        );
+        if (error) throw error;
+        renderCTVTable('allCTV', data || []);
+    } catch (err) {
+        handleApiError(err, 'Tải danh sách CTV', showAdminToast);
+    }
 }
 
 function renderCTVTable(containerId, data) {
@@ -478,7 +496,10 @@ async function loadContacts() {
 // --- POSTS (via admin RPC) ---
 async function loadPosts() {
     try {
-        const { data, error } = await supabase.rpc('admin_list_posts', { p_session_token: getSessionToken() });
+        const { data, error } = await apiCall(
+            () => supabase.rpc('admin_list_posts', { p_session_token: getSessionToken() }),
+            { retries: 2, context: 'Tải bài viết' }
+        );
         if (error) throw error;
 
         const container = document.getElementById('allPosts');
@@ -519,7 +540,7 @@ async function loadPosts() {
     </tbody>
 </table>`;
     } catch (err) {
-        console.error('Posts load error:', err);
+        handleApiError(err, 'Tải bài viết', showAdminToast);
     }
 }
 
@@ -559,10 +580,13 @@ window.rejectPost = async function (id) {
     }
 };
 
-// --- ANALYTICS (via admin RPC) ---
+// --- WITHDRAWALS (via admin RPC) ---
 async function loadAdminWithdrawals() {
     try {
-        const { data } = await supabase.rpc('admin_list_withdrawals', { p_session_token: getSessionToken() });
+        const { data } = await apiCall(
+            () => supabase.rpc('admin_list_withdrawals', { p_session_token: getSessionToken() }),
+            { retries: 2, context: 'Tải yêu cầu rút tiền' }
+        );
 
         const container = document.getElementById('allWithdrawals');
         if (!data?.length) {
@@ -606,7 +630,7 @@ async function loadAdminWithdrawals() {
     </tbody>
 </table>`;
     } catch (err) {
-        console.error('Withdrawals load error:', err);
+        handleApiError(err, 'Tải yêu cầu rút tiền', showAdminToast);
     }
 }
 
@@ -629,7 +653,10 @@ window.processWithdrawal = async function (id, newStatus) {
 let allSettings = {};
 async function loadProductSettings() {
     try {
-        const { data, error } = await supabase.rpc('admin_get_settings', { p_session_token: getSessionToken() });
+        const { data, error } = await apiCall(
+            () => supabase.rpc('admin_get_settings', { p_session_token: getSessionToken() }),
+            { retries: 2, context: 'Tải cài đặt' }
+        );
         if (error) throw error;
         allSettings = {};
         (data || []).forEach(s => { allSettings[s.key] = s.value; });
@@ -862,9 +889,12 @@ window.saveAnnouncement = async function () {
 
 async function loadAnalytics() {
     try {
-        const { data: orders, error } = await supabase.rpc('admin_get_analytics', {
-            p_session_token: getSessionToken(), p_days: 30
-        });
+        const { data: orders, error } = await apiCall(
+            () => supabase.rpc('admin_get_analytics', {
+                p_session_token: getSessionToken(), p_days: 30
+            }),
+            { retries: 2, context: 'Tải phân tích' }
+        );
         if (error) throw error;
 
         if (!orders?.length) {
@@ -976,7 +1006,7 @@ async function loadAnalytics() {
         });
 
     } catch (err) {
-        console.error('Analytics error:', err);
+        handleApiError(err, 'Tải phân tích', showAdminToast);
     }
 }
 
