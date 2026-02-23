@@ -6,38 +6,38 @@
 
 const HERO_CTAS = [
   {
-    text: '2 Viên Mỗi Sáng — Phục Hồi Sinh Lực Từ Gốc',
-    shortText: 'Phục Hồi Sinh Lực Từ Gốc',
-    subtitle: 'Nguồn dinh dưỡng cao cấp từ 100% con nhộng nguyên chất — phục hồi sinh lực, bồi đắp đề kháng, mỗi ngày một chút.'
+    text: 'Mỗi viên nang — tôi đều dám cho bố mẹ mình uống.',
+    shortText: 'Dám cho bố mẹ mình uống.',
+    subtitle: 'Đông Trùng Hạ Thảo Maldalla Duy Đức — 100% con nhộng nguyên chất. Không pha trộn. Không phụ gia. Từ vùng nguyên liệu đến viên nang — một đường thẳng.'
   },
   {
-    text: 'Mỗi Sáng 2 Viên — Để Cơ Thể Sống Thật Sự Khỏe',
-    shortText: 'Cho Cơ Thể Khỏe Từ Bên Trong',
-    subtitle: 'Không phải thuốc. Không thay thế bác sĩ. Nhưng mỗi ngày, cơ thể bạn cần thêm một đồng minh từ thiên nhiên.'
+    text: 'Mười lăm năm chỉ làm một thứ. Và làm cho tới nơi tới chốn.',
+    shortText: 'Một thứ. Tới nơi tới chốn.',
+    subtitle: '100% con nhộng nguyên chất. Không pha. Không trộn. Không ngoại lệ. Mỗi viên nang 500mg — sấy thăng hoa giữ nguyên dưỡng chất.'
   },
   {
-    text: 'Phục Hồi Sinh Lực — Bắt Đầu Từ Viên Nang Đầu Tiên',
-    shortText: 'Bắt Đầu Từ Viên Nang Đầu Tiên',
-    subtitle: 'Viên nang nguyên chất 100% con nhộng — bồi đắp từ gốc, để bạn khỏe hơn, ít mệt hơn, sống trọn vẹn hơn.'
+    text: 'Hơn 50% khách hàng đến từ lời giới thiệu của người thân.',
+    shortText: '50% khách đến từ người thân.',
+    subtitle: 'Mười lăm năm, Maldalla lớn lên nhờ một kênh duy nhất: người thật giới thiệu cho người thật. Không có chiến dịch quảng cáo nào mạnh bằng một câu nói của người bạn tin tưởng.'
   },
   {
-    text: '2 Viên Mỗi Sáng — Dinh Dưỡng Cao Cấp, Phục Hồi Từ Bên Trong',
-    shortText: 'Dinh Dưỡng Cao Cấp Mỗi Ngày',
-    subtitle: 'Đề kháng vững vàng, giấc ngủ sâu hơn, buổi sáng nhẹ nhàng hơn — hành trình bắt đầu từ 2 viên mỗi sáng.'
+    text: '100% con nhộng nguyên chất. Không pha. Không trộn. Không ngoại lệ.',
+    shortText: '100% nguyên chất. Không ngoại lệ.',
+    subtitle: 'Từ vùng nguyên liệu Tây Tạng, qua nhà máy Hà Giang, đến tay bạn — một quy trình khép kín mà tôi kiểm soát từ đầu đến cuối.'
   },
   {
-    text: 'Khỏe Từ Gốc — 2 Viên Mỗi Sáng',
-    shortText: 'Khỏe Từ Gốc Mỗi Ngày',
-    subtitle: 'Nuôi cấy khép kín, sấy thăng hoa, đóng viên nguyên chất. Mỗi viên đều được làm với một tiêu chuẩn: xứng đáng cho ba mẹ mình.'
+    text: '48.000đ mỗi ngày — ít hơn một ly cà phê. Cho sức khỏe cả tháng.',
+    shortText: '48.000đ/ngày. Cho cả tháng.',
+    subtitle: 'Tôi không xin lỗi về giá. Bởi vì giá ấy là giá của sự thật. Và sự thật thì không bao giờ rẻ.'
   }
 ];
 
 // CTA phụ — nút thứ 2 cũng random
 const HERO_SUB_CTAS = [
-  'Câu Chuyện 15 Năm Của Chúng Tôi',
-  'Vì Sao 10.000+ Người Tin Dùng?',
-  'Xem Quy Trình Sản Xuất',
-  'Tìm Hiểu Thêm'
+  'Tìm hiểu câu chuyện của chúng tôi',
+  'Đọc câu chuyện 15 năm',
+  'Câu chuyện đằng sau mỗi viên nang',
+  'Vì sao chỉ một sản phẩm?'
 ];
 
 // Tránh lặp lại CTA lần trước (dùng sessionStorage)

@@ -8,11 +8,13 @@ export function renderBenefits(product) {
   if (!grid || !product) return;
 
   const benefits = product.benefits || [];
-  if (benefits.length < 6) return;
+  if (benefits.length < 5) return;
 
-  // Split: 0,2,3 = Internal Health; 1,4,5 = Daily Recovery
+  // Split: 0,2,3 = Phục hồi bên trong; 1,4 = Bảo vệ mỗi ngày; extra at 5 if exists
   const colA = [benefits[0], benefits[2], benefits[3]];
-  const colB = [benefits[1], benefits[4], benefits[5]];
+  const colB = benefits.length >= 6
+    ? [benefits[1], benefits[4], benefits[5]]
+    : [benefits[1], benefits[4]];
 
   // Highlight key terms in descriptions
   const highlight = (text) => {
@@ -20,8 +22,8 @@ export function renderBenefits(product) {
       'Cordycepin', 'Adenosine', 'SOD', 'Catalase', 'Polysaccharide',
       'tế bào NK', 'Natural Killer', 'GMP', 'WHO',
       'hệ miễn dịch', 'chống oxy hóa', 'giãn mạch', 'giãn phế quản',
-      'giấc ngủ sâu', 'năng lượng', 'cholesterol', 'gốc tự do',
-      'kháng viêm', 'tuần hoàn', 'hấp thu oxy',
+      'giấc ngủ', 'năng lượng', 'cholesterol', 'gốc tự do',
+      'kháng viêm', 'tuần hoàn', 'hấp thu oxy', 'caffeine',
     ];
     let result = escapeHTML(text);
     terms.forEach(term => {
@@ -43,7 +45,7 @@ export function renderBenefits(product) {
       <div class="benefits-block-header">
         <div>
           <h3 class="benefits-block-title">Phục Hồi — Từ Bên Trong</h3>
-          <p class="benefits-block-sub">Miễn dịch · Hô hấp · Tim mạch</p>
+          <p class="benefits-block-sub">Giấc ngủ · Đề kháng · Hô hấp</p>
         </div>
       </div>
       <div class="benefits-block-items">
@@ -54,7 +56,7 @@ export function renderBenefits(product) {
       <div class="benefits-block-header">
         <div>
           <h3 class="benefits-block-title">Bảo Vệ — Vững Vàng Mỗi Ngày</h3>
-          <p class="benefits-block-sub">Năng lượng · Giấc ngủ · Trẻ lâu</p>
+          <p class="benefits-block-sub">Năng lượng · Bớt mệt · Trẻ lâu</p>
         </div>
       </div>
       <div class="benefits-block-items">

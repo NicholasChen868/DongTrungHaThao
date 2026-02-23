@@ -67,6 +67,20 @@
 - Fix CI tests (exclude .claude/ worktrees từ vitest)
 - Dọn sạch 3 Claude Code branches + 2 remote stale branches
 
+### 🎨 D13. UI/UX Audit Polish ✅
+- Nav account pill: `→` → SVG user icon
+- Login popup icon: `→` → 🔐
+- Role badge: inline style → CSS
+- CSS vendor prefix fix
+- Full browser audit (desktop 1440px + mobile 375px)
+
+### 📱 D14. PWA — Installable App + Offline Cache ✅
+- manifest.json (standalone, dark gold, vi)
+- AI-generated cordyceps app icon (192+512px)
+- Service Worker: network-first HTML, cache-first assets
+- apple-touch-icon + mobile-web-app-capable
+- Production-only SW registration
+
 ---
 
 ## 🔴 CẦN LÀM TIẾP (ƯU TIÊN CAO) — Shadow Tasks D7-D11
@@ -164,10 +178,7 @@
 ### 🎯 CTV Leaderboard
 - Bảng xếp hạng CTV theo điểm tích lũy, gamification
 
-### 📱 PWA / Mobile App
-- Service Worker, Manifest.json, Offline cache, Push notifications
-
-### 🔔 Push Notification Web
+###  Push Notification Web
 - Browser push cho đơn hàng, điểm CTV, bài viết approved
 
 ---
@@ -181,5 +192,5 @@
 
 ---
 
-*Cập nhật bởi Antigravity AI — 23/02/2026 23:25*
-*D7 module ready — D9 chờ test — Sprint D 94% complete*
+*Cập nhật bởi Antigravity AI — 24/02/2026 00:44*
+*D13 UI Audit + D14 PWA done — Sprint D 94% (31/33)*

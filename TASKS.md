@@ -151,6 +151,15 @@
 - [x] CSS vendor prefix: `-webkit-backdrop-filter` before `backdrop-filter`
 - [x] Full browser audit: desktop (1440px) + mobile (375px)
 
+### D14. PWA — Installable App + Offline Cache ✅ DONE
+
+- [x] `manifest.json`: standalone dark gold, vi lang, icon 192+512
+- [x] AI-generated golden cordyceps app icon
+- [x] Service Worker: network-first HTML, cache-first static assets
+- [x] `apple-touch-icon` + `apple-mobile-web-app-capable`
+- [x] SW registration in main.js (production only, skip localhost)
+- [x] Cache cleanup on version update
+
 ---
 
 ## ✨ P1 Features (từ Claude Code branch, re-implemented) ✅ DONE
@@ -175,8 +184,9 @@
 | **D9: Content Bible** | 0/1 | ⏳ Cần test |
 | **D10-D12: Mobile + Analytics + Polish** | 3/3 | ✅ DONE |
 | **D13: UI/UX Audit** | 1/1 | ✅ DONE |
+| **D14: PWA** | 1/1 | ✅ DONE |
 | **P1: Claude Code Features** | 4/4 | ✅ DONE |
-| **Tổng** | **30/32** | **94%** |
+| **Tổng** | **31/33** | **94%** |
 
 ### Test Coverage
 
@@ -200,5 +210,5 @@
 
 ---
 
-*Cập nhật bởi Antigravity AI — 23/02/2026 23:58*
-*Sprint D 94% — D7 (A/B module ready) + D9 (Content Bible) còn lại*
+*Cập nhật bởi Antigravity AI — 24/02/2026 00:42*
+*Sprint D 94% — D7 (A/B ready) + D9 (Content Bible) còn lại*
