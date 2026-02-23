@@ -1,6 +1,10 @@
 # 🏗️ PROJECT REVIEW & COORDINATION PLAN
 # Đông Trùng Hạ Thảo — maldalladuyduc
-> **Last updated**: 2026-02-20 12:41
+
+> ⚠️ **ARCHIVED** — Phase 1 Security đã hoàn thành. Phase 2-4 chuyển vào `TASKS.md` (Sprint A-B-C).
+> Xem `TASKS.md` cho plan hiện tại. Xem `BACKLOG.md` cho tính năng tạm treo.
+
+> **Last updated**: 2026-02-20 12:41 (archived 2026-02-23)
 > **Reviewed by**: Antigravity AI
 > **For**: ClaudeCode coordination
 

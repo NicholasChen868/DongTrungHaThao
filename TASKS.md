@@ -1,213 +1,206 @@
-# 📋 Implementation Tasks — Đông Trùng Hạ Thảo (maldalladuyduc)
+# 📋 TASKS — Đông Trùng Hạ Thảo (maldalladuyduc)
 
-> Cập nhật lần cuối: **2026-02-20 12:41**
-
----
-
-## ✅ ĐÃ HOÀN THÀNH
-
-### 🏗️ Nền Tảng
-
-- [x] Khởi tạo Vite project
-- [x] Thiết kế Design System (CSS variables, typography, colors)
-- [x] Tích hợp Supabase (database, auth)
-- [x] Cấu trúc thư mục: `src/`, `data/`, `public/`
-- [x] Deploy Vercel (auto-deploy từ GitHub `main`)
-
-### 🎨 Giao Diện Trang Chính
-
-- [x] Hero section (tiêu đề, CTA, thống kê, cuộn xuống)
-- [x] Section Giới Thiệu / Benefits (3 cards)
-- [x] Section Quy Trình (timeline steps)
-- [x] Section Sản Phẩm (ảnh, giá, mô tả)
-- [x] Section Đánh Giá (testimonials từ Supabase)
-- [x] Section Câu Chuyện Sức Khỏe (stories)
-- [x] Section CTV / Affiliate (bảng hoa hồng, đăng ký)
-- [x] Section Liên Hệ (form, hotline, Zalo)
-- [x] Footer (links, copyright)
-- [x] Animations on scroll (animate-on-scroll)
-
-### 🧭 Navigation Bar
-
-- [x] Premium header bar (nền #141414, viền vàng trên 2px)
-- [x] Logo vàng "maldalladuyduc"
-- [x] Menu items không rớt chữ (nowrap + &nbsp;)
-- [x] CTA button "Đặt Hàng" nổi bật
-- [x] Hamburger menu cho tablet/mobile (<= 1024px)
-- [x] Sticky navbar khi scroll
-- [x] Nút CTV (border blue) + Thành Viên (border gold)
-- [x] Link Chia Sẻ + Câu Chuyện
-
-### ⚡ Hiệu Năng
-
-- [x] Loại bỏ toàn bộ animations GPU-intensive
-- [x] Không backdrop-filter, không text gradient, không shimmer
-- [x] Transition chỉ specific properties (color, border-color, opacity)
-- [x] No `transition: all`
-- [x] Kiểm tra 0 GPU artifacts trên production
-
-### 📱 Responsive
-
-- [x] Desktop (>1024px): Full navbar, 3/4-col grids
-- [x] Tablet (768-1024px): Hamburger menu, 2-col grids
-- [x] Mobile (480-768px): Stack layout, adjusted font sizes
-- [x] Small Mobile (<480px): Compact layout
-- [x] Hero content padding-top tránh bị navbar đè
-
-### 📊 CTV System
-
-- [x] Đăng ký CTV (form trên trang chính)
-- [x] Hệ thống ref tracking (URL params)
-- [x] Ghi nhận click + điểm tích lũy
-- [x] Share buttons trên story cards + product
-- [x] Bảng hoa hồng theo tier (Bạc/Vàng/Kim Cương/Đại Lý)
-
-### 📄 Trang CTV Dashboard (`/ctv-dashboard.html`)
-
-- [x] Đăng nhập bằng SĐT
-- [x] Thống kê: tổng điểm, chờ duyệt, VNĐ, lượt click
-- [x] Link giới thiệu + copy 1-click
-- [x] Lịch sử giao dịch (20 items gần nhất)
-- [x] Tier badge (Bạc/Vàng/Kim Cương)
-- [x] Responsive mobile
-
-### 🔐 Trang Admin Dashboard (`/admin.html`)
-
-- [x] Login bằng password (SHA-256, password = 'matkhau')
-- [x] Sidebar navigation (8 sections)
-- [x] Overview: tổng đơn hàng, doanh thu, CTV, liên hệ
-- [x] Bảng đơn hàng + nút duyệt/từ chối/giao/hoàn thành
-- [x] Danh sách CTV + nút nâng hạng (→ Vàng/Kim Cương)
-- [x] Đánh giá khách hàng
-- [x] Yêu cầu liên hệ
-- [x] Bài viết chia sẻ (duyệt/ẩn)
-- [x] Analytics: Bar chart doanh thu 30 ngày + Doughnut trạng thái
-- [x] Export CSV (đơn hàng + CTV)
-- [x] Toast notifications + nút 🔄 Làm mới
-- [x] Responsive mobile (sidebar thành tab bar)
-
-### 💛 Trang Thành Viên Thân Thiết (`/thanh-vien.html`)
-
-- [x] Đăng ký (tên, SĐT, email, mật khẩu)
-- [x] Đăng nhập (SĐT + mật khẩu)
-- [x] Dashboard: đơn hàng gần đây, tổng chi tiêu
-- [x] Badges: Thành Viên Thân Thiết
-- [x] Session persistence (sessionStorage)
-
-### ✍️ Trang Chia Sẻ Yêu Thương (`/chia-se.html`)
-
-- [x] Blog cộng đồng cho Thành Viên
-- [x] 4 chuyên mục: Sức khỏe, Cuộc sống, Trải nghiệm, Mẹo hay
-- [x] Viết bài + admin duyệt trước khi hiển thị
-- [x] Social sharing (Facebook, Zalo, copy link)
-- [x] View counter + likes
-- [x] Open Graph meta cho rich preview
-
-### 🍄 Trang Câu Chuyện Sản Phẩm (`/cau-chuyen.html`)
-
-- [x] Hero section (font Lora serif)
-- [x] Timeline quy trình sản xuất (5 bước)
-- [x] Grid giá trị khác biệt (4 cards)
-- [x] Grid công dụng (4 cards)
-- [x] CTA buttons
-
-### 🗄️ Database (Supabase)
-
-- [x] Bảng `company_testimonials`
-- [x] Bảng `ctv_accounts`
-- [x] Bảng `point_transactions`
-- [x] Bảng `share_clicks`
-- [x] Bảng `contact_submissions`
-- [x] Bảng `orders` (migration 003)
-- [x] Bảng `members` (migration 004)
-- [x] Bảng `member_posts` (migration 004)
-- [x] RPC functions: `register_ctv`, `get_ctv_dashboard`, `record_share_click`
-- [x] Fix diacritics (dấu tiếng Việt)
-
-### 🔍 SEO & Marketing
-
-- [x] Sitemap.xml
-- [x] Schema.org structured data (Organization + Product)
-- [x] Open Graph meta tags (full: url, locale, site_name)
-- [x] Twitter Card meta tags
-- [x] Canonical URL
-- [x] Robots.txt (+ noindex admin)
+> **Cập nhật**: 2026-02-23
+> **Trạng thái**: 🔴 ĐÓNG BĂNG TÍNH NĂNG MỚI — Trả nợ kỹ thuật trước
+> **Backlog tính năng mới**: Xem `BACKLOG.md`
 
 ---
 
-## 🔄 ĐANG TIẾN HÀNH — Phối hợp ClaudeCode
+## ⚠️ NGUYÊN TẮC HIỆN TẠI
 
-### 🔴 Phase 1: Security Hardening (ƯU TIÊN CAO)
-
-- [x] Tighten RLS: members (SELECT by owner only) — RPC `authenticate_member`
-- [x] Tighten RLS: member_posts (UPDATE by owner only) — RPC `admin_update_post_status`
-- [x] Tighten RLS: orders (restrict SELECT) — RPC `get_member_orders`, `admin_list_orders`
-- [x] Input sanitization (XSS prevention) — `src/utils/sanitize.js` + escapeHTML everywhere
-- [x] Rate limiting (login attempts, form submissions) — `src/utils/ratelimit.js`
-- [x] CSP headers (vercel.json) — CSP + X-Frame-Options + nosniff
-- [ ] Admin auth nâng cao → Supabase Auth
-
-### 🟡 Phase 2: Testing
-
-- [ ] Setup Vitest + testing-library
-- [ ] Unit tests: CTV system, order form, sanitize
-- [ ] Integration tests: signup → dashboard flows
-- [ ] E2E tests: homepage, order, ctv, admin (Playwright)
-- [ ] Lighthouse CI (target: Performance 90+, SEO 95+)
-
-### 🟡 Phase 3: Refactoring & Code Quality
-
-- [ ] Tách admin.html JS/CSS → modules riêng
-- [ ] Tách style.css (42KB) → component files
-- [ ] Tách main.js (17KB) → feature modules
-- [ ] Error handling wrapper (retry logic, fallback UI)
-- [ ] Environment variables (.env)
-- [ ] CI/CD: GitHub Actions (lint + test + preview)
+> **KHÔNG thêm tính năng mới** cho đến khi trả xong nợ kỹ thuật bên dưới.
+> Mọi ý tưởng feature mới → ghi vào `BACKLOG.md`, xử lý sau.
+> Ưu tiên: Refactor → Test → Harden → rồi mới Feature.
 
 ---
 
-## 📌 TODO — Features
+## 📊 TÌNH TRẠNG DỰ ÁN (Audit 23/02/2026)
 
-### 🛒 Đặt Hàng
+### Những gì đã xong ✅
+- Trang chủ, CTV Dashboard, Admin Dashboard, Thành Viên, Chia Sẻ, Câu Chuyện, Bản Đồ Sức Khỏe
+- Tra cứu đơn hàng, Tuyển CTV landing, Trang pháp lý (3 trang), 404
+- 18 SQL migrations, RLS hardening, CSP headers, rate limiting
+- Unified auth system, login modal popup, role-based menu
+- Phase 6 (UX Engagement) Sprint 1→4 hoàn thành
+- SEO (sitemap, schema.org, OG, robots, canonical)
+- CI/CD cơ bản (GitHub Actions build + security scan)
+- 102 commits, deploy tự động qua Vercel
 
-- [x] Form đặt hàng hoàn chỉnh
-- [x] Lưu đơn hàng vào Supabase
-- [x] SQL migration cho bảng `orders`
-- [ ] Xác nhận đơn hàng bằng SMS/Zalo
-- [ ] Email thông báo đơn hàng mới cho admin
-
-### 💳 Thanh Toán CTV
-
-- [ ] Chức năng rút tiền cho CTV
-- [ ] Xác nhận thanh toán từ admin
-- [ ] Lịch sử thanh toán
-
-### 📱 PWA / Mobile App
-
-- [ ] Service Worker + Manifest.json
-- [ ] Offline support
-- [ ] Push notifications
-
-### 📈 Analytics
-
-- [ ] Page view tracking
-- [ ] Conversion funnel
-- [ ] Section engagement
-
-### 📸 Nội Dung
-
-- [ ] Ảnh sản phẩm chuyên nghiệp
-- [ ] Video giới thiệu quy trình
-- [ ] Chứng nhận / giấy tờ pháp lý
+### Những gì đang nợ 🔴
+- **File sizes phình 2x** so với plan (chưa refactor gì)
+- **Testing gần bằng 0** (chỉ 3 unit tests, 0 E2E)
+- **Monolith HTML** — `ctv-dashboard.html` 100KB, `admin.html` 99KB
+- **CSS monolith** — `style.css` 78KB (plan ghi 42KB)
+- **JS monolith** — `main.js` 39KB (plan ghi 17KB)
+- **Auth inline styles** — `auth.js` 28KB chứa cả CSS trong JS
+- **Migration numbering lỗi** — 2 file cùng số 011
+- **Admin auth vẫn SHA-256** client-side (chưa nâng Supabase Auth)
+- **Không có error handling** chung (Supabase down → trang trắng)
 
 ---
 
-## 📝 Ghi Chú
+## 🎯 PLAN MỚI — THỨ TỰ THỰC HIỆN
 
-- **Deployment**: Vercel auto-deploy từ `main` branch
-- **Database**: Supabase (PostgreSQL) — Project `lfwihaamswskmospcqfo`
-- **Framework**: Vite (vanilla JS, no React)
-- **Font**: Be Vietnam Pro + Lora (Câu Chuyện page)
-- **Design**: Premium Dark/Gold theme
-- **Admin password**: `matkhau` (SHA-256 hash)
-- **Review doc**: Xem `REVIEW.md` cho full security audit + coordination plan
+### 🔴 Sprint A: Sửa lỗi cấu trúc (Blocking — làm trước tiên)
+
+> Mục tiêu: Dọn dẹp cấu trúc project để có thể bảo trì được.
+> Ai: Gravity (Frontend) + ClaudeCode (JS logic)
+
+#### A1. Fix migration numbering
+- [ ] Đổi tên `011_server_rate_limit.sql` → `011a_server_rate_limit.sql` hoặc renumber
+- [ ] Kiểm tra tất cả 18 migrations chạy đúng thứ tự trên Supabase
+- **Effort**: Nhỏ (30 phút)
+
+#### A2. Tách `admin.html` (99KB → ~15KB HTML)
+- [ ] Tách CSS inline → `src/admin.css`
+- [ ] Tách JS inline → `src/admin.js`
+- [ ] `admin.html` chỉ còn HTML structure + script/link imports
+- [ ] Verify build: `npx vite build`
+- **Effort**: Trung bình (2-3 giờ)
+- **Owner**: ClaudeCode (JS tách) + Gravity (CSS tách + QC)
+
+#### A3. Tách `ctv-dashboard.html` (100KB → ~15KB HTML)
+- [ ] Tách CSS inline → `src/ctv-dashboard.css`
+- [ ] Tách JS inline → `src/ctv-dashboard.js`
+- [ ] `ctv-dashboard.html` chỉ còn HTML structure + imports
+- [ ] Verify build: `npx vite build`
+- **Effort**: Trung bình (2-3 giờ)
+- **Owner**: ClaudeCode (JS tách) + Gravity (CSS tách + QC)
+
+#### A4. Tách `src/style.css` (78KB → ~40KB tổng qua components)
+- [ ] `src/css/base.css` — reset, variables, typography, utilities
+- [ ] `src/css/navbar.css` — header, nav, mobile menu
+- [ ] `src/css/hero.css` — hero section
+- [ ] `src/css/sections.css` — benefits, process, product, testimonials, stories, contact
+- [ ] `src/css/components.css` — cards, buttons, badges, forms, modals
+- [ ] `src/css/responsive.css` — media queries tập trung
+- [ ] `src/css/pages/` — CSS riêng từng trang phụ (chia-se, cau-chuyen, etc.)
+- [ ] `src/style.css` → import file gom lại, hoặc Vite xử lý
+- [ ] Xóa CSS trùng lặp / không dùng (ước tính giảm ~30-40%)
+- **Effort**: Lớn (3-4 giờ)
+- **Owner**: Gravity
+
+#### A5. Tách `src/main.js` (39KB → modules)
+- [ ] `src/modules/animations.js` — scroll animations, observers
+- [ ] `src/modules/order-form.js` — form logic, validation, submit
+- [ ] `src/modules/testimonials.js` — load/render testimonials
+- [ ] `src/modules/returning-customer.js` — nhớ khách cũ, greeting banner
+- [ ] `src/modules/reorder-reminder.js` — gợi ý mua lại
+- [ ] `src/modules/floating-buttons.js` — floating CTA, contact widget
+- [ ] `src/main.js` chỉ còn imports + init calls
+- **Effort**: Trung bình (2-3 giờ)
+- **Owner**: ClaudeCode
+
+#### A6. Dọn `src/auth.js` — tách CSS ra khỏi JS
+- [ ] Di chuyển toàn bộ CSS trong `injectAuthStyles()` → `src/css/auth.css`
+- [ ] `auth.js` chỉ giữ logic JS, import CSS qua Vite
+- [ ] Giảm auth.js từ 28KB → ~10KB
+- **Effort**: Nhỏ-Trung bình (1-2 giờ)
+- **Owner**: Gravity
+
+---
+
+### 🟡 Sprint B: Testing (Quan trọng — làm sau Sprint A)
+
+> Mục tiêu: Đảm bảo code hoạt động đúng, phát hiện regression.
+> Ai: ClaudeCode chính, Gravity review
+
+#### B1. Hoàn thiện Vitest setup
+- [ ] Cấu trúc thư mục test: `tests/unit/`, `tests/integration/`
+- [ ] Mock Supabase client cho unit tests
+- [ ] npm scripts: `test`, `test:watch`, `test:coverage`
+- **Effort**: Nhỏ (1 giờ)
+
+#### B2. Unit tests — Mở rộng từ 3 → 15+ tests
+- [ ] `tests/unit/sanitize.test.js` ← ✅ đã có
+- [ ] `tests/unit/ratelimit.test.js` ← ✅ đã có
+- [ ] `tests/unit/order-validation.test.js` ← ✅ đã có
+- [ ] `tests/unit/auth.test.js` — login, logout, session, role config
+- [ ] `tests/unit/ngu-hanh.test.js` — tính ngũ hành đúng
+- [ ] `tests/unit/ctv.test.js` — ref tracking, tier logic, anti-self-referral
+- [ ] `tests/unit/tracker.test.js` — page view tracking
+- **Effort**: Trung bình (2-3 giờ)
+- **Owner**: ClaudeCode
+
+#### B3. Integration tests
+- [ ] `tests/integration/ctv-flow.test.js` — đăng ký → login → dashboard
+- [ ] `tests/integration/order-flow.test.js` — đặt hàng → xác nhận
+- [ ] `tests/integration/member-flow.test.js` — đăng ký → login → profile
+- **Effort**: Trung bình (2-3 giờ)
+- **Owner**: ClaudeCode
+
+#### B4. E2E tests (Playwright) — Happy path
+- [ ] Install Playwright
+- [ ] `tests/e2e/homepage.spec.js` — load, navigate, scroll, CTA
+- [ ] `tests/e2e/order.spec.js` — fill form → submit → confirmation
+- [ ] `tests/e2e/ctv.spec.js` — register → login → dashboard
+- [ ] `tests/e2e/admin.spec.js` — login → view orders → approve
+- **Effort**: Lớn (3-4 giờ)
+- **Owner**: ClaudeCode
+
+#### B5. CI tích hợp test
+- [ ] GitHub Actions: chạy `npm test` trước merge
+- [ ] Lighthouse CI (target: Performance 90+, Accessibility 90+, SEO 95+)
+- **Effort**: Nhỏ (1 giờ)
+
+---
+
+### 🟢 Sprint C: Hardening (Sau Sprint B)
+
+> Mục tiêu: Sẵn sàng cho user thật.
+> Ai: ClaudeCode + Gravity
+
+#### C1. Admin auth nâng cao
+- [ ] Migrate admin login từ SHA-256 client-side → Supabase Auth (hoặc server-side RPC)
+- [ ] Session token thay vì chỉ check hash
+- [ ] Không lộ password hash trong source code
+- **Effort**: Trung bình (2 giờ)
+- **Owner**: ClaudeCode (logic) + Gravity (UI)
+
+#### C2. Error handling chung
+- [ ] `src/utils/api.js` — wrapper cho Supabase calls
+- [ ] Retry logic (3 attempts, exponential backoff)
+- [ ] Fallback UI khi Supabase/network down
+- [ ] Global error handler + toast notification
+- **Effort**: Trung bình (2 giờ)
+- **Owner**: ClaudeCode
+
+#### C3. Performance audit
+- [ ] Lazy load Chart.js trên admin (hiện load ~200KB global)
+- [ ] Lazy load images (`loading="lazy"`)
+- [ ] WebP fallback cho ảnh lớn
+- [ ] Bundle size check sau refactor
+- **Effort**: Nhỏ (1-2 giờ)
+- **Owner**: Gravity
+
+#### C4. Accessibility cơ bản
+- [ ] Alt text cho tất cả ảnh
+- [ ] Keyboard navigation cho modals, dropdowns
+- [ ] ARIA labels cho interactive elements
+- [ ] Color contrast check (gold on dark bg)
+- **Effort**: Nhỏ-Trung bình (1-2 giờ)
+- **Owner**: Gravity
+
+---
+
+## 📊 TỔNG KẾT EFFORT
+
+| Sprint | Số tasks | Effort ước tính | Ưu tiên |
+|--------|----------|----------------|---------|
+| **A: Refactor** | 6 tasks | ~12-16 giờ | 🔴 Làm ngay |
+| **B: Testing** | 5 tasks | ~10-12 giờ | 🟡 Sau Sprint A |
+| **C: Hardening** | 4 tasks | ~6-8 giờ | 🟢 Sau Sprint B |
+| **Tổng** | **15 tasks** | **~28-36 giờ** | |
+
+> Sau khi Sprint A-B-C xong → mở khóa `BACKLOG.md` để tiếp tục phát triển tính năng.
+
+---
+
+## 📝 QUY TẮC LÀM VIỆC
+
+1. **Mỗi Sprint tách branch riêng** — merge vào `main` khi xong + pass tests
+2. **Mỗi task A1-A6 commit riêng** — dễ rollback nếu có lỗi
+3. **Build verify bắt buộc** — `npx vite build` clean trước khi push
+4. **Không sáng tạo thêm feature** trong quá trình refactor
+5. **Khi phát hiện bug** → fix ngay, đừng ghi TODO
+6. **Khi có ý tưởng mới** → ghi vào `BACKLOG.md`, không làm luôn

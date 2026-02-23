@@ -1,8 +1,13 @@
 # Phase 6: UX & Engagement Features
 
+> ⚠️ **ARCHIVED** — Phase 6 đã hoàn thành (Sprint 1→4 xong hết).
+> Xem `TASKS.md` cho plan hiện tại (trả nợ kỹ thuật).
+> Xem `BACKLOG.md` cho tính năng tạm treo.
+
 > **PM**: Antigravity (Frontend + QC + SQL Migration)
 > **Backend**: Claude Code
 > **Ngày bắt đầu**: 2026-02-20
+> **Ngày hoàn thành**: 2026-02-22
 
 ---
 
