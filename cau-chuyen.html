@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Câu Chuyện — Đông Trùng Hạ Thảo Maldalla Duy Đức</title>
     <meta name="description"
-        content="2 giờ sáng, phòng bệnh tầng 3. Ba nằm nghiêng, giấu cơn đau để con không lo. Đó là đêm thay đổi mọi thứ." />
-    <meta property="og:title" content="Câu Chuyện — Maldalla Duy Đức" />
+        content="Mười lăm năm. Một người đàn ông đi từ Tây Tạng về Sài Gòn. Một sản phẩm duy nhất. Một lời hứa không thay đổi." />
+    <meta property="og:title" content="Mười Lăm Năm, Một Con Đường — Maldalla Duy Đức" />
     <meta property="og:description"
-        content="Câu chuyện bắt đầu từ một đêm ngồi cạnh giường bệnh ba. Không phải tìm thuốc — mà tìm một thứ đủ tử tế để đặt vào tay người mình thương." />
+        content="Câu chuyện của người sáng lập đã dành mười lăm năm chỉ làm một sản phẩm — bởi vì ông tin: làm một thứ cho đúng, còn hơn làm mười thứ cho có." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://dong-trung-ha-thao.vercel.app/cau-chuyen.html" />
     <meta property="og:image" content="https://dong-trung-ha-thao.vercel.app/images/og-share.png" />
@@ -32,13 +32,16 @@
         :root {
             --bg: #050505;
             --bg-warm: #0c0a08;
+            --bg-chapter: #080604;
             --gold: #d4a853;
             --gold-light: #e8c97a;
             --gold-dim: rgba(212, 168, 83, 0.08);
+            --gold-glow: rgba(212, 168, 83, 0.04);
             --text: #f5f0e8;
             --text-sec: #b0a596;
             --text-muted: #665e52;
             --border: rgba(212, 168, 83, 0.12);
+            --border-strong: rgba(212, 168, 83, 0.25);
         }
 
         html {
@@ -49,11 +52,12 @@
             font-family: 'Be Vietnam Pro', sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.85;
+            line-height: 1.9;
             font-size: 17px;
+            overflow-x: hidden;
         }
 
-        /* Minimal nav */
+        /* ── NAV ── */
         .s-nav {
             position: fixed;
             top: 0;
@@ -88,64 +92,19 @@
             letter-spacing: 0.5px;
         }
 
-        /* ═══════════════════════════════════════════════ */
-        /* Chapter system */
-        /* ═══════════════════════════════════════════════ */
-
-        .chapter {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 100px 24px;
-            position: relative;
+        /* ── READING PROGRESS ── */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            z-index: 200;
+            width: 0%;
+            transition: width 0.1s linear;
         }
 
-        .chapter-inner {
-            max-width: 680px;
-            width: 100%;
-        }
-
-        .chapter-number {
-            font-size: 12px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .chapter h2 {
-            font-family: 'Lora', serif;
-            font-size: 2.4rem;
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 24px;
-        }
-
-        .chapter h2 .hl {
-            color: var(--gold-light);
-        }
-
-        .chapter p {
-            color: var(--text-sec);
-            font-size: 1.05rem;
-            margin-bottom: 18px;
-        }
-
-        .chapter p strong {
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        .chapter p em {
-            font-family: 'Lora', serif;
-            font-style: italic;
-            color: var(--gold-light);
-            font-size: 1.1rem;
-        }
-
-        /* Opening — cinematic */
+        /* ── OPENING HERO ── */
         .chapter-opening {
             min-height: 100vh;
             display: flex;
@@ -161,45 +120,63 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse 60% 50% at center 40%, rgba(212, 168, 83, 0.06) 0%, transparent 100%);
+            background:
+                radial-gradient(ellipse 50% 40% at center 35%, rgba(212, 168, 83, 0.07) 0%, transparent 100%),
+                radial-gradient(ellipse 80% 60% at center 80%, rgba(212, 168, 83, 0.03) 0%, transparent 100%);
+        }
+
+        .chapter-opening::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, var(--bg), transparent);
         }
 
         .opening-content {
             position: relative;
             z-index: 1;
-            max-width: 620px;
+            max-width: 640px;
         }
 
         .opening-content .kicker {
-            font-size: 13px;
-            letter-spacing: 4px;
+            font-size: 12px;
+            letter-spacing: 5px;
             text-transform: uppercase;
             color: var(--gold);
-            margin-bottom: 24px;
+            margin-bottom: 28px;
+            font-weight: 600;
         }
 
         .opening-content h1 {
-            font-family: 'Lora', serif;
-            font-size: 3rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
             font-weight: 700;
-            line-height: 1.25;
-            margin-bottom: 20px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
         }
 
         .opening-content h1 .hl {
             color: var(--gold-light);
+            display: block;
+            font-style: italic;
         }
 
         .opening-content .lead {
             font-family: 'Lora', serif;
             font-style: italic;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--text-sec);
-            line-height: 1.8;
+            line-height: 1.85;
+            max-width: 520px;
+            margin: 0 auto;
         }
 
         .scroll-hint {
-            margin-top: 48px;
+            margin-top: 56px;
             font-size: 13px;
             color: var(--text-muted);
             animation: breathe 3s infinite;
@@ -219,75 +196,180 @@
             }
         }
 
-        /* Divider */
-        .divider {
-            text-align: center;
-            padding: 40px 24px;
+        /* ── CHAPTER SYSTEM ── */
+        .chapter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 24px;
+            position: relative;
+        }
+
+        .chapter-inner {
+            max-width: 680px;
+            width: 100%;
+        }
+
+        .chapter-number {
+            font-size: 11px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
             color: var(--gold);
-            font-size: 1.5rem;
-            opacity: 0.3;
+            margin-bottom: 24px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
-        /* Quote block */
-        .quote-block {
-            padding: 60px 24px;
-            text-align: center;
-            max-width: 640px;
-            margin: 0 auto;
+        .chapter-number::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--border-strong), transparent);
+            max-width: 120px;
         }
 
-        .quote-block blockquote {
+        .chapter h2 {
+            font-family: 'Lora', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.35;
+            margin-bottom: 32px;
+        }
+
+        .chapter h2 .hl {
+            color: var(--gold-light);
+        }
+
+        .chapter p {
+            color: var(--text-sec);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+
+        .chapter p strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .chapter p em {
             font-family: 'Lora', serif;
             font-style: italic;
-            font-size: 1.4rem;
-            line-height: 1.7;
+            color: var(--gold-light);
+            font-size: 1.08rem;
+        }
+
+        /* ── DIVIDER ── */
+        .divider {
+            text-align: center;
+            padding: 32px 24px;
+            color: var(--gold);
+            font-size: 1.5rem;
+            opacity: 0.25;
+        }
+
+        /* ── PULL QUOTE ── */
+        .pull-quote {
+            max-width: 640px;
+            margin: 20px auto 20px;
+            padding: 48px 40px;
+            position: relative;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, var(--gold-glow), transparent, var(--gold-glow));
+        }
+
+        .pull-quote blockquote {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            line-height: 1.8;
             color: var(--gold-light);
             border: none;
             padding: 0;
-            margin: 0 0 16px;
+            margin: 0;
         }
 
-        .quote-block cite {
-            font-style: normal;
-            font-size: 14px;
-            color: var(--text-muted);
+        /* ── TESTIMONIAL BLOCK ── */
+        .testimonial-block {
+            max-width: 680px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 24px;
         }
 
-        /* Story illustration */
-        .story-visual {
-            margin: 32px 0;
-            padding: 40px;
-            background: var(--bg-warm);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            text-align: center;
+        .testimonial-item {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
         }
 
-        .story-visual .emoji {
-            font-size: 3rem;
+        .testimonial-item:last-child {
+            border-bottom: none;
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-item p {
+            color: var(--text-sec);
+            font-size: 1.05rem;
+            margin-bottom: 16px;
+            line-height: 1.9;
+        }
+
+        .testimonial-item p em {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            color: var(--gold-light);
+            font-size: 1.05rem;
+        }
+
+        .testimonial-item p strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ── PROCESS HIGHLIGHT ── */
+        .process-step {
+            margin: 28px 0;
+            padding-left: 20px;
+            border-left: 2px solid var(--border-strong);
+        }
+
+        .process-step p {
             margin-bottom: 12px;
         }
 
-        .story-visual p {
-            font-size: 14px;
-            color: var(--text-muted);
-            max-width: 400px;
-            margin: 0 auto;
+        .process-step .step-label {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 1rem;
         }
 
-        /* Testimonial separator */
-        .testimonial-sep {
-            width: 60px;
-            border: none;
-            border-top: 1px solid var(--border);
-            margin: 32px 0;
-        }
-
-        /* CTA section */
+        /* ── CTA ── */
         .story-cta {
             text-align: center;
             padding: 100px 24px;
-            background: linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
+            background: linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 50%, var(--bg) 100%);
+            position: relative;
+        }
+
+        .story-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 50% 40% at center, var(--gold-dim), transparent);
+        }
+
+        .story-cta>* {
+            position: relative;
+            z-index: 1;
         }
 
         .story-cta h2 {
@@ -299,7 +381,15 @@
         .story-cta .sub {
             color: var(--text-sec);
             font-size: 1rem;
-            margin-bottom: 32px;
+            margin-bottom: 36px;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .story-cta .sub em {
+            font-family: 'Lora', serif;
+            color: var(--gold-light);
         }
 
         .cta-buttons {
@@ -318,16 +408,19 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
+            transition: all 0.3s ease;
         }
 
         .btn-gold {
-            background: var(--gold);
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
             color: #0a0a0a;
             border: none;
+            box-shadow: 0 4px 24px rgba(212, 168, 83, 0.2);
         }
 
         .btn-gold:hover {
-            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(212, 168, 83, 0.35);
         }
 
         .btn-outline {
@@ -339,9 +432,10 @@
         .btn-outline:hover {
             border-color: var(--gold);
             color: var(--gold-light);
+            transform: translateY(-2px);
         }
 
-        /* Footer */
+        /* ── FOOTER ── */
         .s-footer {
             text-align: center;
             padding: 28px;
@@ -355,120 +449,149 @@
             text-decoration: none;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .opening-content h1 {
-                font-size: 2rem;
-            }
-
-            .chapter h2 {
-                font-size: 1.7rem;
-            }
-
-            .quote-block blockquote {
-                font-size: 1.15rem;
-            }
-
-            .s-nav {
-                padding: 12px 16px;
-            }
+        .disclaimer {
+            margin-top: 8px;
+            font-size: 11px;
+            opacity: 0.5;
         }
 
-        /* Scroll Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal.delay-1 {
-            transition-delay: 0.15s;
-        }
-
-        .reveal.delay-2 {
-            transition-delay: 0.3s;
-        }
-
-        .reveal.delay-3 {
-            transition-delay: 0.45s;
-        }
-
-        /* Reading Progress Bar */
-        .reading-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gold), var(--gold-light));
-            z-index: 200;
-            width: 0%;
-            transition: width 0.1s linear;
-        }
-
-        /* Chapter fade-in variation */
-        .chapter-inner>* {
+        /* ── ANIMATIONS (only when JS is ready) ── */
+        .js-ready .chapter-inner>* {
             opacity: 0;
             transform: translateY(25px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .chapter-inner.animate>*:nth-child(1) {
+        .js-ready .chapter-inner.animate>*:nth-child(1) {
             opacity: 1;
             transform: translateY(0);
             transition-delay: 0s;
         }
 
-        .chapter-inner.animate>*:nth-child(2) {
+        .js-ready .chapter-inner.animate>*:nth-child(2) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.1s;
+        }
+
+        .js-ready .chapter-inner.animate>*:nth-child(3) {
             opacity: 1;
             transform: translateY(0);
             transition-delay: 0.12s;
         }
 
-        .chapter-inner.animate>*:nth-child(3) {
+        .js-ready .chapter-inner.animate>*:nth-child(4) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.18s;
+        }
+
+        .js-ready .chapter-inner.animate>*:nth-child(5) {
             opacity: 1;
             transform: translateY(0);
             transition-delay: 0.24s;
         }
 
-        .chapter-inner.animate>*:nth-child(4) {
+        .js-ready .chapter-inner.animate>*:nth-child(6) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.30s;
+        }
+
+        .js-ready .chapter-inner.animate>*:nth-child(7) {
             opacity: 1;
             transform: translateY(0);
             transition-delay: 0.36s;
         }
 
-        .chapter-inner.animate>*:nth-child(5) {
+        .js-ready .chapter-inner.animate>*:nth-child(8) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.42s;
+        }
+
+        .js-ready .chapter-inner.animate>*:nth-child(9) {
             opacity: 1;
             transform: translateY(0);
             transition-delay: 0.48s;
         }
 
-        .chapter-inner.animate>*:nth-child(6) {
+        .js-ready .chapter-inner.animate>*:nth-child(10) {
             opacity: 1;
             transform: translateY(0);
-            transition-delay: 0.6s;
+            transition-delay: 0.54s;
         }
 
-        .chapter-inner.animate>*:nth-child(7) {
+        .js-ready .chapter-inner.animate>*:nth-child(11) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.60s;
+        }
+
+        .js-ready .chapter-inner.animate>*:nth-child(12) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.66s;
+        }
+
+        .js-ready .chapter-inner.animate>*:nth-child(13) {
             opacity: 1;
             transform: translateY(0);
             transition-delay: 0.72s;
         }
 
-        .chapter-inner.animate>*:nth-child(8) {
+        .js-ready .chapter-inner.animate>*:nth-child(14) {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: 0.78s;
+        }
+
+        .js-ready .chapter-inner.animate>*:nth-child(15) {
             opacity: 1;
             transform: translateY(0);
             transition-delay: 0.84s;
         }
 
-        .chapter-inner.animate>*:nth-child(9) {
+        .js-ready .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .js-ready .reveal.visible {
             opacity: 1;
             transform: translateY(0);
-            transition-delay: 0.96s;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 600px) {
+            .opening-content h1 {
+                font-size: 2.1rem;
+            }
+
+            .chapter h2 {
+                font-size: 1.65rem;
+            }
+
+            .pull-quote blockquote {
+                font-size: 1.05rem;
+            }
+
+            .pull-quote {
+                padding: 32px 24px;
+            }
+
+            .s-nav {
+                padding: 12px 16px;
+            }
+
+            .process-step {
+                padding-left: 16px;
+            }
+
+            .chapter {
+                padding: 72px 20px;
+            }
         }
     </style>
 </head>
@@ -481,75 +604,71 @@
         <a href="/chia-se.html">✍️ Chia Sẻ</a>
     </nav>
 
+    <!-- READING PROGRESS -->
+    <div class="reading-progress" id="readingProgress"></div>
+
     <!-- ═══════════════════════════════════════════════ -->
     <!-- OPENING -->
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter-opening">
         <div class="opening-content">
             <div class="kicker">Câu chuyện số một</div>
-            <h1>2 giờ sáng, <span class="hl">phòng bệnh tầng 3</span></h1>
+            <h1>Mười lăm năm, <span class="hl">một con đường</span></h1>
             <p class="lead">
-                Ba em nằm nghiêng trên giường bệnh. Mắt nhắm. Nhưng em biết ổng chưa ngủ
-                — vì bàn tay ổng vẫn đang nắm chặt mép chăn, như sợ ai lấy mất.
+                Tôi không biết bắt đầu từ đâu. Nhưng tôi nghĩ, nếu bạn đang đọc đến đây — thì bạn xứng đáng được nghe
+                câu chuyện thật. Không phải câu chuyện của một thương hiệu. Mà là câu chuyện của một người đàn ông đã đi
+                một con đường rất dài, chỉ để làm một thứ cho đúng.
             </p>
             <div class="scroll-hint">↓ Kéo xuống để đọc</div>
         </div>
     </section>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- CHƯƠNG 01: 2 GIỜ SÁNG -->
+    <!-- I. HÀNH TRÌNH TÌM KIẾM -->
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter">
         <div class="chapter-inner">
-            <div class="chapter-number">Chương 01</div>
-            <h2><span class="hl">Mùi nước sát khuẩn và tiếng máy monitor —</span> những thứ bạn không bao giờ quên</h2>
+            <div class="chapter-number">I</div>
             <p>
-                Em kể cho bạn nghe chuyện này. Không phải chuyện sản phẩm. Chuyện của em.
+                Tôi đã làm nhiều nghề.
             </p>
             <p>
-                Hồi đó, má gọi. Giọng bình thường, không gấp: <em>"Ba con dạo này yếu quá. Con chở ba đi khám nha."</em>
+                Quản lý, kinh doanh, đủ các lĩnh vực — có ngành thắng, có ngành thua, có ngành vừa bắt đầu thì nhận ra
+                mình không thuộc về đó. Kể ra thì dài. Mà kể cũng không cần thiết. Bởi vì tất cả những năm tháng ấy,
+                nhìn lại, chỉ là quá trình tôi đi tìm — tìm một thứ mà khi đặt toàn bộ tâm sức vào, tôi không phải tự
+                hỏi: liệu nó có thật sự tốt cho người dùng nó hay không?
             </p>
             <p>
-                "Yếu quá." Má nói nhẹ như kể chuyện hàng xóm. Nhưng khi em chở ba ra phòng khám bằng xe máy,
-                ổng ngồi sau ôm eo em — em mới thấy. Cái eo em hồi xưa ổng ôm không hết.
-                Giờ hai cánh tay ba vòng qua mà <strong>thừa ra.</strong>
+                Có người nhìn vào bảo tôi không kiên nhẫn. Có người bảo tôi tham vọng hão. Tôi không giải thích. Người
+                đi tìm thì không giải thích được với người đã dừng lại.
             </p>
             <p>
-                Em ghì tay lái chặt hơn. Không phải vì đường xấu. Mà vì em sợ ổng tuột.
+                Rồi tôi gặp Đông Trùng Hạ Thảo.
             </p>
             <p>
-                Bệnh viện. Lấy số. Chờ. Bác sĩ gọi vào. Ổng nhìn ba em — rồi quay sang nói chuyện với em.
-                Như thể ba không ngồi đó. <em>"Ổng bị suy nhược. Tuổi tác thôi. Bổ sung dinh dưỡng. Nghỉ ngơi."</em>
-                Kê đơn. Ký tên. Gọi bệnh nhân kế.
+                Không phải trong sách vở. Không phải trên mạng. Tôi gặp nó qua những con người thật, ở vùng cao, nơi
+                không ai biết đến quảng cáo hay tiếp thị. Những người bảy mươi, tám mươi tuổi, lưng vẫn thẳng, mắt vẫn
+                sáng, tay vẫn chắc. Họ không biết cordycepin là gì. Họ chỉ biết một điều giản dị: <em>thứ này tốt, cha
+                    ông đã dùng, con cháu vẫn đang dùng, đời này truyền đời khác.</em>
             </p>
             <p>
-                Hai phút. Ba em được quan tâm đúng hai phút.
+                Tôi bắt đầu tìm hiểu. Càng đi sâu càng thấy — đây là thứ có giá trị thật, không phải trào lưu, không
+                phải chiêu thức. Nhưng cũng chính lúc ấy, tôi nhận ra một điều khiến mình không thể làm ngơ:
             </p>
             <p>
-                Đêm đó ba phải ở lại viện theo dõi. Em ngồi trên cái ghế nhựa xanh — loại ghế ai từng nuôi bệnh
-                đều biết, cứng, lạnh, và không thể ngủ — nhìn ba nằm trên giường.
+                <strong>Thị trường đang phản bội thứ nguyên liệu này.</strong>
             </p>
             <p>
-                Mùi nước sát khuẩn. Tiếng máy monitor kêu tít... tít... tít... đều đặn.
-                Ánh đèn neon trắng nhợt. Người bệnh giường bên ho suốt đêm.
+                Mười người bán thì chín người pha trộn. Bột gạo, bột bắp, phẩm màu — đóng hộp đẹp đẽ, bán giá cao, người
+                mua không tài nào phân biệt nổi. Và bởi vì không phân biệt được, nên họ nghi ngờ tất cả. Kể cả hàng
+                thật.
             </p>
             <p>
-                Ba nằm nghiêng. Mắt nhắm nhưng em biết ổng thức. Vì bàn tay ổng — bàn tay hồi xưa bế em lên cao,
-                hồi xưa sửa cái xe hỏng cho em đi học —
-                <strong>giờ đang nắm chặt mép chăn, run run, gân xanh nổi dưới lớp da mỏng.</strong>
+                Tôi đứng trước hai lựa chọn: bỏ qua — hoặc tự mình làm từ đầu.
             </p>
             <p>
-                Ổng giấu. Giấu cơn đau. Giấu sự sợ. Giấu tất cả — để con không lo.
-            </p>
-            <p>
-                Ba em diễn giỏi lắm. Mấy chục năm rồi.
-            </p>
-            <p>
-                Và khoảnh khắc đó — 2 giờ sáng, phòng bệnh tầng 3, tiếng monitor đều đều — em không sợ ba bệnh.
-            </p>
-            <p>
-                <strong>Em sợ rằng mình sẽ sống cả đời, bon chen, bận rộn, kiếm tiền — rồi một ngày ngồi trên
-                    cái ghế nhựa này, nhìn người mình yêu nằm đó, và nhận ra mình chưa từng làm đủ.</strong>
+                Tôi chọn vế sau. Và kể từ lúc ấy, cuộc đời tôi rẽ sang một con đường mà tôi chưa bao giờ hình dung
+                trước.
             </p>
         </div>
     </section>
@@ -557,58 +676,53 @@
     <div class="divider">· · ·</div>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- CHƯƠNG 02: ÔNG NĂM THUỐC -->
+    <!-- II. HÀNH TRÌNH XÂY DỰNG -->
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter">
         <div class="chapter-inner">
-            <div class="chapter-number">Chương 02</div>
-            <h2><span class="hl">"10 người bán thì 9 người pha.</span> Con mua ngoài, may lắm được ba phần thiệt."</h2>
+            <div class="chapter-number">II</div>
             <p>
-                Sau đêm đó, em bắt đầu tìm.
+                Vùng nguyên liệu ở Tây Tạng — nơi độ cao và khí hậu tạo ra giống Cordyceps tốt nhất.
             </p>
             <p>
-                Không phải tìm thuốc — bác sĩ đã kê đơn, ba uống đủ. Em tìm thứ khác.
-                Một thứ gì đó có thể <strong>bồi đắp</strong> lại những gì thời gian lấy đi từ cơ thể ba.
-                Từ từ. Nhẹ nhàng. Mỗi ngày một chút.
+                Nhà máy sản xuất ở Hà Giang — nơi tôi đặt toàn bộ quy trình nuôi cấy, thu hoạch, đóng gói.
             </p>
             <p>
-                Em nhớ đến ông Năm — bạn ngoại, ông bác sĩ đông y già mà hồi nhỏ em gọi là "ông Năm thuốc."
-                Ổng hay ngồi uống trà với ngoại ở hiên nhà, mùi thuốc bắc phảng phất. Em lên tìm ổng.
+                Văn phòng ở Sài Gòn — nơi tôi điều hành, gặp đối tác, xử lý mọi thứ còn lại.
             </p>
             <p>
-                Ổng nghe em kể xong, rót thêm trà, chậm rãi:
+                Ba điểm. Hàng nghìn cây số. Và trong suốt những năm đầu, phần lớn quãng đường ấy — tôi đi một mình.
             </p>
             <p>
-                <em>"Trùng Thảo là thứ quý thiệt. Ông biết. Nhưng mà thị trường bây giờ...
-                    10 người bán thì 9 người pha. Con mua ngoài, may lắm được 30% nguyên chất.
-                    Phần còn lại là bột gạo, bột bắp, trộn màu cho đẹp."</em>
+                Tiền khởi nghiệp tôi không có sẵn. Dồn từ tiền nhà. Vay mượn thêm từ vợ. Xoay thêm bên ngoài. Vợ tôi
+                không nói gì nhiều — bà ấy chỉ đưa tiền, rồi lo chuyện nhà, chuyện con, để tôi yên tâm mà đi. Tôi nợ bà
+                ấy nhiều hơn tôi nợ bất kỳ ngân hàng nào.
             </p>
             <p>
-                Em hỏi: <em>"Vậy con biết mua ở đâu?"</em>
+                Mấy năm đầu gần như không có doanh thu. Sản phẩm làm ra xong, bán cho ai? Thị trường chưa biết Maldalla
+                là gì. Tôi không có tiền chạy quảng cáo. Không có đội ngũ marketing. Không có gì — ngoài sản phẩm và đôi
+                chân.
             </p>
             <p>
-                Ổng nhìn em. Lắc đầu. Im.
+                Có những chuyến đi Hà Giang giữa mùa mưa, đường sạt lở, xe không vào nổi, phải đi bộ đoạn cuối. Có những
+                lần vừa bay về đến Sài Gòn cho kịp sinh nhật con, sáng hôm sau đã lại ra sân bay. Có những tháng lương
+                nhân viên giao hàng phải trả trước lương mình. Có những giai đoạn — tôi nói thật — toàn bộ công ty chỉ
+                còn đúng hai người: tôi, và một người giao hàng.
             </p>
             <p>
-                Cái im lặng đó nặng hơn bất kỳ câu trả lời nào.
+                <em>Một giám đốc. Một shipper.</em>
             </p>
             <p>
-                Em đi khảo thị trường. Mua thử. Hộp 800 ngàn. Hộp triệu rưỡi. Hộp 2 triệu.
-                Mở ra, nhìn, ngửi, so sánh. Ông Năm nói đúng — phần lớn
-                <strong>nhìn giống, nhưng không phải.</strong>
-                Cái ngành này sống nhờ một thứ: người mua không biết phân biệt.
+                <strong>Thế mà vẫn đi.</strong>
             </p>
             <p>
-                Em ngồi giữa đống hộp, giữa đống thất vọng, và tự hỏi:
+                Không phải tôi giỏi chịu đựng. Tôi cũng mệt. Cũng có lúc ngồi một mình trong phòng trọ ở Hà Giang, nhìn
+                ra ngoài trời mưa, tự hỏi: mình đang làm cái gì? Ai tin mình? Nhưng rồi cứ nghĩ đến lọ thuốc giả ngoài
+                tiệm, nghĩ đến người ta bỏ tiền triệu mua thứ không ra gì mà không biết — tôi lại đứng dậy.
             </p>
             <p>
-                <em>"Nếu không tìm được thứ mình tin — thì sao?"</em>
-            </p>
-            <p>
-                Rồi một câu hỏi khác, to hơn, dữ hơn:
-            </p>
-            <p>
-                <em>"Hay mình tự làm?"</em>
+                Bởi vì tôi đã nhìn thấy thứ mình làm ra nó giúp được người ta thật. Và một khi đã nhìn thấy điều ấy —
+                bạn không bỏ được. Lương tâm nó không cho phép.
             </p>
         </div>
     </section>
@@ -616,124 +730,114 @@
     <div class="divider">· · ·</div>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- CHƯƠNG 03: PHÒNG NUÔI CẤY -->
+    <!-- III. QUY TRÌNH 45 NGÀY -->
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter">
         <div class="chapter-inner">
-            <div class="chapter-number">Chương 03</div>
-            <h2>Em không xây xưởng. <span class="hl">Em xây lời hứa.</span></h2>
+            <div class="chapter-number">III</div>
             <p>
-                Em nói thật: em không giỏi.
+                Người ta hay hỏi tôi: nuôi cấy Đông Trùng Hạ Thảo mất bao lâu?
             </p>
             <p>
-                Em không có bằng dược. Không có vốn lớn. Không có quan hệ trong ngành.
-                Em chỉ có một thứ: <strong>cảm giác ngồi trên cái ghế nhựa xanh lúc 2 giờ sáng</strong>
-                — và lời hứa thầm với bản thân rằng em sẽ làm gì đó.
+                45 ngày.
             </p>
             <p>
-                Phòng nuôi cấy đầu tiên — nhỏ hơn cái phòng ngủ. Em tìm đọc tài liệu. Hỏi chuyên gia.
-                Thử. Hỏng. Thử lại. Mẻ đầu tiên chết sạch. Mẻ thứ hai nhiễm khuẩn.
-                Mẻ thứ ba — lên được, nhưng hàm lượng không đạt. Bỏ.
+                Nhưng 45 ngày ấy không giống bất kỳ 45 ngày nào khác trong đời tôi.
             </p>
-            <p>
-                Có những đêm em ngồi nhìn cái tủ nuôi cấy trống rỗng và tự hỏi:
-                <em>"Mình đang làm cái gì? Ai mà tin mình được?"</em>
-            </p>
-            <p>
-                Nhưng rồi em nhìn lọ thuốc trên bàn ba. Cái lọ em mua ngoài tiệm, không biết bên trong
-                thật sự là gì. Và cảm giác đó — cảm giác <strong>đặt một thứ mình không tin vào tay ba mình</strong>
-                — nó đau hơn bất kỳ lần thất bại nào.
-            </p>
-            <p>
-                Em tiếp tục.
-            </p>
-            <p>
-                Mẻ thứ bảy — lên. Thật sự lên. Quả thể Cordyceps militaris cam vàng, đều, đẹp,
-                đem kiểm nghiệm — <strong>đạt.</strong> Em ôm cái khay nuôi cấy mà run tay.
-            </p>
-            <p>
-                Viên nang đầu tiên em đóng xong — em không bán. <strong>Em mang về cho ba.</strong>
-            </p>
-
-            <div class="story-visual">
-                <div class="gallery-item visual-img">
-                    <img src="/images/story-lab.jpg"
-                        alt="Phòng nghiên cứu và nuôi cấy Đông Trùng Hạ Thảo Maldalla Duy Đức" class="gallery-img"
-                        loading="lazy" />
-                    <span class="sample-badge">Ảnh mẫu</span>
-                </div>
-                <p>
-                    Ba uống viên đầu tiên. Không nói gì. Một tháng sau, má gọi:
-                    "Ba con dạo này khỏe hơn rồi nha. Sáng đi bộ được rồi."
-                    <br><br>
-                    <em>Sáu chữ đó — đáng hơn sáu tháng trầy trật.</em>
-                </p>
+            <div class="process-step">
+                <p><span class="step-label">Năm ngày đầu tiên — chọn giống.</span> Hàng trăm bào tử, chỉ giữ lại những
+                    cá thể khỏe mạnh nhất. Phần còn lại loại bỏ hết. Không tiếc. Bởi vì nếu giống không đạt mà vẫn nuôi,
+                    thì bốn mươi ngày sau — khi đã tốn hết thời gian, công sức, nguyên liệu — mới phát hiện ra, thì đã
+                    muộn. Mất trắng.</p>
             </div>
+            <div class="process-step">
+                <p><span class="step-label">Ba mươi lăm ngày tiếp theo — im lặng và chờ đợi.</span> Phòng nuôi cấy phải
+                    tuyệt đối sạch. Nhiệt độ ổn định từng giờ. Độ ẩm canh chỉnh từng phần trăm. Mỗi ngày tôi vào quan
+                    sát. Nhưng không can thiệp được nhiều. Thiên nhiên có nhịp riêng của nó. Mình không thể ép nó nhanh
+                    hơn, không thể bắt nó theo ý mình. Mình chỉ có thể giữ cho điều kiện đủ tốt — rồi kiên nhẫn. Giống
+                    như trồng cây. Giống như nuôi dạy con người. Không có đường tắt.</p>
+            </div>
+            <div class="process-step">
+                <p><span class="step-label">Năm ngày cuối cùng — thu hoạch.</span> Và đây là lúc căng thẳng nhất. Sớm
+                    một ngày — dưỡng chất chưa đủ. Muộn một ngày — đã bắt đầu suy giảm. Khoảnh khắc ấy không cho phép
+                    sai sót. Mười lăm năm làm nghề, tôi vẫn không dám chủ quan ở bước này.</p>
+            </div>
+            <p>
+                Sau thu hoạch: sấy thăng hoa để giữ nguyên toàn bộ dưỡng chất. Nghiền mịn. Đóng viên nang 500mg.
+            </p>
+            <p>
+                Không pha bột phụ. Không trộn tá dược. Không chất bảo quản. Không phụ gia.
+            </p>
+            <p>
+                <strong>100% con nhộng Cordyceps militaris nguyên chất.</strong> Từ vùng nguyên liệu đến viên nang — một
+                đường thẳng, không có ngã rẽ.
+            </p>
+            <p>
+                Có người hỏi: sao không đa dạng hóa? Thêm trà đông trùng, thêm mật ong đông trùng, thêm combo cho phong
+                phú?
+            </p>
+            <p>
+                Tôi trả lời bằng một câu hỏi khác: <em>Nếu bạn nuôi một đứa con — bạn muốn nuôi cho nó thật đàng hoàng,
+                    hay sinh thêm mười đứa mà đứa nào cũng thiếu thốn?</em>
+            </p>
+            <p>
+                <strong>Mười lăm năm. Một sản phẩm. Tôi chọn con đường ấy. Và tôi sẽ đi đến cùng.</strong>
+            </p>
         </div>
     </section>
 
-    <div class="quote-block">
+    <!-- PULL QUOTE -->
+    <div class="pull-quote reveal">
         <blockquote>
-            "Mỗi viên nang em làm ra, em đều tự hỏi: mình có dám cho ba uống không?
-            Nếu em do dự dù chỉ một giây — em bỏ cả mẻ."
+            "Mỗi viên nang tôi làm ra, tôi đều tự hỏi: mình có dám cho bố mẹ mình uống không? Nếu do dự dù chỉ một giây
+            — tôi bỏ cả mẻ. Mười lăm năm, nguyên tắc ấy chưa một lần thay đổi."
         </blockquote>
-        <cite>— Không phải slogan. Là cách em sống.</cite>
     </div>
 
     <div class="divider">· · ·</div>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- CHƯƠNG 04: TRÔNG CON -->
+    <!-- IV. LỜI NÓI THẲNG -->
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter">
         <div class="chapter-inner">
-            <div class="chapter-number">Chương 04</div>
-            <h2>45 ngày tĩnh lặng — <span class="hl">vì thiên nhiên không cho phép ai vội</span></h2>
+            <div class="chapter-number">IV</div>
             <p>
-                Bạn có biết nuôi cấy Đông Trùng Hạ Thảo giống gì không?
+                Bây giờ tôi nói thẳng một điều. Bởi vì tôi ghét nói vòng vo, và tôi tin rằng bạn cũng vậy.
             </p>
             <p>
-                Giống trông con. Thiệt.
+                Đông Trùng Hạ Thảo Maldalla Duy Đức là <strong>thực phẩm bảo vệ sức khỏe</strong>. Không phải thuốc. Tôi
+                không hứa chữa khỏi bệnh. Ai đứng trước mặt bạn mà hứa điều ấy — người đó đang nói dối bạn. Và tôi không
+                nói dối.
             </p>
             <p>
-                Năm ngày đầu — chọn giống. Như chọn hạt giống tốt nhất cho con.
-                Chỉ giữ lại những bào tử khỏe mạnh. Phần còn lại — bỏ. Không thương tiếc.
+                Nhưng có những thứ tôi đã nhìn thấy. Bằng chính đôi mắt mình. Không phải trên giấy tờ. Không phải trong
+                phòng thí nghiệm. Mà ngay trong gia đình mình, ngay giữa những người mình yêu thương nhất.
             </p>
             <p>
-                35 ngày tiếp — phòng sạch, nhiệt độ ổn định, độ ẩm canh từng phần trăm.
-                Mỗi ngày em vào nhìn. Không làm được gì nhiều.
-                Giống như <strong>ngồi nhìn con ngủ</strong> — bạn không thể bắt nó lớn nhanh hơn.
-                Bạn chỉ có thể giữ cho nó an toàn, và chờ.
+                Bố mẹ tôi — tuổi đã cao, sức đã yếu — tôi duy trì cho ông bà uống mỗi ngày. Bạn bè tôi lớn tuổi, tôi gửi
+                tặng. Bố mẹ của bạn bè — tôi cũng gửi. Không phải để bán. Mà bởi vì khi mình tin một thứ đến tận cùng,
+                thì việc đầu tiên mình làm — là đưa nó cho người mình quan tâm.
             </p>
             <p>
-                5 ngày cuối — thu hoạch. Phải đúng lúc. Sớm một ngày — chưa đủ. Muộn một ngày — đã qua.
-                Cái khoảnh khắc đó không cho phép sai.
-                Giống như <strong>lần đầu con bước đi</strong> — bạn không sắp xếp được,
-                bạn chỉ có thể có mặt đúng lúc.
-            </p>
-
-            <div class="story-visual">
-                <div class="gallery-item visual-img">
-                    <img src="/images/process-cultivation.jpg" alt="Quy trình sản xuất khép kín" class="gallery-img"
-                        loading="lazy" />
-                    <span class="sample-badge">Ảnh mẫu</span>
-                </div>
-                <p>
-                    Sấy thăng hoa giữ nguyên dưỡng chất. Nghiền mịn. Đóng viên 500mg.
-                    Không pha. Không trộn. Không bảo quản. Không phụ gia.
-                </p>
-            </div>
-
-            <p>
-                Người ta hay hỏi em: <em>"Sao không làm thêm sản phẩm khác?
-                    Thêm trà, thêm mật ong, thêm combo?"</em>
+                Con trai tôi — thanh niên, công việc cường độ cao, deadline liên miên — nó dùng mỗi ngày. Không phải vì
+                tôi bảo. Mà vì nó tự cảm nhận được: những ngày dùng đều, năng lượng khác hẳn. Không phải kiểu hưng phấn
+                giả tạo. Mà là kiểu từ bên trong — đủ sức, đủ tỉnh táo, đủ bền để đi hết một ngày dài mà không kiệt sức.
             </p>
             <p>
-                Em hỏi lại: <em>"Anh chị nuôi một đứa con — anh chị muốn nuôi cho nó đàng hoàng,
-                    hay muốn sinh thêm mười đứa rồi đứa nào cũng thiếu?"</em>
+                Và điều khiến tôi tin nhất — không phải lời khen. Mà là người ta quay lại.
             </p>
             <p>
-                <strong>Em chọn một sản phẩm. Và em sẽ làm nó tới nơi.</strong>
+                Họ quay lại không phải vì nể nang. Không phải vì khách sáo. Mà bởi vì họ thấy khác đi thật sự. Và không
+                chỉ mua cho mình — họ mua cho người mình thương.
+            </p>
+            <p>
+                Sản phẩm này cũng đã được tin dùng bởi những người ở vị trí rất cao trong xã hội — những người có đủ
+                điều kiện, đủ hiểu biết để lựa chọn bất cứ thứ gì trên thị trường. Họ chọn Maldalla. Họ dùng liên tục.
+                Họ đặt thêm. Không ai bắt họ phải làm thế. Họ tự quyết định.
+            </p>
+            <p>
+                Đó là câu trả lời rõ ràng hơn bất kỳ tấm chứng nhận nào trên giấy.
             </p>
         </div>
     </section>
@@ -741,168 +845,216 @@
     <div class="divider">· · ·</div>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- CHƯƠNG 05: TIN NHẮN NỬA ĐÊM -->
+    <!-- V. NHỮNG TIN NHẮN NỬA ĐÊM -->
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter">
         <div class="chapter-inner">
-            <div class="chapter-number">Chương 05</div>
-            <h2>Em không chữa bệnh. <span class="hl">Nhưng có người nhắn cho em lúc 1 giờ sáng.</span></h2>
+            <div class="chapter-number">V</div>
             <p>
-                Em nói thẳng điều này — vì em ghét ai nói vòng vo:
+                Tôi không bao giờ nhờ ai viết đánh giá. Không trả tiền cho lời khen. Mười lăm năm, tôi bán hàng bằng
+                đúng một cách: để sản phẩm tự nói, và để người dùng tự kể cho nhau nghe.
             </p>
             <p>
-                Đông Trùng Hạ Thảo là <strong>thực phẩm chức năng.</strong> Không phải thuốc.
-                Em không hứa chữa bệnh. Ai hứa — người đó nói dối bạn.
+                Nhưng có những tin nhắn, những cuộc gọi, đến vào lúc mà phần lớn mọi người đã ngủ — từ những con người
+                mà trước đó, ai cũng nói với tôi ba chữ: <em>tôi ổn rồi.</em>
             </p>
             <p>
-                Nhưng có những tin nhắn mà em nhận lúc nửa đêm. Không phải em xin.
-                Người ta tự gửi.
+                Cho đến khi họ thật sự ổn. Và nhận ra rằng trước đó — mình chưa bao giờ ổn cả.
             </p>
+        </div>
+    </section>
 
-            <hr class="testimonial-sep">
+    <!-- TESTIMONIALS -->
+    <div class="testimonial-block">
+        <div class="testimonial-item reveal">
+            <p class="testimonial-name">Chị Hoa, 52 tuổi, Đà Nẵng.</p>
+            <p>
+                Con gái chị nhắn tin cho tôi lúc mười một giờ đêm. Đúng ra là con gái nhắn hộ, bởi vì chị không rành
+                công nghệ.
+            </p>
+            <p>
+                <em>"Chú ơi, mẹ em uống hộp thứ ba rồi. Dạo này mẹ ngủ được."</em>
+            </p>
+            <p>
+                Rồi một dòng nữa:
+            </p>
+            <p>
+                <em>"Chú có biết không, mẹ em năm năm nay không ngủ nổi. Đêm nào cũng nằm đếm ngói trên trần nhà từ mười
+                    hai giờ cho đến sáng. Hôm trước mẹ gọi cho em, mẹ khóc. Mẹ nói: Lần đầu tiên... mẹ nằm mơ thấy
+                    con."</em>
+            </p>
+            <p>
+                Tôi đọc tin nhắn ấy. Mười một giờ đêm. Trong phòng làm việc. Và tôi phải đặt điện thoại xuống một lúc
+                lâu. Bởi vì mắt tôi nhòe đi.
+            </p>
+        </div>
 
+        <div class="testimonial-item reveal">
+            <p class="testimonial-name">Anh Minh, 38 tuổi, TP. Hồ Chí Minh.</p>
             <p>
-                <strong>Chị Hoa, 52 tuổi, Đà Nẵng.</strong>
+                Anh ấy gọi điện. Giọng hơi ngại ngùng, kiểu đàn ông không quen nói mấy chuyện này.
             </p>
             <p>
-                Chị nhắn Zalo cho em lúc 11 giờ đêm. Đúng ra là con gái chị nhắn, vì chị không rành:
+                <em>"Nói thật nhé, nghe kỳ lắm. Nhưng mà... mấy tháng nay tớ dậy sớm được. Không phải vì chuông báo
+                    thức. Mà vì tớ <strong>muốn</strong> dậy. Lâu lắm rồi tớ mới có cái cảm giác ấy."</em>
             </p>
             <p>
-                <em>"Chú ơi cho chị hỏi. Má em uống hộp thứ ba rồi. Dạo này má ngủ được.
-                    Mà chú biết không, má em 5 năm không ngủ nổi. Bả nằm đếm ngói trên trần
-                    từ 12 giờ đêm tới sáng. Giờ bả gọi cho em, bả khóc. Bả nói:
-                    'Lần đầu tiên... mẹ nằm mơ con à.' Em nghe mà em khóc theo."</em>
+                Im lặng một lúc. Rồi anh ấy nói thêm, nhỏ hơn:
             </p>
             <p>
-                Em đọc tin nhắn đó, 11 giờ đêm, trên điện thoại, trong phòng nuôi cấy.
-                Em không trả lời liền được. Vì em cũng đang khóc.
+                <em>"Hồi trước tớ từng mơ mở một cái quán cà phê nhỏ. Bây giờ tớ bắt đầu nghĩ lại rồi. Cũng không xa lắm
+                    đâu."</em>
             </p>
+        </div>
 
-            <hr class="testimonial-sep">
+        <div class="testimonial-item reveal">
+            <p class="testimonial-name">Bác Tám, 65 tuổi, Cần Thơ.</p>
+            <p>
+                Không phải bác gọi. Mà là con gái bác. Giọng cười.
+            </p>
+            <p>
+                <em>"Chú ơi, bố em lúc đầu bảo: mua làm gì mấy thứ linh tinh. Uống cho con nó yên tâm thôi."</em>
+            </p>
+            <p>
+                <em>"Bây giờ sáng nào cũng đạp xe ra chợ. Tuần trước gọi cho em, bảo: Con mua thêm cho bố mấy hộp nữa.
+                    Gửi cho cả bác Bảy với chú Chín bên cạnh. Họ cũng kêu đau mỏi suốt."</em>
+            </p>
+            <p>
+                Tôi hỏi lại con gái bác: <em>Thế bác ấy lúc trước không phải ghét mấy thứ này lắm sao?</em>
+            </p>
+            <p>
+                Cô ấy cười: <em>"Bố em bảo: Ghét thì ghét. Nhưng mà nó thật."</em>
+            </p>
+        </div>
+    </div>
 
-            <p>
-                <strong>Anh Minh, 38 tuổi, TP.HCM.</strong>
-            </p>
-            <p>
-                Anh gọi điện cho em. Giọng ngại ngùng, kiểu đàn ông Việt Nam không quen nói mấy thứ này:
-            </p>
-            <p>
-                <em>"Ê, tao nói nghe hơi kỳ nha. Mà... vợ tao hỏi sao dạo này tao khỏe vậy.
-                    Tao không biết nói sao. Chỉ biết là... mấy tháng nay tao dậy sớm được.
-                    Không phải vì chuông báo thức. Mà vì tao MUỐN dậy.
-                    Mày hiểu hông? Lâu lắm rồi tao mới muốn dậy sớm."</em>
-            </p>
-            <p>
-                Rồi anh im một hồi. Rồi nói nhỏ:
-            </p>
-            <p>
-                <em>"Hồi xưa tao mơ mở cái quán cà phê nhỏ. Giờ tao bắt đầu nghĩ lại. Cũng không xa lắm đâu."</em>
-            </p>
+    <!-- PULL QUOTE -->
+    <div class="pull-quote reveal">
+        <blockquote>
+            "Sản phẩm tốt nhất không phải thứ bán chạy nhất. Mà là thứ mà khi người ta mua lần thứ hai — họ không mua
+            cho mình nữa. Họ mua cho người mình yêu thương."
+        </blockquote>
+    </div>
 
-            <hr class="testimonial-sep">
+    <div class="divider">· · ·</div>
 
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- VI. CÂU CHUYỆN CỦA BẠN -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="chapter">
+        <div class="chapter-inner">
+            <div class="chapter-number">VI</div>
             <p>
-                <strong>Bác Tám, 65 tuổi, Cần Thơ.</strong>
+                Mười lăm năm tôi làm Maldalla, tôi chưa bao giờ quảng cáo rầm rộ. Chưa bao giờ thuê người nổi tiếng.
+                Chưa bao giờ chạy chiến dịch truyền thông hàng tỷ đồng. Tôi bán bằng cách duy nhất mà tôi tin tưởng: làm
+                ra thứ thật — rồi để người dùng tự kể cho người thân nghe.
             </p>
             <p>
-                Con gái bác gọi cho em, cười:
+                Cách bán hàng ấy chậm. Rất chậm. Nhưng nó bền. Bởi vì niềm tin xây bằng miệng người thật — không có
+                chiến dịch quảng cáo nào mua nổi.
             </p>
             <p>
-                <em>"Chú ơi, ba em hồi đầu nói 'mày mua chi mấy thứ vớ vẩn.' Uống cho con vui.
-                    Giờ ổng đạp xe ra chợ mỗi sáng. Tuần rồi ổng gọi em, biểu:
-                    'Mày mua thêm cho ba mấy hộp. Gửi cho thím Bảy với chú Chín kế bên luôn.
-                    Tụi nó cũng đau mỏi hoài.'"</em>
+                Và đến hôm nay — khi bạn đang đọc những dòng chữ này trên một trang web chỉn chu hơn bất cứ thứ gì tôi
+                từng làm trước đây — tôi muốn bạn biết một điều:
             </p>
             <p>
-                <em>"Em hỏi: Ba ghét mấy thứ này mà?"</em>
+                <strong>Phía sau trang web này, không chỉ có mình tôi.</strong>
             </p>
             <p>
-                <em>"Ổng nói: 'Ghét là ghét. Nhưng mà nó thiệt.'"</em>
-            </p>
-
-            <hr class="testimonial-sep">
-
-            <p>
-                Đó không phải quảng cáo. Đó là những cuộc gọi, những tin nhắn, lúc nửa đêm,
-                từ những người <strong>mà trước đó — mỗi người đều nói "tôi ổn."</strong>
+                Có những người trẻ trong gia đình tôi đã nhìn thấy hành trình này ngay từ những ngày đầu tiên. Họ nhìn
+                thấy tôi vất vả. Nhìn thấy tôi vắng nhà. Nhìn thấy tôi kiên trì với một thứ mà nhiều người ngoài không
+                hiểu. Hồi ấy, họ không nói gì. Có lẽ còn quá nhỏ để hiểu. Có lẽ khoảng cách giữa hai thế hệ khiến lời
+                nói không dễ dàng.
             </p>
             <p>
-                Cho đến khi họ thật sự ổn. Và nhận ra trước đó, mình chưa bao giờ ổn.
+                Nhưng rồi họ lớn lên. Và thay vì nói — họ làm.
             </p>
-
-            <div class="story-visual">
-                <div class="emoji">💛</div>
-                <p>
-                    Sản phẩm tốt nhất không phải thứ bán chạy nhất.
-                    Mà là thứ mà khi người ta mua lần hai — họ mua cho người họ thương.
-                </p>
-            </div>
+            <p>
+                Trang web bạn đang đọc. Từng con chữ được cân nhắc. Từng chi tiết được chăm sóc. Đó là cách họ nói với
+                tôi rằng: <em>Những gì bố đã làm suốt mười lăm năm qua — không phải là vô nghĩa.</em>
+            </p>
+            <p>
+                Tôi nhận ra điều ấy khi nhìn trang web này lần đầu. Và lần đầu tiên sau rất lâu — tôi hiểu rằng con
+                đường mình đi, có người đã thấy. Dù họ không nói ra.
+            </p>
         </div>
     </section>
 
     <div class="divider">· · ·</div>
 
     <!-- ═══════════════════════════════════════════════ -->
-    <!-- CHƯƠNG CUỐI: VỀ NHÀ -->
+    <!-- CHƯƠNG CUỐI: VỀ BẠN -->
     <!-- ═══════════════════════════════════════════════ -->
     <section class="chapter">
         <div class="chapter-inner">
-            <div class="chapter-number">Chương cuối</div>
-            <h2>Câu chuyện này <span class="hl">không phải của em.</span></h2>
+            <h2>Nhưng câu chuyện này, cuối cùng — <span class="hl">không phải của tôi.</span></h2>
             <p>
-                Câu chuyện này là của <strong>bạn.</strong>
+                <strong>Nó là của bạn.</strong>
             </p>
             <p>
-                Của buổi sáng bạn tỉnh dậy, nằm thêm 5 phút, tự hỏi:
-                <em>"Mình đang sống — hay đang cố qua ngày?"</em>
+                Của buổi sáng bạn tỉnh dậy, nằm thêm năm phút, nhìn lên trần nhà, tự hỏi: mình đang thật sự sống — hay
+                chỉ đang cố gắng qua ngày?
             </p>
             <p>
-                Của khoảnh khắc bạn nhìn ba mẹ — thấy tóc bạc nhiều hơn lần gặp trước,
-                thấy lưng còng hơn mùa trước — và cái gì đó bóp chặt trong ngực, nhưng bạn không nói ra.
+                Của khoảnh khắc bạn về thăm bố mẹ — nhìn thấy tóc bạc nhiều hơn lần gặp trước, lưng còng hơn mùa trước,
+                bước chân chậm hơn năm ngoái — và có cái gì đó bóp chặt trong lồng ngực, nhưng bạn không nói ra được.
+                Bởi vì bạn không biết phải nói gì. Bởi vì thời gian thì không chờ ai.
             </p>
             <p>
-                Của những đêm nằm trên giường — không bệnh, nhưng cũng không khỏe.
-                Mắt mở. Đầu nghĩ. Về cái quán nhỏ muốn mở mà hoãn mãi.
-                Về chuyến đi muốn đưa mẹ đi một lần mà chưa bao giờ sắp xếp được.
-                Về buổi chiều muốn ra công viên chạy bộ cùng con mà không phải dừng lại thở.
-            </p>
-            <p>
-                Bạn hoãn không phải vì lười. Không phải vì không muốn.
-                Mà vì mỗi ngày, <strong>cơ thể đã dùng hết sức chỉ để "bình thường"</strong>
-                — và không còn gì để đi xa hơn.
-            </p>
-            <p>
-                Em không hứa viên nang của em sẽ giúp bạn mở quán, đưa mẹ đi du lịch, hay chạy bộ 5km.
-            </p>
-            <p>
-                Nhưng em hứa một thứ nhỏ hơn, thật hơn:
-            </p>
-            <p>
-                <strong>Một tháng.</strong> Một viên mỗi ngày.
-                Để cơ thể bạn có cơ hội nói thật với bạn — thay vì cả hai cùng giả vờ ổn.
-            </p>
-            <p>
-                Nếu sau 30 ngày bạn không thấy gì khác — không sao.
-                Em vẫn biết ơn. Vì bạn đã tin em đủ để thử.
-            </p>
-            <p>
-                Nhưng nếu một buổi sáng, bạn tỉnh dậy, và lần đầu tiên sau rất lâu
-                — bạn <strong>muốn</strong> dậy...
-            </p>
-            <p>
-                ...thì bạn sẽ hiểu vì sao em làm tất cả những điều này.
-            </p>
-            <p>
-                <em>Không phải vì em giỏi. Mà vì em đã ngồi trên cái ghế nhựa xanh đó rồi.
-                    Và em không muốn ai phải ngồi đó mà tay trắng.</em>
+                Của những đêm bạn không ốm, nhưng cũng không khỏe. Mắt mở. Đầu óc cứ nghĩ miên man. Về chuyến đi muốn
+                đưa mẹ đi mà cứ hoãn đi hoãn lại. Về buổi chiều muốn ra công viên chạy bộ cùng con mà không phải dừng
+                lại thở dốc giữa chừng. Về cái quán nhỏ, cái dự định nhỏ, cái giấc mơ nhỏ — mà cứ trì hoãn mãi, không
+                phải vì lười, không phải vì không muốn, mà bởi vì mỗi ngày cơ thể đã phải dùng hết sức lực chỉ để duy
+                trì sự bình thường. Và không còn gì để đi xa hơn nữa.
             </p>
         </div>
     </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- LỜI HỨA -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section class="chapter">
+        <div class="chapter-inner">
+            <p>
+                Tôi không hứa rằng viên nang của tôi sẽ thay đổi cuộc đời bạn. Lời hứa ấy quá lớn. Và tôi không quen hứa
+                những điều mình không nắm chắc.
+            </p>
+            <p>
+                Nhưng tôi hứa một điều nhỏ hơn. Thật hơn. Và tôi giữ được.
+            </p>
+            <p>
+                <strong>Một tháng. Mỗi ngày một viên. Để cơ thể bạn có cơ hội nói thật với bạn — thay vì cả hai cùng giả
+                    vờ ổn.</strong>
+            </p>
+            <p>
+                Nếu sau ba mươi ngày, bạn không cảm thấy gì khác — không sao cả. Tôi vẫn biết ơn. Bởi vì bạn đã tin tôi
+                đủ để thử. Và niềm tin ấy, với tôi, nặng hơn bất cứ đơn hàng nào.
+            </p>
+            <p>
+                Nhưng nếu một buổi sáng — bạn tỉnh dậy, và lần đầu tiên sau rất lâu, trước cả chuông báo thức, trước cả
+                khi nắng vào phòng — bạn <strong>muốn</strong> dậy.
+            </p>
+            <p>
+                Không phải vì phải. Mà vì muốn.
+            </p>
+            <p>
+                Thì lúc ấy — bạn sẽ hiểu vì sao tôi đã đi con đường này mười lăm năm.
+            </p>
+        </div>
+    </section>
+
+    <!-- CLOSING PULL QUOTE -->
+    <div class="pull-quote reveal">
+        <blockquote>
+            "Không phải bởi vì tôi giỏi giang gì. Mà bởi vì tôi đã nhìn thấy thứ mình làm ra giúp được người thật sự. Và
+            một khi đã nhìn thấy điều ấy — thì lương tâm không cho phép mình dừng lại."
+        </blockquote>
+    </div>
 
     <!-- CTA -->
     <section class="story-cta">
         <h2>Bạn đã đọc đến đây.</h2>
-        <p class="sub">Vậy thì — đây không phải chỗ để em thuyết phục bạn. Đây là chỗ bạn tự quyết định: <em>mình có
+        <p class="sub">Vậy thì — đây không phải chỗ để tôi thuyết phục bạn. Đây là chỗ bạn tự quyết định: <em>mình có
                 xứng đáng được khỏe hơn không?</em></p>
         <div class="cta-buttons">
             <a href="/#contact" class="btn btn-gold">Cho Bản Thân Cơ Hội — Thử 30 Ngày</a>
@@ -912,18 +1064,16 @@
 
     <!-- FOOTER -->
     <footer class="s-footer">
-        <p>© 2026 <a href="/">Maldalla Duy Đức</a> — Một sản phẩm. Một lời hứa. Một con đường về nhà.</p>
-        <p style="margin-top: 8px; font-size: 11px; opacity: 0.5;">Sản phẩm này là thực phẩm bảo vệ sức khỏe, không phải
-            là thuốc, không có tác dụng thay thế thuốc chữa bệnh.</p>
+        <p>© 2026 <a href="/">Maldalla Duy Đức</a> — Một sản phẩm. Một lời hứa. Một con đường.</p>
+        <p class="disclaimer">Sản phẩm này là thực phẩm bảo vệ sức khỏe, không phải là thuốc, không có tác dụng thay thế
+            thuốc chữa bệnh.</p>
     </footer>
+
     <script type="module">
         import './src/utils/tracker.js';
         import './src/story-animations.js';
         import './src/auth.js';
     </script>
-
-    <!-- Reading Progress Bar -->
-    <div class="reading-progress" id="readingProgress"></div>
 </body>
 
 </html>
