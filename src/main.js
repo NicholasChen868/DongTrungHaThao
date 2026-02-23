@@ -37,6 +37,7 @@ import { initExitIntent } from './modules/exit-intent.js';
 import { initEventTracking } from './modules/event-tracking.js';
 import { inject as injectVercelAnalytics } from '@vercel/analytics';
 import { initStickyCTA } from './modules/sticky-cta.js';
+import { applyABTest, isABTestActive } from './modules/ab-test.js';
 
 // ===================================
 // DYNAMIC PRICING
@@ -135,6 +136,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initEventTracking();
   injectVercelAnalytics();
   initStickyCTA();
+  if (isABTestActive()) applyABTest();
 
   // Auth interceptor — links with data-auth="ctv|customer" require login
   document.addEventListener('click', (e) => {
