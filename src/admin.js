@@ -2,9 +2,9 @@ import './admin.css';
 import { supabase } from './supabase.js';
 import { escapeHTML } from './utils/sanitize.js';
 import { checkRateLimit, recordAttempt } from './utils/ratelimit.js';
+import { getSessionToken, isSessionValid, adminLogin, adminLogout, clearSession } from './admin-session.js';
 
 // --- Config ---
-const ADMIN_HASH = '285a242c372134fdfbea0c4c9b6a102c4b10134f1c5f6b4ad7dc016cc4f05889';
 const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
 const loginScreen = document.getElementById('adminLogin');
 const sidebar = document.getElementById('adminSidebar');
@@ -14,11 +14,9 @@ const main = document.getElementById('adminMain');
 let sessionTimer;
 function resetSessionTimer() {
     clearTimeout(sessionTimer);
-    if (sessionStorage.getItem('admin_hash')) {
-        sessionStorage.setItem('admin_session_ts', Date.now().toString());
+    if (isSessionValid()) {
         sessionTimer = setTimeout(() => {
-            sessionStorage.removeItem('admin_hash');
-            sessionStorage.removeItem('admin_session_ts');
+            clearSession();
             showAdminToast('Phiên đã hết hạn. Vui lòng đăng nhập lại.', 'error');
             setTimeout(() => location.reload(), 1500);
         }, SESSION_TIMEOUT_MS);
@@ -26,7 +24,7 @@ function resetSessionTimer() {
 }
 ['click', 'keydown', 'scroll', 'mousemove'].forEach(evt =>
     document.addEventListener(evt, () => {
-        if (sessionStorage.getItem('admin_hash')) resetSessionTimer();
+        if (isSessionValid()) resetSessionTimer();
     }, { passive: true })
 );
 
@@ -44,21 +42,10 @@ function showAdminToast(msg, type = 'success') {
     setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
-// Helper: get stored admin hash for RPC calls
-function getAdminHash() {
-    return sessionStorage.getItem('admin_hash') || '';
-}
-
 // --- Check session (with timeout validation) ---
-if (sessionStorage.getItem('admin_hash')) {
-    const ts = parseInt(sessionStorage.getItem('admin_session_ts') || '0');
-    if (Date.now() - ts > SESSION_TIMEOUT_MS) {
-        sessionStorage.removeItem('admin_hash');
-        sessionStorage.removeItem('admin_session_ts');
-    } else {
-        resetSessionTimer();
-        showDashboard();
-    }
+if (isSessionValid()) {
+    resetSessionTimer();
+    showDashboard();
 }
 
 // --- Login ---
@@ -76,29 +63,36 @@ document.getElementById('adminLoginForm').addEventListener('submit', async (e) =
 
     const pw = document.getElementById('adminPassword').value;
     const hash = await sha256(pw);
+    const result = await adminLogin(supabase, hash);
 
-    if (hash === ADMIN_HASH) {
-        sessionStorage.setItem('admin_hash', hash);
+    if (result.ok) {
         resetSessionTimer();
         showDashboard();
     } else {
-        document.getElementById('adminLoginError').style.display = 'block';
+        const errEl = document.getElementById('adminLoginError');
+        errEl.textContent = result.error || 'Mật khẩu không đúng';
+        errEl.style.display = 'block';
     }
 });
 
 // --- Logout ---
-document.getElementById('adminLogout').addEventListener('click', () => {
-    sessionStorage.removeItem('admin_hash');
+document.getElementById('adminLogout').addEventListener('click', async () => {
+    await adminLogout(supabase);
     location.reload();
 });
 
-// --- Bypass Login (DEV ONLY) ---
-document.getElementById('btnBypass').addEventListener('click', () => {
-    sessionStorage.setItem('admin_hash', ADMIN_HASH);
-    document.getElementById('bypassNote').style.display = 'block';
-    resetSessionTimer();
-    showDashboard();
-    showAdminToast('⚡ Đã bypass đăng nhập (DEV mode)', 'success');
+// --- Bypass Login (DEV ONLY) — gọi admin_login RPC ---
+document.getElementById('btnBypass').addEventListener('click', async () => {
+    const devHash = await sha256('matkhau');
+    const result = await adminLogin(supabase, devHash);
+    if (result.ok) {
+        document.getElementById('bypassNote').style.display = 'block';
+        resetSessionTimer();
+        showDashboard();
+        showAdminToast('⚡ Đã bypass đăng nhập (DEV mode)', 'success');
+    } else {
+        showAdminToast('Bypass thất bại: ' + (result.error || ''), 'error');
+    }
 });
 
 // --- Sidebar navigation ---
@@ -160,12 +154,12 @@ window.exportCSV = async function (type) {
     try {
         let data, filename, headers;
         if (type === 'orders') {
-            const res = await supabase.rpc('admin_list_orders', { p_admin_hash: getAdminHash() });
+            const res = await supabase.rpc('admin_list_orders', { p_session_token: getSessionToken() });
             data = res.data;
             filename = 'don-hang';
             headers = ['ID', 'Khách hàng', 'SĐT', 'Địa chỉ', 'SL', 'Đơn giá', 'Giảm %', 'Tổng', 'CTV', 'Ghi chú', 'Trạng thái', 'Ngày tạo'];
         } else if (type === 'ctv') {
-            const res = await supabase.rpc('admin_list_ctv', { p_admin_hash: getAdminHash() });
+            const res = await supabase.rpc('admin_list_ctv', { p_session_token: getSessionToken() });
             data = res.data;
             filename = 'ctv';
             headers = ['Mã CTV', 'Tên', 'SĐT', 'Email', 'Hạng', 'Điểm', 'VNĐ', 'Ngày ĐK'];
@@ -207,7 +201,7 @@ window.exportCSV = async function (type) {
 // --- OVERVIEW (via admin RPC) ---
 async function loadOverview() {
     try {
-        const { data: ov, error } = await supabase.rpc('admin_get_overview', { p_admin_hash: getAdminHash() });
+        const { data: ov, error } = await supabase.rpc('admin_get_overview', { p_session_token: getSessionToken() });
         if (error) throw error;
 
         document.getElementById('ovOrders').textContent = ov.order_count || 0;
@@ -226,7 +220,7 @@ async function loadOverview() {
 
 // --- ORDERS with action buttons (via admin RPC) ---
 async function loadOrders() {
-    const { data, error } = await supabase.rpc('admin_list_orders', { p_admin_hash: getAdminHash() });
+    const { data, error } = await supabase.rpc('admin_list_orders', { p_session_token: getSessionToken() });
     if (error) { console.error('Orders load error:', error); return; }
     renderOrderTable('allOrders', data || [], false);
 }
@@ -347,7 +341,7 @@ window.updateOrder = async function (id, newStatus) {
 
     try {
         const { error } = await supabase.rpc('admin_update_order_status', {
-            p_admin_hash: getAdminHash(), p_order_id: id, p_status: newStatus
+            p_session_token: getSessionToken(), p_order_id: id, p_status: newStatus
         });
         if (error) throw error;
         showAdminToast(`Đơn #${id} → ${labels[newStatus]}`);
@@ -362,7 +356,7 @@ window.updateOrder = async function (id, newStatus) {
 
 // --- CTV LIST with tier upgrade (via admin RPC) ---
 async function loadCTVList() {
-    const { data, error } = await supabase.rpc('admin_list_ctv', { p_admin_hash: getAdminHash() });
+    const { data, error } = await supabase.rpc('admin_list_ctv', { p_session_token: getSessionToken() });
     if (error) { console.error('CTV load error:', error); return; }
     renderCTVTable('allCTV', data || []);
 }
@@ -454,7 +448,7 @@ window.upgradeCTV = async function (refCode, newTier) {
 
     try {
         const { error } = await supabase.rpc('admin_upgrade_ctv', {
-            p_admin_hash: getAdminHash(), p_ref_code: refCode, p_new_tier: newTier
+            p_session_token: getSessionToken(), p_ref_code: refCode, p_new_tier: newTier
         });
         if (error) throw error;
         showAdminToast(`${refCode} → ${tierMap[newTier]}`);
@@ -484,7 +478,7 @@ async function loadContacts() {
 // --- POSTS (via admin RPC) ---
 async function loadPosts() {
     try {
-        const { data, error } = await supabase.rpc('admin_list_posts', { p_admin_hash: getAdminHash() });
+        const { data, error } = await supabase.rpc('admin_list_posts', { p_session_token: getSessionToken() });
         if (error) throw error;
 
         const container = document.getElementById('allPosts');
@@ -533,7 +527,7 @@ window.approvePostReward = async function (id) {
     if (!confirm(`Duyệt bài #${id} và cộng nhuận bút 30,000đ?`)) return;
     try {
         const { data, error } = await supabase.rpc('approve_post_and_reward', {
-            p_admin_hash: getAdminHash(), p_post_id: id
+            p_session_token: getSessionToken(), p_post_id: id
         });
         if (error) throw error;
         if (data?.points_credited) {
@@ -554,7 +548,7 @@ window.rejectPost = async function (id) {
     if (!confirm(`Xác nhận ẩn bài #${id}?`)) return;
     try {
         const { error } = await supabase.rpc('admin_update_post_status', {
-            p_admin_hash: getAdminHash(), p_post_id: id, p_approve: false
+            p_session_token: getSessionToken(), p_post_id: id, p_approve: false
         });
         if (error) throw error;
         showAdminToast(`Bài #${id} → ẩn`);
@@ -568,7 +562,7 @@ window.rejectPost = async function (id) {
 // --- ANALYTICS (via admin RPC) ---
 async function loadAdminWithdrawals() {
     try {
-        const { data } = await supabase.rpc('admin_list_withdrawals', { p_admin_hash: getAdminHash() });
+        const { data } = await supabase.rpc('admin_list_withdrawals', { p_session_token: getSessionToken() });
 
         const container = document.getElementById('allWithdrawals');
         if (!data?.length) {
@@ -621,7 +615,7 @@ window.processWithdrawal = async function (id, newStatus) {
     if (!confirm(`Xác nhận ${label[newStatus]} yêu cầu #${id}?`)) return;
     try {
         const { error } = await supabase.rpc('admin_process_withdrawal', {
-            p_admin_hash: getAdminHash(), p_withdrawal_id: id, p_status: newStatus
+            p_session_token: getSessionToken(), p_withdrawal_id: id, p_status: newStatus
         });
         if (error) throw error;
         showAdminToast(`Yêu cầu #${id} → ${label[newStatus]}`);
@@ -635,7 +629,7 @@ window.processWithdrawal = async function (id, newStatus) {
 let allSettings = {};
 async function loadProductSettings() {
     try {
-        const { data, error } = await supabase.rpc('admin_get_settings', { p_admin_hash: getAdminHash() });
+        const { data, error } = await supabase.rpc('admin_get_settings', { p_session_token: getSessionToken() });
         if (error) throw error;
         allSettings = {};
         (data || []).forEach(s => { allSettings[s.key] = s.value; });
@@ -795,7 +789,7 @@ async function loadProductSettings() {
 // --- Save helpers ---
 async function saveSetting(key, value) {
     const { error } = await supabase.rpc('admin_update_setting', {
-        p_admin_hash: getAdminHash(), p_key: key, p_value: value
+        p_session_token: getSessionToken(), p_key: key, p_value: value
     });
     if (error) throw error;
     showAdminToast('Đã lưu thành công! ✅');
@@ -869,7 +863,7 @@ window.saveAnnouncement = async function () {
 async function loadAnalytics() {
     try {
         const { data: orders, error } = await supabase.rpc('admin_get_analytics', {
-            p_admin_hash: getAdminHash(), p_days: 30
+            p_session_token: getSessionToken(), p_days: 30
         });
         if (error) throw error;
 
