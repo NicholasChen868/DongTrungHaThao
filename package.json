@@ -11,9 +11,11 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:unit": "vitest run tests/unit/",
-    "test:integration": "vitest run tests/integration/"
+    "test:integration": "vitest run tests/integration/",
+    "test:e2e": "npx playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@testing-library/dom": "^10.4.1",
     "@vitest/coverage-v8": "^4.0.18",
     "jsdom": "^28.1.0",
