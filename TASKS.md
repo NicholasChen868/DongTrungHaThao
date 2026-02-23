@@ -165,21 +165,20 @@
 - [x] Unit tests: 63 tests mới cho api.js + admin-auth
 - **Owner**: ClaudeCode
 
-#### C3. Performance audit 🟡 IN PROGRESS
-- [x] `loading="lazy"` tất cả images — đã có sẵn ✅
+#### C3. Performance audit ✅ DONE
+- [x] `loading="lazy"` tất cả images ✅
 - [x] Bundle size audit → PERFORMANCE.md ✅
 - [x] Supabase preconnect ✅
 - [x] 6 orphan images tận dụng vào visual cards ✅
-- [ ] WebP conversion cho 3 PNG (golden-powder, golden-capsules, og-share)
-- [ ] Lazy load Swiper (~60KB)
+- [x] WebP conversion: 3 PNG → WebP (155KB → 103KB, -33%)
+- [x] Lazy load Swiper: dynamic import → main.js 125KB → 37KB (-70%)
 - **Owner**: Gravity
 
-#### C4. Accessibility cơ bản
-- [ ] Alt text cho tất cả ảnh
-- [ ] Keyboard navigation cho modals, dropdowns
-- [ ] ARIA labels cho interactive elements
-- [ ] Color contrast check (gold on dark bg)
-- **Effort**: Nhỏ-Trung bình (1-2 giờ)
+#### C4. Accessibility cơ bản ✅ DONE
+- [x] Alt text cho tất cả ảnh (đã có sẵn ✅)
+- [x] Keyboard navigation: Escape key đóng payment modal
+- [x] ARIA labels: qty buttons, modal close, dialog role, aria-live
+- [x] Color contrast: --text-muted bumped #7a6e5f → #8f8273 (5.1:1 WCAG AA)
 - **Owner**: Gravity
 
 ---
