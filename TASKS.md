@@ -207,9 +207,20 @@
 | **Tổng** | **245+** | **13** |
 
 > 🪞 **Shadow Tasks D7-D11** = 5 tasks phản biện chính mình:
-> D7 (A/B Test CTA), D8 (Soften Trí Lực), D9 (Test Content Bible),
+> D7 (A/B Test CTA), D8 (Soften Trí Lực ✅), D9 (Test Content Bible),
 > D10 (Sticky CTA Mobile), D11 (Thu Thập Data)
 > **Thứ tự ưu tiên**: D11 → D10 → D7 → D8 → D9
+
+### 🎨 D12. UI Polish — 6 Issues User-Facing ⏳
+
+> **Ưu tiên**: Tất cả ảnh hưởng trực tiếp UX người dùng
+
+- [ ] **D12a.** Promo popup không scroll được → thêm `overflow-y: auto` + `max-height`
+- [ ] **D12b.** Promo popup layout visual card gọn gàng → redesign compact card
+- [ ] **D12c.** Border-radius thống nhất toàn site → audit + CSS variable `--radius-ui: 12px`
+- [ ] **D12d.** Quote/testimonials card sáng hơn, dấu quote trắng
+- [ ] **D12e.** CTV badge beige/gold + mini dashboard 2-3 cột full-width
+- [ ] **D12f.** Bỏ duplicate login trong mobile menu
 > *(Đo trước, sửa sau — không optimize trên assumptions)*
 
 ---

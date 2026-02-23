@@ -866,12 +866,12 @@
     align-items: center;
     gap: 10px;
     padding: 10px 16px;
-    background: #1a1a1a;
-    border: none;
+    background: linear-gradient(135deg, #f5edd7, #e8d5a8);
+    border: 1px solid rgba(212, 168, 75, 0.3);
     border-radius: var(--radius-md);
-    color: var(--text-primary, #f5edd7);
+    color: #2a1f0e;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 20px rgba(212, 168, 75, 0.15);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     -webkit-tap-highlight-color: transparent;
 }
@@ -881,7 +881,8 @@
 }
 
 .ctv-banner-btn:hover {
-    box-shadow: 0 6px 28px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 6px 28px rgba(212, 168, 75, 0.25);
+    border-color: rgba(212, 168, 75, 0.5);
 }
 
 .ctv-banner.open .ctv-banner-btn {
@@ -911,6 +912,7 @@
     font-weight: 700;
     font-size: 13px;
     line-height: 1.2;
+    color: #2a1f0e;
 }
 
 .ctv-banner-meta {
@@ -918,7 +920,7 @@
     align-items: center;
     gap: 4px;
     font-size: 11px;
-    color: var(--text-muted, #8f8273);
+    color: #8a7455;
 }
 
 .ctv-banner-dot {
@@ -936,18 +938,23 @@
 }
 
 .ctv-detail-panel {
-    position: absolute;
-    bottom: 100%;
+    position: fixed;
+    bottom: 0;
     left: 0;
-    width: 300px;
-    background: #1a1a1a;
-    border-radius: var(--radius-md) var(--radius-md) 0 0;
-    padding: 20px 16px 12px;
-    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
+    right: 0;
+    width: 100%;
+    max-height: 60vh;
+    overflow-y: auto;
+    background: linear-gradient(135deg, #faf5e8, #f5edd7);
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    padding: 24px 20px 20px;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.15);
     opacity: 0;
     pointer-events: none;
-    transform: translateY(8px);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateY(100%);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1000;
+    color: #2a1f0e;
 }
 
 .ctv-banner.open .ctv-detail-panel {
@@ -982,16 +989,17 @@
 }
 
 .ctv-detail-stats {
-    display: flex;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
     margin-bottom: 14px;
 }
 
 .ctv-stat {
-    flex: 1;
     text-align: center;
-    padding: 10px 4px;
-    background: rgba(255, 255, 255, 0.04);
+    padding: 12px 8px;
+    background: rgba(212, 168, 75, 0.08);
+    border: 1px solid rgba(212, 168, 75, 0.15);
     border-radius: var(--radius-sm);
 }
 
@@ -999,13 +1007,13 @@
     display: block;
     font-weight: 800;
     font-size: 16px;
-    color: var(--gold-primary);
+    color: #6B4F1D;
 }
 
 .ctv-stat-label {
     display: block;
     font-size: 10px;
-    color: var(--text-muted);
+    color: #8a7455;
     margin-top: 2px;
 }
 
@@ -1148,16 +1156,19 @@
 .promo-popup {
     position: relative;
     width: 100%;
-    max-width: 440px;
+    max-width: 420px;
+    max-height: 85vh;
+    overflow-y: auto;
     background: rgba(15, 20, 35, 0.96);
     -webkit-backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
-    border: 1px solid rgba(244, 63, 94, 0.2);
+    border: 1px solid rgba(212, 168, 75, 0.2);
     border-radius: var(--radius-xl);
-    padding: 32px 24px;
+    padding: 24px 20px;
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     transform: translateY(30px) scale(0.95);
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -webkit-overflow-scrolling: touch;
 }
 
 .promo-popup-overlay.active .promo-popup {
@@ -1213,25 +1224,25 @@
 }
 
 .promo-popup-card {
-    background: linear-gradient(135deg, rgba(244, 63, 94, 0.08), rgba(251, 113, 133, 0.04));
-    border: 1px solid rgba(244, 63, 94, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(212, 168, 75, 0.12);
     border-radius: var(--radius-md);
-    padding: 16px;
-    margin-bottom: 16px;
-    text-align: center;
+    padding: 14px;
+    margin-bottom: 14px;
+    text-align: left;
     position: relative;
 }
 
 .promo-badge {
     display: inline-block;
     padding: 4px 14px;
-    background: linear-gradient(135deg, #f43f5e, #e11d48);
-    color: #fff;
+    background: linear-gradient(135deg, #e8bc5a, #c49540);
+    color: #0A0E1A;
     font-weight: 800;
-    font-size: 18px;
-    border-radius: var(--radius-sm);
-    margin-bottom: 10px;
-    box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);
+    font-size: 14px;
+    border-radius: var(--radius-xs);
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(212, 168, 75, 0.3);
 }
 
 .promo-card-title {
@@ -1244,6 +1255,8 @@
     font-size: 13px;
     color: var(--text-secondary);
     line-height: 1.6;
+    max-height: 120px;
+    overflow-y: auto;
 }
 
 .promo-card-desc strong {
@@ -1281,20 +1294,20 @@
 .promo-order-btn {
     display: inline-block;
     width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, #f43f5e, #e11d48);
-    color: #fff;
+    padding: 14px;
+    background: linear-gradient(135deg, #e8bc5a 0%, #c49540 100%);
+    color: #0A0E1A;
     font-weight: 800;
-    font-size: 16px;
-    border-radius: var(--radius-md);
+    font-size: 15px;
+    border-radius: var(--radius-sm);
     text-decoration: none;
-    box-shadow: 0 4px 16px rgba(244, 63, 94, 0.3);
+    box-shadow: 0 4px 16px rgba(212, 168, 75, 0.3);
     transition: all 0.25s;
     text-align: center;
 }
 
 .promo-order-btn:hover {
-    box-shadow: 0 6px 24px rgba(244, 63, 94, 0.5);
+    box-shadow: 0 6px 24px rgba(212, 168, 75, 0.5);
     filter: brightness(1.05);
 }
 
