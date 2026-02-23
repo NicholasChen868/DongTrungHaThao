@@ -12,7 +12,7 @@ const TOOLTIP_MESSAGES = [
     'Ngủ ngon hơn? Thử 1 hộp xem sao 🌿',
     'Tư vấn riêng qua Zalo — miễn phí 💬',
     'Gọi ngay 0903.940.171 📞',
-    'Giới thiệu bạn bè — nhận chiết khấu 10-20% 💰',
+    'Đồng hành lan tỏa sức khỏe 🤝',
     'Đặt thử hôm nay — giao tận nhà ✨',
     'Miễn phí vận chuyển từ 3 hộp 🚚',
     'Nhiều người chia sẻ: ít mệt hơn sau 2 tuần 💪',
