@@ -1,7 +1,7 @@
 # 📦 BACKLOG — Tính Năng & Ý Tưởng
 
-> **Trạng thái**: 🔓 MỞ KHÓA — Sprint D gần hoàn thành (D12 ✅, D7-D11 Shadow tasks chờ data)
-> **Cập nhật**: 2026-02-23 18:10
+> **Trạng thái**: 🔓 MỞ KHÓA — V3 Content Rewrite hoàn tất, P1 features done
+> **Cập nhật**: 2026-02-23 23:07
 > **Quy tắc**: Ưu tiên từ trên xuống. Items đã triển khai được đánh dấu ✅.
 
 ---
@@ -40,8 +40,32 @@
 - Reusable API: `openLoginPopup({ role, onSuccess })`
 - Rate limited, session management
 
-### 💬 LiveChat Button ✅ (thay Messenger)
-- Nút LiveChat teal trong FAB orbit
+### 🎯 Multi-Promo Carousel + Auto-Schedule ✅
+- Popup lật page khi nhiều promo active (carousel ‹ prev / dots / next ›)
+- RPC `get_all_active_promotions` + auto_activate column
+- Cron function `auto_manage_promotions` cho pg_cron
+- Promo expiry: ẩn FAB khi không có promo active
+
+### 📊 V3 Event Tracking + Vercel Analytics ✅
+- Supabase event_logs table + RPC log_event()
+- Auto-track CTA clicks, scroll depth (25/50/75/100%), page views
+- Vercel Analytics (@vercel/analytics) bật 1 dòng
+- Admin RPC get_event_stats() cho dashboard
+
+### 📝 V3 Social Proof Quotes ✅
+- 8 testimonials kiểu "tin nhắn Zalo thật"
+- Handle null age display
+
+### ✨ P1 Features (từ Claude Code branch) ✅
+- Form social proof: "X người đã đặt hàng hôm nay" (real từ DB)
+- Reorder discount: +3% cho khách quen (cộng dồn, cap 20%)
+- Nurturing toast: nhắc cách uống sau khi đặt hàng
+- Promo expiry: ẩn FAB khi promo hết hạn + DB trống
+
+### 🐛 Bug Fixes ✅
+- Fix desktop scroll lock (popups display:none mặc định)
+- Fix CI tests (exclude .claude/ worktrees từ vitest)
+- Dọn sạch 3 Claude Code branches + 2 remote stale branches
 
 ---
 
@@ -107,12 +131,24 @@
 - Gửi thông báo trạng thái đơn (đang giao, hoàn thành)
 - **Ghi chú**: Cần tích hợp API SMS (eSMS, SpeedSMS) hoặc Zalo OA
 
-### 📈 Analytics Tracking (Plan gốc Phase 4.2)
-- Page view tracking (database: migration 007 đã có)
-- Conversion funnel (visit → scroll → form → submit)
-- Section engagement (time spent per section)
-- Dashboard analytics trong admin panel
-- **Ghi chú**: Migration 007 + tracker.js đã tạo sẵn, cần build dashboard UI
+### ~~📈 Analytics Tracking (Plan gốc Phase 4.2)~~ ✅ (Đã xong — event-tracking.js + Vercel Analytics)
+- ~~Page view tracking~~ → Done (event_logs table)
+- ~~Conversion funnel~~ → Done (CTA clicks + scroll depth)
+- ~~Section engagement~~ → Done (scroll milestones)
+- Dashboard analytics trong admin panel → **CẦN BUILD UI**
+
+### 📱 Zalo ZNS — Thông Báo Đơn Hàng + CTV (MỚI 🆕)
+- Tự động gửi tin nhắn Zalo khi có đơn mới / CTV được duyệt
+- 3 template: xác nhận đơn (khách), alert (Bố), duyệt CTV
+- **Anh cần làm trước**: Tạo OA + xác minh + tạo template + lấy token
+- **Em code**: Edge Function + DB trigger + auto token refresh
+- Chi phí: ~60K/tháng cho 100 đơn
+- **Hướng dẫn chi tiết**: `.prompts/zalo-zns-integration-guide.md`
+
+### 🔧 Portable Dev Environment — Tokens & Secrets (MỚI 🆕)
+- Tạo bộ token/API key/secret đóng gói để làm việc trên máy nào cũng được
+- Setup: GitHub PAT, Supabase keys, Vercel token, Zalo credentials
+- **Hướng dẫn chi tiết**: `.prompts/portable-dev-setup.md`
 
 ---
 
@@ -147,5 +183,5 @@
 
 ---
 
-*Cập nhật bởi Antigravity AI — 23/02/2026 18:10*
-*Shadow Tasks D7-D11 = tự phản biện Carl Jung SELF sau CTA Audit*
+*Cập nhật bởi Antigravity AI — 23/02/2026 23:07*
+*V3 Content Rewrite hoàn tất — P1 Features merged — GitHub sạch*
