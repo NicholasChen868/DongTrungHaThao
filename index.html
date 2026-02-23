@@ -826,47 +826,63 @@
       <span class="fab-tooltip-text" id="fabTooltipText">Đặt hàng ngay! 🛒</span>
     </div>
 
-    <!-- Expanded circular buttons (2-tap state) -->
+    <!-- Expanded circular buttons (2-tap) — Bottom→Top: Order, Call, CTV, Zalo, LiveChat -->
     <div class="fab-orbit" id="fabOrbit">
-      <!-- Order — largest, most prominent -->
-      <a href="#contact" class="fab-circle fab-circle--order" id="floatingOrderBtn" aria-label="Đặt hàng ngay">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+      <!-- 5. LIVECHAT — topmost -->
+      <a class="fab-circle fab-circle--livechat" id="cwLivechat" href="https://m.me/maldalladuyduc" target="_blank"
+        rel="noopener" aria-label="LiveChat hỗ trợ">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path
+            d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
+          <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none" />
+          <circle cx="8" cy="12" r="1" fill="currentColor" stroke="none" />
+          <circle cx="16" cy="12" r="1" fill="currentColor" stroke="none" />
         </svg>
-        <span class="fab-circle-label">Đặt Hàng</span>
       </a>
 
-      <!-- Zalo — real logo, no added background -->
+      <!-- 4. ZALO — inline SVG, perfectly centered -->
       <a class="fab-circle fab-circle--zalo" id="cwZalo" href="https://zalo.me/0903940171" target="_blank"
         rel="noopener" aria-label="Chat Zalo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" width="32"
-          height="32" class="fab-circle-logo">
+        <svg width="28" height="28" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="22" fill="#0068FF" />
+          <path
+            d="M13.2 18.8h10.4c.8 0 .8.4.4 1l-7.2 9.2c-.4.6-.4 1 0 1.4.8.6 2 .8 3.2.6 1.2-.2 4.4-.8 5.2-1.4.8-.4-.4-1.4-1.4-1.4H18c-.8 0-.8-.4-.4-1l7.2-9.2c.4-.6.4-1.2-.4-1.2H13.2c-1 0-1 1.2 0 1.2z"
+            fill="white" />
+          <rect x="28" y="18" width="4" height="14" rx="1.2" fill="white" />
+          <circle cx="30" cy="15.5" r="2" fill="white" />
+        </svg>
       </a>
 
-      <!-- Call — iPhone style green -->
+      <!-- 3. ĐĂNG KÝ CTV — Apply CV icon (document + plus) -->
+      <button class="fab-circle fab-circle--ctv" id="fabShare" aria-label="Đăng ký Cộng Tác Viên">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="12" y1="18" x2="12" y2="12" />
+          <line x1="9" y1="15" x2="15" y2="15" />
+        </svg>
+      </button>
+
+      <!-- 2. GỌI NGAY — iPhone green -->
       <a class="fab-circle fab-circle--call" id="cwCall" href="tel:0903940171" aria-label="Gọi điện">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
           <path
             d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
         </svg>
       </a>
 
-      <!-- CTV / Kiếm Tiền -->
-      <button class="fab-circle fab-circle--ctv" id="fabShare" aria-label="Kiếm tiền CTV">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="8" r="4" />
-          <path d="M20 21a8 8 0 10-16 0" />
-          <path d="M16 11l2 2 4-4" />
+      <!-- 1. ĐẶT HÀNG — largest, gold, bottommost -->
+      <a href="#contact" class="fab-circle fab-circle--order" id="floatingOrderBtn" aria-label="Đặt hàng ngay">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 01-8 0" />
         </svg>
-      </button>
-
-      <!-- Messenger -->
-      <a class="fab-circle fab-circle--messenger" id="cwMessenger" href="https://m.me/maldalladuyduc" target="_blank"
-        rel="noopener" aria-label="Messenger">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.2 5.42 3.15 7.2V22l3.03-1.66c.81.22 1.67.34 2.82.34 5.64 0 10-3.93 10-9.7S17.64 2 12 2zm1.03 12.72l-2.55-2.72L5.5 14.72l5.47-5.81 2.55 2.72 4.95-2.72-5.44 5.81z" />
-        </svg>
+        <span class="fab-circle-label">Đặt Hàng</span>
       </a>
     </div>
 
