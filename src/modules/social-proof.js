@@ -57,16 +57,17 @@ export function initSocialProof() {
             return {
                 type: 'ctv',
                 icon: '🤝',
-                text: `<strong>${name}</strong> (${city}) vừa trở thành Đối Tác Đồng Hành`,
+                text: `<strong>${name}</strong> (${city}) vừa đăng ký cùng đi`,
                 time: randTime()
             };
         },
         () => {
             const name = pick(FIRST_NAMES);
+            const city = pick(CITIES);
             return {
                 type: 'ctv',
                 icon: '🎉',
-                text: `Chào mừng <strong>${name}</strong> gia nhập đại gia đình Maldalla!`,
+                text: `Chào mừng <strong>${name}</strong> (${city}) — người cùng đi mới!`,
                 time: randTime()
             };
         },
@@ -93,9 +94,9 @@ export function initSocialProof() {
         // Trust signals thật — không fake con số
         () => {
             const trustMessages = [
-                { icon: '🏭', text: 'Nhà máy đạt chuẩn <strong>GMP — WHO</strong>, quy trình khép kín từ bào tử đến viên nang' },
-                { icon: '🌿', text: '<strong>100% con nhộng nguyên chất</strong> — bẻ viên ra: bột vàng cám, mùi trùng thảo đặc trưng' },
-                { icon: '💛', text: '<strong>15 năm</strong> kinh doanh bằng truyền miệng — uy tín từ người dùng thật' },
+                { icon: '🏭', text: 'Nhà máy đạt chuẩn <strong>GMP — WHO</strong> (tiêu chuẩn quốc tế về sản xuất an toàn)' },
+                { icon: '🌿', text: '<strong>100% con nhộng nguyên chất</strong> — không pha bột gạo, tinh bột, phẩm màu' },
+                { icon: '💛', text: '<strong>Mười lăm năm</strong> — một sản phẩm. Lớn lên nhờ truyền miệng.' },
                 { icon: '📦', text: 'Miễn phí vận chuyển từ <strong>3 hộp</strong>. Đổi trả trong <strong>7 ngày</strong>' },
                 { icon: '☎️', text: 'Tư vấn miễn phí: <strong>0903.940.171</strong> — Thứ 2 đến Thứ 7, 8:00-17:30' }
             ];

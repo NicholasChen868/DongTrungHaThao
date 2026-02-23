@@ -21,7 +21,13 @@
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         rel="stylesheet" />
     <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         :root {
             --bg: #050505;
@@ -34,7 +40,9 @@
             --border: rgba(212, 168, 83, 0.12);
         }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: 'Be Vietnam Pro', sans-serif;
@@ -45,15 +53,35 @@
         }
 
         .s-nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
             padding: 16px 32px;
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             background: rgba(5, 5, 5, 0.92);
             border-bottom: 1px solid var(--border);
         }
-        .s-nav a { color: var(--text-sec); text-decoration: none; font-size: 14px; }
-        .s-nav a:hover { color: var(--gold-light); }
-        .s-nav .brand { font-weight: 700; color: var(--gold-light); font-size: 15px; letter-spacing: 0.5px; }
+
+        .s-nav a {
+            color: var(--text-sec);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .s-nav a:hover {
+            color: var(--gold-light);
+        }
+
+        .s-nav .brand {
+            font-weight: 700;
+            color: var(--gold-light);
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
 
         .policy-page {
             max-width: 720px;
@@ -115,7 +143,9 @@
             margin: 24px 0;
         }
 
-        .highlight-box p { margin-bottom: 0; }
+        .highlight-box p {
+            margin-bottom: 0;
+        }
 
         .s-footer {
             text-align: center;
@@ -124,11 +154,20 @@
             color: var(--text-muted);
             border-top: 1px solid var(--border);
         }
-        .s-footer a { color: var(--gold); text-decoration: none; }
+
+        .s-footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
 
         @media (max-width: 600px) {
-            .s-nav { padding: 12px 16px; }
-            .policy-page h1 { font-size: 1.5rem; }
+            .s-nav {
+                padding: 12px 16px;
+            }
+
+            .policy-page h1 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -146,14 +185,16 @@
 
         <h2>1. Chấp Nhận Điều Khoản</h2>
         <p>Khi truy cập và sử dụng website <strong>dong-trung-ha-thao.vercel.app</strong> ("Website"),
-           bạn đồng ý tuân thủ các điều khoản dưới đây. Nếu không đồng ý, vui lòng không sử dụng Website.</p>
+            bạn đồng ý tuân thủ các điều khoản dưới đây. Nếu không đồng ý, vui lòng không sử dụng Website.</p>
 
         <h2>2. Về Sản Phẩm</h2>
-        <p>Đông Trùng Hạ Thảo Maldalla Duy Đức là <strong>thực phẩm chức năng</strong>, không phải thuốc chữa bệnh.</p>
+        <p>Đông Trùng Hạ Thảo Maldalla Duy Đức là <strong>thực phẩm bảo vệ sức khỏe</strong> (phân loại theo quy định
+            pháp luật Việt Nam), không phải thuốc chữa bệnh.</p>
 
         <div class="highlight-box">
-            <p><strong>Lưu ý:</strong> Sản phẩm không thay thế thuốc chữa bệnh. Hiệu quả có thể khác nhau tùy cơ địa mỗi người.
-               Nên tham khảo ý kiến bác sĩ trước khi sử dụng nếu bạn đang điều trị bệnh.</p>
+            <p><strong>Lưu ý:</strong> Sản phẩm không thay thế thuốc chữa bệnh. Hiệu quả có thể khác nhau tùy cơ địa mỗi
+                người.
+                Nên tham khảo ý kiến bác sĩ trước khi sử dụng nếu bạn đang điều trị bệnh.</p>
         </div>
 
         <h2>3. Thông Tin Trên Website</h2>
@@ -179,12 +220,12 @@
             <li>Thông báo ngay cho chúng tôi nếu phát hiện truy cập trái phép</li>
         </ul>
 
-        <h2>6. Chương Trình CTV (Cộng Tác Viên)</h2>
+        <h2>6. Chương Trình Cùng Đi (Cộng Tác Viên)</h2>
         <ul>
-            <li>CTV giới thiệu sản phẩm trung thực, không phóng đại công dụng</li>
-            <li>Hoa hồng được tính theo quy định tại trang CTV Dashboard</li>
-            <li>Chúng tôi có quyền dừng hợp tác nếu CTV vi phạm quy tắc</li>
-            <li>Thông tin chi tiết về tiers và hoa hồng xem tại <a href="/tuyen-ctv.html" style="color: var(--gold);">trang Tuyển CTV</a></li>
+            <li>Người cùng đi giới thiệu sản phẩm trung thực, không phóng đại công dụng</li>
+            <li>Chiết khấu được tính theo quy định tại trang CTV Dashboard</li>
+            <li>Chúng tôi có quyền dừng hợp tác nếu vi phạm quy tắc</li>
+            <li>Thông tin chi tiết xem tại <a href="/tuyen-ctv.html" style="color: var(--gold);">trang Cùng Đi</a></li>
         </ul>
 
         <h2>7. Nội Dung Người Dùng</h2>
@@ -197,7 +238,7 @@
 
         <h2>8. Sở Hữu Trí Tuệ</h2>
         <p>Toàn bộ nội dung trên Website (text, hình ảnh, logo, thiết kế) thuộc quyền sở hữu của Maldalla Duy Đức.
-           Không sao chép, phân phối, hoặc sử dụng cho mục đích thương mại mà không có sự đồng ý bằng văn bản.</p>
+            Không sao chép, phân phối, hoặc sử dụng cho mục đích thương mại mà không có sự đồng ý bằng văn bản.</p>
 
         <h2>9. Giới Hạn Trách Nhiệm</h2>
         <ul>
@@ -208,13 +249,14 @@
 
         <h2>10. Luật Áp Dụng</h2>
         <p>Điều khoản này được điều chỉnh theo pháp luật Việt Nam.
-           Mọi tranh chấp sẽ được giải quyết tại cơ quan có thẩm quyền tại Việt Nam.</p>
+            Mọi tranh chấp sẽ được giải quyết tại cơ quan có thẩm quyền tại Việt Nam.</p>
 
         <h2>11. Liên Hệ</h2>
         <p>Mọi thắc mắc về điều khoản sử dụng, vui lòng liên hệ:</p>
         <ul>
             <li>Hotline: <a href="tel:0903940171" style="color: var(--gold);">0903.940.171</a></li>
-            <li>Zalo: <a href="https://zalo.me/0903940171" style="color: var(--gold);" target="_blank" rel="noopener">0903.940.171</a></li>
+            <li>Zalo: <a href="https://zalo.me/0903940171" style="color: var(--gold);" target="_blank"
+                    rel="noopener">0903.940.171</a></li>
             <li>Giờ làm việc: Thứ 2 - Thứ 7, 8:00 - 17:30</li>
         </ul>
     </main>

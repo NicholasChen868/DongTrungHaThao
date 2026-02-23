@@ -86,23 +86,24 @@ function createExitPopup() {
     <div class="popup-content exit-intent-popup">
       <button class="popup-close" id="exitIntentClose">&times;</button>
       <div class="exit-intent-body">
-        <div class="exit-intent-icon">🤔</div>
+      <div class="exit-intent-icon">🤔</div>
         <h3 class="exit-intent-title">Đang phân vân?</h3>
         <p class="exit-intent-desc">
-          Chúng tôi hiểu — 1.450.000₫ không phải quyết định nhỏ.<br>
-          Nhưng <strong>48.000₫/ngày</strong> cho sức khỏe cả gia đình — liệu có đáng thử?
+          Tôi hiểu. 1.450.000₫ không phải số nhỏ.<br>
+          Nhưng tính ra: <strong>48.000₫/ngày</strong> — ít hơn một ly cà phê sáng. Cho sức khỏe cả tháng.<br>
+          100% con nhộng nguyên chất. Không pha. Không trộn. Không ngoại lệ.
         </p>
         <div class="exit-intent-trust">
           <span>✅ GMP — WHO</span>
           <span>✅ Đổi trả 7 ngày</span>
-          <span>✅ 15 năm uy tín</span>
+          <span>✅ 15 năm — một sản phẩm</span>
         </div>
         <div class="exit-intent-actions">
           <a href="tel:0903940171" class="btn btn-primary exit-intent-call">
-            📞 Gọi Tư Vấn Miễn Phí
+            📞 Gọi tư vấn miễn phí
           </a>
           <a href="https://zalo.me/0903940171" target="_blank" rel="noopener" class="btn btn-secondary exit-intent-zalo">
-            💬 Chat Zalo Ngay
+            💬 Chat Zalo
           </a>
         </div>
         <p class="exit-intent-note">
