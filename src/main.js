@@ -36,6 +36,7 @@ import { initHeroCTARotator } from './modules/hero-cta-rotator.js';
 import { initExitIntent } from './modules/exit-intent.js';
 import { initEventTracking } from './modules/event-tracking.js';
 import { inject as injectVercelAnalytics } from '@vercel/analytics';
+import { initStickyCTA } from './modules/sticky-cta.js';
 
 // ===================================
 // DYNAMIC PRICING
@@ -133,6 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initExitIntent();
   initEventTracking();
   injectVercelAnalytics();
+  initStickyCTA();
 
   // Auth interceptor — links with data-auth="ctv|customer" require login
   document.addEventListener('click', (e) => {

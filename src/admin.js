@@ -1008,6 +1008,49 @@ async function loadAnalytics() {
     } catch (err) {
         handleApiError(err, 'Tải phân tích', showAdminToast);
     }
+
+    // --- D11: Event Tracking Stats ---
+    try {
+        const { data: eventStats, error: evErr } = await supabase.rpc('get_event_stats', { p_days: 7 });
+        if (!evErr && eventStats) {
+            const stats = eventStats;
+
+            // Summary cards
+            const pageViews = stats.page_views || 0;
+            const ctaClicks = stats.cta_clicks || 0;
+            const deepScrolls = stats.deep_scrolls || 0;
+            const sessions = stats.unique_sessions || 0;
+
+            const pvEl = document.getElementById('anPageViews');
+            const ccEl = document.getElementById('anCtaClicks');
+            const dsEl = document.getElementById('anDeepScroll');
+            const ssEl = document.getElementById('anSessions');
+
+            if (pvEl) pvEl.textContent = pageViews.toLocaleString('vi-VN');
+            if (ccEl) ccEl.textContent = ctaClicks.toLocaleString('vi-VN');
+            if (dsEl) dsEl.textContent = deepScrolls.toLocaleString('vi-VN');
+            if (ssEl) ssEl.textContent = sessions.toLocaleString('vi-VN');
+
+            // Top CTA list
+            const topCtaEl = document.getElementById('topCtaList');
+            if (topCtaEl && stats.top_ctas?.length) {
+                topCtaEl.innerHTML = `<table class="admin-table">
+                    <thead><tr><th>#</th><th>CTA Target</th><th>Clicks</th></tr></thead>
+                    <tbody>
+                    ${stats.top_ctas.map((item, i) => `<tr>
+                        <td>${i + 1}</td>
+                        <td><code>${escapeHTML(item.target || item.event_target || '—')}</code></td>
+                        <td style="color:var(--gold-light);font-weight:600">${item.count || item.click_count || 0}</td>
+                    </tr>`).join('')}
+                    </tbody>
+                </table>`;
+            } else if (topCtaEl) {
+                topCtaEl.innerHTML = '<div class="admin-empty">Chưa có dữ liệu CTA clicks</div>';
+            }
+        }
+    } catch {
+        // Silent — event stats are non-critical
+    }
 }
 
 // --- Generic render table helper ---
