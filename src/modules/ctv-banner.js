@@ -25,10 +25,10 @@ const MOTIVATIONAL_QUOTES = [
 ];
 
 const RANK_MAP = {
-    bronze: { emoji: '🥉', label: 'Bronze', next: 'Silver', nextEmoji: '🥈', reqOrders: 5 },
-    silver: { emoji: '🥈', label: 'Silver', next: 'Gold', nextEmoji: '🥇', reqOrders: 15 },
-    gold: { emoji: '🥇', label: 'Gold', next: 'Diamond', nextEmoji: '💎', reqOrders: 50 },
-    diamond: { emoji: '💎', label: 'Diamond', next: null, nextEmoji: null, reqOrders: null },
+    bronze: { label: 'Bronze', next: 'Silver', reqOrders: 5 },
+    silver: { label: 'Silver', next: 'Gold', reqOrders: 15 },
+    gold: { label: 'Gold', next: 'Diamond', reqOrders: 50 },
+    diamond: { label: 'Diamond', next: null, reqOrders: null },
 };
 
 const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -143,7 +143,7 @@ function showBanner(session) {
     const rankEl = document.getElementById('ctvBannerRank');
     const timeEl = document.getElementById('ctvBannerTime');
     if (nameEl) nameEl.textContent = session.name;
-    if (rankEl) rankEl.textContent = `${rankInfo.emoji} ${rankInfo.label}`;
+    if (rankEl) rankEl.textContent = rankInfo.label;
     if (timeEl) timeEl.textContent = `Online ${loginDuration}`;
 
     // Detail panel
@@ -151,7 +151,7 @@ function showBanner(session) {
     const detailBadge = document.getElementById('ctvDetailBadge');
     const detailRankLabel = document.getElementById('ctvDetailRankLabel');
     if (detailName) detailName.textContent = session.name;
-    if (detailBadge) detailBadge.textContent = rankInfo.emoji;
+    if (detailBadge) detailBadge.textContent = rankInfo.label.charAt(0);
     if (detailRankLabel) detailRankLabel.textContent = `Hạng ${rankInfo.label}`;
 
     // Stats
@@ -169,11 +169,11 @@ function showBanner(session) {
         const progress = Math.min(100, Math.round((session.total_orders / rankInfo.reqOrders) * 100));
         const remaining = Math.max(0, rankInfo.reqOrders - session.total_orders);
         if (goalFill) goalFill.style.width = `${progress}%`;
-        if (goalText) goalText.textContent = `Thêm ${remaining} đơn nữa → ${rankInfo.next} ${rankInfo.nextEmoji}`;
+        if (goalText) goalText.textContent = `Thêm ${remaining} đơn nữa → ${rankInfo.next}`;
     } else {
         const goalSection = document.getElementById('ctvGoalSection');
         if (goalSection) {
-            goalSection.innerHTML = '<div class="ctv-goal-header"><span>🏆 Bạn đã đạt hạng cao nhất!</span></div>';
+            goalSection.innerHTML = '<div class="ctv-goal-header"><span>Bạn đã đạt hạng cao nhất!</span></div>';
         }
     }
 

@@ -9,15 +9,15 @@ import { saveCtvSession, initCtvBanner } from './ctv-banner.js';
 
 // Rotating tooltip messages — align với Content Bible V3
 const TOOLTIP_MESSAGES = [
-    'Ngủ ngon hơn? Thử 1 hộp xem sao 🌿',
-    'Tư vấn riêng qua Zalo — miễn phí 💬',
-    'Gọi ngay 0903.940.171 📞',
-    'Đồng hành lan tỏa sức khỏe 🤝',
-    'Đặt thử hôm nay — giao tận nhà ✨',
-    'Miễn phí vận chuyển từ 3 hộp 🚚',
-    'Nhiều người chia sẻ: ít mệt hơn sau 2 tuần 💪',
-    '48.000₫/ngày — rẻ hơn 1 ly cà phê ☕',
-    '100% con nhộng nguyên chất 🌿',
+    'Ngủ ngon hơn? Thử 1 hộp xem sao',
+    'Tư vấn riêng qua Zalo — miễn phí',
+    'Gọi ngay 0903.940.171',
+    'Đồng hành lan tỏa sức khỏe',
+    'Đặt thử hôm nay — giao tận nhà',
+    'Miễn phí vận chuyển từ 3 hộp',
+    'Nhiều người chia sẻ: ít mệt hơn sau 2 tuần',
+    '48.000₫/ngày — rẻ hơn 1 ly cà phê',
+    '100% con nhộng nguyên chất',
 ];
 
 let tooltipIndex = 0;

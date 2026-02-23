@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const navLoginBtn = document.getElementById('navLoginBtn');
   const navDropdown = document.getElementById('navAccountDropdown');
   if (navLoginBtn && navAccount) {
-    const RANK_ICONS = { bronze: '🥉', silver: '🥈', gold: '🥇', diamond: '💎' };
+    const RANK_LABELS = { bronze: 'Bronze', silver: 'Silver', gold: 'Gold', diamond: 'Diamond' };
 
     function updateNavAccount() {
       const user = getCurrentUser();
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const rankEl = document.getElementById('navAccountRank');
         const fullEl = document.getElementById('navAccountFullname');
         const ptsEl = document.getElementById('navAccountPoints');
-        if (rankEl) rankEl.textContent = `${RANK_ICONS[tier] || '🥉'} ${tier.charAt(0).toUpperCase() + tier.slice(1)}`;
+        if (rankEl) rankEl.textContent = `${RANK_LABELS[tier] || 'Bronze'}`;
         if (fullEl) fullEl.textContent = name;
         if (ptsEl) ptsEl.textContent = `${points} điểm thưởng`;
 
@@ -206,14 +206,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (dashEl) {
           if (user.role === 'ctv') {
             dashEl.href = '/ctv-dashboard.html';
-            dashEl.textContent = '📊 Dashboard CTV';
+            dashEl.textContent = 'Dashboard CTV';
           } else {
             dashEl.href = '/thanh-vien.html';
-            dashEl.textContent = '👤 Trang Thành Viên';
+            dashEl.textContent = 'Trang Thành Viên';
           }
         }
       } else {
-        if (iconEl) iconEl.textContent = '🔐';
+        if (iconEl) iconEl.textContent = '→';
         if (nameEl) nameEl.textContent = 'Đăng Nhập';
         const metaEl = infoEl?.querySelector('.nav-account-meta');
         if (metaEl) metaEl.remove();
