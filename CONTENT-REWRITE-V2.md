@@ -1,4 +1,4 @@
-# CONTENT REWRITE V2 — Website Maldala Duy Đức
+# CONTENT REWRITE V2 — Website Maldalla Duy Đức
 
 > **Người viết**: ClaudeCode — vai biên tập viên content sức khỏe cao cấp
 > **Ngày**: 23/02/2026
@@ -21,7 +21,7 @@
 |--------|----------|----------------------------|
 | **Hero CTA** | "Đặt Hàng Ngay" | "Cho Bản Thân Cơ Hội — Thử 30 Ngày" |
 | **2 giá trị cốt lõi** | Chưa nổi bật TRÍ LỰC + THỂ LỰC | Phải là trung tâm của mọi section |
-| **CTV Popup tiêu đề** | "Kiếm Tiền Cùng Maldala" 💰 | Nên frame là "đồng hành", "lan tỏa" — tiền là kết quả tự nhiên |
+| **CTV Popup tiêu đề** | "Kiếm Tiền Cùng Maldalla" 💰 | Nên frame là "đồng hành", "lan tỏa" — tiền là kết quả tự nhiên |
 | **Section About subtitle** | Tốt nhưng chưa nhấn vào TRÍ LỰC + THỂ LỰC | Cần 2 cột rõ ràng: 🧠 Trí Lực + 💪 Thể Lực |
 | **CTA journey** | "bắt đầu từ hôm nay" — hơi generic | Cần cụ thể hơn: timeline 30 ngày, hình ảnh rõ |
 | **Product CTA** | "Đặt Mua — [giá]" | "Tôi Sẵn Sàng Khỏe Thật — [giá]" |
@@ -45,7 +45,7 @@ Sản phẩm đạt chuẩn GMP — WHO
 ```
 Đông Trùng
 Hạ Thảo
-Maldala Duy Đức
+Maldalla Duy Đức
 ```
 
 **Hero subtitle:** (VIẾT LẠI — nhấn TRÍ LỰC + THỂ LỰC)
@@ -307,7 +307,7 @@ MỚI: Tôi Muốn Đồng Hành — Đăng Ký Ngay
 
 **Popup title:** (VIẾT LẠI)
 ```
-CŨ: Kiếm Tiền Cùng Maldala 💰
+CŨ: Kiếm Tiền Cùng Maldalla 💰
 MỚI: Đồng Hành Lan Tỏa Sức Khỏe 🌿
 ```
 
@@ -488,7 +488,7 @@ MỚI: Mỗi viên nang là một lời hứa — để bạn minh mẫn hơn, b
 
 ```json
 {
-  "welcome_title": "Chào mừng bạn — người đồng hành mới của Maldala Duy Đức! 🌿",
+  "welcome_title": "Chào mừng bạn — người đồng hành mới của Maldalla Duy Đức! 🌿",
   "welcome_message": "Bạn vừa chọn đứng cùng phía với sức khỏe.\n\nĐây không phải \"đi bán hàng\" — đây là chia sẻ thứ bạn tin là tốt, với người bạn quan tâm. Thu nhập là kết quả tự nhiên khi bạn giúp được nhiều người hơn.",
   "steps": [
     {
@@ -557,7 +557,7 @@ MỚI: Mỗi viên nang là một lời hứa — để bạn minh mẫn hơn, b
 ### Đăng ký CTV thành công
 ```json
 [
-  "🌿 Chào mừng bạn — người đồng hành mới của Maldala Duy Đức!",
+  "🌿 Chào mừng bạn — người đồng hành mới của Maldalla Duy Đức!",
   "✅ Tài khoản đối tác đã sẵn sàng — vào Dashboard để bắt đầu nhé.",
   "🤝 Đăng ký thành công! Chúc bạn lan tỏa sức khỏe thật vui.",
   "💛 Welcome! Bước đầu tiên: lấy link giới thiệu trong Dashboard.",

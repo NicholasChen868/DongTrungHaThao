@@ -37,7 +37,7 @@ export const testimonials = [
         location: 'Huế',
         avatar: '/images/customer5.png',
         rating: 5,
-        quote: 'Thử nhiều nhãn rồi. Hộp 800 ngàn, hộp 2 triệu. Cái thì bột mịn quá — nghi pha. Cái uống hoài không thấy gì. Maldala Duy Đức mở ra thấy liền: viên đẹp, bẻ ra có mùi trùng thảo thật. 2 tháng, khỏe hẳn — cái khỏe từ từ, không giả.',
+        quote: 'Thử nhiều nhãn rồi. Hộp 800 ngàn, hộp 2 triệu. Cái thì bột mịn quá — nghi pha. Cái uống hoài không thấy gì. Maldalla Duy Đức mở ra thấy liền: viên đẹp, bẻ ra có mùi trùng thảo thật. 2 tháng, khỏe hẳn — cái khỏe từ từ, không giả.',
     },
     {
         name: 'Đặng Thị Lan',

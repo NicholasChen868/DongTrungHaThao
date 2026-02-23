@@ -24,7 +24,7 @@ Thay toàn bộ nội dung text trong `cau-chuyen.html` bằng content mới bê
 ### THAY ĐỔI:
 - **6 chương** thay vì 6 chương cũ (cắt chương giá, thêm chương "Ông Năm thuốc")
 - **Opening** mở bằng cảnh cụ thể, không tuyên bố
-- **Footer copyright**: đổi thành `Maldala Duy Đức` (không phải maldalladuyduc)
+- **Footer copyright**: đổi thành `Maldalla Duy Đức` (không phải maldalladuyduc)
 - **SEO meta description** mới (xem cuối file)
 
 ---
@@ -303,7 +303,7 @@ Nhưng nếu một buổi sáng, bạn tỉnh dậy, và lần đầu tiên sau 
 
 ### FOOTER
 
-`© 2026 Maldala Duy Đức — Một sản phẩm. Một lời hứa. Một con đường về nhà.`
+`© 2026 Maldalla Duy Đức — Một sản phẩm. Một lời hứa. Một con đường về nhà.`
 
 ---
 

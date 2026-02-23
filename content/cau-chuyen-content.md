@@ -265,7 +265,7 @@ Nhưng nếu một buổi sáng, bạn tỉnh dậy, và lần đầu tiên sau 
 
 ## FOOTER
 
-© 2026 Maldala Duy Đức — Một sản phẩm. Một lời hứa. Một con đường về nhà.
+© 2026 Maldalla Duy Đức — Một sản phẩm. Một lời hứa. Một con đường về nhà.
 
 ---
 

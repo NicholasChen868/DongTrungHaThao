@@ -50,11 +50,11 @@ SAU KHI LÀM:
 
 ## 🏷️ BRAND IDENTITY
 
-- **Tên thương hiệu**: `Maldala Duy Đức` (KHÔNG phải "maldalladuyduc")
-- **Hiển thị HTML**: `Maldala <span class="brand-accent">Duy Đức</span>`
+- **Tên thương hiệu**: `Maldalla Duy Đức` (KHÔNG phải "maldalladuyduc")
+- **Hiển thị HTML**: `Maldalla <span class="brand-accent">Duy Đức</span>`
 - **"Duy Đức"** luôn dùng class `.brand-accent` (màu `--gold-primary`)
 - **SEO meta tags**: Giữ nguyên "maldalladuyduc" trong meta để không ảnh hưởng SEO
-- **Copyright**: `© 2026 Maldala Duy Đức`
+- **Copyright**: `© 2026 Maldalla Duy Đức`
 
 ## 🎨 COLOR PALETTE (Crimson/Gold Theme)
 

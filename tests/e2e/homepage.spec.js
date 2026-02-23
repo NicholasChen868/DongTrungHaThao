@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Trang chủ — Load & Navigate', () => {
     test('trang chủ load thành công', async ({ page }) => {
         await page.goto('/');
-        await expect(page).toHaveTitle(/Maldala|Đông Trùng/i);
+        await expect(page).toHaveTitle(/Maldalla|Đông Trùng/i);
         await expect(page.locator('#hero')).toBeVisible();
     });
 

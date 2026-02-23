@@ -16,7 +16,7 @@ const MOTIVATIONAL_QUOTES = [
     'Bạn đang xây dựng thu nhập thụ động — mỗi đơn hàng đều đáng giá.',
     'Hạng Diamond đang chờ bạn — chỉ cần tiếp tục chia sẻ!',
     'Cơ hội thuộc về người hành động, không phải người suy nghĩ.',
-    'Maldala tin vào bạn — và con số hoa hồng sẽ chứng minh.',
+    'Maldalla tin vào bạn — và con số hoa hồng sẽ chứng minh.',
     'Sức khỏe là vàng — bạn đang mang giá trị đến cho mọi người.',
     'Top CTV tháng này đều bắt đầu từ 0 đơn. Bạn hoàn toàn có thể.',
     'Mỗi lần chia sẻ là một cơ hội kiếm tiền. Đừng bỏ lỡ!',

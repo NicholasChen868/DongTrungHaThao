@@ -10,8 +10,8 @@
 
 ### Data nói gì:
 - Phân khúc bán chạy nhất TMĐT = **200-500K**
-- Maldala = **1.450K** → gấp 3-7x
-- Giá/viên Maldala = **~24.000₫** vs trung bình ngành ~8.000-10.000₫/viên
+- Maldalla = **1.450K** → gấp 3-7x
+- Giá/viên Maldalla = **~24.000₫** vs trung bình ngành ~8.000-10.000₫/viên
 
 ### Content V3 thiếu gì:
 Không có đoạn nào giải thích **TẠI SAO ĐÁNG GIÁ 1.4 TRIỆU**.
@@ -27,7 +27,7 @@ Khách vào web, thấy giá, so với Shopee → bỏ đi. Vì không hiểu s�
 — Vì 10 người bán thì 9 người pha. Hộp 300K chỉ có 20-30% là Đông Trùng thật,
 phần còn lại là bột gạo, bột bắp, trộn màu cho đẹp.
 
-Maldala Duy Đức = 100% con nhộng nguyên chất. Bẻ viên ra: bột vàng cám,
+Maldalla Duy Đức = 100% con nhộng nguyên chất. Bẻ viên ra: bột vàng cám,
 mùi trùng thảo đặc trưng. Không pha. Không trộn. Không phụ gia.
 
 Tiêu chuẩn của chúng tôi chỉ có một: xứng đáng để cho ba mẹ mình uống.
@@ -35,7 +35,7 @@ Tiêu chuẩn của chúng tôi chỉ có một: xứng đáng để cho ba mẹ
 
 **Mini so sánh (optional, Antigravity quyết định có show không):**
 ```
-| | Hàng giá rẻ (200-500K) | Maldala Duy Đức (1.450K) |
+| | Hàng giá rẻ (200-500K) | Maldalla Duy Đức (1.450K) |
 |---|---|---|
 | Nguyên liệu | 20-30% ĐTHT + bột phụ gia | 100% con nhộng nguyên chất |
 | Quy trình | Không rõ | Nuôi cấy khép kín, sấy thăng hoa |
@@ -44,7 +44,7 @@ Tiêu chuẩn của chúng tôi chỉ có một: xứng đáng để cho ba mẹ
 | Giá/ngày | ~10.000-16.000₫ | 48.000₫ (= 1 ly cà phê) |
 ```
 
-> **Ghi chú**: Bảng này KHÔNG nói xấu đối thủ cụ thể. Chỉ so sánh chung "hàng giá rẻ" vs Maldala. Minh bạch, không công kích.
+> **Ghi chú**: Bảng này KHÔNG nói xấu đối thủ cụ thể. Chỉ so sánh chung "hàng giá rẻ" vs Maldalla. Minh bạch, không công kích.
 
 ---
 
@@ -90,7 +90,7 @@ VÌ SAO 10.000+ NGƯỜI TIN TƯỞNG MALDALA DUY ĐỨC?
 
 **C. Câu chuyện CTV "người thật" — thêm vào Testimonials:**
 ```
-"Mình là CTV Maldala từ 2023. Ban đầu chỉ mua cho mẹ uống.
+"Mình là CTV Maldalla từ 2023. Ban đầu chỉ mua cho mẹ uống.
 Mẹ dùng 2 tháng, tự gọi biểu mua thêm. Rồi mẹ kể cho hàng xóm.
 Hàng xóm gọi mình hỏi mua. Thế là mình thành CTV lúc nào không hay.
 Giờ mỗi tháng có 15-20 đơn — toàn từ mẹ và hàng xóm mẹ giới thiệu."
@@ -228,7 +228,7 @@ Tháng đầu mẹ uống cho con vui. Tháng thứ hai mẹ gọi:
 
 | Điều chỉnh | Lý do (data) | Thay đổi cụ thể |
 |-------------|-------------|-----------------|
-| **Price framing** | Maldala đắt gấp 3x thị trường | Thêm đoạn "48.000₫/ngày = 1 ly cà phê" + mini so sánh |
+| **Price framing** | Maldalla đắt gấp 3x thị trường | Thêm đoạn "48.000₫/ngày = 1 ly cà phê" + mini so sánh |
 | **Trust signals** | <10% tin mua TPCN online | Thêm badges form + section "Vì Sao Tin Được?" |
 | **Messaging order** | Đề kháng #1, mệt mỏi #2, trí lực #8 | Đổi headline → "Khỏe Hơn, Ít Mệt Hơn, Ngủ Ngon Hơn" |
 | **"Trí lực" position** | Chỉ xếp #8 trong lý do mua | Chuyển xuống benefit cuối = hệ quả tự nhiên |

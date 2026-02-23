@@ -101,7 +101,7 @@
 | ④ | **Conversion** | 81% bỏ form → mất 81% doanh thu tiềm năng | ❌ Không có exit-intent, không có trust badges tại form |
 | ⑤ | **Payment** | COD + QR → nhưng khách premium cần thêm AN TÂM | ⚠️ QR hoạt động tốt, nhưng thiếu "đảm bảo đổi trả" rõ ràng |
 | ⑥ | **Retention** | Reorder reminder sau 30 ngày → nhưng chỉ 1 touchpoint | ⚠️ Có nhưng đơn giản, thiếu nurturing |
-| ⑦ | **Referral/CTV** | CTV popup = "Kiếm Tiền Cùng Maldala" → SAI GIỌNG | ❌ CTV popup chưa đổi content theo Content Bible |
+| ⑦ | **Referral/CTV** | CTV popup = "Kiếm Tiền Cùng Maldalla" → SAI GIỌNG | ❌ CTV popup chưa đổi content theo Content Bible |
 
 ---
 
@@ -140,7 +140,7 @@
 
 ### SHADOW #2: PRICE = BLIND SPOT LỚN NHẤT
 
-**Sự thật:** Khách vào web, thấy **1.450.000₫**. Mở tab Shopee: **300.000₫**. Đóng tab Maldala.
+**Sự thật:** Khách vào web, thấy **1.450.000₫**. Mở tab Shopee: **300.000₫**. Đóng tab Maldalla.
 
 Hiện tại trên website: **KHÔNG CÓ MỘT CHỮ NÀO giải thích tại sao đắt gấp 3-7x.**
 
@@ -150,7 +150,7 @@ Không có:
 - ❌ "Bẻ viên ra là biết" (có trong gallery caption nhưng không ở product section)
 - ❌ "Tại sao xứng đáng 1.4 triệu?"
 
-**Data**: Phân khúc bán chạy nhất = 200-500K. Maldala = 1.450K.
+**Data**: Phân khúc bán chạy nhất = 200-500K. Maldalla = 1.450K.
 **Data**: <10% tin mua TPCN online. Giá cao + không giải thích = chắc chắn bỏ đi.
 
 **Mức độ nghiêm trọng**: 🔴🔴🔴 CỰC CAO — Đây là lý do #1 mất khách.
@@ -194,7 +194,7 @@ Không có:
 
 Nhưng CTV popup hiện tại:
 ```
-Tiêu đề: "Kiếm Tiền Cùng Maldala" 💰
+Tiêu đề: "Kiếm Tiền Cùng Maldalla" 💰
 Subtitle: "Đăng ký CTV — chia sẻ & nhận hoa hồng mỗi đơn"
 Rewards:
   📝 Viết bài chia sẻ +30.000₫
@@ -214,7 +214,7 @@ Rewards:
 
 **Sự thật:** 8 tooltip messages rotate mỗi 4 giây. Message #4:
 ```
-"Kiếm tiền cùng Maldala 💰"
+"Kiếm tiền cùng Maldalla 💰"
 ```
 
 → Cùng vấn đề Shadow #4. Mỗi 32 giây, **mọi visitor đều thấy message "kiếm tiền"** = ấn tượng không tốt cho khách đang muốn mua sản phẩm sức khỏe.
@@ -494,9 +494,9 @@ HTML trên website **vẫn còn nguyên content cũ:**
 
 | # | Hành động | Agent | Ưu tiên |
 |---|-----------|-------|---------|
-| 7a | **Đổi CTV popup title**: "Kiếm Tiền Cùng Maldala" → "Đồng Hành Lan Tỏa Sức Khỏe" | Antigravity | 🔴 P0 |
+| 7a | **Đổi CTV popup title**: "Kiếm Tiền Cùng Maldalla" → "Đồng Hành Lan Tỏa Sức Khỏe" | Antigravity | 🔴 P0 |
 | 7b | **Đổi CTV popup rewards**: Lead bằng giá trị, không lead bằng tiền | Antigravity | 🔴 P0 |
-| 7c | **Đổi FAB tooltip** #4: "Kiếm tiền cùng Maldala 💰" → "Đồng hành lan tỏa sức khỏe 🤝" | ClaudeCode | 🔴 P0 |
+| 7c | **Đổi FAB tooltip** #4: "Kiếm tiền cùng Maldalla 💰" → "Đồng hành lan tỏa sức khỏe 🤝" | ClaudeCode | 🔴 P0 |
 | 7d | CTV onboarding → thêm "Bạn chỉ cần chia sẻ trải nghiệm thật — chúng tôi lo phần còn lại" | Antigravity | 🟡 P1 |
 | 7e | CTV dashboard → thêm "câu chuyện mẫu" để CTV chia sẻ tự nhiên (không bán hàng) | ClaudeCode | 🟢 P2 |
 | 7f | **Social proof fix**: Bỏ fake milestone numbers, giữ notifications dạng ẩn danh | ClaudeCode | 🔴 P0 |
@@ -513,7 +513,7 @@ HTML trên website **vẫn còn nguyên content cũ:**
 |---|------|------|-------|
 | CC-1 | Exit-intent popup | `src/modules/exit-intent.js` (MỚI) | Detect mouse leave viewport / back button → popup "Đang phân vân? Gọi 0903.940.171" |
 | CC-2 | Social proof fix | `src/modules/social-proof.js` | Bỏ fake milestone numbers. Giữ order/CTV notifications dạng ẩn danh. |
-| CC-3 | FAB tooltip fix | `src/modules/floating-buttons.js` | Đổi message #4: "Kiếm tiền cùng Maldala 💰" → "Đồng hành lan tỏa sức khỏe 🤝" |
+| CC-3 | FAB tooltip fix | `src/modules/floating-buttons.js` | Đổi message #4: "Kiếm tiền cùng Maldalla 💰" → "Đồng hành lan tỏa sức khỏe 🤝" |
 | CC-4 | Promo popup content | `src/modules/promo-popup.js` | Kiểm tra fallback HTML — nếu "Bứt Phá Đinh Ngọ" đã hết hạn → đổi fallback |
 
 **P1 — Nên làm:**

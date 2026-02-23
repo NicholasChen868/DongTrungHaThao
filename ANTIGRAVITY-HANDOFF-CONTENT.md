@@ -199,7 +199,7 @@ INSERT INTO promotions (
 
 ```json
 {
-  "welcome_title": "🎉 Chào mừng bạn gia nhập đội ngũ Maldala Duy Đức!",
+  "welcome_title": "🎉 Chào mừng bạn gia nhập đội ngũ Maldalla Duy Đức!",
   "welcome_message": "Bạn vừa bắt đầu hành trình kiếm thêm thu nhập cùng Đông Trùng Hạ Thảo — sản phẩm sức khỏe mà ai cũng cần, ai cũng muốn tặng người thân.\n\nKhông cần vốn. Không cần kho hàng. Chỉ cần chiếc điện thoại và sự chân thành — bạn đã sẵn sàng.",
   "steps": [
     {
@@ -264,7 +264,7 @@ INSERT INTO promotions (
     "days_inactive": 60,
     "type": "reminder_winback",
     "title": "Bạn vẫn ở đây chứ? Chúng tôi vẫn chờ bạn 🤝",
-    "message": "Chào bạn! Lâu lắm rồi mình không thấy bạn hoạt động — hy vọng bạn vẫn khỏe.\n\nMình hiểu, ai cũng có giai đoạn bận rộn hoặc chưa tìm được cách phù hợp. Không sao cả — cánh cửa CTV của Maldala Duy Đức luôn mở.\n\nNếu bạn muốn bắt đầu lại, đây là 1 việc duy nhất bạn cần làm:\n📌 Mở Zalo → gửi link sản phẩm cho 1 nhóm gia đình hoặc bạn bè.\n\nChỉ vậy thôi. Không áp lực. Không deadline. Bạn làm theo tốc độ của bạn. 🌱",
+    "message": "Chào bạn! Lâu lắm rồi mình không thấy bạn hoạt động — hy vọng bạn vẫn khỏe.\n\nMình hiểu, ai cũng có giai đoạn bận rộn hoặc chưa tìm được cách phù hợp. Không sao cả — cánh cửa CTV của Maldalla Duy Đức luôn mở.\n\nNếu bạn muốn bắt đầu lại, đây là 1 việc duy nhất bạn cần làm:\n📌 Mở Zalo → gửi link sản phẩm cho 1 nhóm gia đình hoặc bạn bè.\n\nChỉ vậy thôi. Không áp lực. Không deadline. Bạn làm theo tốc độ của bạn. 🌱",
     "cta": "🔄 Bắt Đầu Lại"
   }
 ]
@@ -305,7 +305,7 @@ CREATE TABLE ctv_reminder_templates (
 ### Đăng ký CTV thành công
 ```javascript
 const TOAST_CTV_REGISTER = [
-  "🎉 Chào mừng bạn gia nhập đội ngũ CTV Maldala Duy Đức!",
+  "🎉 Chào mừng bạn gia nhập đội ngũ CTV Maldalla Duy Đức!",
   "✅ Đăng ký thành công! Vào Dashboard để lấy link giới thiệu nhé.",
   "🚀 Tài khoản CTV đã sẵn sàng — bắt đầu kiếm hoa hồng ngay hôm nay!",
   "💪 Đăng ký CTV thành công! Chúc bạn bán hàng vui vẻ.",
@@ -339,7 +339,7 @@ const TOAST_CUSTOMER_LOGIN = [
 ```javascript
 const TOAST_ORDER_SUCCESS = [
   "🎉 Đặt hàng thành công! Chúng tôi sẽ liên hệ xác nhận sớm nhất.",
-  "✅ Đơn hàng đã được ghi nhận — cảm ơn bạn đã tin tưởng Maldala Duy Đức!",
+  "✅ Đơn hàng đã được ghi nhận — cảm ơn bạn đã tin tưởng Maldalla Duy Đức!",
   "📦 Đặt hàng thành công! Kiểm tra email/SĐT để theo dõi đơn nhé.",
   "💛 Cảm ơn bạn! Đơn hàng đang được xử lý — giao hàng nhanh chóng.",
   "🌿 Đặt hàng thành công! Chúc bạn sức khỏe dồi dào.",

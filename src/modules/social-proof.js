@@ -66,7 +66,7 @@ export function initSocialProof() {
             return {
                 type: 'ctv',
                 icon: '🎉',
-                text: `Chào mừng <strong>${name}</strong> gia nhập đại gia đình Maldala!`,
+                text: `Chào mừng <strong>${name}</strong> gia nhập đại gia đình Maldalla!`,
                 time: randTime()
             };
         },

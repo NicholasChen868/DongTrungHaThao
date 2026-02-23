@@ -27,7 +27,7 @@ ClaudeCode đã viết xong 2 file content, đã commit vào branch `claudecode/
   - Product: "Đặt Mua" → "Tôi Sẵn Sàng"
   - CTA Journey: "Bắt Đầu Hành Trình" → "Cho Bản Thân 30 Ngày — Tôi Sẵn Sàng"
   - Order form: "Xác Nhận Đặt Hàng" → "Gửi Đơn — Tôi Sẵn Sàng Khỏe Thật"
-- [ ] Đổi **CTV popup tiêu đề** từ "Kiếm Tiền Cùng Maldala" → "Đồng Hành Lan Tỏa Sức Khỏe"
+- [ ] Đổi **CTV popup tiêu đề** từ "Kiếm Tiền Cùng Maldalla" → "Đồng Hành Lan Tỏa Sức Khỏe"
 - [ ] Đổi **CTV popup rewards** — lead với giá trị, không lead với tiền (xem file)
 
 #### Ưu tiên 2 — Content sections (TRÍ LỰC + THỂ LỰC)

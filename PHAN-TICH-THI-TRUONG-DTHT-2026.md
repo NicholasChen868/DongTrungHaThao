@@ -2,7 +2,7 @@
 
 > **Nguồn**: Thu thập từ Metric.vn, VNExpress, Grand View Research, Straits Research, ECDB, IMARC Group, Dân Trí, Đại biểu Nhân dân, và các báo cáo ngành 2024-2025
 > **Cập nhật**: 23/02/2026
-> **Mục đích**: Data thực tế để inform content strategy, CTA optimization, và customer persona cho Maldala Duy Đức
+> **Mục đích**: Data thực tế để inform content strategy, CTA optimization, và customer persona cho Maldalla Duy Đức
 
 ---
 
@@ -36,9 +36,9 @@
 | CAGR toàn cầu | **13,2-14,9%/năm** | Nhiều nguồn |
 | **CAGR Đông Nam Á** | **16,2%/năm** ← cao hơn toàn cầu | Cognitive Market Research |
 
-### 💡 Insight cho Maldala:
-> Thị trường đang tăng trưởng **rất mạnh** (16,2% CAGR ĐNA). NHƯNG: phân khúc giá bán chạy nhất trên TMĐT là **200-500K** — sản phẩm Maldala giá **1.450K** nằm ở **phân khúc cao cấp**. Điều này có nghĩa:
-> - Maldala **không cạnh tranh bằng giá** — mà cạnh tranh bằng **CHẤT LƯỢNG + NIỀM TIN**
+### 💡 Insight cho Maldalla:
+> Thị trường đang tăng trưởng **rất mạnh** (16,2% CAGR ĐNA). NHƯNG: phân khúc giá bán chạy nhất trên TMĐT là **200-500K** — sản phẩm Maldalla giá **1.450K** nằm ở **phân khúc cao cấp**. Điều này có nghĩa:
+> - Maldalla **không cạnh tranh bằng giá** — mà cạnh tranh bằng **CHẤT LƯỢNG + NIỀM TIN**
 > - Content phải build **perceived value** đủ mạnh để justify mức giá 1.4 triệu
 > - CTA kiểu "Đặt hàng giá tốt" sẽ **KHÔNG hiệu quả** cho phân khúc này
 
@@ -82,7 +82,7 @@
 - Người mua giá rẻ chấp nhận rủi ro
 - Khách hàng cao cấp (phân khúc 1 triệu+) **cần NIỀM TIN cực mạnh** để mua online
 
-### 💡 Insight cho Maldala:
+### 💡 Insight cho Maldalla:
 > - **Kênh hiệu quả nhất = GIỚI THIỆU TỪ NGƯỜI THÂN** → CTV strategy đúng hướng!
 > - **<10% tin tưởng mua TPCN online** → Website phải build trust cực mạnh (chứng nhận, testimonials, câu chuyện, transparency)
 > - **Cart abandonment 81%** → Cần giảm friction: sticky CTA, form ngắn, chat support
@@ -113,7 +113,7 @@
 7. **Hỗ trợ tim mạch**
 8. **Tăng trí nhớ / tập trung**
 
-### 💡 Insight cho Maldala:
+### 💡 Insight cho Maldalla:
 > - **"Tăng đề kháng" và "bồi bổ, giảm mệt mỏi" là lý do #1-#2** — KHÔNG phải "trí lực sắc bén"
 > - **"Trí lực" chỉ xếp #8** trong lý do mua → ĐÂY LÀ BẰNG CHỨNG CỤ THỂ CHO SHADOW #2
 > - Messaging nên lead bằng: ĐỀ KHÁNG + GIẢM MỆT MỎI + NGỦ NGON → rồi mới mention trí lực
@@ -137,9 +137,9 @@
 | **Thái Minh** | ~700-1.000K | Nhà máy GMP, cordycepin cao | Trung cấp |
 | **Swansons (Mỹ)** | ~500K/120v | Nhập khẩu, thương hiệu Mỹ, giá rẻ | Bình dân |
 | **Zeinpharma (Đức)** | ~650K/120v | Nhập khẩu Đức | Trung cấp |
-| **✨ Maldala Duy Đức** | **~1.450K/60v** | GMP-WHO, 100% con nhộng nguyên chất | **Premium** |
+| **✨ Maldalla Duy Đức** | **~1.450K/60v** | GMP-WHO, 100% con nhộng nguyên chất | **Premium** |
 
-### Phân tích vị thế Maldala
+### Phân tích vị thế Maldalla
 
 **Điểm mạnh:**
 - ✅ 100% con nhộng nguyên chất (nhiều đối thủ pha trộn)
@@ -151,9 +151,9 @@
 - ⚠️ Giá cao nhất phân khúc (~24.000₫/viên vs trung bình ~8.000-10.000₫/viên)
 - ⚠️ Brand awareness thấp (chưa có trên sàn TMĐT lớn)
 - ⚠️ Chưa có chứng nhận FDA (đối thủ có)
-- ⚠️ Phân khúc giá bán chạy nhất trên TMĐT là 200-500K → Maldala gấp 3x
+- ⚠️ Phân khúc giá bán chạy nhất trên TMĐT là 200-500K → Maldalla gấp 3x
 
-### 💡 Insight cho Maldala:
+### 💡 Insight cho Maldalla:
 > - **Giá 1.450K = premium market** → Content PHẢI build perceived value tương xứng
 > - Không thể cạnh tranh bằng giá → Cạnh tranh bằng **NIỀM TIN + CHẤT LƯỢNG + CÂU CHUYỆN**
 > - CTV = lợi thế lớn vì kênh "người thân giới thiệu" chiếm >50% trust
@@ -204,7 +204,7 @@
 
 ### 5. 🟡 GIẢI QUYẾT "GIÁ CAO" — BẰNG FRAMING
 
-**Data nói**: Phân khúc bán chạy nhất trên TMĐT = 200-500K. Maldala = 1.450K.
+**Data nói**: Phân khúc bán chạy nhất trên TMĐT = 200-500K. Maldalla = 1.450K.
 
 **Đề xuất**:
 - **Không bao giờ xin lỗi về giá** — frame nó:
@@ -233,13 +233,13 @@
 > Người mua TPCN Việt Nam cần TIN trước khi mua. Content phải build trust, không push sale.
 
 > **2. "NGƯỜI THÂN GIỚI THIỆU" = KÊNH #1**
-> CTV strategy của Maldala đang đi đúng kênh conversion cao nhất. Double down.
+> CTV strategy của Maldalla đang đi đúng kênh conversion cao nhất. Double down.
 
 > **3. "TRÍ LỰC" KHÔNG PHẢI LÝ DO MUA #1**
 > Đề kháng + giảm mệt mỏi + ngủ ngon mới là TOP 3. Trí lực nên là supporting benefit, không phải headline.
 
 ---
 
-*Báo cáo phân tích thị trường — Maldala Duy Đức*
+*Báo cáo phân tích thị trường — Maldalla Duy Đức*
 *Nguồn: Metric.vn, Grand View Research, Straits Research, ECDB, IMARC Group, VNExpress, Đại biểu Nhân dân, Dân Trí, Long Châu, Bách Hóa Xanh, và các nguồn ngành khác*
 *Thu thập: 23/02/2026*
