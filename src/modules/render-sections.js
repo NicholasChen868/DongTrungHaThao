@@ -41,10 +41,9 @@ export function renderBenefits(product) {
   grid.innerHTML = `
     <div class="benefits-block animate-on-scroll">
       <div class="benefits-block-header">
-        <span class="benefits-block-icon">🛡️</span>
         <div>
-          <h3 class="benefits-block-title">Khỏe Từ Bên Trong</h3>
-          <p class="benefits-block-sub">Đề kháng · Hô hấp · Tim mạch</p>
+          <h3 class="benefits-block-title">Phục Hồi — Từ Bên Trong</h3>
+          <p class="benefits-block-sub">Miễn dịch · Hô hấp · Tim mạch</p>
         </div>
       </div>
       <div class="benefits-block-items">
@@ -53,9 +52,8 @@ export function renderBenefits(product) {
     </div>
     <div class="benefits-block animate-on-scroll">
       <div class="benefits-block-header">
-        <span class="benefits-block-icon">✨</span>
         <div>
-          <h3 class="benefits-block-title">Phục Hồi Mỗi Ngày</h3>
+          <h3 class="benefits-block-title">Bảo Vệ — Vững Vàng Mỗi Ngày</h3>
           <p class="benefits-block-sub">Năng lượng · Giấc ngủ · Trẻ lâu</p>
         </div>
       </div>
