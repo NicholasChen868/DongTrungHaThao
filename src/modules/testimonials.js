@@ -33,7 +33,7 @@ export function renderTestimonials(testimonials) {
           <div class="testimonial-author">
             <div class="testimonial-avatar">${avatarHtml}</div>
             <div class="testimonial-info">
-              <div class="testimonial-name">${escapeHTML(t.name)}, ${parseInt(t.age) || ''} tuổi</div>
+              <div class="testimonial-name">${escapeHTML(t.name)}${t.age ? `, ${t.age} tuổi` : ''}</div>
               <div class="testimonial-location">${escapeHTML(t.location)}</div>
             </div>
           </div>
