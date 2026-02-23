@@ -3,8 +3,8 @@ export const product = {
     name: 'Đông Trùng Hạ Thảo Maldalla Duy Đức',
     brand: 'maldalladuyduc',
     tagline: 'Mười lăm năm. Một sản phẩm. Một lời hứa không thay đổi.',
-    shortDescription: 'Viên nang 500mg — 100% con nhộng Cordyceps militaris nguyên chất. Không pha trộn. Không phụ gia. Đạt chuẩn GMP-WHO.',
-    description: `Từ vùng nguyên liệu Tây Tạng, qua nhà máy sản xuất tại Hà Giang, đến tay bạn — một quy trình khép kín, kiểm soát từ đầu đến cuối. Mỗi viên nang chứa 100% con nhộng nguyên chất, sấy thăng hoa giữ nguyên dưỡng chất. Không bột phụ. Không tá dược. Không chất bảo quản.`,
+    shortDescription: 'Viên nang 500mg — 100% con nhộng Cordyceps militaris (loài nấm dược liệu đã được nghiên cứu lâm sàng rộng rãi) nguyên chất. Không pha trộn. Không phụ gia. Đạt chuẩn GMP-WHO (tiêu chuẩn quốc tế về sản xuất an toàn).',
+    description: `Từ vùng nguyên liệu Tây Tạng, qua nhà máy sản xuất tại Hà Giang, đến tay bạn — một quy trình khép kín. Mỗi viên nang chứa 100% con nhộng nguyên chất (toàn bộ phần nhộng đã được nấm ký sinh hoàn toàn — phần chứa hàm lượng cordycepin và adenosine cao nhất). Sấy thăng hoa (sấy ở nhiệt độ cực thấp, giữ nguyên dưỡng chất). Không bột phụ. Không tá dược. Không chất bảo quản.`,
     price: 1450000,
     priceFormatted: '1.450.000₫',
     unit: 'hộp',
@@ -19,22 +19,22 @@ export const product = {
         {
             image: '/images/cordyceps_raw.jpg',
             title: 'Ngủ ngon hơn — sâu hơn, trọn vẹn hơn',
-            desc: 'Nhiều người dùng chia sẻ rằng sau 2-3 tuần, giấc ngủ bắt đầu thay đổi. Không phải ngủ nhiều hơn — mà ngủ sâu hơn. Sáng dậy thấy đầu óc nhẹ nhàng, không còn cảm giác mệt mỏi kéo dài từ đêm qua sang.',
+            desc: 'Nhiều người dùng chia sẻ rằng sau 2-3 tuần, giấc ngủ bắt đầu thay đổi. Không phải ngủ nhiều hơn — mà ngủ sâu hơn. Adenosine (một nucleoside tự nhiên trong cơ thể, tham gia điều hòa giấc ngủ và tuần hoàn máu) trong Đông Trùng Hạ Thảo hỗ trợ cải thiện chất lượng giấc ngủ. Sáng dậy thấy đầu óc nhẹ nhàng, không còn cảm giác mệt mỏi kéo dài từ đêm qua sang.',
         },
         {
             image: '/images/health_vitality.jpg',
             title: 'Năng lượng bền — không phải hưng phấn nhất thời',
-            desc: 'Không giống caffeine hay đường — thứ cho bạn đỉnh cao rồi sụp đổ. Cordycepin trong Đông Trùng Hạ Thảo hỗ trợ cơ thể tạo năng lượng ở cấp tế bào. Bạn không cảm thấy "tăng lực" đột ngột, mà thấy mỗi ngày đều đủ sức để đi hết — mà vẫn còn dư để sống.',
+            desc: 'Không giống caffeine hay đường — thứ cho bạn đỉnh cao rồi sụp đổ. Cordycepin (hoạt chất sinh học chính trong Đông Trùng Hạ Thảo, một dẫn xuất của adenosine — đã được nghiên cứu về khả năng kháng viêm, hỗ trợ miễn dịch và chống oxy hóa) hỗ trợ cơ thể tạo năng lượng ở cấp tế bào. Bạn không cảm thấy "tăng lực" đột ngột, mà thấy mỗi ngày đều đủ sức để đi hết — mà vẫn còn dư để sống.',
         },
         {
             image: '/images/capsules-macro.png',
             title: 'Đề kháng vững — ít đau vặt, ít bệnh mùa',
-            desc: 'Đông Trùng Hạ Thảo đã được nghiên cứu về khả năng hỗ trợ hệ miễn dịch. Không phải "tăng cường" theo kiểu quảng cáo. Mà là giúp hệ miễn dịch hoạt động ổn định hơn — để cơ thể tự bảo vệ mình tốt hơn trước thay đổi thời tiết, môi trường, và nhịp sống hàng ngày.',
+            desc: 'Đông Trùng Hạ Thảo đã được nghiên cứu về khả năng hỗ trợ hệ miễn dịch (hệ thống phòng vệ tự nhiên của cơ thể trước vi khuẩn, virus và tác nhân gây bệnh). Không phải "tăng cường" theo kiểu quảng cáo — mà là giúp hệ miễn dịch hoạt động ổn định hơn, để cơ thể tự bảo vệ mình tốt hơn trước thay đổi thời tiết, môi trường, và nhịp sống hàng ngày.',
         },
         {
             image: '/images/golden-capsules.png',
             title: 'Hô hấp khỏe — thở nhẹ nhàng hơn',
-            desc: 'Cordyceps từ xưa đã được biết đến với khả năng hỗ trợ phổi và đường hô hấp. Những người dùng lâu dài chia sẻ: thở dễ hơn, ít khó chịu khi thời tiết thay đổi, và cảm giác "ngực nhẹ hơn" mỗi sáng.',
+            desc: 'Cordyceps từ xa xưa đã được biết đến trong y học cổ truyền với khả năng hỗ trợ phổi và đường hô hấp (hệ thống cung cấp oxy cho toàn bộ cơ thể). Những người dùng lâu dài chia sẻ: thở dễ hơn, ít khó chịu khi thời tiết thay đổi, và cảm giác nhẹ nhàng hơn mỗi sáng. Đây là trải nghiệm cá nhân — không phải cam kết điều trị.',
         },
         {
             image: '/images/premium-bottle.png',
@@ -44,12 +44,12 @@ export const product = {
         {
             image: '/images/golden-powder.png',
             title: 'Giữ cho cơ thể trẻ lâu hơn',
-            desc: 'Mỗi ngày, gốc tự do lặng lẽ làm tế bào lão hóa. Đông Trùng Hạ Thảo chứa SOD, Catalase, Polysaccharide — chất chống oxy hóa tự nhiên mạnh mẽ, giúp trung hòa gốc tự do, giữ cho tế bào trẻ lâu hơn. Già đi là tự nhiên — nhưng già đi khỏe mạnh là một lựa chọn.',
+            desc: 'Mỗi ngày, gốc tự do (các phân tử gây hại tế bào, góp phần vào quá trình lão hóa) lặng lẽ làm tế bào lão hóa. Đông Trùng Hạ Thảo chứa SOD, Catalase, Polysaccharide — các hoạt chất có khả năng chống oxy hóa tự nhiên, giúp trung hòa gốc tự do, giữ cho tế bào trẻ lâu hơn. Già đi là tự nhiên — nhưng già đi khỏe mạnh là một lựa chọn.',
         },
     ],
     usage: 'Ngày 2 viên: sáng 1, tối 1. Trước ăn 30 phút, uống với nước ấm. Kiên trì 2-3 tháng để cảm nhận sự thay đổi rõ rệt.',
     storage: 'Nơi khô ráo, thoáng mát, dưới 30°C, tránh ánh nắng.',
-    certification: 'Đạt tiêu chuẩn GMP — WHO',
+    certification: 'Đạt chuẩn GMP-WHO (Good Manufacturing Practice — tiêu chuẩn của Tổ chức Y tế Thế giới về quy trình sản xuất an toàn, nhất quán)',
     origin: 'Việt Nam',
-    disclaimer: 'Sản phẩm này là thực phẩm bảo vệ sức khỏe, không phải là thuốc, không có tác dụng thay thế thuốc chữa bệnh. Đọc kỹ hướng dẫn sử dụng trước khi dùng.',
+    disclaimer: 'Sản phẩm này là thực phẩm bảo vệ sức khỏe (phân loại theo quy định pháp luật Việt Nam — tác dụng hỗ trợ sức khỏe, bổ sung dưỡng chất), không phải là thuốc, không có tác dụng thay thế thuốc chữa bệnh. Đọc kỹ hướng dẫn sử dụng trước khi dùng.',
 };
