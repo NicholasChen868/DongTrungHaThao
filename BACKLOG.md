@@ -1,7 +1,7 @@
 # 📦 BACKLOG — Tính Năng & Ý Tưởng
 
-> **Trạng thái**: 🔓 MỞ KHÓA — Sprint A-B-C hoàn thành, Sprint D đang triển khai (D7-D11 Shadow tasks)
-> **Cập nhật**: 2026-02-23 15:08
+> **Trạng thái**: 🔓 MỞ KHÓA — Sprint D gần hoàn thành (D12 ✅, D7-D11 Shadow tasks chờ data)
+> **Cập nhật**: 2026-02-23 18:10
 > **Quy tắc**: Ưu tiên từ trên xuống. Items đã triển khai được đánh dấu ✅.
 
 ---
@@ -14,6 +14,19 @@
 - Content Bible v2.0 cho Claude Code handoff
 - FAB tooltips + Social proof: trí lực + thể lực messaging
 - **5 Shadow tasks** phát sinh từ tự phản biện → D7-D11 trong TASKS.md
+
+### 📝 V3 Content Rewrite + Hero CTA Rotator ✅
+- V3 soften messaging: experience-based (ngủ ngon, ít mệt) thay overclaims
+- Tất cả CTA → tiếng Việt tự nhiên, không Tây, không sales
+- Hero CTA random 5 phương án mỗi lần load (hero-cta-rotator.js)
+- Social proof → Zalo-style quotes, FAB tooltips → price framing
+
+### 🎨 D12. UI Polish — 6 Issues ✅
+- Promo popup scrollable + compact card layout + gold CTA
+- Border-radius thống nhất toàn site (CSS vars: --radius-sm/md/lg/xl)
+- Testimonials lighter cards + white quote marks
+- CTV badge beige/gold + mini dashboard full-width 3-column
+- Login popup "Đăng ký" → route đúng role (CTV→popup, KH→/thanh-vien)
 
 ### 💡 Promotion Popup ✅
 - Nút Promo trong FAB orbit (rose gradient)
@@ -52,11 +65,10 @@
 - Chạy 2 tuần, quyết định dựa trên data
 - **Xem chi tiết**: `TASKS.md` → D7
 
-### 🪞 D8. Soften "Trí Lực" Messaging — Compliance (ƯU TIÊN #4)
-- Review overclaim risk: "Trí Lực Sắc Bén" có thể va ATTP
-- Soften thành experience-based language
-- Thêm inline disclaimer tại section About
-- **Xem chi tiết**: `TASKS.md` → D8
+### ~~🪞 D8. Soften "Trí Lực" Messaging~~ ✅ (Đã xong trong V3 Content Rewrite)
+- ~~Review overclaim risk~~ → Đã soften toàn bộ trong V3
+- ~~Soften thành experience-based language~~ → Done
+- ~~Thêm inline disclaimer~~ → Done (section About)
 
 ### 🪞 D9. Test Content Bible — Real Output Claude Code (ƯU TIÊN #5)
 - Cho Claude Code viết promotion thử → review giọng văn
@@ -135,5 +147,5 @@
 
 ---
 
-*Cập nhật bởi Antigravity AI — 23/02/2026 15:08*
+*Cập nhật bởi Antigravity AI — 23/02/2026 18:10*
 *Shadow Tasks D7-D11 = tự phản biện Carl Jung SELF sau CTA Audit*
