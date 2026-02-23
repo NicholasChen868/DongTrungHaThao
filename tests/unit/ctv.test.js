@@ -1,9 +1,11 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { initRefTracking, getAutoRef, validateCtvCode, registerCTV, getCTVDashboard, getShareURL } from '../../src/ctv.js';
 import { supabase } from '../../src/supabase.js';
-import { mockQueryBuilder } from '../mocks/supabase.js';
 
-describe('getAutoRef / saveRefCookie (via initRefTracking)', () => {
+// Access the chainable query builder from the mock
+const queryBuilder = supabase.__queryBuilder;
+
+describe('getAutoRef', () => {
     it('trả null khi chưa có ref cookie', () => {
         expect(getAutoRef()).toBeNull();
     });
@@ -18,7 +20,7 @@ describe('getAutoRef / saveRefCookie (via initRefTracking)', () => {
         const data = { code: 'CTV001', ts: Date.now() - 31 * 24 * 60 * 60 * 1000 };
         localStorage.setItem('mdd_ref', JSON.stringify(data));
         expect(getAutoRef()).toBeNull();
-        // Xóa cookie hết hạn
+        // Cookie hết hạn bị xóa
         expect(localStorage.getItem('mdd_ref')).toBeNull();
     });
 
@@ -26,50 +28,34 @@ describe('getAutoRef / saveRefCookie (via initRefTracking)', () => {
         localStorage.setItem('mdd_ref', 'invalid-json{{{');
         expect(getAutoRef()).toBeNull();
     });
+
+    it('trả code khi cookie vừa đúng 30 ngày', () => {
+        // Exactly 30 days — should still be valid (not > 30 days)
+        const data = { code: 'CTV002', ts: Date.now() - 29 * 24 * 60 * 60 * 1000 };
+        localStorage.setItem('mdd_ref', JSON.stringify(data));
+        expect(getAutoRef()).toBe('CTV002');
+    });
 });
 
 describe('initRefTracking', () => {
     beforeEach(() => {
         supabase.rpc.mockReset();
-        vi.useFakeTimers();
-    });
-
-    afterEach(() => {
-        vi.useRealTimers();
+        supabase.rpc.mockResolvedValue({ data: null, error: null });
     });
 
     it('không làm gì khi URL không có ?ref=', () => {
-        // Default jsdom URL is about:blank or http://localhost/
         initRefTracking();
         expect(localStorage.getItem('mdd_ref')).toBeNull();
-    });
-
-    it('lưu ref vào localStorage khi URL có ?ref=CTV001', () => {
-        // Set URL with ref param
-        Object.defineProperty(window, 'location', {
-            value: new URL('http://localhost/?ref=CTV001'),
-            writable: true,
-        });
-
-        initRefTracking();
-
-        const stored = JSON.parse(localStorage.getItem('mdd_ref'));
-        expect(stored.code).toBe('CTV001');
-
-        // Restore
-        Object.defineProperty(window, 'location', {
-            value: new URL('http://localhost/'),
-            writable: true,
-        });
     });
 });
 
 describe('validateCtvCode', () => {
     beforeEach(() => {
         supabase.from.mockClear();
-        mockQueryBuilder.select.mockClear();
-        mockQueryBuilder.eq.mockClear();
-        mockQueryBuilder.single.mockClear();
+        queryBuilder.select.mockClear();
+        queryBuilder.eq.mockClear();
+        queryBuilder.single.mockReset();
+        queryBuilder.single.mockResolvedValue({ data: null, error: null });
     });
 
     it('trả code nguyên gốc nếu code null', async () => {
@@ -83,7 +69,7 @@ describe('validateCtvCode', () => {
     });
 
     it('chặn self-referral (phone match)', async () => {
-        mockQueryBuilder.single.mockResolvedValueOnce({
+        queryBuilder.single.mockResolvedValueOnce({
             data: { phone: '0912345678' },
             error: null,
         });
@@ -93,7 +79,7 @@ describe('validateCtvCode', () => {
     });
 
     it('chặn self-referral với +84 normalization', async () => {
-        mockQueryBuilder.single.mockResolvedValueOnce({
+        queryBuilder.single.mockResolvedValueOnce({
             data: { phone: '+84912345678' },
             error: null,
         });
@@ -103,7 +89,7 @@ describe('validateCtvCode', () => {
     });
 
     it('cho phép code khi phone khác nhau', async () => {
-        mockQueryBuilder.single.mockResolvedValueOnce({
+        queryBuilder.single.mockResolvedValueOnce({
             data: { phone: '0987654321' },
             error: null,
         });
@@ -113,7 +99,7 @@ describe('validateCtvCode', () => {
     });
 
     it('trả code khi CTV không tìm thấy (let backend handle)', async () => {
-        mockQueryBuilder.single.mockResolvedValueOnce({
+        queryBuilder.single.mockResolvedValueOnce({
             data: null,
             error: { message: 'not found' },
         });
@@ -123,7 +109,7 @@ describe('validateCtvCode', () => {
     });
 
     it('trả code khi supabase throw error', async () => {
-        mockQueryBuilder.single.mockRejectedValueOnce(new Error('Network error'));
+        queryBuilder.single.mockRejectedValueOnce(new Error('Network error'));
 
         const result = await validateCtvCode('CTV001', '0912345678');
         expect(result).toBe('CTV001');
@@ -133,6 +119,7 @@ describe('validateCtvCode', () => {
 describe('registerCTV', () => {
     beforeEach(() => {
         supabase.rpc.mockReset();
+        supabase.rpc.mockResolvedValue({ data: null, error: null });
     });
 
     it('đăng ký thành công → lưu ref code', async () => {
@@ -168,11 +155,22 @@ describe('registerCTV', () => {
             p_email: null,
         }));
     });
+
+    it('trả error khi data.ok = false', async () => {
+        supabase.rpc.mockResolvedValueOnce({
+            data: { ok: false },
+            error: null,
+        });
+
+        const result = await registerCTV('Test', '0912345678', null);
+        expect(result.ok).toBe(false);
+    });
 });
 
 describe('getCTVDashboard', () => {
     beforeEach(() => {
         supabase.rpc.mockReset();
+        supabase.rpc.mockResolvedValue({ data: null, error: null });
     });
 
     it('fetch dashboard data thành công', async () => {

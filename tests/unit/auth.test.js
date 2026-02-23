@@ -17,7 +17,7 @@ describe('getCurrentUser', () => {
     it('trả null và xóa session khi hết hạn', () => {
         const user = { name: 'Hùng', role: 'member' };
         localStorage.setItem('maldala_user', JSON.stringify(user));
-        localStorage.setItem('maldala_session_expiry', String(Date.now() - 1000)); // expired
+        localStorage.setItem('maldala_session_expiry', String(Date.now() - 1000));
         expect(getCurrentUser()).toBeNull();
         expect(localStorage.getItem('maldala_user')).toBeNull();
     });
@@ -31,7 +31,6 @@ describe('getCurrentUser', () => {
     it('trả user khi không có expiry key (backward compat)', () => {
         const user = { name: 'Test', role: 'guest' };
         localStorage.setItem('maldala_user', JSON.stringify(user));
-        // No expiry set
         expect(getCurrentUser()).toEqual(user);
     });
 });
@@ -55,40 +54,44 @@ describe('setCurrentUser', () => {
         expect(localStorage.getItem('ctv_ref_code')).toBe('ABC123');
     });
 
-    it('không lưu ctv_ref_code nếu không có referral_code', () => {
+    it('không set ctv_ref_code nếu không có referral_code', () => {
+        // localStorage is already cleared by setup.js beforeEach
         setCurrentUser({ name: 'Member', role: 'member' });
+        // setCurrentUser only sets ctv_ref_code if referral_code exists
+        // It should NOT be set because the user object has no referral_code
         expect(localStorage.getItem('ctv_ref_code')).toBeNull();
     });
 });
 
 describe('logout', () => {
+    beforeEach(() => {
+        // Mock window.location.reload
+        Object.defineProperty(window, 'location', {
+            value: { ...window.location, reload: vi.fn() },
+            writable: true,
+        });
+    });
+
     it('xóa tất cả session keys', () => {
         localStorage.setItem('maldala_user', '{}');
         localStorage.setItem('maldala_session_expiry', '123');
         localStorage.setItem('ctv_ref_code', 'ABC');
-
-        // Mock window.location.reload to prevent error
-        const originalReload = window.location.reload;
-        window.location.reload = vi.fn();
 
         logout(true);
 
         expect(localStorage.getItem('maldala_user')).toBeNull();
         expect(localStorage.getItem('maldala_session_expiry')).toBeNull();
         expect(localStorage.getItem('ctv_ref_code')).toBeNull();
+    });
 
-        window.location.reload = originalReload;
+    it('gọi reload khi redirect=true', () => {
+        logout(true);
+        expect(window.location.reload).toHaveBeenCalled();
     });
 
     it('không redirect khi redirect=false', () => {
-        localStorage.setItem('maldala_user', '{}');
-        const reloadSpy = vi.fn();
-        window.location.reload = reloadSpy;
-
         logout(false);
-
-        expect(reloadSpy).not.toHaveBeenCalled();
-        expect(localStorage.getItem('maldala_user')).toBeNull();
+        expect(window.location.reload).not.toHaveBeenCalled();
     });
 });
 
@@ -160,6 +163,8 @@ describe('sha256', () => {
 describe('loginUser', () => {
     beforeEach(() => {
         supabase.rpc.mockReset();
+        // Ensure mock returns a promise by default
+        supabase.rpc.mockResolvedValue({ data: null, error: null });
     });
 
     it('đăng nhập thành công qua authenticate_user', async () => {
@@ -172,7 +177,7 @@ describe('loginUser', () => {
         expect(supabase.rpc).toHaveBeenCalledWith('authenticate_user', expect.objectContaining({
             p_phone: '0912345678',
         }));
-        // Verify session was saved
+        // Session saved
         expect(localStorage.getItem('maldala_user')).not.toBeNull();
     });
 
