@@ -1494,14 +1494,14 @@
 .login-popup-overlay {
     position: fixed;
     inset: 0;
-    z-index: 1100;
+    z-index: 1200;
     display: none;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.6);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s ease;
@@ -1517,13 +1517,12 @@
     position: relative;
     width: 100%;
     max-width: 380px;
-    background: rgba(15, 20, 35, 0.96);
-    -webkit-backdrop-filter: blur(24px);
-    backdrop-filter: blur(24px);
-    border: 1px solid rgba(212, 168, 75, 0.15);
-    border-radius: var(--radius-xl);
+    background: linear-gradient(160deg, #fffbf0 0%, #f8f0dd 100%);
+    border: 1px solid rgba(212, 168, 83, 0.3);
+    border-radius: 20px;
     padding: 32px 24px;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
     transform: translateY(30px) scale(0.95);
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -1536,22 +1535,23 @@
     position: absolute;
     top: 12px;
     right: 16px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.06);
     border: none;
-    color: var(--text-muted);
+    color: #8a7455;
     font-size: 22px;
     width: 36px;
     height: 36px;
-    border-radius: var(--radius-full);
+    border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s;
 }
 
 .login-popup-close:hover {
-    background: rgba(255, 255, 255, 0.15);
-    color: #fff;
+    background: rgba(0, 0, 0, 0.1);
+    color: #3d2e1a;
 }
 
 .login-popup-header {
@@ -1567,11 +1567,11 @@
 .login-popup-header h3 {
     font-size: 1.3rem;
     font-weight: 800;
-    color: var(--text-primary);
+    color: #2a1f0e;
 }
 
 .login-popup-sub {
-    color: var(--text-secondary);
+    color: #7a6a50;
     font-size: 13px;
     margin-top: 4px;
 }
@@ -1581,8 +1581,8 @@
     display: flex;
     gap: 4px;
     margin-bottom: 16px;
-    background: rgba(255, 255, 255, 0.04);
-    border-radius: var(--radius-sm);
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 10px;
     padding: 3px;
 }
 
@@ -1591,22 +1591,24 @@
     padding: 10px;
     border: none;
     background: transparent;
-    color: var(--text-muted);
+    color: #8a7455;
     font-size: 13px;
     font-weight: 600;
-    border-radius: var(--radius-xs);
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
+    font-family: inherit;
 }
 
 .login-tab.active {
-    background: var(--gold-primary);
-    color: #0A0E1A;
+    background: linear-gradient(135deg, #e8bc5a, #c49540);
+    color: #1a1206;
+    box-shadow: 0 2px 8px rgba(212, 168, 75, 0.25);
 }
 
 .login-tab:hover:not(.active) {
-    color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.06);
+    color: #3d2e1a;
+    background: rgba(0, 0, 0, 0.04);
 }
 
 .login-popup-form {
@@ -1618,23 +1620,24 @@
 .login-field input {
     width: 100%;
     padding: 14px 16px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-sm);
-    color: var(--text-primary);
+    background: #fff;
+    border: 1px solid rgba(212, 168, 83, 0.25);
+    border-radius: 10px;
+    color: #2a1f0e;
     font-size: 15px;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
+    font-family: inherit;
 }
 
 .login-field input::placeholder {
-    color: var(--text-muted);
+    color: #b0a080;
 }
 
 .login-field input:focus {
     border-color: var(--gold-primary);
-    box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.15);
+    box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.12);
 }
 
 .login-popup-submit {
@@ -1642,18 +1645,19 @@
     padding: 14px;
     margin-top: 4px;
     background: linear-gradient(135deg, #e8bc5a, #c49540);
-    color: #0A0E1A;
+    color: #1a1206;
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: 10px;
     font-weight: 800;
     font-size: 15px;
     cursor: pointer;
     transition: all 0.25s;
-    box-shadow: 0 4px 16px rgba(212, 168, 75, 0.3);
+    box-shadow: 0 4px 16px rgba(212, 168, 75, 0.25);
+    font-family: inherit;
 }
 
 .login-popup-submit:hover {
-    box-shadow: 0 6px 24px rgba(212, 168, 75, 0.5);
+    box-shadow: 0 6px 24px rgba(212, 168, 75, 0.4);
     filter: brightness(1.05);
 }
 
@@ -1668,17 +1672,18 @@
 
 .login-hint {
     font-size: 12px;
-    color: var(--text-muted);
+    color: #8a7455;
 }
 
 .login-hint a {
-    color: var(--gold-primary);
+    color: #b8860b;
     font-weight: 600;
     text-decoration: none;
 }
 
 .login-hint a:hover {
     text-decoration: underline;
+    color: #9a7209;
 }
 
 /* ===================================
