@@ -53,6 +53,33 @@
     transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     -webkit-tap-highlight-color: transparent;
     animation: fabBreath 3s ease-in-out infinite;
+    overflow: visible;
+}
+
+/* Ring pulse — sonar ping radiating outward */
+.fab-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: var(--radius-full);
+    border: 2px solid rgba(212, 168, 75, 0.5);
+    animation: ringPulse 2.5s cubic-bezier(0, 0.6, 0.3, 1) infinite;
+    pointer-events: none;
+}
+
+.fab-widget.open .fab-ring {
+    display: none;
+}
+
+@keyframes ringPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
 }
 
 .fab-main:active {
@@ -80,13 +107,32 @@
     }
 }
 
-/* Icon toggle */
+/* Icon toggle — smooth rotation */
+.fab-main-icon {
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fab-icon--idle {
+    animation: idleSpin 8s linear infinite;
+}
+
+@keyframes idleSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .fab-icon--close {
     display: none;
 }
 
 .fab-widget.open .fab-icon--idle {
     display: none;
+    animation: none;
 }
 
 .fab-widget.open .fab-icon--close {
@@ -425,15 +471,116 @@
     animation: popupBounce 2s ease-in-out infinite;
 }
 
+/* ── Popup hero images ── */
+.popup-hero-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
 @keyframes popupBounce {
 
     0%,
     100% {
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
+    }
+
+    25% {
+        transform: translateY(-8px) scale(1.05);
     }
 
     50% {
-        transform: translateY(-6px);
+        transform: translateY(-4px) scale(1.02);
+    }
+}
+
+/* ── Shared popup polish — staggered entrance ── */
+@keyframes popupSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ctv-popup-overlay.active .ctv-popup-header,
+.promo-popup-overlay.active .promo-popup-header,
+.login-popup-overlay.active .login-popup-header {
+    animation: popupSlideUp 0.5s ease 0.1s both;
+}
+
+.ctv-popup-overlay.active .ctv-popup-rewards,
+.promo-popup-overlay.active .promo-popup-card {
+    animation: popupSlideUp 0.5s ease 0.2s both;
+}
+
+.ctv-popup-overlay.active .ctv-popup-form,
+.promo-popup-overlay.active .promo-popup-benefits,
+.login-popup-overlay.active .login-tabs {
+    animation: popupSlideUp 0.5s ease 0.3s both;
+}
+
+.promo-popup-overlay.active .promo-popup-cta,
+.login-popup-overlay.active .login-popup-form {
+    animation: popupSlideUp 0.5s ease 0.4s both;
+}
+
+.promo-popup-overlay.active .promo-popup-footer,
+.login-popup-overlay.active .login-popup-footer {
+    animation: popupSlideUp 0.5s ease 0.5s both;
+}
+
+/* Reward items stagger */
+.ctv-popup-overlay.active .ctv-reward-item:nth-child(1) {
+    animation: popupSlideUp 0.4s ease 0.25s both;
+}
+
+.ctv-popup-overlay.active .ctv-reward-item:nth-child(2) {
+    animation: popupSlideUp 0.4s ease 0.35s both;
+}
+
+.ctv-popup-overlay.active .ctv-reward-item:nth-child(3) {
+    animation: popupSlideUp 0.4s ease 0.45s both;
+}
+
+.promo-popup-overlay.active .promo-benefit:nth-child(1) {
+    animation: popupSlideUp 0.4s ease 0.3s both;
+}
+
+.promo-popup-overlay.active .promo-benefit:nth-child(2) {
+    animation: popupSlideUp 0.4s ease 0.38s both;
+}
+
+.promo-popup-overlay.active .promo-benefit:nth-child(3) {
+    animation: popupSlideUp 0.4s ease 0.46s both;
+}
+
+.promo-popup-overlay.active .promo-benefit:nth-child(4) {
+    animation: popupSlideUp 0.4s ease 0.54s both;
+}
+
+/* Promo badge pop */
+.promo-popup-overlay.active .promo-badge {
+    animation: badgePop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.25s both;
+}
+
+@keyframes badgePop {
+    from {
+        transform: scale(0) rotate(-10deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1;
     }
 }
 
