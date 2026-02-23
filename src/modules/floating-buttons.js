@@ -9,14 +9,14 @@ import { saveCtvSession, initCtvBanner } from './ctv-banner.js';
 
 // Rotating tooltip messages (cute, inviting)
 const TOOLTIP_MESSAGES = [
-    'Đặt hàng ngay! 🛒',
-    'Chat Zalo tư vấn 💬',
+    'Sáng mai tỉnh táo hơn — bắt đầu hôm nay 🌿',
+    'Tư vấn riêng qua Zalo — miễn phí 💬',
     'Gọi ngay 0903.940.171 📞',
-    'Kiếm tiền cùng Maldala 💰',
-    'Ưu đãi đặc biệt hôm nay ✨',
-    'Miễn phí vận chuyển 🚚',
-    'Bí quyết sức khỏe vàng 🌿',
-    'Nhấn để khám phá! 👆',
+    'Lan tỏa sức khỏe, nhận chiết khấu 💛',
+    'Ưu đãi đặc biệt — đừng bỏ lỡ ✨',
+    'Miễn phí vận chuyển từ 3 hộp 🚚',
+    'Minh mẫn hơn, bền bỉ hơn — mỗi ngày 🧠',
+    'Cho mình cơ hội khỏe thật 💪',
 ];
 
 let tooltipIndex = 0;
