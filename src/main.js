@@ -141,6 +141,44 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
+  // Nav login button
+  const navLoginBtn = document.getElementById('navLoginBtn');
+  if (navLoginBtn) {
+    function updateNavLoginState() {
+      const user = getCurrentUser();
+      if (user) {
+        const name = user.display_name || user.name || 'Tài khoản';
+        const shortName = name.length > 10 ? name.substring(0, 10) + '…' : name;
+        const roleIcon = user.role === 'ctv' ? '💼' : '👤';
+        navLoginBtn.innerHTML = `${roleIcon} ${shortName}`;
+        navLoginBtn.classList.add('logged-in');
+        navLoginBtn.title = `${name} — ${user.role === 'ctv' ? 'CTV' : 'Thành viên'}`;
+      } else {
+        navLoginBtn.innerHTML = '🔐 Đăng&nbsp;Nhập';
+        navLoginBtn.classList.remove('logged-in');
+        navLoginBtn.title = 'Đăng nhập';
+      }
+    }
+    updateNavLoginState();
+
+    navLoginBtn.addEventListener('click', () => {
+      const user = getCurrentUser();
+      if (user) {
+        // Already logged in — navigate based on role
+        if (user.role === 'ctv') {
+          window.location.href = '/ctv-dashboard.html';
+        } else {
+          window.location.href = '/thanh-vien.html';
+        }
+      } else {
+        openLoginPopup({ role: 'customer' });
+      }
+    });
+
+    // Re-check state periodically (when login popup closes)
+    setInterval(updateNavLoginState, 2000);
+  }
+
   // Load pricing from backend (parallel with fetchAllData)
   const [allData] = await Promise.all([fetchAllData(), loadPricing()]);
   const { product, testimonials, processSteps, affiliateTiers, affiliateSteps, healthStories } = allData;
