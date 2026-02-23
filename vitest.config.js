@@ -6,6 +6,6 @@ export default defineConfig({
         globals: true,
         coverage: { provider: 'v8', reporter: ['text', 'lcov'] },
         setupFiles: ['./tests/setup.js'],
-        exclude: ['tests/e2e/**', 'node_modules/**'],
+        exclude: ['tests/e2e/**', 'node_modules/**', '.claude/**', '.archive/**'],
     },
 });
