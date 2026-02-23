@@ -87,3 +87,86 @@ test.describe('Trang chủ — Mobile responsive', () => {
         await expect(links).not.toHaveClass(/active/);
     });
 });
+
+test.describe('Promotion Popup', () => {
+    test('mở popup từ FAB promo button', async ({ page }) => {
+        await page.goto('/');
+        await page.waitForTimeout(500);
+        await page.locator('#fabToggle').click({ force: true });
+        await page.waitForTimeout(800);
+        await page.locator('#fabPromo').click();
+        await page.waitForTimeout(300);
+        const popup = page.locator('#promoPopup');
+        await expect(popup).toHaveClass(/active/);
+        await expect(page.locator('#promoPopupTitle')).toContainText('Bứt Phá');
+    });
+
+    test('promo popup có content Đinh Ngọ', async ({ page }) => {
+        await page.goto('/');
+        await page.waitForTimeout(500);
+        await page.locator('#fabToggle').click({ force: true });
+        await page.waitForTimeout(800);
+        await page.locator('#fabPromo').click();
+        await page.waitForTimeout(300);
+        await expect(page.locator('.promo-popup-card')).toContainText('qua Tết đi');
+        await expect(page.locator('.promo-badge')).toContainText('GIẢM 5%');
+    });
+
+    test('đóng promo popup bằng nút X', async ({ page }) => {
+        await page.goto('/');
+        await page.waitForTimeout(500);
+        await page.locator('#fabToggle').click({ force: true });
+        await page.waitForTimeout(800);
+        await page.locator('#fabPromo').click();
+        await page.waitForTimeout(300);
+        await page.locator('#promoPopupClose').click();
+        await page.waitForTimeout(300);
+        await expect(page.locator('#promoPopup')).not.toHaveClass(/active/);
+    });
+
+    test('đóng promo popup bằng Escape', async ({ page }) => {
+        await page.goto('/');
+        await page.waitForTimeout(500);
+        await page.locator('#fabToggle').click({ force: true });
+        await page.waitForTimeout(800);
+        await page.locator('#fabPromo').click();
+        await page.waitForTimeout(300);
+        await page.keyboard.press('Escape');
+        await page.waitForTimeout(300);
+        await expect(page.locator('#promoPopup')).not.toHaveClass(/active/);
+    });
+});
+
+test.describe('Login Popup', () => {
+    test('mở login popup khi click CTV dashboard link', async ({ page }) => {
+        await page.goto('/');
+        await page.waitForTimeout(500);
+        const link = page.locator('[data-auth="ctv"]').first();
+        await link.click();
+        await page.waitForTimeout(300);
+        const popup = page.locator('#loginPopup');
+        await expect(popup).toHaveClass(/active/);
+    });
+
+    test('login popup có tab CTV và Khách Hàng', async ({ page }) => {
+        await page.goto('/');
+        await page.waitForTimeout(500);
+        const link = page.locator('[data-auth="ctv"]').first();
+        await link.click();
+        await page.waitForTimeout(300);
+        const tabs = page.locator('.login-tab');
+        await expect(tabs).toHaveCount(2);
+        await expect(tabs.first()).toContainText('CTV');
+    });
+
+    test('login popup đóng bằng Escape', async ({ page }) => {
+        await page.goto('/');
+        await page.waitForTimeout(500);
+        const link = page.locator('[data-auth="ctv"]').first();
+        await link.click();
+        await page.waitForTimeout(300);
+        await page.keyboard.press('Escape');
+        await page.waitForTimeout(300);
+        await expect(page.locator('#loginPopup')).not.toHaveClass(/active/);
+    });
+});
