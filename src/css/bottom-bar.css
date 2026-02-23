@@ -759,82 +759,103 @@
         z-index: 1001;
     }
 
+    /* ---- Mobile Nav Links: Uniform frosted glass cards ---- */
     .nav-link {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 16px 20px;
-        font-size: 1.05rem;
-        font-weight: 600;
-        color: var(--text-primary);
-        border-radius: var(--radius-md);
+        gap: 10px;
+        /* Golden ratio: padding-x ≈ 1.618 × padding-y */
+        padding: 14px 23px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.85);
+        letter-spacing: 0.01em;
+        border-radius: 12px;
         border-bottom: none;
+        /* Frosted glass background */
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        margin-bottom: 6px;
         transition: all 0.2s ease;
         -webkit-tap-highlight-color: transparent;
     }
 
     .nav-link:hover,
     .nav-link:active {
-        background: rgba(212, 168, 75, 0.08);
-        color: var(--gold-primary);
+        background: rgba(212, 168, 75, 0.1);
+        border-color: rgba(212, 168, 75, 0.2);
+        color: var(--gold-light);
+        transform: translateX(4px);
     }
 
+    /* ---- CTA: Đặt Hàng — strongest emphasis ---- */
     .nav-link--cta {
         text-align: center;
         justify-content: center;
-        margin-top: 16px;
-        padding: 16px 24px;
-        border-bottom: none;
+        margin-top: 12px;
+        margin-bottom: 12px;
+        padding: 16px 26px;
         background: linear-gradient(135deg, #e8bc5a, #c49540);
+        border: none;
         color: #0A0E1A !important;
-        font-weight: 800;
-        font-size: 1.1rem;
-        border-radius: var(--radius-md);
-        box-shadow: 0 4px 16px rgba(212, 168, 75, 0.3);
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: 0.02em;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(212, 168, 75, 0.25);
     }
 
     .nav-link--cta:hover {
         background: linear-gradient(135deg, #f0c960, #d4a84b);
         color: #0A0E1A !important;
+        transform: translateX(0);
+        box-shadow: 0 6px 24px rgba(212, 168, 75, 0.35);
     }
 
+    /* ---- Divider ---- */
     .nav-divider {
         width: 100%;
         height: 1px;
-        background: rgba(255, 255, 255, 0.06);
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
         margin: 8px 0;
     }
 
+    /* ---- Accent buttons: same base + subtle left border ---- */
     .nav-link--accent {
         text-align: center;
         justify-content: center;
-        border: 1px solid rgba(96, 165, 250, 0.3);
-        border-bottom: 1px solid rgba(96, 165, 250, 0.3);
-        color: #60a5fa !important;
-        border-radius: var(--radius-md);
-        margin-top: 4px;
+        background: rgba(96, 165, 250, 0.06);
+        border: 1px solid rgba(96, 165, 250, 0.15);
+        border-left: 3px solid rgba(96, 165, 250, 0.5);
+        color: #7db8fc !important;
+        border-radius: 12px;
     }
 
     .nav-link--accent:hover {
-        background: rgba(96, 165, 250, 0.08);
-        border-color: rgba(96, 165, 250, 0.5);
+        background: rgba(96, 165, 250, 0.12);
+        border-color: rgba(96, 165, 250, 0.3);
+        border-left-color: rgba(96, 165, 250, 0.7);
+        transform: translateX(4px);
     }
 
     .nav-link--member {
         text-align: center;
         justify-content: center;
-        border: 1px solid rgba(212, 168, 75, 0.3);
-        border-bottom: 1px solid rgba(212, 168, 75, 0.3);
-        color: var(--gold-primary) !important;
-        border-radius: var(--radius-md);
-        margin-top: 4px;
+        background: rgba(212, 168, 75, 0.06);
+        border: 1px solid rgba(212, 168, 75, 0.15);
+        border-left: 3px solid rgba(212, 168, 75, 0.5);
+        color: var(--gold-light) !important;
+        border-radius: 12px;
     }
 
     .nav-link--member:hover {
-        background: rgba(212, 168, 75, 0.08);
-        border-color: rgba(212, 168, 75, 0.5);
+        background: rgba(212, 168, 75, 0.12);
+        border-color: rgba(212, 168, 75, 0.3);
+        border-left-color: rgba(212, 168, 75, 0.7);
+        transform: translateX(4px);
     }
 
+    /* ---- Hamburger X animation ---- */
     .nav-toggle.active span:nth-child(1) {
         transform: translateY(8px) rotate(45deg);
     }
