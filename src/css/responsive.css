@@ -50,72 +50,10 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  /* ===== PREMIUM MOBILE MENU ===== */
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 100%;
-    max-width: 340px;
-    height: 100vh;
-    height: 100dvh;
-    background: rgba(9, 12, 21, 0.97);
-    -webkit-backdrop-filter: blur(24px);
-    backdrop-filter: blur(24px);
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    padding: 100px 28px 40px;
-    gap: 0;
-    transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    border-left: 1px solid rgba(212, 168, 75, 0.15);
-    z-index: 999;
-    overflow-y: auto;
-    box-shadow: -8px 0 40px rgba(0, 0, 0, 0.5);
-  }
-
-  .nav-links.open {
-    right: 0;
-  }
-
+  /* Mobile nav: handled by bottom-bar.css — only toggle display here */
   .nav-toggle {
     display: flex;
     z-index: 1001;
-  }
-
-  .nav-link {
-    display: block;
-    font-size: 1rem;
-    font-weight: 500;
-    padding: 16px 20px;
-    border-radius: 10px;
-    color: var(--text-secondary);
-    transition: all var(--transition-fast);
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .nav-link:hover,
-  .nav-link:active {
-    background: rgba(184, 134, 11, 0.06);
-    color: var(--gold-light);
-  }
-
-  /* CTA buttons in mobile menu — stack nicely */
-  .nav-links .btn {
-    width: 100%;
-    text-align: center;
-    justify-content: center;
-    margin-top: 4px;
-    padding: 12px 16px;
-    font-size: 0.9rem;
-  }
-
-  /* Group CTA buttons at bottom with separator */
-  .nav-links .btn:first-of-type {
-    margin-top: 16px;
-    border-top: 1px solid var(--border-color);
-    padding-top: 20px;
-    border-radius: 10px;
   }
 }
 

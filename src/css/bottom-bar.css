@@ -721,37 +721,42 @@
    =================================== */
 @media (max-width: 1024px) {
     .nav-links {
+        display: none;
         position: fixed;
-        inset: 0;
-        z-index: 999;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        z-index: 1050;
         flex-direction: column;
-        background: rgba(9, 12, 21, 0.96);
+        background: rgba(9, 12, 21, 0.98);
         -webkit-backdrop-filter: blur(30px) saturate(200%);
         backdrop-filter: blur(30px) saturate(200%);
         padding: 100px 24px 40px;
         gap: 4px;
         align-items: stretch;
-        opacity: 0;
-        pointer-events: none;
-        transform: scale(0.96);
-        transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         overflow-y: auto;
-        width: 100%;
-        max-width: 100%;
-        right: auto;
-        border-left: none;
-        box-shadow: none;
     }
 
     .nav-links.active {
-        opacity: 1;
-        pointer-events: auto;
-        transform: scale(1);
-        right: auto;
+        display: flex;
     }
 
     .nav-links.active::before {
         display: none;
+    }
+
+    .nav-toggle {
+        display: flex;
+        z-index: 1001;
+    }
+
+    /* Account card stays visible on bar, not in popup */
+    .nav-account {
+        z-index: 1001;
     }
 
     .nav-link {
