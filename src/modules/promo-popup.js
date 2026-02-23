@@ -52,11 +52,14 @@ export function initPromoPopup(showToast) {
         });
     }
 
-    // Fetch all active promos
-    loadActivePromos();
+    // Fetch all active promos (hide FAB if none available)
+    loadActivePromos(promoBtn);
 }
 
-async function loadActivePromos() {
+async function loadActivePromos(promoBtn) {
+    // Hardcoded fallback expiry (matches HTML promo)
+    const FALLBACK_EXPIRY = new Date('2026-02-28T23:59:59');
+
     try {
         // Try new multi-promo RPC first
         const { data, error } = await supabase.rpc('get_all_active_promotions');
@@ -74,9 +77,18 @@ async function loadActivePromos() {
             promos = [single];
             currentIndex = 0;
             renderPromo(single);
+            return;
+        }
+
+        // No DB promos — check fallback expiry
+        if (new Date() > FALLBACK_EXPIRY && promoBtn) {
+            promoBtn.style.display = 'none';
         }
     } catch {
-        // Silent — use hardcoded HTML fallback
+        // No connection — check fallback expiry
+        if (new Date() > FALLBACK_EXPIRY && promoBtn) {
+            promoBtn.style.display = 'none';
+        }
     }
 }
 

@@ -6,6 +6,7 @@ import { escapeHTML } from '../utils/sanitize.js';
 import { checkRateLimit, recordAttempt } from '../utils/ratelimit.js';
 import { registerCTV, getAutoRef, validateCtvCode } from '../ctv.js';
 import { apiCall, handleApiError } from '../utils/api.js';
+import { getReorderDiscount } from './reorder-reminder.js';
 
 const SHIPPING_FEE = 30000;
 const BANK_CONFIG = {
@@ -17,13 +18,16 @@ const BANK_CONFIG = {
 
 function calcOrderTotals(qty, PRICING) {
     const unitPrice = PRICING.unit_price || 1450000;
-    const discountPercent = PRICING.discounts[qty] || 0;
+    const qtyDiscount = PRICING.discounts[qty] || 0;
+    const reorderDiscount = getReorderDiscount();
+    // Cộng dồn: giảm số lượng + giảm khách quen (cap 20%)
+    const discountPercent = Math.min(qtyDiscount + reorderDiscount, 20);
     const subtotal = qty * unitPrice;
     const discountAmount = Math.round(subtotal * discountPercent / 100);
     const freeShip = qty >= (PRICING.free_shipping_min || 3);
     const shipping = freeShip ? 0 : SHIPPING_FEE;
     const total = subtotal - discountAmount + shipping;
-    return { unitPrice, discountPercent, subtotal, discountAmount, shipping, total, freeShip };
+    return { unitPrice, discountPercent, subtotal, discountAmount, shipping, total, freeShip, reorderDiscount };
 }
 
 export function initQuantitySelector(product, PRICING) {
@@ -61,6 +65,9 @@ export function initOrderForm(PRICING, showToast) {
     const freeShipNote = document.getElementById('freeShipNote');
 
     if (!form) return;
+
+    // P1: Mini social proof counter tại form
+    initFormSocialProof();
 
     const paymentOptions = document.querySelectorAll('.payment-option');
     paymentOptions.forEach(opt => {
@@ -203,6 +210,15 @@ export function initOrderForm(PRICING, showToast) {
                     { html: true, duration: 8000 }
                 );
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // P1: Nurturing toast — nhắc cách uống
+                setTimeout(() => {
+                    showToast(
+                        '💛 Tuần đầu tiên: cơ thể bắt đầu làm quen. Kiên trì 2 viên mỗi sáng — bạn sẽ cảm nhận sự khác biệt sau 2-4 tuần nhé!',
+                        true,
+                        { duration: 8000 }
+                    );
+                }, 5000);
             }
 
             form.reset();
@@ -342,4 +358,34 @@ export function initCtvForm(showToast) {
             showToast('Đăng ký thất bại. Vui lòng thử lại!', false);
         }
     });
+}
+
+// ===================================
+// P1: Mini Social Proof tại form đặt hàng
+// Hiện "X người đã đặt hàng hôm nay" (real từ DB, ẩn nếu 0)
+// ===================================
+async function initFormSocialProof() {
+    const formSection = document.getElementById('contact');
+    if (!formSection) return;
+
+    const badge = document.createElement('div');
+    badge.className = 'form-social-proof';
+    badge.style.cssText = 'display:none; text-align:center; padding:8px 16px; margin-bottom:12px; font-size:13px; color:var(--gold-primary); background:rgba(212,168,75,0.08); border-radius:8px; border:1px solid rgba(212,168,75,0.15);';
+
+    const formTitle = formSection.querySelector('.section-form-header, .form-title, h2');
+    if (formTitle) formTitle.insertAdjacentElement('afterend', badge);
+    else formSection.prepend(badge);
+
+    try {
+        const today = new Date().toISOString().split('T')[0];
+        const { count, error } = await supabase
+            .from('orders')
+            .select('*', { count: 'exact', head: true })
+            .gte('created_at', today);
+
+        if (!error && count && count > 0) {
+            badge.textContent = `${count} người đã đặt hàng hôm nay`;
+            badge.style.display = 'block';
+        }
+    } catch { /* silent */ }
 }
