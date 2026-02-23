@@ -826,9 +826,18 @@
       <span class="fab-tooltip-text" id="fabTooltipText">Đặt hàng ngay! 🛒</span>
     </div>
 
-    <!-- Expanded circular buttons (2-tap) — Bottom→Top: Order, Call, CTV, Zalo, LiveChat -->
+    <!-- Expanded circular buttons (2-tap) — Bottom→Top: Order, Call, CTV, Zalo, LiveChat, Promo -->
     <div class="fab-orbit" id="fabOrbit">
-      <!-- 5. LIVECHAT — topmost -->
+      <!-- 6. PROMOTION — topmost, gift tag -->
+      <button class="fab-circle fab-circle--promo" id="fabPromo" aria-label="Ưu đãi đặc biệt">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" />
+          <line x1="7" y1="7" x2="7.01" y2="7" />
+        </svg>
+      </button>
+
+      <!-- 5. LIVECHAT -->
       <a class="fab-circle fab-circle--livechat" id="cwLivechat" href="https://m.me/maldalladuyduc" target="_blank"
         rel="noopener" aria-label="LiveChat hỗ trợ">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -936,6 +945,96 @@
         </button>
       </form>
       <p class="ctv-popup-note">Đăng ký miễn phí • Nhận mã CTV ngay • Rút tiền mọi lúc</p>
+    </div>
+  </div>
+
+  <!-- ======= PROMOTION POPUP — New Year 2026 ======= -->
+  <div class="promo-popup-overlay" id="promoPopup" role="dialog" aria-modal="true" aria-labelledby="promoPopupTitle">
+    <div class="promo-popup">
+      <button class="promo-popup-close" id="promoPopupClose" aria-label="Đóng">×</button>
+      <div class="promo-popup-header">
+        <div class="promo-popup-icon">🎁</div>
+        <h3 id="promoPopupTitle">Mừng Xuân Bính Ngọ 2026</h3>
+        <p class="promo-popup-tagline">Lời chúc từ trái tim — ưu đãi từ Maldala 💛</p>
+      </div>
+
+      <div class="promo-popup-card">
+        <div class="promo-badge">GIẢM 5%</div>
+        <p class="promo-card-title">Chương trình <strong>Xuân Yêu Thương</strong></p>
+        <p class="promo-card-desc">
+          Năm mới là lúc chúng ta gửi gắm sức khỏe cho người mình yêu thương.
+          Maldala tặng bạn <strong>5% ưu đãi</strong> cho mọi đơn hàng — vì sức khỏe
+          không chờ đợi, và tình yêu thương thì luôn xứng đáng ✨
+        </p>
+      </div>
+
+      <div class="promo-popup-benefits">
+        <div class="promo-benefit">
+          <span class="promo-benefit-icon">🌿</span>
+          <span>Đông trùng tươi nguyên chất 100%</span>
+        </div>
+        <div class="promo-benefit">
+          <span class="promo-benefit-icon">🚚</span>
+          <span>Miễn phí vận chuyển từ 3 hộp</span>
+        </div>
+        <div class="promo-benefit">
+          <span class="promo-benefit-icon">💝</span>
+          <span>Tặng thiệp chúc Tết cá nhân hóa</span>
+        </div>
+        <div class="promo-benefit">
+          <span class="promo-benefit-icon">⏳</span>
+          <span>Áp dụng đến hết <strong>28/02/2026</strong></span>
+        </div>
+      </div>
+
+      <div class="promo-popup-cta">
+        <a href="#contact" class="promo-order-btn" id="promoOrderBtn">
+          Đặt hàng ngay — Giảm 5% 🛒
+        </a>
+        <p class="promo-popup-note">
+          *Tự động áp dụng khi đặt hàng. Không cần mã giảm giá.
+        </p>
+      </div>
+
+      <div class="promo-popup-footer">
+        <em>"Sức khỏe là món quà ý nghĩa nhất bạn có thể dành tặng người thân."</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= QUICK LOGIN POPUP — Contextual CTV / Customer ======= -->
+  <div class="login-popup-overlay" id="loginPopup" role="dialog" aria-modal="true" aria-labelledby="loginPopupTitle">
+    <div class="login-popup">
+      <button class="login-popup-close" id="loginPopupClose" aria-label="Đóng">×</button>
+      <div class="login-popup-header">
+        <div class="login-popup-icon" id="loginPopupIcon">🔐</div>
+        <h3 id="loginPopupTitle">Đăng nhập nhanh</h3>
+        <p class="login-popup-sub" id="loginPopupSub">Để tiếp tục trải nghiệm tuyệt vời</p>
+      </div>
+
+      <!-- Role tabs -->
+      <div class="login-tabs" id="loginTabs">
+        <button class="login-tab active" data-role="ctv">CTV / Đối Tác</button>
+        <button class="login-tab" data-role="customer">Khách Hàng</button>
+      </div>
+
+      <form class="login-popup-form" id="loginPopupForm">
+        <div class="login-field">
+          <input type="tel" id="loginPhone" placeholder="Số điện thoại *" required>
+        </div>
+        <div class="login-field">
+          <input type="password" id="loginPassword" placeholder="Mật khẩu *" required>
+        </div>
+        <button type="submit" class="login-popup-submit" id="loginSubmitBtn">
+          Đăng nhập
+        </button>
+      </form>
+
+      <div class="login-popup-footer">
+        <p class="login-hint" id="loginHint">
+          CTV mới? <a href="#" id="loginSwitchRegister">Đăng ký ngay</a> — Mật khẩu mặc định là SĐT
+        </p>
+      </div>
     </div>
   </div>
 
