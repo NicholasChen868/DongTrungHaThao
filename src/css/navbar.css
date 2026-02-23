@@ -62,31 +62,33 @@
   align-items: center;
 }
 
-/* Mobile: hide nav-links by default, show hamburger */
+/* ===================================
+   MOBILE NAV — Frosted glass dropdown
+   =================================== */
 @media (max-width: 1024px) {
   .nav-links {
     display: none !important;
     position: fixed;
     top: 56px;
     right: 12px;
-    left: auto;
+    left: 12px;
     bottom: auto;
-    width: 260px;
+    width: auto;
     max-height: calc(100dvh - 80px);
     z-index: 1050;
     flex-direction: column;
-    background: rgba(12, 14, 24, 0.96);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    backdrop-filter: blur(24px) saturate(180%);
-    padding: 12px;
-    gap: 2px;
+    background: rgba(18, 20, 32, 0.88);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    backdrop-filter: blur(40px) saturate(200%);
+    padding: 14px;
+    gap: 6px;
     align-items: stretch;
     overflow-y: auto;
-    border-radius: 16px;
-    border: 1px solid rgba(212, 168, 75, 0.2);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5),
-      0 0 0 1px rgba(255, 255, 255, 0.04);
-    transform-origin: top right;
+    border-radius: 20px;
+    border: 1px solid rgba(212, 168, 75, 0.25);
+    box-shadow: 0 16px 56px rgba(0, 0, 0, 0.45),
+      0 0 0 1px rgba(255, 255, 255, 0.06);
+    transform-origin: top center;
   }
 
   .nav-links.active {
@@ -111,43 +113,38 @@
     order: 3;
   }
 
-  /* Compact card link items */
+  /* Uniform nav items — same size, same spacing */
   .nav-link {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 11px 16px;
-    font-size: 0.88rem;
+    justify-content: center;
+    text-align: center;
+    padding: 14px 20px;
+    font-size: 1rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.85);
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    margin-bottom: 2px;
+    color: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     transition: all 0.15s ease;
     -webkit-tap-highlight-color: transparent;
   }
 
   .nav-link:hover,
   .nav-link:active {
-    background: rgba(212, 168, 75, 0.1);
-    border-color: rgba(212, 168, 75, 0.2);
+    background: rgba(212, 168, 75, 0.12);
+    border-color: rgba(212, 168, 75, 0.25);
     color: var(--gold-light);
   }
 
   .nav-link--cta {
-    text-align: center;
-    justify-content: center;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    padding: 12px 16px;
+    padding: 14px 20px;
     background: linear-gradient(135deg, #e8bc5a, #c49540);
     border: none;
     color: #0A0E1A !important;
     font-weight: 700;
-    font-size: 0.9rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 12px rgba(212, 168, 75, 0.2);
+    font-size: 1rem;
+    box-shadow: 0 4px 16px rgba(212, 168, 75, 0.25);
   }
 
   .nav-link--cta:hover {
@@ -158,28 +155,22 @@
   .nav-divider {
     width: 100%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-    margin: 4px 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    margin: 2px 0;
   }
 
   .nav-link--accent {
-    text-align: center;
-    justify-content: center;
-    background: rgba(96, 165, 250, 0.06);
-    border: 1px solid rgba(96, 165, 250, 0.15);
+    background: rgba(96, 165, 250, 0.08);
+    border: 1px solid rgba(96, 165, 250, 0.2);
     border-left: 3px solid rgba(96, 165, 250, 0.5);
     color: #7db8fc !important;
-    border-radius: 10px;
   }
 
   .nav-link--member {
-    text-align: center;
-    justify-content: center;
-    background: rgba(212, 168, 75, 0.06);
-    border: 1px solid rgba(212, 168, 75, 0.15);
+    background: rgba(212, 168, 75, 0.08);
+    border: 1px solid rgba(212, 168, 75, 0.2);
     border-left: 3px solid rgba(212, 168, 75, 0.5);
     color: var(--gold-light) !important;
-    border-radius: 10px;
   }
 
   .nav-toggle.active span:nth-child(1) {
