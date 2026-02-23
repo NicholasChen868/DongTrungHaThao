@@ -1,22 +1,23 @@
 # 📋 TASKS — Đông Trùng Hạ Thảo (maldalladuyduc)
 
-> **Cập nhật**: 2026-02-23 12:35
-> **Trạng thái**: ✅ SPRINT A-B-C HOÀN THÀNH — Sẵn sàng mở BACKLOG
+> **Cập nhật**: 2026-02-23 13:25
+> **Trạng thái**: ✅ SPRINT A-B-C HOÀN THÀNH + Sprint D đang triển khai
 > **Sprint A tiến độ**: 6/6 tasks ✅
 > **Sprint B tiến độ**: 5/5 tasks ✅
 > **Sprint C tiến độ**: 4/4 tasks ✅
+> **Sprint D tiến độ**: 5/6 tasks (83%)
 > **Backlog tính năng mới**: Xem `BACKLOG.md`
 
 ---
 
 ## ⚠️ NGUYÊN TẮC HIỆN TẠI
 
-> **BACKLOG ĐÃ MỞ KHÓA** — Sprint A-B-C đã hoàn thành.
-> Ưu tiên: Chọn items từ `BACKLOG.md` để triển khai tiếp.
+> **SPRINT D ĐANG TRIỂN KHAI** — FAB Widget Polish + Feature mới
+> Build ✅ + 223 tests ✅ tại mỗi commit.
 
 ---
 
-## 📊 TÌNH TRẠNG DỰ ÁN (Audit 23/02/2026)
+## 📊 TÌNH TRẠNG DỰ ÁN (Audit 23/02/2026 13:25)
 
 ### Những gì đã xong ✅
 - Trang chủ, CTV Dashboard, Admin Dashboard, Thành Viên, Chia Sẻ, Câu Chuyện, Bản Đồ Sức Khỏe
@@ -27,89 +28,58 @@
 - SEO (sitemap, schema.org, OG, robots, canonical)
 - CI/CD (GitHub Actions: unit + integration + E2E + Lighthouse)
 - 223 unit/integration tests + 22 E2E tests (Playwright)
-- iOS-style bottom bar, FAB menu, CTV popup, CTV banner
-- 105+ commits, deploy tự động qua Vercel
-
-### Nợ kỹ thuật đã trả ✅
-- ~~Migration numbering lỗi~~ ✅ Fixed (A1)
-- ~~Auth inline styles~~ ✅ Tách ra `auth.css` (A6)
-- ~~Monolith HTML admin~~ ✅ Tách ra 3 file (A2)
-- ~~Monolith HTML ctv-dashboard~~ ✅ Tách ra 3 file (A3)
-- ~~CSS monolith~~ ✅ Tách ra 7 component files (A4)
-- ~~JS monolith~~ ✅ Tách ra 7 modules (A5)
-- ~~Testing gần bằng 0~~ ✅ 223 unit/integration + 22 E2E tests
-- ~~Admin auth SHA-256~~ ✅ Session-based auth (C1)
-- ~~Không có error handling~~ ✅ apiCall + retry + offline detection (C2)
+- **Unified FAB widget** với 6 nút orbit + ring pulse + tooltip xoay
+- **Promotion popup** (Bứt Phá Đinh Ngọ 2026 — content tâm lý)
+- **Quick Login popup** (CTV / Khách hàng — contextual)
+- 110+ commits, deploy tự động qua Vercel
 
 ---
 
-## 🎯 PLAN — THỨ TỰ THỰC HIỆN
+## 🔵 Sprint D: FAB & Feature Polish (Session 23/02/2026)
 
-### 🔴 Sprint A: Sửa lỗi cấu trúc ✅ DONE (6/6)
+### D1. FAB Widget — Sắp xếp & Polish ✅ DONE
+- [x] Reorder 6 nút bottom→top: Order, Call, CTV, Zalo, LiveChat, Promotion
+- [x] Zalo icon → inline SVG canh giữa hoàn hảo (nền #0068FF)
+- [x] Messenger → LiveChat (teal gradient)
+- [x] FAB main icon ⭐→ dấu **+** rõ ràng, xoay 360° chậm (8s/vòng)
+- [x] Ring pulse sonar tỏa ra liên tục
+- [x] 6th child stagger animation
 
-#### A1. Fix migration numbering ✅ DONE
-- [x] Đổi tên `011_server_rate_limit.sql` → `011b_server_rate_limit.sql`
-- [x] Build verify passed
+### D2. Promotion Popup ✅ DONE
+- [x] Nút Promo (rose gradient, tag icon) trong FAB orbit
+- [x] Popup content: "Bứt Phá Đầu Năm Đinh Ngọ" 
+- [x] Storyline tâm lý: "qua Tết đi..." → deadline dí mặt → biến áp lực thành cơ hội → 2 viên khỏe re
+- [x] Benefits: ⚡ Tỉnh táo, 🌙 Xuyên đêm, 🛡️ Đề kháng, ⏳ Giảm 5% trước 28/02
+- [x] CTA: "💊 2 viên/ngày — Khỏe re!"
+- [x] Quote: "Đừng để sức ì sau Tết là lý do bạn bỏ lỡ cơ hội đầu năm."
+- [x] Hero image: Đông trùng lọ thủy tinh + hộp quà vàng + hoa đào Tết
 
-#### A2. Tách `admin.html` (99KB → 11.7KB HTML) ✅ DONE
-- [x] Tách CSS inline → `src/admin.css` (12.01KB)
-- [x] Tách JS inline → `src/admin.js` (31.51KB)
-- [x] `admin.html` chỉ còn 240 dòng HTML thuần
+### D3. Quick Login Popup ✅ DONE
+- [x] HTML + CSS + JS module (`login-popup.js`)
+- [x] Tab CTV / Khách Hàng (iOS segment control)
+- [x] SĐT + mật khẩu → login via Supabase RPC
+- [x] Reusable API: `openLoginPopup({ role, subtitle, onSuccess })`
+- [x] Context-aware: icon/text thay đổi theo role
+- [x] Rate limited 5 lần/phút
+- [x] Link "Đăng ký ngay" → mở CTV popup
 
-#### A3. Tách `ctv-dashboard.html` (101KB → 22.6KB HTML) ✅ DONE
-- [x] Tách CSS inline → `src/ctv-dashboard.css` (18.94KB)
-- [x] Tách JS inline → `src/ctv-dashboard.js` (22.83KB)
-- [x] `ctv-dashboard.html` chỉ còn 422 dòng HTML thuần
+### D4. Popup Polish ✅ DONE
+- [x] Staggered entrance animation cho TẤT CẢ popup (CTV, Promo, Login)
+- [x] popupSlideUp: header 0.1s → content 0.2s → benefits 0.3s → CTA 0.4s → footer 0.5s
+- [x] Reward items stagger (mỗi item delay +0.1s)
+- [x] Promo badge pop: scale(0)→scale(1) + xoay nhẹ
+- [x] popupBounce nâng cấp với scale
+- [x] Hero images: CTV (partnership illustration) + Promo (Tết cordyceps)
 
-#### A4. Tách `src/style.css` (78KB → 7 component files) ✅ DONE
-- [x] 7 component CSS files, output bit-for-bit identical
+### D5. CI Fix ✅ DONE
+- [x] Lighthouse CI `v12` → `v11` (v12 không tồn tại)
+- [x] E2E tests aligned với FAB widget IDs mới
 
-#### A5. Tách `src/main.js` (39KB → 7 modules + lean init) ✅ DONE
-- [x] 8 modules + `main.js` ~130 dòng init
-
-#### A6. Dọn `src/auth.js` — tách CSS ra khỏi JS ✅ DONE
-- [x] `auth.css` (5.98KB), `auth.js` giảm 49%
-
----
-
-### 🟡 Sprint B: Testing ✅ DONE (5/5)
-
-#### B1. Hoàn thiện Vitest setup ✅ DONE
-- [x] `vitest.config.js` — jsdom + globals + coverage (v8)
-- [x] `tests/setup.js` — mock Supabase toàn cục
-
-#### B2. Unit tests — 7 files, 130 tests ✅ DONE
-- [x] `sanitize` 15 | `ratelimit` 9 | `order-validation` 12
-- [x] `auth` 27 | `ngu-hanh` 28 | `ctv` 22 | `tracker` 14
-
-#### B3. Integration tests — 2 files, 30 tests ✅ DONE
-- [x] `order-flow` 14 tests | `ctv-flow` 16 tests
-
-#### B4. E2E tests (Playwright) — 4 files, 22 tests ✅ DONE
-- [x] `homepage.spec.js` — 9 tests (load, nav, bottom bar, FAB, scroll, mobile menu)
-- [x] `order.spec.js` — 4 tests (fields, qty, validate, price update)
-- [x] `ctv.spec.js` — 7 tests (popup open/close, rewards, validate, Escape)
-- [x] `admin.spec.js` — 2 tests (login page, wrong password)
-
-#### B5. CI tích hợp test ✅ DONE
-- [x] `.github/workflows/test.yml` — 3 parallel jobs: unit/integration + E2E + Lighthouse
-- [x] `lighthouserc.json` — Performance 90+, Accessibility 85+, Best Practices 90+, SEO 90+
-
----
-
-### 🟢 Sprint C: Hardening ✅ DONE (4/4)
-
-#### C1. Admin auth nâng cao ✅ DONE
-- [x] Session-based auth, sliding window 30 phút
-
-#### C2. Error handling chung ✅ DONE
-- [x] `apiCall()`, retry, exponential backoff, offline detection
-
-#### C3. Performance audit ✅ DONE
-- [x] Lazy images, WebP, Swiper lazy load, bundle -70%
-
-#### C4. Accessibility cơ bản ✅ DONE
-- [x] ARIA labels, keyboard nav, color contrast WCAG AA
+### D6. Login Popup Integration ⏳ CÒN LẠI
+- [ ] Tích hợp `openLoginPopup()` vào các CTA cần login (CTV dashboard, tracking đơn...)
+- [ ] Supabase RPC `customer_login` chưa tồn tại → cần tạo migration
+- [ ] Test E2E cho login popup flow
+- [ ] Test E2E cho promo popup flow
 
 ---
 
@@ -120,7 +90,8 @@
 | **A: Refactor** | 6/6 | ✅ DONE |
 | **B: Testing** | 5/5 | ✅ DONE |
 | **C: Hardening** | 4/4 | ✅ DONE |
-| **Tổng** | **15/15** | **✅ ALL DONE** |
+| **D: FAB & Features** | 5/6 | 🔵 83% |
+| **Tổng** | **20/21** | **95%** |
 
 ### Test Coverage
 | Type | Tests | Files |
@@ -130,7 +101,7 @@
 | E2E (Playwright) | 22 | 4 |
 | **Tổng** | **245+** | **13** |
 
-> ✅ Sprint A-B-C hoàn thành → `BACKLOG.md` đã mở khóa.
+> 🔵 Sprint D còn lại: D6 (Login integration + customer_login RPC + E2E tests)
 
 ---
 

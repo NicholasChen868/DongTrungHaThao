@@ -1,12 +1,46 @@
-# 📦 BACKLOG — Tính Năng Tạm Treo
+# 📦 BACKLOG — Tính Năng & Ý Tưởng
 
-> **Trạng thái**: 🔒 ĐÓNG BĂNG — Chỉ mở khi `TASKS.md` Sprint A-B-C hoàn thành
-> **Cập nhật**: 2026-02-23
-> **Quy tắc**: Ghi ý tưởng vào đây, KHÔNG triển khai cho đến khi nợ kỹ thuật trả xong.
+> **Trạng thái**: 🔓 MỞ KHÓA — Sprint A-B-C hoàn thành, Sprint D đang triển khai
+> **Cập nhật**: 2026-02-23 13:25
+> **Quy tắc**: Ưu tiên từ trên xuống. Items đã triển khai được đánh dấu ✅.
 
 ---
 
-## 🔒 TÍNH NĂNG ĐÃ LÊN KẾ HOẠCH — TẠM TREO
+## ✅ ĐÃ TRIỂN KHAI (Sprint D — 23/02/2026)
+
+### 🎁 Promotion Popup ✅
+- Nút Promo trong FAB orbit (rose gradient)
+- Popup content "Bứt Phá Đinh Ngọ 2026" — tâm lý, tinh tế
+- Hero image, staggered animations, badge pop
+- CTA "2 viên/ngày — Khỏe re!" + auto 5% discount
+
+### 🔐 Quick Login Popup ✅
+- Popup đăng nhập nhanh tại mọi điểm chạm
+- Tab CTV / Khách Hàng (contextual)
+- Reusable API: `openLoginPopup({ role, onSuccess })`
+- Rate limited, session management
+
+### 💬 LiveChat Button ✅ (thay Messenger)
+- Nút LiveChat teal trong FAB orbit
+
+---
+
+## 🔴 CẦN LÀM TIẾP (ƯU TIÊN CAO)
+
+### 🔐 D6. Login Integration (Còn lại từ Sprint D)
+- Tích hợp `openLoginPopup()` vào CTV dashboard, tracking đơn, etc.
+- Tạo Supabase RPC `customer_login` (chưa có)
+- E2E tests cho login + promo popup flows
+
+### 🏷️ Promotion System — Dynamic
+- Chuyển promotion content từ hardcode HTML → Supabase table
+- Admin có thể tạo/sửa/tắt promotion từ dashboard
+- Auto-hide khi hết hạn, auto-show khi có promo mới
+- Áp dụng discount vào order form tự động
+
+---
+
+## 🟡 ƯU TIÊN TRUNG BÌNH
 
 ### 💳 Thanh Toán CTV (Plan gốc Phase 4.3)
 - Chức năng rút tiền cho CTV (form yêu cầu)
@@ -32,65 +66,37 @@
 - Dashboard analytics trong admin panel
 - **Ghi chú**: Migration 007 + tracker.js đã tạo sẵn, cần build dashboard UI
 
-### 📱 PWA / Mobile App (Plan gốc Phase 4.1)
-- Service Worker + Manifest.json
-- Offline cache strategy  
-- Install prompt (Add to Home Screen)
-- Push notifications
-- **Ghi chú**: Chưa bắt đầu, ưu tiên thấp
-
 ---
 
-## 🔒 Ý TƯỞNG MỚI PHÁT SINH — TẠM TREO
+## 🟢 ƯU TIÊN THẤP / Ý TƯỞNG
 
-### 📖 Multi-Story Random Display (Backlog cũ)
+### 📖 Multi-Story Random Display
 - Trang `cau-chuyen.html` có NHIỀU câu chuyện, random hiển thị mỗi lần load
-- Mỗi câu chuyện là một "bộ content" hoàn chỉnh (Opening → Chapters → CTA)
-- DB/JSON chứa các bộ story, JS logic random pick, transition animation
-- Câu chuyện đầu tiên (v3 — "Giường bệnh") là story gốc
-- Ý tưởng story: góc nhìn người vợ, góc nhìn CTV, góc nhìn người trẻ burnout...
 - **Nguồn**: `content/BACKLOG.md`, `content/cau-chuyen-content.md`
 
 ### 🖼️ Nội Dung Chuyên Nghiệp
 - Ảnh sản phẩm chuyên nghiệp (thay thế ảnh mẫu AI)
 - Video giới thiệu quy trình sản xuất
-- Chứng nhận / giấy tờ pháp lý scan
 - **Ghi chú**: Phụ thuộc vào anh Kha cung cấp assets
 
 ### 🎯 CTV Leaderboard
-- Bảng xếp hạng CTV theo điểm tích lũy
-- Tháng/Quý, có giải thưởng
-- Gamification thêm cho CTV
-- **Ghi chú**: Ý tưởng phát sinh, chưa design
+- Bảng xếp hạng CTV theo điểm tích lũy, gamification
+
+### 📱 PWA / Mobile App
+- Service Worker, Manifest.json, Offline cache, Push notifications
 
 ### 🔔 Push Notification Web
-- Browser push notifications cho:
-  - Đơn hàng mới (admin)
-  - Điểm CTV được duyệt (CTV)
-  - Bài viết được approve (member)
-- **Ghi chú**: Cần Service Worker (phụ thuộc PWA)
-
-### 🏷️ Mã Giảm Giá / Coupon
-- Hệ thống coupon code
-- Admin tạo mã, khách nhập khi đặt hàng
-- Tracking hiệu quả từng mã
-- **Ghi chú**: Ý tưởng, chưa design
-
-### 💬 Live Chat
-- Widget chat trực tiếp với admin/CSKH
-- Tích hợp Zalo OA hoặc Tawk.to
-- **Ghi chú**: Ý tưởng, chưa design
+- Browser push cho đơn hàng, điểm CTV, bài viết approved
 
 ---
 
 ## 📋 CÁCH SỬ DỤNG FILE NÀY
 
 1. **Khi có ý tưởng mới** → Thêm vào section phù hợp bên trên
-2. **Khi nợ kỹ thuật trả xong** → Chọn items từ đây để đưa vào `TASKS.md`
-3. **Ưu tiên**: Items ở section "ĐÃ LÊN KẾ HOẠCH" trước, rồi đến "Ý TƯỞNG MỚI"
-4. **Mỗi item chọn** → Viết task chi tiết (FE/BE phân công, file thay đổi, effort)
+2. **Chọn task tiếp** → Lấy từ 🔴 CẦN LÀM TIẾP trước
+3. **Ưu tiên**: 🔴 > 🟡 > 🟢
+4. **Mỗi item chọn** → Viết task chi tiết vào `TASKS.md`
 
 ---
 
-*Tạo bởi Antigravity AI — 23/02/2026*
-*Sẽ unlock sau khi TASKS.md Sprint A-B-C hoàn thành.*
+*Cập nhật bởi Antigravity AI — 23/02/2026 13:25*
