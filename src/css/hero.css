@@ -21,35 +21,10 @@
   opacity: 0.1;
   z-index: 0;
   filter: blur(2px) saturate(1.4);
-  transform: scale(1.05); /* tránh viền trắng khi blur */
+  transform: scale(1.05);
+  /* tránh viền trắng khi blur */
 }
 
-/* Hero 2 cột: text trái + ảnh phải */
-.hero-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 40px;
-  margin: 0 auto;
-}
-
-/* === ẢNH SẢN PHẨM BÊN PHẢI (giữ lại class nhưng không dùng) === */
-.hero-visual {
-  display: none;
-}
-
-.hero-visual-glow,
-.hero-product-img,
-.hero-visual-badge {
-  display: none;
-}
-
-.hero-particles {
-  display: none;
-}
 
 /* Overlay gradient: tối viền trên + dưới để text luôn rõ */
 .hero-overlay {
@@ -60,8 +35,7 @@
       rgba(9, 12, 21, 0.75) 0%,
       rgba(9, 12, 21, 0.45) 35%,
       rgba(9, 12, 21, 0.45) 65%,
-      rgba(9, 12, 21, 0.88) 100%
-    ),
+      rgba(9, 12, 21, 0.88) 100%),
     radial-gradient(ellipse at 50% 50%, rgba(184, 134, 11, 0.06) 0%, transparent 65%);
   z-index: 1;
 }
@@ -191,4 +165,3 @@
   transform: rotate(45deg);
   margin: 8px auto 0;
 }
-

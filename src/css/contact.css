@@ -305,53 +305,7 @@
   color: var(--gold-light);
 }
 
-.payment-status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
 
-.payment-status-badge.pending {
-  background: rgba(251, 191, 36, 0.1);
-  color: #fbbf24;
-  border: 1px solid rgba(251, 191, 36, 0.3);
-}
-
-.payment-status-badge.paid {
-  background: rgba(74, 222, 128, 0.1);
-  color: #4ade80;
-  border: 1px solid rgba(74, 222, 128, 0.3);
-}
-
-/* Order Success Toast Enhanced */
-.order-success-banner {
-  background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(212, 168, 75, 0.08));
-  border: 1px solid rgba(74, 222, 128, 0.3);
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 24px;
-  text-align: center;
-}
-
-.order-success-banner .success-icon {
-  font-size: 2.5rem;
-  margin-bottom: 8px;
-}
-
-.order-success-banner h4 {
-  font-size: 1.1rem;
-  color: #4ade80;
-  margin-bottom: 6px;
-}
-
-.order-success-banner p {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-}
 
 .contact-item {
   display: flex;
@@ -429,9 +383,7 @@
   margin-bottom: 48px;
 }
 
-.footer-brand .logo-icon {
-  font-size: 1.8rem;
-}
+
 
 .footer-brand .logo-text {
   font-family: var(--font-heading);
@@ -509,4 +461,3 @@
 .toast-message {
   font-size: 1rem;
 }
-

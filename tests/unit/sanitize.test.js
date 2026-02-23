@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { escapeHTML, escapeCSS } from '../src/utils/sanitize.js';
+import { escapeHTML, escapeCSS } from '../../src/utils/sanitize.js';
 
 describe('escapeHTML', () => {
   it('escapes < and > to prevent tag injection', () => {

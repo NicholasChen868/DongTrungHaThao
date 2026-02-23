@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx vite build)"
+      "Bash(npx vite build)",
+      "Bash(npm ls @vitest/coverage-v8 2>&1 || true)",
+      "Bash(npm install -D @vitest/coverage-v8 2>&1)",
+      "Bash(npx vitest run tests/unit/ 2>&1)"
     ]
   }
 }

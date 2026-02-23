@@ -2,38 +2,9 @@
    RESPONSIVE — TABLET LANDSCAPE
    =================================== */
 @media (max-width: 1024px) {
-  /* Hero: stack 1 cột trên tablet */
-  .hero-inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 0 24px;
-    text-align: center;
-  }
-
   .hero-content {
     text-align: center;
     padding: 100px 0 20px;
-    order: 2;
-  }
-
-  .hero-visual {
-    order: 1;
-    margin-top: 0;
-  }
-
-  .hero-product-img {
-    max-width: 280px;
-  }
-
-  .hero-visual-glow {
-    width: 280px;
-    height: 280px;
-  }
-
-  .hero-visual-badge {
-    bottom: -8px;
-    right: 50%;
-    transform: translateX(50%);
   }
 
   .hero-description {
@@ -204,11 +175,7 @@
     grid-template-columns: 1fr;
   }
 
-  /* Gallery */
-  .product-gallery {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
+
 
   /* Stories */
   .stories-grid {
@@ -565,15 +532,7 @@
     font-size: 0.88rem;
   }
 
-  .carousel-btn {
-    width: 38px;
-    height: 38px;
-  }
 
-  .carousel-controls {
-    gap: 12px;
-    margin-top: 20px;
-  }
 
   /* Affiliate */
   .affiliate-steps {
@@ -707,6 +666,7 @@
    TOUCH / INTERACTION IMPROVEMENTS
    =================================== */
 @media (hover: none) {
+
   .benefit-card:hover,
   .affiliate-step:hover,
   .tier-card:hover,
@@ -742,4 +702,3 @@
     padding-bottom: calc(32px + env(safe-area-inset-bottom));
   }
 }
-

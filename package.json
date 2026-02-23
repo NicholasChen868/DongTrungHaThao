@@ -8,10 +8,14 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:unit": "vitest run tests/unit/",
+    "test:integration": "vitest run tests/integration/"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.1",
+    "@vitest/coverage-v8": "^4.0.18",
     "jsdom": "^28.1.0",
     "vite": "^7.3.1",
     "vitest": "^4.0.18"

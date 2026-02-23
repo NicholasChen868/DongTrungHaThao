@@ -45,12 +45,10 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(9, 12, 21, 0.9) 0%,
-    rgba(9, 12, 21, 0.5) 45%,
-    rgba(9, 12, 21, 0.1) 100%
-  );
+  background: linear-gradient(to top,
+      rgba(9, 12, 21, 0.9) 0%,
+      rgba(9, 12, 21, 0.5) 45%,
+      rgba(9, 12, 21, 0.1) 100%);
   z-index: 1;
   pointer-events: none;
 }
@@ -120,12 +118,10 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(
-    to bottom,
-    var(--border-color),
-    var(--gold-primary),
-    var(--border-color)
-  );
+  background: linear-gradient(to bottom,
+      var(--border-color),
+      var(--gold-primary),
+      var(--border-color));
   transform: translateX(-50%);
 }
 
@@ -275,17 +271,6 @@
   transform: scale(1.03);
 }
 
-.product-placeholder {
-  text-align: center;
-  color: var(--text-secondary);
-}
-
-.product-placeholder-icon {
-  font-size: 5rem;
-  display: block;
-  margin-bottom: 12px;
-  /* animation removed for GPU perf */
-}
 
 .product-badge-cert {
   position: absolute;
@@ -1208,4 +1193,3 @@ textarea {
   margin-top: 16px;
   max-width: 300px;
 }
-

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { checkRateLimit, recordAttempt, createSubmitGuard } from '../src/utils/ratelimit.js';
+import { checkRateLimit, recordAttempt, createSubmitGuard } from '../../src/utils/ratelimit.js';
 
 describe('checkRateLimit + recordAttempt', () => {
   beforeEach(() => {
