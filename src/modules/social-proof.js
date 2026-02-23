@@ -1,6 +1,6 @@
 // ===================================
 // SOCIAL PROOF NOTIFICATIONS
-// Fake realtime: đơn hàng, CTV mới, chia sẻ...
+// Hiển thị notifications dạng ẩn danh (không fake số liệu)
 // ===================================
 
 export function initSocialProof() {
@@ -57,7 +57,7 @@ export function initSocialProof() {
             return {
                 type: 'ctv',
                 icon: '🤝',
-                text: `<strong>${name}</strong> (${city}) vừa trở thành Cộng Tác Viên`,
+                text: `<strong>${name}</strong> (${city}) vừa trở thành Đối Tác Đồng Hành`,
                 time: randTime()
             };
         },
@@ -66,7 +66,7 @@ export function initSocialProof() {
             return {
                 type: 'ctv',
                 icon: '🎉',
-                text: `Chào mừng CTV <strong>${name}</strong> gia nhập đại gia đình!`,
+                text: `Chào mừng <strong>${name}</strong> gia nhập đại gia đình Maldala!`,
                 time: randTime()
             };
         },
@@ -79,7 +79,9 @@ export function initSocialProof() {
                 'Mua tặng ba mẹ, hai bác nói sáng ra đi bộ được rồi',
                 'Mình thấy bớt mệt, chiều không còn đuối như trước',
                 'Ba em hồi đầu nói mấy thứ vớ vẩn. Giờ ổng tự gọi biểu mua thêm 😂',
-                'Dạo này dậy sớm được — không phải vì chuông, mà vì muốn dậy'
+                'Dạo này dậy sớm được — không phải vì chuông, mà vì muốn dậy',
+                'Ngủ sâu hơn, sáng dậy không nặng đầu',
+                'Bớt mệt mỏi hẳn, chiều vẫn còn năng lượng'
             ];
             return {
                 type: 'share',
@@ -88,19 +90,21 @@ export function initSocialProof() {
                 time: randTime()
             };
         },
+        // Trust signals thật — không fake con số
         () => {
-            const milestones = [
-                { icon: '🏆', text: `Hôm nay đã có <strong>${rand(80, 200)}+ đơn hàng</strong> được gửi đi` },
-                { icon: '📈', text: `<strong>${rand(15, 45)} người mới</strong> đặt thử tuần này` },
-                { icon: '🌙', text: `Hơn <strong>${rand(2000, 5000)} người</strong> chia sẻ: ngủ ngon hơn sau 2 tuần` },
-                { icon: '⭐', text: `Đánh giá trung bình: <strong>4.${rand(7, 9)}/5</strong> — "khỏe hơn, ít mệt hơn"` }
+            const trustMessages = [
+                { icon: '🏭', text: 'Nhà máy đạt chuẩn <strong>GMP — WHO</strong>, quy trình khép kín từ bào tử đến viên nang' },
+                { icon: '🌿', text: '<strong>100% con nhộng nguyên chất</strong> — bẻ viên ra: bột vàng cám, mùi trùng thảo đặc trưng' },
+                { icon: '💛', text: '<strong>15 năm</strong> kinh doanh bằng truyền miệng — uy tín từ người dùng thật' },
+                { icon: '📦', text: 'Miễn phí vận chuyển từ <strong>3 hộp</strong>. Đổi trả trong <strong>7 ngày</strong>' },
+                { icon: '☎️', text: 'Tư vấn miễn phí: <strong>0903.940.171</strong> — Thứ 2 đến Thứ 7, 8:00-17:30' }
             ];
-            const m = pick(milestones);
+            const m = pick(trustMessages);
             return {
                 type: 'health',
                 icon: m.icon,
                 text: m.text,
-                time: 'Vừa cập nhật'
+                time: 'Thông tin'
             };
         }
     ];
