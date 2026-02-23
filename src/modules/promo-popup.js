@@ -1,12 +1,15 @@
 // ===================================
-// PROMOTION POPUP — Dynamic from Supabase
-// Falls back to hardcoded HTML if DB unavailable
+// PROMOTION POPUP — Multi-promo carousel
+// Fetches all active promotions, shows as pages
 // ===================================
 import { supabase } from '../supabase.js';
 
-let activePromo = null; // Cached promo data
+let promos = [];       // All active promotions
+let currentIndex = 0;  // Current page
 
-export function getActivePromo() { return activePromo; }
+export function getActivePromo() {
+    return promos[currentIndex] || null;
+}
 
 export function initPromoPopup(showToast) {
     const popup = document.getElementById('promoPopup');
@@ -40,39 +43,128 @@ export function initPromoPopup(showToast) {
             closePromo();
             const contact = document.getElementById('contact');
             contact?.scrollIntoView({ behavior: 'smooth' });
-            const discount = activePromo?.discount_percent || 5;
+            const discount = promos[currentIndex]?.discount_percent || 5;
             if (showToast) {
                 setTimeout(() => {
-                    showToast(`🎁 Ưu đãi ${discount}% đã được áp dụng tự động!`, true, { duration: 4000 });
+                    showToast(`Ưu đãi ${discount}% đã được áp dụng!`, true, { duration: 4000 });
                 }, 800);
             }
         });
     }
 
-    // Fetch active promo from DB and render
-    loadActivePromo();
+    // Fetch all active promos
+    loadActivePromos();
 }
 
-async function loadActivePromo() {
+async function loadActivePromos() {
     try {
-        const { data, error } = await supabase.rpc('get_active_promotion');
-        if (error || !data?.ok) return; // Keep hardcoded fallback
+        // Try new multi-promo RPC first
+        const { data, error } = await supabase.rpc('get_all_active_promotions');
+        if (!error && data?.ok && data.promotions?.length > 0) {
+            promos = data.promotions;
+            currentIndex = 0;
+            renderPromo(promos[0]);
+            if (promos.length > 1) renderPagination();
+            return;
+        }
 
-        activePromo = data;
-        renderPromo(data);
+        // Fallback to single-promo RPC
+        const { data: single, error: err2 } = await supabase.rpc('get_active_promotion');
+        if (!err2 && single?.ok) {
+            promos = [single];
+            currentIndex = 0;
+            renderPromo(single);
+        }
     } catch {
         // Silent — use hardcoded HTML fallback
     }
 }
 
+function goToPage(index) {
+    if (index < 0 || index >= promos.length) return;
+    currentIndex = index;
+
+    // Slide animation
+    const popupEl = document.querySelector('.promo-popup');
+    if (popupEl) {
+        popupEl.classList.add('promo-transitioning');
+        setTimeout(() => {
+            renderPromo(promos[index]);
+            renderPagination();
+            popupEl.classList.remove('promo-transitioning');
+        }, 200);
+    } else {
+        renderPromo(promos[index]);
+        renderPagination();
+    }
+}
+
+function renderPagination() {
+    const popup = document.querySelector('.promo-popup');
+    if (!popup || promos.length <= 1) return;
+
+    // Remove existing pagination
+    popup.querySelector('.promo-pagination')?.remove();
+
+    const nav = document.createElement('div');
+    nav.className = 'promo-pagination';
+
+    // Prev button
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'promo-page-btn promo-page-prev';
+    prevBtn.textContent = '‹';
+    prevBtn.disabled = currentIndex === 0;
+    prevBtn.setAttribute('aria-label', 'Ưu đãi trước');
+    prevBtn.addEventListener('click', () => goToPage(currentIndex - 1));
+
+    // Dots
+    const dots = document.createElement('div');
+    dots.className = 'promo-page-dots';
+    promos.forEach((p, i) => {
+        const dot = document.createElement('button');
+        dot.className = `promo-page-dot${i === currentIndex ? ' active' : ''}`;
+        dot.setAttribute('aria-label', `Ưu đãi ${i + 1}: ${p.title}`);
+        dot.addEventListener('click', () => goToPage(i));
+        dots.appendChild(dot);
+    });
+
+    // Next button
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'promo-page-btn promo-page-next';
+    nextBtn.textContent = '›';
+    nextBtn.disabled = currentIndex === promos.length - 1;
+    nextBtn.setAttribute('aria-label', 'Ưu đãi tiếp');
+    nextBtn.addEventListener('click', () => goToPage(currentIndex + 1));
+
+    // Counter text
+    const counter = document.createElement('span');
+    counter.className = 'promo-page-counter';
+    counter.textContent = `${currentIndex + 1} / ${promos.length}`;
+
+    nav.appendChild(prevBtn);
+    nav.appendChild(dots);
+    nav.appendChild(nextBtn);
+    nav.appendChild(counter);
+
+    // Insert after header
+    const header = popup.querySelector('.promo-popup-header');
+    if (header) {
+        header.after(nav);
+    } else {
+        popup.prepend(nav);
+    }
+}
+
 function renderPromo(promo) {
+    if (!promo) return;
+
     // Title
     const titleEl = document.getElementById('promoPopupTitle');
     if (titleEl) titleEl.textContent = promo.title;
 
     // Icon
     const iconEl = document.querySelector('.promo-popup-icon');
-    if (iconEl) iconEl.textContent = promo.icon || '🔥';
+    if (iconEl) iconEl.textContent = promo.icon || '★';
 
     // Tagline
     const taglineEl = document.querySelector('.promo-popup-tagline');
@@ -125,14 +217,14 @@ function renderPromo(promo) {
     const footerEl = document.querySelector('.promo-popup-footer em');
     if (footerEl && promo.footer_quote) footerEl.textContent = promo.footer_quote;
 
-    // If promo has end date, show countdown hint
+    // Countdown badge
     if (promo.ends_at) {
         const end = new Date(promo.ends_at);
         const now = new Date();
         const daysLeft = Math.max(0, Math.ceil((end - now) / (1000 * 60 * 60 * 24)));
         if (daysLeft <= 7 && daysLeft > 0) {
             const badgeEl2 = document.querySelector('.promo-badge');
-            if (badgeEl2) badgeEl2.textContent += ` • Còn ${daysLeft} ngày`;
+            if (badgeEl2) badgeEl2.textContent += ` · Còn ${daysLeft} ngày`;
         }
     }
 }
