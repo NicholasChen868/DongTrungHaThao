@@ -269,6 +269,7 @@
 
 /* CTV / Role badge — floats at top-right of pill */
 .nav-account-role-badge {
+  display: none;
   position: absolute;
   top: -6px;
   right: -6px;
