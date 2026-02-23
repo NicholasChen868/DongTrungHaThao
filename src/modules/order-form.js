@@ -243,6 +243,13 @@ export function initPaymentModal(showToast) {
         if (e.target === modal) closeModal();
     });
 
+    // C4: Keyboard accessibility — Escape to close modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
     modal.querySelectorAll('.copy-btn').forEach(btn => {
         btn.addEventListener('click', async () => {
             const type = btn.dataset.copy;

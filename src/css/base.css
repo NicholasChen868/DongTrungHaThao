@@ -40,7 +40,8 @@
   /* Text — sáng kem ấm, dễ đọc trên nền tối */
   --text-primary: #f5edd7;
   --text-secondary: #c8b99a;
-  --text-muted: #7a6e5f;
+  --text-muted: #8f8273;
+  /* bumped from #7a6e5f for WCAG AA contrast (5.1:1 on dark bg) */
 
   /* Border — sáng nhẹ trên nền tối */
   --border-color: rgba(255, 255, 255, 0.07);
@@ -172,14 +173,12 @@ img {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.15) 40%,
-    rgba(255, 255, 255, 0.3) 50%,
-    rgba(255, 255, 255, 0.15) 60%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.15) 40%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.15) 60%,
+      transparent 100%);
   transition: left 0.6s ease;
   z-index: 1;
 }
@@ -221,8 +220,15 @@ img {
 }
 
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 /* --- Secondary Button — Elegant Outline --- */
@@ -325,20 +331,26 @@ img {
   width: 100%;
   height: 1px;
   background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(184, 134, 11, 0.08) 15%,
-    rgba(184, 134, 11, 0.25) 50%,
-    rgba(184, 134, 11, 0.08) 85%,
-    transparent 100%
-  );
+      transparent 0%,
+      rgba(184, 134, 11, 0.08) 15%,
+      rgba(184, 134, 11, 0.25) 50%,
+      rgba(184, 134, 11, 0.08) 85%,
+      transparent 100%);
   border: none;
   margin: 0;
 }
 
 /* --- Subtle golden pulse for hero --- */
 @keyframes goldenPulse {
-  0%, 100% { opacity: 0.04; }
-  50% { opacity: 0.08; }
+
+  0%,
+  100% {
+    opacity: 0.04;
+  }
+
+  50% {
+    opacity: 0.08;
+  }
 }
 
 .hero::before {
@@ -358,19 +370,22 @@ img {
 
 /* --- Premium Shimmer Text Effect --- */
 @keyframes shimmerGold {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 .section-title .text-gold {
-  background: linear-gradient(
-    90deg,
-    var(--gold-dark) 0%,
-    var(--gold-light) 25%,
-    #fff 50%,
-    var(--gold-light) 75%,
-    var(--gold-dark) 100%
-  );
+  background: linear-gradient(90deg,
+      var(--gold-dark) 0%,
+      var(--gold-light) 25%,
+      #fff 50%,
+      var(--gold-light) 75%,
+      var(--gold-dark) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -380,10 +395,23 @@ img {
 
 /* --- Floating Particles Effect (CSS only) --- */
 @keyframes floatUp {
-  0% { transform: translateY(0) scale(1); opacity: 0; }
-  10% { opacity: 0.6; }
-  90% { opacity: 0.6; }
-  100% { transform: translateY(-100vh) scale(0.3); opacity: 0; }
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.6;
+  }
+
+  90% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateY(-100vh) scale(0.3);
+    opacity: 0;
+  }
 }
 
 .hero-particles {

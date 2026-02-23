@@ -309,9 +309,9 @@
             <div class="product-price" id="productPrice"></div>
             <div class="product-order">
               <div class="quantity-selector">
-                <button class="qty-btn qty-minus" id="qtyMinus">−</button>
-                <span class="qty-value" id="qtyValue">1</span>
-                <button class="qty-btn qty-plus" id="qtyPlus">+</button>
+                <button class="qty-btn qty-minus" id="qtyMinus" aria-label="Giảm số lượng">−</button>
+                <span class="qty-value" id="qtyValue" aria-live="polite">1</span>
+                <button class="qty-btn qty-plus" id="qtyPlus" aria-label="Tăng số lượng">+</button>
               </div>
               <a href="#contact" class="btn btn-primary btn-glow btn-order">
                 <span>Đặt Mua — </span>
@@ -358,8 +358,11 @@
           </div>
           <div class="swiper-slide gallery-slide">
             <div class="gallery-item">
-              <img src="/images/golden-capsules.png" alt="Viên nang con nhộng nhũ vàng cám Đông Trùng Hạ Thảo"
-                class="gallery-img" loading="lazy" />
+              <picture>
+                <source srcset="/images/golden-capsules.webp" type="image/webp">
+                <img src="/images/golden-capsules.png" alt="Viên nang con nhộng nhũ vàng cám Đông Trùng Hạ Thảo"
+                  class="gallery-img" loading="lazy" />
+              </picture>
               <div class="gallery-caption">
                 <h4>500mg Nguyên Chất Trong Mỗi Viên</h4>
                 <p>
@@ -371,8 +374,11 @@
           </div>
           <div class="swiper-slide gallery-slide">
             <div class="gallery-item">
-              <img src="/images/golden-powder.png" alt="Bột vàng cám Đông Trùng Hạ Thảo nguyên liệu" class="gallery-img"
-                loading="lazy" />
+              <picture>
+                <source srcset="/images/golden-powder.webp" type="image/webp">
+                <img src="/images/golden-powder.png" alt="Bột vàng cám Đông Trùng Hạ Thảo nguyên liệu"
+                  class="gallery-img" loading="lazy" />
+              </picture>
               <div class="gallery-caption">
                 <h4>Sấy Thăng Hoa — Giữ Trọn Dưỡng Chất</h4>
                 <p>
@@ -809,10 +815,11 @@
   </a>
 
   <!-- ======= PAYMENT QR MODAL ======= -->
-  <div class="payment-modal-overlay" id="paymentModal">
+  <div class="payment-modal-overlay" id="paymentModal" role="dialog" aria-modal="true"
+    aria-labelledby="paymentModalTitle">
     <div class="payment-modal">
-      <button class="payment-modal-close" id="paymentModalClose">&times;</button>
-      <h3>Thanh Toán Chuyển Khoản</h3>
+      <button class="payment-modal-close" id="paymentModalClose" aria-label="Đóng modal thanh toán">&times;</button>
+      <h3 id="paymentModalTitle">Thanh Toán Chuyển Khoản</h3>
       <div class="order-code-display">
         Mã đơn hàng: <strong id="modalOrderCode">MDD-000001</strong>
       </div>

@@ -1,9 +1,9 @@
 // ===================================
-// TESTIMONIALS — Render + Swiper init
+// TESTIMONIALS — Render + Swiper init (lazy loaded)
 // ===================================
 import { escapeHTML } from '../utils/sanitize.js';
-import Swiper from 'swiper';
-import { Navigation, Pagination, Autoplay, EffectCoverflow } from 'swiper/modules';
+
+// Swiper loaded dynamically to reduce initial bundle (~60KB savings)
 
 // Customer photos for testimonial visual cards
 const TESTIMONIAL_AVATARS = [
@@ -44,9 +44,14 @@ export function renderTestimonials(testimonials) {
     }).join('');
 }
 
-export function initTestimonialsSwiper() {
+export async function initTestimonialsSwiper() {
     const el = document.getElementById('testimonialsSwiper');
     if (!el) return;
+
+    const [{ default: Swiper }, { Navigation, Pagination, Autoplay }] = await Promise.all([
+        import('swiper'),
+        import('swiper/modules'),
+    ]);
 
     new Swiper(el, {
         modules: [Navigation, Pagination, Autoplay],
@@ -77,9 +82,14 @@ export function initTestimonialsSwiper() {
     });
 }
 
-export function initGallerySwiper() {
+export async function initGallerySwiper() {
     const el = document.getElementById('gallerySwiper');
     if (!el) return;
+
+    const [{ default: Swiper }, { Pagination, Autoplay, EffectCoverflow }] = await Promise.all([
+        import('swiper'),
+        import('swiper/modules'),
+    ]);
 
     new Swiper(el, {
         modules: [Pagination, Autoplay, EffectCoverflow],
