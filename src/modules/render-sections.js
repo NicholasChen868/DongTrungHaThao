@@ -4,25 +4,63 @@
 import { escapeHTML, escapeCSS } from '../utils/sanitize.js';
 
 export function renderBenefits(product) {
-    const grid = document.getElementById('benefitsGrid');
-    if (!grid || !product) return;
+  const grid = document.getElementById('benefitsGrid');
+  if (!grid || !product) return;
 
-    grid.innerHTML = product.benefits.map((b, i) => `
-    <div class="benefit-card animate-on-scroll" style="transition-delay: ${i * 0.1}s">
-      ${b.image ? `<div class="benefit-bg" style="background-image: url('${b.image}')"></div>` : ''}
-      <div class="benefit-content">
-        <h3 class="benefit-title">${escapeHTML(b.title)}</h3>
-        <p class="benefit-desc">${escapeHTML(b.desc)}</p>
-      </div>
-    </div>
-  `).join('');
+  const benefits = product.benefits || [];
+
+  // AG-3: Split into 2 thematic columns if 6 benefits
+  if (benefits.length >= 6) {
+    const colA = benefits.filter((_, i) => [0, 2, 3].includes(i)); // Miễn dịch, Phổi, Tim
+    const colB = benefits.filter((_, i) => [1, 4, 5].includes(i)); // Năng lượng, Ngủ, Trẻ lâu
+
+    const renderCards = (items) => items.map((b, i) => `
+          <div class="benefit-card animate-on-scroll" style="transition-delay: ${i * 0.1}s">
+            ${b.image ? `<div class="benefit-bg" style="background-image: url('${b.image}')"></div>` : ''}
+            <div class="benefit-content">
+              <h3 class="benefit-title">${escapeHTML(b.title)}</h3>
+              <p class="benefit-desc">${escapeHTML(b.desc)}</p>
+            </div>
+          </div>
+        `).join('');
+
+    grid.innerHTML = `
+          <div class="benefits-column">
+            <div class="benefits-col-header animate-on-scroll">
+              <span class="benefits-col-icon">🛡️</span>
+              <h3>Khỏe Từ Bên Trong</h3>
+              <p>Đề kháng · Hô hấp · Tim mạch</p>
+            </div>
+            ${renderCards(colA)}
+          </div>
+          <div class="benefits-column">
+            <div class="benefits-col-header animate-on-scroll">
+              <span class="benefits-col-icon">✨</span>
+              <h3>Phục Hồi Mỗi Ngày</h3>
+              <p>Năng lượng · Giấc ngủ · Trẻ lâu</p>
+            </div>
+            ${renderCards(colB)}
+          </div>
+        `;
+  } else {
+    // Fallback: flat grid
+    grid.innerHTML = benefits.map((b, i) => `
+          <div class="benefit-card animate-on-scroll" style="transition-delay: ${i * 0.1}s">
+            ${b.image ? `<div class="benefit-bg" style="background-image: url('${b.image}')"></div>` : ''}
+            <div class="benefit-content">
+              <h3 class="benefit-title">${escapeHTML(b.title)}</h3>
+              <p class="benefit-desc">${escapeHTML(b.desc)}</p>
+            </div>
+          </div>
+        `).join('');
+  }
 }
 
 export function renderProcess(processSteps) {
-    const timeline = document.getElementById('processTimeline');
-    if (!timeline || !processSteps) return;
+  const timeline = document.getElementById('processTimeline');
+  if (!timeline || !processSteps) return;
 
-    timeline.innerHTML = processSteps.map((step, i) => `
+  timeline.innerHTML = processSteps.map((step, i) => `
     <div class="process-item animate-on-scroll" style="transition-delay: ${i * 0.1}s">
       <div class="process-dot">${escapeHTML(step.icon)}</div>
       <div class="process-content">
@@ -36,36 +74,36 @@ export function renderProcess(processSteps) {
 }
 
 export function renderProduct(product, PRICING) {
-    if (!product) return;
-    const nameEl = document.getElementById('productName');
-    const descEl = document.getElementById('productDesc');
-    const capsulesEl = document.getElementById('productCapsules');
-    const ingredientsEl = document.getElementById('productIngredients');
-    const usageEl = document.getElementById('productUsage');
-    const priceEl = document.getElementById('productPrice');
-    const totalEl = document.getElementById('totalPrice');
+  if (!product) return;
+  const nameEl = document.getElementById('productName');
+  const descEl = document.getElementById('productDesc');
+  const capsulesEl = document.getElementById('productCapsules');
+  const ingredientsEl = document.getElementById('productIngredients');
+  const usageEl = document.getElementById('productUsage');
+  const priceEl = document.getElementById('productPrice');
+  const totalEl = document.getElementById('totalPrice');
 
-    if (nameEl) nameEl.textContent = product.name;
-    if (descEl) descEl.textContent = product.description;
-    if (capsulesEl) capsulesEl.textContent = product.capsuleCount + ' ' + product.capsuleUnit;
-    if (priceEl) priceEl.textContent = PRICING.unit_price.toLocaleString('vi-VN') + '₫';
-    if (totalEl) totalEl.textContent = PRICING.unit_price.toLocaleString('vi-VN') + '₫';
+  if (nameEl) nameEl.textContent = product.name;
+  if (descEl) descEl.textContent = product.description;
+  if (capsulesEl) capsulesEl.textContent = product.capsuleCount + ' ' + product.capsuleUnit;
+  if (priceEl) priceEl.textContent = PRICING.unit_price.toLocaleString('vi-VN') + '₫';
+  if (totalEl) totalEl.textContent = PRICING.unit_price.toLocaleString('vi-VN') + '₫';
 
-    if (ingredientsEl) {
-        const ul = ingredientsEl.querySelector('ul');
-        ul.innerHTML = product.ingredients.map(i => `<li>${escapeHTML(i)}</li>`).join('');
-    }
+  if (ingredientsEl) {
+    const ul = ingredientsEl.querySelector('ul');
+    ul.innerHTML = product.ingredients.map(i => `<li>${escapeHTML(i)}</li>`).join('');
+  }
 
-    if (usageEl) {
-        usageEl.querySelector('p').textContent = product.usage;
-    }
+  if (usageEl) {
+    usageEl.querySelector('p').textContent = product.usage;
+  }
 }
 
 export function renderHealthStories(stories) {
-    const grid = document.getElementById('storiesGrid');
-    if (!grid || !stories || stories.length === 0) return;
+  const grid = document.getElementById('storiesGrid');
+  if (!grid || !stories || stories.length === 0) return;
 
-    grid.innerHTML = stories.map((s, i) => `
+  grid.innerHTML = stories.map((s, i) => `
     <div class="story-card animate-on-scroll" style="transition-delay: ${i * 0.15}s">
       <div class="story-header">
         <div class="story-avatar">${s.avatar.startsWith('/') ? `<img src="${escapeHTML(s.avatar)}" alt="${escapeHTML(s.name)}" loading="lazy">` : escapeHTML(s.avatar)}</div>
@@ -94,10 +132,10 @@ export function renderHealthStories(stories) {
 }
 
 export function renderAffiliateSteps(steps) {
-    const container = document.getElementById('affiliateSteps');
-    if (!container || !steps) return;
+  const container = document.getElementById('affiliateSteps');
+  if (!container || !steps) return;
 
-    container.innerHTML = steps.map((s, i) => `
+  container.innerHTML = steps.map((s, i) => `
     <div class="affiliate-step animate-on-scroll" style="transition-delay: ${i * 0.1}s">
       <div class="step-number">${parseInt(s.step)}</div>
       <h3 class="step-title">${escapeHTML(s.title)}</h3>
@@ -107,10 +145,10 @@ export function renderAffiliateSteps(steps) {
 }
 
 export function renderAffiliateTiers(affiliateTiers) {
-    const container = document.getElementById('affiliateTiers');
-    if (!container || !affiliateTiers) return;
+  const container = document.getElementById('affiliateTiers');
+  if (!container || !affiliateTiers) return;
 
-    container.innerHTML = affiliateTiers.map((tier, i) => `
+  container.innerHTML = affiliateTiers.map((tier, i) => `
     <div class="tier-card animate-on-scroll" style="transition-delay: ${i * 0.1}s">
       <style>.tier-card:nth-child(${i + 1})::before { background: ${escapeCSS(tier.gradient)}; }</style>
       <span class="tier-icon">${escapeHTML(tier.icon)}</span>

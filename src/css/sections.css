@@ -11,6 +11,47 @@
   gap: 28px;
 }
 
+/* AG-3: 2-column grouped benefits */
+.benefits-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.benefits-col-header {
+  text-align: center;
+  padding: 16px;
+  background: rgba(212, 168, 75, 0.04);
+  border: 1px solid rgba(212, 168, 75, 0.1);
+  border-radius: var(--radius-md);
+}
+
+.benefits-col-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.benefits-col-header h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+  margin: 0;
+}
+
+.benefits-col-header p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 4px 0 0;
+}
+
+@media (max-width: 768px) {
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .benefit-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
