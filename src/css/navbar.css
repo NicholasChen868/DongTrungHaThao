@@ -62,7 +62,22 @@
   align-items: center;
 }
 
-/* Desktop safeguard: always visible above mobile breakpoint */
+/* Mobile: hide nav-links by default, show hamburger */
+@media (max-width: 1024px) {
+  .nav-links {
+    display: none !important;
+  }
+
+  .nav-links.active {
+    display: flex !important;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+}
+
+/* Desktop: always visible, no overlay */
 @media (min-width: 1025px) {
   .nav-links {
     display: flex !important;
