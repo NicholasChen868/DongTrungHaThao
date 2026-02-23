@@ -1,5 +1,5 @@
 // ===================================
-// FLOATING BUTTONS — iOS-style bottom bar + FAB + CTV popup
+// FLOATING BUTTONS — Unified FAB Widget (single button, 2-tap)
 // ===================================
 import { supabase } from '../supabase.js';
 import { escapeHTML } from '../utils/sanitize.js';
@@ -7,62 +7,127 @@ import { registerCTV, getAutoRef } from '../ctv.js';
 import { checkRateLimit, recordAttempt } from '../utils/ratelimit.js';
 import { saveCtvSession, initCtvBanner } from './ctv-banner.js';
 
+// Rotating tooltip messages (cute, inviting)
+const TOOLTIP_MESSAGES = [
+    'Đặt hàng ngay! 🛒',
+    'Chat Zalo tư vấn 💬',
+    'Gọi ngay 0903.940.171 📞',
+    'Kiếm tiền cùng Maldala 💰',
+    'Ưu đãi đặc biệt hôm nay ✨',
+    'Miễn phí vận chuyển 🚚',
+    'Bí quyết sức khỏe vàng 🌿',
+    'Nhấn để khám phá! 👆',
+];
+
+let tooltipIndex = 0;
+let tooltipTimer = null;
+
+function startTooltipRotation() {
+    const textEl = document.getElementById('fabTooltipText');
+    if (!textEl) return;
+
+    tooltipTimer = setInterval(() => {
+        tooltipIndex = (tooltipIndex + 1) % TOOLTIP_MESSAGES.length;
+        textEl.style.opacity = '0';
+        textEl.style.transform = 'translateY(4px)';
+        setTimeout(() => {
+            textEl.textContent = TOOLTIP_MESSAGES[tooltipIndex];
+            textEl.style.opacity = '1';
+            textEl.style.transform = 'translateY(0)';
+        }, 200);
+    }, 4000);
+}
+
+function stopTooltipRotation() {
+    if (tooltipTimer) {
+        clearInterval(tooltipTimer);
+        tooltipTimer = null;
+    }
+}
+
 export function initFloatingOrderBtn() {
     const btn = document.getElementById('floatingOrderBtn');
-    const bottomBar = document.getElementById('bottomBar');
     const contactSection = document.getElementById('contact');
-    if (!btn || !contactSection || !bottomBar) return;
-
-    // Hide bottom bar when contact section is visible
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            bottomBar.classList.toggle('hidden', entry.isIntersecting);
-        });
-    }, { threshold: 0.1 });
-
-    observer.observe(contactSection);
+    if (!btn || !contactSection) return;
 
     btn.addEventListener('click', (e) => {
         e.preventDefault();
+        // Close FAB menu
+        const widget = document.getElementById('fabWidget');
+        widget?.classList.remove('open');
+        startTooltipRotation();
         contactSection.scrollIntoView({ behavior: 'smooth' });
     });
 }
 
 export function initContactWidget() {
-    // FAB toggle
-    const fabContainer = document.getElementById('fabContainer');
-    const fabToggle = document.getElementById('fabToggle');
-    if (fabContainer && fabToggle) {
-        fabToggle.addEventListener('click', () => {
-            fabContainer.classList.toggle('open');
-        });
+    const widget = document.getElementById('fabWidget');
+    const toggle = document.getElementById('fabToggle');
+    if (!widget || !toggle) return;
 
-        // Close FAB when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!fabContainer.contains(e.target) && fabContainer.classList.contains('open')) {
-                fabContainer.classList.remove('open');
-            }
-        });
+    // Start tooltip rotation
+    startTooltipRotation();
 
-        // Escape key closes FAB
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && fabContainer.classList.contains('open')) {
-                fabContainer.classList.remove('open');
-            }
-        });
-    }
+    toggle.addEventListener('click', () => {
+        const isOpen = widget.classList.toggle('open');
+        if (isOpen) {
+            stopTooltipRotation();
+        } else {
+            startTooltipRotation();
+        }
+    });
 
-    // Share button → open CTV popup
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+        if (!widget.contains(e.target) && widget.classList.contains('open')) {
+            widget.classList.remove('open');
+            startTooltipRotation();
+        }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && widget.classList.contains('open')) {
+            widget.classList.remove('open');
+            startTooltipRotation();
+        }
+    });
+
+    // CTV share button → open popup
     const fabShare = document.getElementById('fabShare');
     if (fabShare) {
         fabShare.addEventListener('click', () => {
-            fabContainer?.classList.remove('open');
+            widget.classList.remove('open');
+            startTooltipRotation();
             openCtvPopup();
         });
     }
 
-    // Load contact links dynamically
+    // Load contact links from Supabase
     loadContactLinks();
+}
+
+function openCtvPopup() {
+    const popup = document.getElementById('ctvPopup');
+    if (popup) {
+        popup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+async function loadContactLinks() {
+    try {
+        const { data, error } = await supabase.rpc('get_contact_info');
+        if (error || !data) return;
+        const zaloEl = document.getElementById('cwZalo');
+        const callEl = document.getElementById('cwCall');
+        const messengerEl = document.getElementById('cwMessenger');
+        if (zaloEl && data.zalo) zaloEl.href = `https://zalo.me/${data.zalo}`;
+        if (callEl && data.phone) callEl.href = `tel:${data.phone}`;
+        if (messengerEl && data.messenger) messengerEl.href = `https://m.me/${data.messenger}`;
+    } catch (e) {
+        // Silent — use defaults from HTML
+    }
 }
 
 export function initCtvPopup(showToast) {
@@ -71,7 +136,6 @@ export function initCtvPopup(showToast) {
     const form = document.getElementById('ctvPopupForm');
     if (!popup) return;
 
-    // Close popup
     function closePopup() {
         popup.classList.remove('active');
         document.body.style.overflow = '';
@@ -87,7 +151,6 @@ export function initCtvPopup(showToast) {
         }
     });
 
-    // Form submit
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -99,19 +162,18 @@ export function initCtvPopup(showToast) {
             }
             recordAttempt('ctv_popup', 60000);
 
-            const name = document.getElementById('ctvPopupName').value.trim();
-            const phone = document.getElementById('ctvPopupPhone').value.trim();
-            const email = document.getElementById('ctvPopupEmail')?.value.trim() || null;
+            const name = document.getElementById('ctvPopupName')?.value?.trim();
+            const phone = document.getElementById('ctvPopupPhone')?.value?.trim();
+            const email = document.getElementById('ctvPopupEmail')?.value?.trim();
 
             if (!name || !phone) {
-                showToast('Vui lòng điền họ tên và số điện thoại!', false);
+                showToast('Vui lòng nhập họ tên và số điện thoại', false);
                 return;
             }
 
             const submitBtn = form.querySelector('.ctv-popup-submit');
-            const origText = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span>Đang xử lý...</span>';
+            const originalText = submitBtn?.innerHTML;
+            if (submitBtn) submitBtn.innerHTML = '<span>Đang xử lý...</span>';
 
             try {
                 const result = await registerCTV(name, phone, email);
@@ -150,51 +212,10 @@ export function initCtvPopup(showToast) {
                     showToast('Đăng ký thất bại. Vui lòng thử lại!', false);
                 }
             } catch (err) {
-                showToast('Lỗi kết nối. Vui lòng thử lại!', false);
+                showToast('Lỗi kết nối. Vui lòng thử lại.', false);
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = origText;
+                if (submitBtn) submitBtn.innerHTML = originalText;
             }
         });
-    }
-}
-
-function openCtvPopup() {
-    const popup = document.getElementById('ctvPopup');
-    if (!popup) return;
-    popup.classList.add('active');
-    document.body.style.overflow = 'hidden';
-
-    // Auto-focus first input after animation
-    setTimeout(() => {
-        document.getElementById('ctvPopupName')?.focus();
-    }, 400);
-}
-
-async function loadContactLinks() {
-    try {
-        const { data, error } = await supabase.rpc('get_contact_info');
-        if (error || !data) return;
-
-        const cwCall = document.getElementById('cwCall');
-        const cwZalo = document.getElementById('cwZalo');
-        const cwMessenger = document.getElementById('cwMessenger');
-
-        if (cwCall && data.phone) {
-            cwCall.href = `tel:${data.phone.replace(/\s/g, '')}`;
-        }
-
-        if (cwZalo && data.zalo) {
-            cwZalo.href = data.zalo.startsWith('http') ? data.zalo : `https://zalo.me/${data.zalo}`;
-        }
-
-        if (cwMessenger && data.messenger) {
-            cwMessenger.href = data.messenger;
-            cwMessenger.style.display = '';
-        } else if (cwMessenger) {
-            cwMessenger.style.display = 'none';
-        }
-    } catch (e) {
-        console.warn('⚠️ Could not load contact info:', e.message);
     }
 }

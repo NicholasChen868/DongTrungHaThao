@@ -16,44 +16,47 @@ test.describe('Trang chủ — Load & Navigate', () => {
         await expect(nav.getByText('Đặt Hàng')).toBeVisible();
     });
 
-    test('bottom bar hiển thị 2 CTA', async ({ page }) => {
+    test('FAB widget hiển thị với tooltip', async ({ page }) => {
         await page.goto('/');
-        const bar = page.locator('#bottomBar');
-        await expect(bar).toBeVisible();
-        await expect(bar.getByText('Gọi Ngay')).toBeVisible();
-        await expect(bar.getByText('Đặt Hàng')).toBeVisible();
-    });
-
-    test('scroll to contact khi nhấn Đặt Hàng', async ({ page }) => {
-        await page.goto('/');
-        await page.locator('#floatingOrderBtn').click();
-        // Wait for smooth scroll to complete
-        await page.waitForTimeout(1500);
-        const contact = page.locator('#contact');
-        await expect(contact).toBeInViewport({ ratio: 0.1 });
-    });
-
-    test('FAB toggle mở menu dọc', async ({ page }) => {
-        await page.goto('/');
-        // Wait for page JS to fully init
-        await page.waitForTimeout(1000);
-        const fab = page.locator('#fabContainer');
+        await page.waitForTimeout(500);
+        const fab = page.locator('#fabWidget');
         const toggle = page.locator('#fabToggle');
+        const tooltip = page.locator('#fabTooltip');
+        await expect(fab).toBeVisible();
         await expect(toggle).toBeVisible();
+        await expect(tooltip).toBeVisible();
+    });
+
+    test('FAB toggle mở orbit circular buttons', async ({ page }) => {
+        await page.goto('/');
+        await page.waitForTimeout(1000);
+        const widget = page.locator('#fabWidget');
+        const toggle = page.locator('#fabToggle');
         await toggle.click({ force: true });
         await page.waitForTimeout(800);
-        await expect(fab).toHaveClass(/open/);
+        await expect(widget).toHaveClass(/open/);
     });
 
     test('FAB đóng khi nhấn ngoài', async ({ page }) => {
         await page.goto('/');
         await page.waitForTimeout(500);
-        await page.locator('#fabToggle').click();
+        await page.locator('#fabToggle').click({ force: true });
         await page.waitForTimeout(500);
-        await expect(page.locator('#fabContainer')).toHaveClass(/open/);
+        await expect(page.locator('#fabWidget')).toHaveClass(/open/);
         await page.locator('body').click({ position: { x: 10, y: 10 } });
         await page.waitForTimeout(300);
-        await expect(page.locator('#fabContainer')).not.toHaveClass(/open/);
+        await expect(page.locator('#fabWidget')).not.toHaveClass(/open/);
+    });
+
+    test('scroll to contact khi nhấn Order', async ({ page }) => {
+        await page.goto('/');
+        await page.waitForTimeout(500);
+        await page.locator('#fabToggle').click({ force: true });
+        await page.waitForTimeout(500);
+        await page.locator('#floatingOrderBtn').click();
+        await page.waitForTimeout(1500);
+        const contact = page.locator('#contact');
+        await expect(contact).toBeInViewport({ ratio: 0.1 });
     });
 
     test('smooth scroll giữa sections', async ({ page }) => {
