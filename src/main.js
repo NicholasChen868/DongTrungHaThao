@@ -34,6 +34,8 @@ import './css/bottom-bar.css';
 import { initSocialProof } from './modules/social-proof.js';
 import { initHeroCTARotator } from './modules/hero-cta-rotator.js';
 import { initExitIntent } from './modules/exit-intent.js';
+import { initEventTracking } from './modules/event-tracking.js';
+import { inject as injectVercelAnalytics } from '@vercel/analytics';
 
 // ===================================
 // DYNAMIC PRICING
@@ -129,6 +131,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   initLoginPopup(showToast);
   initReorderReminder();
   initExitIntent();
+  initEventTracking();
+  injectVercelAnalytics();
 
   // Auth interceptor — links with data-auth="ctv|customer" require login
   document.addEventListener('click', (e) => {
