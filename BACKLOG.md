@@ -1,7 +1,7 @@
 # 📦 BACKLOG — Tính Năng & Ý Tưởng
 
 > **Trạng thái**: 🔓 MỞ KHÓA — V3 Content Rewrite hoàn tất, P1 features done
-> **Cập nhật**: 2026-02-23 23:07
+> **Cập nhật**: 2026-02-23 23:20
 > **Quy tắc**: Ưu tiên từ trên xuống. Items đã triển khai được đánh dấu ✅.
 
 ---
@@ -71,17 +71,15 @@
 
 ## 🔴 CẦN LÀM TIẾP (ƯU TIÊN CAO) — Shadow Tasks D7-D11
 
-### 🪞 D11. Thu Thập Data — Đo Lường Trước Khi Đổi Thêm (ƯU TIÊN #1)
-- Setup Supabase analytics (page views, CTA clicks, scroll depth, conversions)
-- Baseline metrics trước khi đổi thêm gì
-- Hỏi anh Kha data thực tế về khách hàng
-- **Xem chi tiết**: `TASKS.md` → D11
+### ~~🪞 D11. Thu Thập Data~~ ✅ (Event tracking + Vercel Analytics + Admin Dashboard UI)
+- ~~Setup Supabase analytics~~ → event_logs table + get_event_stats() RPC
+- ~~Baseline metrics~~ → Admin Dashboard hiện page views, CTA clicks, scroll depth, sessions
+- Top CTA clicks table (7 ngày)
 
-### 🪞 D10. Sticky CTA Mobile + Shorten Flow (ƯU TIÊN #2)
-- Sticky bottom CTA trên mobile
-- Đo scroll depth: bao nhiêu % user đến #contact?
-- Responsive audit cho CTA text dài trên 360px
-- **Xem chi tiết**: `TASKS.md` → D10
+### ~~🪞 D10. Sticky CTA Mobile~~ ✅
+- ~~Sticky bottom CTA trên mobile~~ → Fixed bar "48.000₫/ngày — Đặt Thử Ngay"
+- IntersectionObserver: hiện sau hero, ẩn tại #contact
+- Safe area cho notched phones
 
 ### 🪞 D7. A/B Test CTA — Giọng Tây vs Giọng Việt (ƯU TIÊN #3)
 - 2 bộ CTA: empowerment vs bình dân-thực tế
@@ -99,16 +97,16 @@
 - Iterate prompt nếu cần (tách file, rút gọn)
 - **Xem chi tiết**: `TASKS.md` → D9
 
-### 🔐 D6. Login Integration (Còn lại từ Sprint D)
-- Tích hợp `openLoginPopup()` vào CTV dashboard, tracking đơn
-- Tạo Supabase RPC `customer_login`
-- E2E tests cho login + promo popup flows
+### ~~🔐 D6. Login Integration~~ ✅ (Auth interceptor + openLoginPopup API)
+- ~~Tích hợp `openLoginPopup()` vào CTV dashboard~~ → data-auth interceptor tự động
+- CTV Dashboard có login flow riêng đầy đủ
+- Quick login popup: tab CTV/Khách Hàng
 
-### 🏷️ Promotion System — Dynamic
-- Chuyển promotion content từ hardcode HTML → Supabase table
-- Admin có thể tạo/sửa/tắt promotion từ dashboard
-- Auto-hide khi hết hạn, auto-show khi có promo mới
-- Áp dụng discount vào order form tự động
+### ~~🏷️ Promotion System — Dynamic~~ ✅
+- ~~Hardcode HTML → Supabase table~~ → promotions table + RPC
+- Multi-promo carousel + auto-activate/deactivate
+- Auto-hide FAB khi hết hạn + DB trống
+- Discount tự động áp vào order form
 
 ---
 
@@ -183,5 +181,5 @@
 
 ---
 
-*Cập nhật bởi Antigravity AI — 23/02/2026 23:07*
-*V3 Content Rewrite hoàn tất — P1 Features merged — GitHub sạch*
+*Cập nhật bởi Antigravity AI — 23/02/2026 23:20*
+*D10+D11+D6+Promotion: all done — còn D7 (A/B test), D9 (Content Bible test)*
