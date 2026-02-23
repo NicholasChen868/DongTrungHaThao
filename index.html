@@ -111,13 +111,32 @@
         <li>
           <a href="/tuyen-ctv.html" class="nav-link nav-link--accent" title="Tuyển Cộng Tác Viên">Tuyển CTV</a>
         </li>
-        <li>
-          <a href="/thanh-vien.html" class="nav-link nav-link--member" title="Thành Viên Thân Thiết">Thành&nbsp;Viên</a>
-        </li>
-        <li>
-          <button class="nav-link nav-link--login" id="navLoginBtn" aria-label="Đăng nhập">🔐 Đăng&nbsp;Nhập</button>
+        <a href="/thanh-vien.html" class="nav-link nav-link--member" title="Thành Viên Thân Thiết">Thành&nbsp;Viên</a>
         </li>
       </ul>
+
+      <!-- Account Mini Card — OUTSIDE menu popup -->
+      <div class="nav-account" id="navAccount">
+        <button class="nav-account-btn" id="navLoginBtn" aria-label="Tài khoản">
+          <span class="nav-account-icon" id="navAccountIcon">🔐</span>
+          <span class="nav-account-info" id="navAccountInfo">
+            <span class="nav-account-name" id="navAccountName">Đăng Nhập</span>
+          </span>
+        </button>
+        <!-- Dropdown khi đã login -->
+        <div class="nav-account-dropdown" id="navAccountDropdown">
+          <div class="nav-account-detail">
+            <div class="nav-account-rank" id="navAccountRank">🥉 Bronze</div>
+            <div class="nav-account-fullname" id="navAccountFullname">—</div>
+            <div class="nav-account-points" id="navAccountPoints">0 điểm</div>
+          </div>
+          <div class="nav-account-actions">
+            <a href="/ctv-dashboard.html" class="nav-account-action" id="navAccountDashboard">📊 Dashboard</a>
+            <button class="nav-account-action nav-account-logout" id="navAccountLogout">🚪 Đăng Xuất</button>
+          </div>
+        </div>
+      </div>
+
       <button class="nav-toggle" id="navToggle" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>

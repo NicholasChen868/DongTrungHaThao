@@ -141,42 +141,102 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  // Nav login button
+  // Nav account card
+  const navAccount = document.getElementById('navAccount');
   const navLoginBtn = document.getElementById('navLoginBtn');
-  if (navLoginBtn) {
-    function updateNavLoginState() {
+  const navDropdown = document.getElementById('navAccountDropdown');
+  if (navLoginBtn && navAccount) {
+    const RANK_ICONS = { bronze: '🥉', silver: '🥈', gold: '🥇', diamond: '💎' };
+
+    function updateNavAccount() {
       const user = getCurrentUser();
+      const iconEl = document.getElementById('navAccountIcon');
+      const nameEl = document.getElementById('navAccountName');
+      const infoEl = document.getElementById('navAccountInfo');
+
       if (user) {
         const name = user.display_name || user.name || 'Tài khoản';
-        const shortName = name.length > 10 ? name.substring(0, 10) + '…' : name;
-        const roleIcon = user.role === 'ctv' ? '💼' : '👤';
-        navLoginBtn.innerHTML = `${roleIcon} ${shortName}`;
-        navLoginBtn.classList.add('logged-in');
-        navLoginBtn.title = `${name} — ${user.role === 'ctv' ? 'CTV' : 'Thành viên'}`;
+        const shortName = name.length > 8 ? name.substring(0, 8) + '…' : name;
+        const tier = user.tier || 'bronze';
+        const points = user.total_points || 0;
+
+        if (iconEl) iconEl.textContent = RANK_ICONS[tier] || '👤';
+        if (nameEl) nameEl.textContent = shortName;
+        // Add meta line with points
+        let metaEl = infoEl?.querySelector('.nav-account-meta');
+        if (!metaEl && infoEl) {
+          metaEl = document.createElement('span');
+          metaEl.className = 'nav-account-meta';
+          infoEl.appendChild(metaEl);
+        }
+        if (metaEl) metaEl.textContent = `${points} điểm`;
+
+        navAccount.classList.add('logged-in');
+
+        // Update dropdown details
+        const rankEl = document.getElementById('navAccountRank');
+        const fullEl = document.getElementById('navAccountFullname');
+        const ptsEl = document.getElementById('navAccountPoints');
+        if (rankEl) rankEl.textContent = `${RANK_ICONS[tier] || '🥉'} ${tier.charAt(0).toUpperCase() + tier.slice(1)}`;
+        if (fullEl) fullEl.textContent = name;
+        if (ptsEl) ptsEl.textContent = `${points} điểm thưởng`;
+
+        // Dashboard link based on role
+        const dashEl = document.getElementById('navAccountDashboard');
+        if (dashEl) {
+          if (user.role === 'ctv') {
+            dashEl.href = '/ctv-dashboard.html';
+            dashEl.textContent = '📊 Dashboard CTV';
+          } else {
+            dashEl.href = '/thanh-vien.html';
+            dashEl.textContent = '👤 Trang Thành Viên';
+          }
+        }
       } else {
-        navLoginBtn.innerHTML = '🔐 Đăng&nbsp;Nhập';
-        navLoginBtn.classList.remove('logged-in');
-        navLoginBtn.title = 'Đăng nhập';
+        if (iconEl) iconEl.textContent = '🔐';
+        if (nameEl) nameEl.textContent = 'Đăng Nhập';
+        const metaEl = infoEl?.querySelector('.nav-account-meta');
+        if (metaEl) metaEl.remove();
+        navAccount.classList.remove('logged-in');
       }
     }
-    updateNavLoginState();
+    updateNavAccount();
 
+    // Click handler
     navLoginBtn.addEventListener('click', () => {
       const user = getCurrentUser();
       if (user) {
-        // Already logged in — navigate based on role
-        if (user.role === 'ctv') {
-          window.location.href = '/ctv-dashboard.html';
-        } else {
-          window.location.href = '/thanh-vien.html';
-        }
+        // Toggle dropdown
+        navDropdown?.classList.toggle('open');
       } else {
-        openLoginPopup({ role: 'customer' });
+        openLoginPopup({
+          role: 'customer',
+          onSuccess: () => updateNavAccount(),
+        });
       }
     });
 
-    // Re-check state periodically (when login popup closes)
-    setInterval(updateNavLoginState, 2000);
+    // Close dropdown on outside click
+    document.addEventListener('click', (e) => {
+      if (!navAccount.contains(e.target) && navDropdown?.classList.contains('open')) {
+        navDropdown.classList.remove('open');
+      }
+    });
+
+    // Logout button
+    const logoutBtn = document.getElementById('navAccountLogout');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        navDropdown?.classList.remove('open');
+        localStorage.removeItem('maldala_user');
+        sessionStorage.removeItem('maldala_session');
+        updateNavAccount();
+        if (showToast) showToast('Đã đăng xuất. Hẹn gặp lại! 👋', true);
+      });
+    }
+
+    // Re-check state
+    setInterval(updateNavAccount, 2000);
   }
 
   // Load pricing from backend (parallel with fetchAllData)

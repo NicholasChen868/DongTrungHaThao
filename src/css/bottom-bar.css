@@ -113,16 +113,27 @@
 }
 
 .fab-icon--idle {
-    animation: idleSpin 8s linear infinite;
+    animation: idleNudge 4s ease-in-out infinite;
 }
 
-@keyframes idleSpin {
-    from {
-        transform: rotate(0deg);
+@keyframes idleNudge {
+
+    0%,
+    85%,
+    100% {
+        transform: scale(1) rotate(0deg);
     }
 
-    to {
-        transform: rotate(360deg);
+    89% {
+        transform: scale(1.08) rotate(3deg);
+    }
+
+    93% {
+        transform: scale(1.05) rotate(-2deg);
+    }
+
+    97% {
+        transform: scale(1.08) rotate(1deg);
     }
 }
 
