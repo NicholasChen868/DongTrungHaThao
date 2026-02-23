@@ -1,0 +1,31 @@
+{
+    "name": "Đông Trùng Hạ Thảo — Maldalla Duy Đức",
+    "short_name": "ĐTHT Maldalla",
+    "description": "Viên nang Đông Trùng Hạ Thảo nguyên chất 100% — Quy trình GMP-WHO. Đặt hàng, tra cứu đơn, tham gia CTV.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#050505",
+    "theme_color": "#d4a853",
+    "orientation": "portrait-primary",
+    "lang": "vi",
+    "icons": [
+        {
+            "src": "/images/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/images/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "health",
+        "shopping"
+    ],
+    "screenshots": [],
+    "prefer_related_applications": false
+}

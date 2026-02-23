@@ -295,4 +295,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Init CTV referral tracking + dashboard
   await initCTVSystem();
+
+  // ── PWA: Register Service Worker (production only) ──
+  if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
+    navigator.serviceWorker
+      .register('/sw.js', { scope: '/' })
+      .then((reg) => console.log('[SW] Registered:', reg.scope))
+      .catch((err) => console.warn('[SW] Registration failed:', err));
+  }
 });
