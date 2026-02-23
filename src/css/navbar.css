@@ -74,6 +74,7 @@
 
   .nav-toggle {
     display: flex;
+    order: 3;
   }
 }
 
@@ -157,13 +158,53 @@
   border-color: rgba(212, 168, 83, 0.7);
 }
 
-/* Login / Account — Floating left-edge pill */
+/* Login / Account — floating left-edge pill (desktop) */
 .nav-account {
   position: fixed;
   top: 80px;
   left: 0;
   z-index: 1000;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Mobile: inline in navbar, not floating */
+@media (max-width: 1024px) {
+  .nav-account {
+    position: static;
+    order: 2;
+    margin-left: auto;
+    margin-right: 12px;
+  }
+
+  .nav-account-btn {
+    width: auto !important;
+    height: 36px;
+    padding: 0 12px 0 0;
+    gap: 6px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .nav-account-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-account-info {
+    max-width: 100px;
+    opacity: 1;
+  }
+
+  .nav-account-name {
+    font-size: 12px;
+  }
+
+  .nav-account-dropdown {
+    right: 0;
+    left: auto;
+    top: calc(100% + 8px);
+  }
 }
 
 .nav-account-btn {

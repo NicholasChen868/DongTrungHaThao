@@ -575,13 +575,7 @@
     gap: 12px;
   }
 
-  .nav-links {
-    width: 100%;
-  }
-
-  .nav-links.active::before {
-    display: none;
-  }
+  /* nav-links compact card — width set in bottom-bar.css */
 
   .payment-modal {
     padding: 20px 16px;
