@@ -33,6 +33,7 @@ import { getCurrentUser } from './auth.js';
 import './css/bottom-bar.css';
 import { initSocialProof } from './modules/social-proof.js';
 import { initHeroCTARotator } from './modules/hero-cta-rotator.js';
+import { initExitIntent } from './modules/exit-intent.js';
 
 // ===================================
 // DYNAMIC PRICING
@@ -127,6 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initPromoPopup(showToast);
   initLoginPopup(showToast);
   initReorderReminder();
+  initExitIntent();
 
   // Auth interceptor — links with data-auth="ctv|customer" require login
   document.addEventListener('click', (e) => {

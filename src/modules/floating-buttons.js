@@ -7,15 +7,15 @@ import { registerCTV, getAutoRef } from '../ctv.js';
 import { checkRateLimit, recordAttempt } from '../utils/ratelimit.js';
 import { saveCtvSession, initCtvBanner } from './ctv-banner.js';
 
-// Rotating tooltip messages (cute, inviting)
+// Rotating tooltip messages — align với Content Bible
 const TOOLTIP_MESSAGES = [
     'Đặt hàng ngay! 🛒',
     'Chat Zalo tư vấn 💬',
     'Gọi ngay 0903.940.171 📞',
-    'Kiếm tiền cùng Maldala 💰',
+    'Đồng hành lan tỏa sức khỏe 🤝',
     'Ưu đãi đặc biệt hôm nay ✨',
-    'Miễn phí vận chuyển 🚚',
-    'Bí quyết sức khỏe vàng 🌿',
+    'Miễn phí vận chuyển từ 3 hộp 🚚',
+    '100% con nhộng nguyên chất 🌿',
     'Nhấn để khám phá! 👆',
 ];
 

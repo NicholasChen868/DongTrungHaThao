@@ -1511,3 +1511,185 @@
 .login-hint a:hover {
     text-decoration: underline;
 }
+
+/* ===================================
+   EXIT-INTENT POPUP
+   Giữ chân khách khi chuẩn bị rời trang
+   =================================== */
+
+.exit-intent-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+#exitIntentPopup.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.exit-intent-popup .popup-content {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    background: rgba(15, 20, 35, 0.96);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(212, 168, 75, 0.25);
+    border-radius: var(--radius-xl);
+    padding: 32px 24px;
+    box-shadow:
+        0 24px 80px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    transform: translateY(30px) scale(0.95);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#exitIntentPopup.active .popup-content {
+    transform: translateY(0) scale(1);
+}
+
+.exit-intent-popup .popup-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    color: var(--text-muted);
+    font-size: 22px;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.exit-intent-popup .popup-close:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.exit-intent-body {
+    text-align: center;
+}
+
+.exit-intent-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    animation: popupBounce 2s ease-in-out infinite;
+}
+
+.exit-intent-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #e8bc5a, #d4a84b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+}
+
+.exit-intent-desc {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.exit-intent-desc strong {
+    color: var(--gold-primary);
+    font-weight: 700;
+}
+
+.exit-intent-trust {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 12px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.exit-intent-trust span {
+    background: rgba(212, 168, 75, 0.08);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(212, 168, 75, 0.12);
+}
+
+.exit-intent-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.exit-intent-call {
+    padding: 14px 20px !important;
+    font-size: 15px !important;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+}
+
+.exit-intent-zalo {
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+    text-decoration: none;
+    text-align: center;
+}
+
+.exit-intent-note {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.exit-intent-note a {
+    color: var(--gold-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.exit-intent-note a:hover {
+    text-decoration: underline;
+}
+
+/* Staggered entrance for exit-intent */
+#exitIntentPopup.active .exit-intent-icon {
+    animation: popupSlideUp 0.5s ease 0.1s both, popupBounce 2s ease-in-out 0.6s infinite;
+}
+
+#exitIntentPopup.active .exit-intent-title {
+    animation: popupSlideUp 0.5s ease 0.2s both;
+}
+
+#exitIntentPopup.active .exit-intent-desc {
+    animation: popupSlideUp 0.5s ease 0.3s both;
+}
+
+#exitIntentPopup.active .exit-intent-trust {
+    animation: popupSlideUp 0.5s ease 0.35s both;
+}
+
+#exitIntentPopup.active .exit-intent-actions {
+    animation: popupSlideUp 0.5s ease 0.4s both;
+}
+
+#exitIntentPopup.active .exit-intent-note {
+    animation: popupSlideUp 0.5s ease 0.5s both;
+}
