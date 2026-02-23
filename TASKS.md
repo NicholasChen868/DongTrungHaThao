@@ -149,27 +149,29 @@
 > Mục tiêu: Sẵn sàng cho user thật.
 > Ai: ClaudeCode + Gravity
 
-#### C1. Admin auth nâng cao
-- [ ] Migrate admin login từ SHA-256 client-side → Supabase Auth (hoặc server-side RPC)
-- [ ] Session token thay vì chỉ check hash
-- [ ] Không lộ password hash trong source code
-- **Effort**: Trung bình (2 giờ)
-- **Owner**: ClaudeCode (logic) + Gravity (UI)
+#### C1. Admin auth nâng cao ✅ DONE
+- [x] Migration 020: `admin_sessions` table + `admin_login()` → UUID session token
+- [x] 14 RPCs rewrite: `p_admin_hash TEXT` → `p_session_token UUID`
+- [x] `src/admin-session.js` — session management client-side
+- [x] ADMIN_HASH xóa khỏi source code → hash chỉ gửi 1 lần lúc login
+- [x] Sliding window: session tự gia hạn 30 phút
+- **Owner**: ClaudeCode — 5 commits
 
-#### C2. Error handling chung
-- [ ] `src/utils/api.js` — wrapper cho Supabase calls
-- [ ] Retry logic (3 attempts, exponential backoff)
-- [ ] Fallback UI khi Supabase/network down
-- [ ] Global error handler + toast notification
-- **Effort**: Trung bình (2 giờ)
+#### C2. Error handling chung ✅ DONE
+- [x] `src/utils/api.js` — `apiCall()`, `fireAndForget()`, `handleApiError()`
+- [x] Retry logic: 3 attempts, exponential backoff (500ms → 2s)
+- [x] `initNetworkStatus()` — monitor online/offline + toast
+- [x] Áp dụng vào order-form.js, ctv.js, tracker.js
+- [x] Unit tests: 63 tests mới cho api.js + admin-auth
 - **Owner**: ClaudeCode
 
-#### C3. Performance audit
-- [ ] Lazy load Chart.js trên admin (hiện load ~200KB global)
-- [ ] Lazy load images (`loading="lazy"`)
-- [ ] WebP fallback cho ảnh lớn
-- [ ] Bundle size check sau refactor
-- **Effort**: Nhỏ (1-2 giờ)
+#### C3. Performance audit 🟡 IN PROGRESS
+- [x] `loading="lazy"` tất cả images — đã có sẵn ✅
+- [x] Bundle size audit → PERFORMANCE.md ✅
+- [x] Supabase preconnect ✅
+- [x] 6 orphan images tận dụng vào visual cards ✅
+- [ ] WebP conversion cho 3 PNG (golden-powder, golden-capsules, og-share)
+- [ ] Lazy load Swiper (~60KB)
 - **Owner**: Gravity
 
 #### C4. Accessibility cơ bản
