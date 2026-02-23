@@ -753,66 +753,173 @@
     <span class="toast-message" id="toastMessage"></span>
   </div>
 
-  <!-- ======= FLOATING ORDER BUTTON ======= -->
-  <a href="#contact" class="floating-order-btn" id="floatingOrderBtn" aria-label="Đặt hàng ngay">
-    <span class="floating-order-text">Đặt Hàng</span>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
-    </svg>
-  </a>
+  <!-- ======= CTV INFO BANNER — glossy black floating ======= -->
+  <div class="ctv-banner" id="ctvBanner" style="display:none">
+    <button class="ctv-banner-btn" id="ctvBannerBtn" aria-label="Thông tin CTV">
+      <div class="ctv-banner-avatar">👤</div>
+      <div class="ctv-banner-info">
+        <span class="ctv-banner-name" id="ctvBannerName">CTV</span>
+        <span class="ctv-banner-meta">
+          <span class="ctv-banner-rank" id="ctvBannerRank">🥉 Bronze</span>
+          <span class="ctv-banner-dot">·</span>
+          <span class="ctv-banner-time" id="ctvBannerTime">Online 2h</span>
+        </span>
+      </div>
+      <svg class="ctv-banner-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2.5">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </button>
 
-  <!-- ======= SOCIAL PROOF NOTIFICATION ======= -->
-  <div class="social-proof" id="socialProof">
-    <div class="social-proof-icon" id="spIcon"></div>
-    <div class="social-proof-body">
-      <div class="social-proof-text" id="spText"></div>
-      <div class="social-proof-time" id="spTime"></div>
+    <!-- Expanded detail panel -->
+    <div class="ctv-detail-panel" id="ctvDetailPanel">
+      <div class="ctv-detail-header">
+        <div class="ctv-detail-rank-badge" id="ctvDetailBadge">🥉</div>
+        <div>
+          <h4 id="ctvDetailName">CTV Name</h4>
+          <p class="ctv-detail-rank-label" id="ctvDetailRankLabel">Hạng Bronze</p>
+        </div>
+      </div>
+
+      <div class="ctv-detail-stats">
+        <div class="ctv-stat">
+          <span class="ctv-stat-value" id="ctvStatPoints">0</span>
+          <span class="ctv-stat-label">Điểm</span>
+        </div>
+        <div class="ctv-stat">
+          <span class="ctv-stat-value" id="ctvStatOrders">0</span>
+          <span class="ctv-stat-label">Đơn</span>
+        </div>
+        <div class="ctv-stat">
+          <span class="ctv-stat-value" id="ctvStatEarnings">0₫</span>
+          <span class="ctv-stat-label">Hoa hồng</span>
+        </div>
+      </div>
+
+      <div class="ctv-detail-goal" id="ctvGoalSection">
+        <div class="ctv-goal-header">
+          <span>🎯 Mục tiêu ngắn hạn</span>
+        </div>
+        <div class="ctv-goal-progress">
+          <div class="ctv-goal-bar">
+            <div class="ctv-goal-fill" id="ctvGoalFill" style="width: 35%"></div>
+          </div>
+          <span class="ctv-goal-text" id="ctvGoalText">Thêm 3 đơn nữa → Silver 🥈</span>
+        </div>
+      </div>
+
+      <div class="ctv-detail-quote" id="ctvQuote">
+        <em>"Mỗi bước nhỏ hôm nay là nền tảng cho thành công lớn ngày mai."</em>
+      </div>
+
+      <div class="ctv-detail-actions">
+        <a href="/ctv-dashboard.html" class="ctv-action-btn ctv-action--dashboard">📊 Dashboard</a>
+        <button class="ctv-action-btn ctv-action--logout" id="ctvLogoutBtn">🚪 Đăng Xuất</button>
+      </div>
     </div>
-    <button class="social-proof-close" id="spClose" aria-label="Đóng">×</button>
   </div>
 
-  <!-- ======= FLOATING CONTACT WIDGET ======= -->
-  <div class="contact-widget" id="contactWidget">
-    <div class="cw-items" id="cwItems">
-      <a class="cw-item cw-call" id="cwCall" href="tel:0903940171" aria-label="Gọi điện">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  <!-- ======= iOS-STYLE BOTTOM ACTION BAR ======= -->
+  <div class="bottom-bar" id="bottomBar">
+    <a class="bottom-cta bottom-cta--call" id="cwCall" href="tel:0903940171" aria-label="Gọi điện">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path
+          d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+      </svg>
+      <span>Gọi Ngay</span>
+    </a>
+    <a href="#contact" class="bottom-cta bottom-cta--order" id="floatingOrderBtn" aria-label="Đặt hàng ngay">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+      </svg>
+      <span>Đặt Hàng</span>
+    </a>
+  </div>
+
+  <!-- ======= RADIAL FAB — Secondary actions (2-tap) ======= -->
+  <div class="fab-container" id="fabContainer">
+    <div class="fab-actions" id="fabActions">
+      <a class="fab-action fab-action--zalo" id="cwZalo" href="https://zalo.me/0903940171" target="_blank"
+        rel="noopener" aria-label="Chat Zalo">
+        <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+          <path d="M24 4C12.954 4 4 12.954 4 24s8.954 20 20 20 20-8.954 20-20S35.046 4 24 4z" fill="#0068FF" />
           <path
-            d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+            d="M33.6 30.154c-.655.96-4.548 2.283-6.4.914-.613-.453-.823-1.006-.823-1.006s4.502-5.333 5.257-6.547c.755-1.214.378-3.64-2.265-3.64h-6.04s-.302.73.68.73h4.263s1.209-.074.378 1.063c-.831 1.137-5.635 6.735-5.635 6.735s-.378.955.453 2.039c.831 1.083 2.34 1.54 3.867 1.34 1.528-.2 5.18-1.026 6.265-1.628z"
+            fill="white" />
+          <path
+            d="M14.4 23.875s-.15-.604.755-.604h2.643s.604-.075.604.604v7.25s.075.604-.604.604h-2.04s-.604.075-.604-.604v-7.25h-.755z"
+            fill="white" />
+          <circle cx="16.5" cy="21" r="1.5" fill="white" />
         </svg>
-        <span>Gọi Ngay</span>
+        <span class="fab-label">Zalo</span>
       </a>
-      <a class="cw-item cw-zalo" id="cwZalo" href="https://zalo.me/0903940171" target="_blank" rel="noopener"
-        aria-label="Zalo">
-        <span style="font-size: 20px; font-weight: 800; line-height: 1">Zalo</span>
-        <span>Chat Zalo</span>
-      </a>
-      <a class="cw-item cw-messenger" id="cwMessenger" href="https://m.me/maldalladuyduc" target="_blank" rel="noopener"
-        aria-label="Messenger">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <button class="fab-action fab-action--share" id="fabShare" aria-label="Chia sẻ kiếm tiền">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="18" cy="5" r="3" />
+          <circle cx="6" cy="12" r="3" />
+          <circle cx="18" cy="19" r="3" />
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+        </svg>
+        <span class="fab-label">Kiếm Tiền</span>
+      </button>
+      <a class="fab-action fab-action--messenger" id="cwMessenger" href="https://m.me/maldalladuyduc" target="_blank"
+        rel="noopener" aria-label="Messenger">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
           <path
             d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.2 5.42 3.15 7.2V22l3.03-1.66c.81.22 1.67.34 2.82.34 5.64 0 10-3.93 10-9.7S17.64 2 12 2zm1.03 12.72l-2.55-2.72L5.5 14.72l5.47-5.81 2.55 2.72 4.95-2.72-5.44 5.81z" />
         </svg>
-        <span>Messenger</span>
+        <span class="fab-label">Messenger</span>
       </a>
     </div>
-    <button class="cw-toggle" id="cwToggle" aria-label="Liên hệ">
-      <svg class="cw-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-        stroke-width="2">
-        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+    <button class="fab-toggle" id="fabToggle" aria-label="Thêm tùy chọn">
+      <svg class="fab-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
       </svg>
-      <svg class="cw-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-        stroke-width="2">
+      <svg class="fab-icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2.5">
         <line x1="18" y1="6" x2="6" y2="18" />
         <line x1="6" y1="6" x2="18" y2="18" />
       </svg>
     </button>
   </div>
 
-  <!-- ======= CTV FLOATING WIDGET ======= -->
-  <a href="/tuyen-ctv.html" class="ctv-float-home" id="ctvFloatHome">
-    <span class="ctv-fh-icon">💰</span>
-    <span class="ctv-fh-label">Trở thành CTV</span>
-  </a>
+  <!-- ======= CTV REGISTRATION POPUP ======= -->
+  <div class="ctv-popup-overlay" id="ctvPopup" role="dialog" aria-modal="true" aria-labelledby="ctvPopupTitle">
+    <div class="ctv-popup">
+      <button class="ctv-popup-close" id="ctvPopupClose" aria-label="Đóng">×</button>
+      <div class="ctv-popup-header">
+        <div class="ctv-popup-icon">💰</div>
+        <h3 id="ctvPopupTitle">Kiếm Tiền Cùng Maldala</h3>
+        <p class="ctv-popup-sub">Đăng ký CTV — chia sẻ & nhận hoa hồng mỗi đơn</p>
+      </div>
+      <div class="ctv-popup-rewards">
+        <div class="ctv-reward-item">
+          <span class="ctv-reward-icon">📝</span>
+          <span>Viết bài chia sẻ <strong>+30.000₫</strong></span>
+        </div>
+        <div class="ctv-reward-item">
+          <span class="ctv-reward-icon">🛒</span>
+          <span>Mỗi đơn giới thiệu <strong>5-15%</strong></span>
+        </div>
+        <div class="ctv-reward-item">
+          <span class="ctv-reward-icon">💎</span>
+          <span>Thăng hạng Diamond <strong>x2 hoa hồng</strong></span>
+        </div>
+      </div>
+      <form class="ctv-popup-form" id="ctvPopupForm">
+        <input type="text" id="ctvPopupName" placeholder="Họ và tên" required autocomplete="name" />
+        <input type="tel" id="ctvPopupPhone" placeholder="Số điện thoại" required autocomplete="tel" />
+        <input type="email" id="ctvPopupEmail" placeholder="Email (không bắt buộc)" autocomplete="email" />
+        <button type="submit" class="ctv-popup-submit">
+          <span>🚀 Đăng Ký Ngay — Miễn Phí</span>
+        </button>
+      </form>
+      <p class="ctv-popup-note">Đăng ký miễn phí • Nhận mã CTV ngay • Rút tiền mọi lúc</p>
+    </div>
+  </div>
 
   <!-- ======= PAYMENT QR MODAL ======= -->
   <div class="payment-modal-overlay" id="paymentModal" role="dialog" aria-modal="true"

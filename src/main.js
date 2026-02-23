@@ -25,7 +25,9 @@ import { renderTestimonials, initTestimonialsSwiper, initGallerySwiper } from '.
 import { initQuantitySelector, initOrderForm, initPaymentModal, initCtvForm } from './modules/order-form.js';
 import { initReturningCustomer } from './modules/returning-customer.js';
 import { initReorderReminder } from './modules/reorder-reminder.js';
-import { initFloatingOrderBtn, initContactWidget } from './modules/floating-buttons.js';
+import { initFloatingOrderBtn, initContactWidget, initCtvPopup } from './modules/floating-buttons.js';
+import { initCtvBanner, saveCtvSession } from './modules/ctv-banner.js';
+import './css/bottom-bar.css';
 import { initSocialProof } from './modules/social-proof.js';
 
 // ===================================
@@ -115,6 +117,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   initReturningCustomer();
   initFloatingOrderBtn();
   initContactWidget();
+  initCtvPopup(showToast);
+  initCtvBanner(showToast);
   initReorderReminder();
 
   // Load pricing from backend (parallel with fetchAllData)

@@ -4,7 +4,15 @@
       "Bash(npx vite build)",
       "Bash(npm ls @vitest/coverage-v8 2>&1 || true)",
       "Bash(npm install -D @vitest/coverage-v8 2>&1)",
-      "Bash(npx vitest run tests/unit/ 2>&1)"
+      "Bash(npx vitest run tests/unit/ 2>&1)",
+      "Bash(git stash pop)",
+      "Bash(git stash drop)",
+      "Bash(npx vitest run 2>&1 | tail -15)",
+      "Bash(git add src/admin-session.js src/admin.js tests/unit/admin-auth.test.js && git commit -m \"$\\(cat <<'EOF'\n🔧 [Tính năng] Client-side admin auth upgrade: hash → session token \\(C1\\)\n\nTRƯỚC KHI LÀM:\n- ADMIN_HASH constant lộ trong client JS source code \\(ai view source cũng thấy\\)\n- Mỗi admin RPC call đều gửi hash → ai có hash gọi API trực tiếp được\n- DEV bypass lưu hash vào sessionStorage → dễ bị replay\n\nSAU KHI LÀM:\n- Tạo src/admin-session.js: getSessionToken, adminLogin, adminLogout, isSessionValid, clearSession\n- XÓA ADMIN_HASH constant khỏi admin.js hoàn toàn\n- Login gọi admin_login RPC → nhận UUID session token \\(30 phút\\)\n- Logout gọi admin_logout RPC → vô hiệu hóa server-side\n- DEV bypass: gọi admin_login\\('matkhau'\\) thay vì hardcode hash\n- 14 RPC calls chuyển từ p_admin_hash → p_session_token\n- 16 unit tests mới cho admin auth \\(tổng 223 tests pass\\)\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(npx vitest run 2>&1 | tail -10)",
+      "Bash(git add src/admin.js src/main.js && git commit -m \"$\\(cat <<'EOF'\n🔧 [Tính năng] Error handling admin + network status monitoring \\(C2\\)\n\nTRƯỚC KHI LÀM:\n- Admin loadSection functions: khi Supabase down → console.error im lặng, trang trắng\n- Trang chính: mất mạng không có thông báo gì cho user\n- Không có retry khi load dữ liệu admin\n\nSAU KHI LÀM:\n- 8 loadSection functions \\(overview, orders, ctv, posts, withdrawals, settings, analytics\\) wrap trong apiCall \\(retry 2 lần\\)\n- Lỗi hiện toast tiếng Việt thay vì chỉ console.error\n- main.js: initNetworkStatus hiện toast \"Mất kết nối mạng\" / \"Đã kết nối lại\"\n- 223 tests pass, build clean\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\"22)",
+      "Bash(npx vitest run 2>&1)",
+      "Bash(npx vitest run --coverage 2>&1 | tail -30)"
     ]
   }
 }
