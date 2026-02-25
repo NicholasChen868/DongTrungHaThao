@@ -133,7 +133,7 @@ export async function loadAnalytics({ supabase, getSessionToken, showAdminToast 
 
     // --- D11: Event Tracking Stats ---
     try {
-        const { data: eventStats, error: evErr } = await supabase.rpc('get_event_stats', { p_days: 7 });
+        const { data: eventStats, error: evErr } = await supabase.rpc('get_event_stats', { p_session_token: getSessionToken(), p_days: 7 });
         if (!evErr && eventStats) {
             const stats = eventStats;
 
