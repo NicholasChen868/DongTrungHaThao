@@ -180,9 +180,12 @@
 }
 
 .ctv-popup-icon {
-    font-size: 48px;
+    font-size: 22px;
+    font-weight: 800;
     margin-bottom: 8px;
-    animation: popupBounce 2s ease-in-out infinite;
+    color: var(--gold-primary);
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 /* ── Popup hero images ── */
