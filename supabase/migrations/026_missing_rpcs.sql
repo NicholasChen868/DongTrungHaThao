@@ -7,6 +7,7 @@
 -- Called by: src/modules/floating-buttons.js:121
 -- Returns phone, zalo, messenger from site_settings
 -- =============================================
+DROP FUNCTION IF EXISTS get_contact_info();
 CREATE OR REPLACE FUNCTION get_contact_info() RETURNS JSON AS $$ BEGIN RETURN (
         SELECT value
         FROM site_settings
@@ -22,6 +23,7 @@ GRANT EXECUTE ON FUNCTION get_contact_info() TO anon,
 -- Records a CTV share click, awards points with anti-abuse checks
 -- Params: p_ref_code, p_content_type, p_content_id, p_ip, p_user_agent, p_dwell_time
 -- =============================================
+DROP FUNCTION IF EXISTS record_share_click(TEXT, TEXT, TEXT, TEXT, TEXT, INTEGER);
 CREATE OR REPLACE FUNCTION record_share_click(
         p_ref_code TEXT,
         p_content_type TEXT DEFAULT 'page',
@@ -126,6 +128,7 @@ GRANT EXECUTE ON FUNCTION record_share_click(TEXT, TEXT, TEXT, TEXT, TEXT, INTEG
 -- Verifies phone + email match, then updates password hash
 -- Params: p_phone, p_email, p_new_password_hash
 -- =============================================
+DROP FUNCTION IF EXISTS reset_ctv_password(TEXT, TEXT, TEXT);
 CREATE OR REPLACE FUNCTION reset_ctv_password(
         p_phone TEXT,
         p_email TEXT,
@@ -182,6 +185,7 @@ GRANT EXECUTE ON FUNCTION reset_ctv_password(TEXT, TEXT, TEXT) TO anon,
 -- Returns CTV basic info for banner refresh
 -- Params: p_referral_code
 -- =============================================
+DROP FUNCTION IF EXISTS get_ctv_info(TEXT);
 CREATE OR REPLACE FUNCTION get_ctv_info(p_referral_code TEXT) RETURNS JSON AS $$
 DECLARE v_ctv RECORD;
 v_total_orders INTEGER;
