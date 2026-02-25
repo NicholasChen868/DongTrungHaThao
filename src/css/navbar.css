@@ -361,18 +361,18 @@
   gap: 1px;
   text-align: left;
   white-space: nowrap;
-  max-width: 120px;
+  max-width: 200px;
   opacity: 1;
   overflow: hidden;
   transition: all 0.25s ease;
 }
 
 .nav-account-name {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13px;
   color: var(--gold-light);
   white-space: nowrap;
-  max-width: 120px;
+  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
 }

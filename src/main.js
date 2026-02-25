@@ -278,12 +278,19 @@ function initNavAccount(openLoginPopup, getCurrentUser, getRoleConfig) {
       const config = getRoleConfig ? getRoleConfig(user.role) : {};
       navAccount.classList.add('logged-in');
 
-      // Update name (always visible on mobile, hover-visible on desktop)
+      // Update name with inline role label: "CTV Hoang Kha"
       if (nameEl) {
-        nameEl.textContent = user.display_name || user.name || 'Tài khoản';
+        const roleColor = config.color || '#e0e0e0';
+        const roleLabel = config.label || '';
+        const displayName = user.display_name || user.name || 'Tài khoản';
+        if (roleLabel) {
+          nameEl.innerHTML = `<span style="color:${roleColor};font-weight:900;margin-right:4px">${roleLabel}</span>${displayName}`;
+        } else {
+          nameEl.textContent = displayName;
+        }
         nameEl.style.display = '';
       }
-      // Show info container on mobile
+      // Show info container
       if (infoEl) infoEl.style.display = '';
 
       // Update icon to role emoji
@@ -291,14 +298,8 @@ function initNavAccount(openLoginPopup, getCurrentUser, getRoleConfig) {
         iconEl.innerHTML = `<span style="font-size:20px">${config.icon}</span>`;
       }
 
-      // Show role badge
-      if (badgeEl && config.label) {
-        badgeEl.textContent = config.label;
-        badgeEl.style.display = 'block';
-        if (config.gradient && config.gradient !== 'none') {
-          badgeEl.style.background = config.gradient;
-        }
-      }
+      // Hide the separate badge — role is now inline with name
+      if (badgeEl) badgeEl.style.display = 'none';
 
       // Update dropdown details
       if (fullnameEl) fullnameEl.textContent = user.display_name || user.name;
