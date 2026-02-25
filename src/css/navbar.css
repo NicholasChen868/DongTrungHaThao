@@ -269,9 +269,10 @@
 .nav-account {
   position: relative;
   order: 2;
-  margin-left: auto;
+  margin-left: 16px;
   margin-right: 12px;
   z-index: 1000;
+  flex-shrink: 0;
 }
 
 /* Mobile-specific tweaks */
@@ -314,12 +315,12 @@
 .nav-account-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 0 12px 0 0;
-  height: 38px;
+  gap: 0;
+  padding: 0;
+  height: 36px;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
+  border-radius: 20px;
   cursor: pointer;
   color: #e0e0e0;
   font-family: inherit;
@@ -329,42 +330,50 @@
   overflow: hidden;
 }
 
-/* Expand on hover — show name */
+/* Hover */
 .nav-account-btn:hover {
-  width: auto;
-  padding: 0 14px 0 0;
-  gap: 8px;
-  background: linear-gradient(135deg, #1f1f3a 0%, #1a2744 100%);
   border-color: rgba(212, 168, 83, 0.3);
-  box-shadow: 4px 2px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
 }
 
 .nav-account.logged-in .nav-account-btn {
   border-color: rgba(212, 168, 83, 0.4);
-  box-shadow: 2px 2px 12px rgba(212, 168, 83, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 12px rgba(212, 168, 83, 0.15);
 }
 
+/* Left pill — role label (CTV, ADMIN, etc.) */
 .nav-account-icon {
-  width: 42px;
-  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  line-height: 1;
+  height: 100%;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fff;
   flex-shrink: 0;
+  border-radius: 20px 0 0 20px;
+}
+
+/* Not logged in — icon style */
+.nav-account:not(.logged-in) .nav-account-icon {
+  width: 36px;
+  padding: 0;
+  background: none;
 }
 
 .nav-account-info {
   display: flex;
-  flex-direction: column;
-  gap: 1px;
+  align-items: center;
+  gap: 0;
   text-align: left;
   white-space: nowrap;
   max-width: 200px;
+  padding: 0 14px 0 10px;
+  height: 100%;
   opacity: 1;
   overflow: hidden;
-  transition: all 0.25s ease;
 }
 
 .nav-account-name {
@@ -372,7 +381,6 @@
   font-size: 13px;
   color: var(--gold-light);
   white-space: nowrap;
-  max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
 }

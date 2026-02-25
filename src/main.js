@@ -278,27 +278,24 @@ function initNavAccount(openLoginPopup, getCurrentUser, getRoleConfig) {
       const config = getRoleConfig ? getRoleConfig(user.role) : {};
       navAccount.classList.add('logged-in');
 
-      // Update name with inline role label: "CTV Hoang Kha"
+      const displayName = user.display_name || user.name || 'Tài khoản';
+
+      // Name — plain text, right side of pill
       if (nameEl) {
-        const roleColor = config.color || '#e0e0e0';
-        const roleLabel = config.label || '';
-        const displayName = user.display_name || user.name || 'Tài khoản';
-        if (roleLabel) {
-          nameEl.innerHTML = `<span style="color:${roleColor};font-weight:900;margin-right:4px">${roleLabel}</span>${displayName}`;
-        } else {
-          nameEl.textContent = displayName;
-        }
+        nameEl.textContent = displayName;
         nameEl.style.display = '';
       }
-      // Show info container
       if (infoEl) infoEl.style.display = '';
 
-      // Update icon to role emoji
-      if (iconEl && config.icon) {
-        iconEl.innerHTML = `<span style="font-size:20px">${config.icon}</span>`;
+      // Icon → left pill with role label + role color background
+      if (iconEl) {
+        const roleLabel = config.label || '👤';
+        const bg = config.color || '#64748b';
+        iconEl.textContent = roleLabel;
+        iconEl.style.background = bg;
       }
 
-      // Hide the separate badge — role is now inline with name
+      // Hide separate badge
       if (badgeEl) badgeEl.style.display = 'none';
 
       // Update dropdown details
@@ -334,8 +331,9 @@ function initNavAccount(openLoginPopup, getCurrentUser, getRoleConfig) {
       }
       if (badgeEl) badgeEl.style.display = 'none';
       if (iconEl) {
+        iconEl.style.background = 'none';
         iconEl.innerHTML = customerName
-          ? `<span style="font-size:20px">👋</span>`
+          ? `<span style="font-size:18px">👋</span>`
           : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
