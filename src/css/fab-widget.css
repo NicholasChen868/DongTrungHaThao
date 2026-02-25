@@ -1,0 +1,450 @@
+/* ===================================
+   UNIFIED FAB WIDGET — Single button, 2-tap
+   All circles, glossy, Apple-inspired
+   =================================== */
+
+/* Apple design tokens */
+:root {
+    --radius-xs: 8px;
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+}
+
+/* ── Widget container ── */
+.fab-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    z-index: 910;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+    .fab-widget {
+        bottom: calc(24px + env(safe-area-inset-bottom, 0));
+    }
+}
+
+/* ── Main FAB button ── */
+.fab-main {
+    width: 58px;
+    height: 58px;
+    border-radius: var(--radius-full);
+    border: none;
+    background: linear-gradient(145deg, #e8bc5a 0%, #c49540 60%, #b8860b 100%);
+    color: #0A0E1A;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 3;
+    box-shadow:
+        0 6px 24px rgba(212, 168, 75, 0.45),
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -webkit-tap-highlight-color: transparent;
+    animation: fabBreath 3s ease-in-out infinite;
+    overflow: visible;
+}
+
+/* Ring pulse — sonar ping radiating outward */
+.fab-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: var(--radius-full);
+    border: 2px solid rgba(212, 168, 75, 0.5);
+    animation: ringPulse 2.5s cubic-bezier(0, 0.6, 0.3, 1) infinite;
+    pointer-events: none;
+}
+
+.fab-widget.open .fab-ring {
+    display: none;
+}
+
+@keyframes ringPulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
+}
+
+.fab-main:active {
+    transform: scale(0.88);
+    box-shadow: 0 2px 12px rgba(212, 168, 75, 0.3);
+}
+
+.fab-main:hover {
+    transform: scale(1.08);
+    box-shadow:
+        0 8px 32px rgba(212, 168, 75, 0.6),
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+@keyframes fabBreath {
+
+    0%,
+    100% {
+        box-shadow: 0 6px 24px rgba(212, 168, 75, 0.4), 0 2px 8px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 8px 36px rgba(212, 168, 75, 0.65), 0 2px 8px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Icon toggle — smooth rotation */
+.fab-main-icon {
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fab-icon--idle {
+    animation: idleNudge 4s ease-in-out infinite;
+}
+
+@keyframes idleNudge {
+
+    0%,
+    85%,
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+
+    89% {
+        transform: scale(1.08) rotate(3deg);
+    }
+
+    93% {
+        transform: scale(1.05) rotate(-2deg);
+    }
+
+    97% {
+        transform: scale(1.08) rotate(1deg);
+    }
+}
+
+.fab-icon--close {
+    display: none;
+}
+
+.fab-widget.open .fab-icon--idle {
+    display: none;
+    animation: none;
+}
+
+.fab-widget.open .fab-icon--close {
+    display: block;
+}
+
+.fab-widget.open .fab-main {
+    animation: none;
+    background: linear-gradient(145deg, #4b5563, #374151);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: rotate(0deg);
+}
+
+/* ── Tooltip — rotating tips (idle state) ── */
+.fab-tooltip {
+    position: absolute;
+    bottom: 12px;
+    right: 68px;
+    background: rgba(15, 20, 35, 0.92);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 168, 75, 0.2);
+    border-radius: var(--radius-md);
+    padding: 8px 14px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.fab-tooltip::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: rgba(15, 20, 35, 0.92);
+    border-right: 1px solid rgba(212, 168, 75, 0.2);
+    border-bottom: 1px solid rgba(212, 168, 75, 0.2);
+}
+
+.fab-tooltip-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary, #f5edd7);
+    animation: tooltipFade 0.4s ease;
+}
+
+@keyframes tooltipFade {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hide tooltip when open */
+.fab-widget.open .fab-tooltip {
+    opacity: 0;
+    transform: translateX(10px);
+    pointer-events: none;
+}
+
+/* ── Orbit — expanded circular buttons ── */
+.fab-orbit {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fab-widget.open .fab-orbit {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+/* ── Individual circle button ── */
+.fab-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -webkit-tap-highlight-color: transparent;
+    /* Glossy base */
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.fab-circle:active {
+    transform: scale(0.85);
+}
+
+.fab-circle:hover {
+    transform: scale(1.12);
+}
+
+/* Stagger entrance */
+.fab-widget.open .fab-circle:nth-child(1) {
+    transition-delay: 0.03s;
+}
+
+.fab-widget.open .fab-circle:nth-child(2) {
+    transition-delay: 0.06s;
+}
+
+.fab-widget.open .fab-circle:nth-child(3) {
+    transition-delay: 0.09s;
+}
+
+.fab-widget.open .fab-circle:nth-child(4) {
+    transition-delay: 0.12s;
+}
+
+.fab-widget.open .fab-circle:nth-child(5) {
+    transition-delay: 0.15s;
+}
+
+/* ── Order — BIGGEST, most prominent ── */
+.fab-circle--order {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(145deg, #e8bc5a, #c49540, #b8860b);
+    color: #0A0E1A;
+    box-shadow:
+        0 6px 24px rgba(212, 168, 75, 0.5),
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+    animation: orderTapMe 2s ease-in-out infinite;
+}
+
+/* Gentle "tap me" pulse — scales up softly with glow */
+@keyframes orderTapMe {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 6px 24px rgba(212, 168, 75, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    }
+
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 8px 32px rgba(212, 168, 75, 0.7), 0 2px 8px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+}
+
+.fab-circle--order:hover {
+    box-shadow: 0 8px 32px rgba(212, 168, 75, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: scale(1.15);
+    animation: none;
+}
+
+.fab-circle-label {
+    position: absolute;
+    right: 62px;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold-primary, #d4a84b);
+    background: rgba(15, 20, 35, 0.9);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateX(8px);
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+.fab-circle--order:hover .fab-circle-label {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ── Zalo — official logo, circular ── */
+.fab-circle--zalo {
+    background: #0068FF;
+    box-shadow:
+        0 4px 16px rgba(0, 104, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fab-circle--zalo img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.fab-circle--zalo:hover {
+    box-shadow: 0 6px 24px rgba(0, 104, 255, 0.5);
+}
+
+/* ── Call — iPhone green ── */
+.fab-circle--call {
+    background: linear-gradient(145deg, #34d058, #22c55e, #16a34a);
+    color: #fff;
+    box-shadow:
+        0 4px 16px rgba(34, 197, 94, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.fab-circle--call:hover {
+    box-shadow: 0 6px 24px rgba(34, 197, 94, 0.6);
+}
+
+/* ── CTV — amber with + badge ── */
+.fab-circle--ctv {
+    background: linear-gradient(145deg, #f59e0b, #d97706);
+    color: #fff;
+    box-shadow:
+        0 4px 16px rgba(245, 158, 11, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.fab-circle--ctv:hover {
+    box-shadow: 0 6px 24px rgba(245, 158, 11, 0.6);
+}
+
+/* Small green + badge on CTV button */
+.fab-ctv-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 16px;
+    height: 16px;
+    background: #22c55e;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 16px;
+    text-align: center;
+    border: 2px solid rgba(9, 12, 21, 0.9);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ── LiveChat — teal gradient ── */
+.fab-circle--livechat {
+    background: linear-gradient(145deg, #14b8a6, #0d9488, #0f766e);
+    color: #fff;
+    box-shadow:
+        0 4px 16px rgba(20, 184, 166, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.fab-circle--livechat:hover {
+    box-shadow: 0 6px 24px rgba(20, 184, 166, 0.6);
+}
+
+/* ── Promotion FAB button — rose gradient ── */
+.fab-circle--promo {
+    background: linear-gradient(145deg, #f43f5e, #e11d48, #be123c);
+    color: #fff;
+    box-shadow:
+        0 4px 16px rgba(244, 63, 94, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.fab-circle--promo:hover {
+    box-shadow: 0 6px 24px rgba(244, 63, 94, 0.6);
+}
+
+/* 6th child stagger */
+.fab-widget.open .fab-circle:nth-child(6) {
+    transition-delay: 0.18s;
+}

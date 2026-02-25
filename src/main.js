@@ -300,7 +300,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
     navigator.serviceWorker
       .register('/sw.js', { scope: '/' })
-      .then((reg) => console.log('[SW] Registered:', reg.scope))
+      .then((reg) => {
+        console.log('[SW] Registered:', reg.scope);
+
+        // Detect new SW version available
+        reg.onupdatefound = () => {
+          const newWorker = reg.installing;
+          if (!newWorker) return;
+          newWorker.onstatechange = () => {
+            if (newWorker.state === 'activated') {
+              showToast('Phiên bản mới đã sẵn sàng! Bấm để cập nhật.', true, {
+                html: false, duration: 8000
+              });
+            }
+          };
+        };
+      })
       .catch((err) => console.warn('[SW] Registration failed:', err));
+
+    // Listen for SW_UPDATED message from service worker
+    navigator.serviceWorker.addEventListener('message', (event) => {
+      if (event.data?.type === 'SW_UPDATED') {
+        console.log('[SW] Updated to version:', event.data.version);
+      }
+    });
   }
 });

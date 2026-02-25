@@ -1,0 +1,121 @@
+/* ===================================
+   ABOUT / BENEFITS — Block Card Design
+   =================================== */
+.section-about {
+    background: var(--bg-secondary);
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+/* ── Block Card (frosted glass container) ── */
+.benefits-block {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(212, 168, 75, 0.12);
+    border-radius: 20px;
+    padding: 28px;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    transition: border-color 0.3s ease;
+}
+
+.benefits-block:hover {
+    border-color: rgba(212, 168, 75, 0.25);
+}
+
+/* ── Block Header ── */
+.benefits-block-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.benefits-block-icon {
+    font-size: 2rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.benefits-block-title {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gold-primary);
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+.benefits-block-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 3px 0 0;
+    letter-spacing: 0.02em;
+}
+
+/* ── Benefit Items inside block ── */
+.benefits-block-items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.benefit-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 3px solid rgba(212, 168, 75, 0.4);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: all 0.25s ease;
+}
+
+.benefit-item:hover {
+    background: rgba(212, 168, 75, 0.04);
+    border-left-color: var(--gold-primary);
+    transform: translateX(4px);
+}
+
+.benefit-item-title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 10px;
+    line-height: 1.3;
+}
+
+.benefit-item-desc {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* Gold highlight for key scientific terms */
+.benefit-highlight {
+    color: var(--gold-light, #e8c97a);
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .benefits-block {
+        padding: 20px 16px;
+    }
+
+    .benefits-block-title {
+        font-size: 1.15rem;
+    }
+
+    .benefit-item {
+        padding: 14px 16px;
+    }
+}

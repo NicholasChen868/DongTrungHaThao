@@ -1,0 +1,149 @@
+/* ===================================
+   WHY-TRUST SECTION (AG-7)
+   =================================== */
+#whyTrust {
+    padding: 48px 0;
+}
+
+.why-trust-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: 32px auto 0;
+}
+
+.trust-card {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.trust-card-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.trust-card strong {
+    color: var(--gold-primary);
+}
+
+.trust-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+}
+
+/* ===================================
+   TRUST BADGES ROW (AG-5 — above order form)
+   =================================== */
+.trust-badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+    justify-content: center;
+}
+
+.trust-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: rgba(212, 168, 75, 0.08);
+    border: 1px solid rgba(212, 168, 75, 0.15);
+    border-radius: var(--radius-xs);
+    font-size: 12px;
+    color: var(--gold-primary);
+    font-weight: 600;
+}
+
+/* ===================================
+   PRICE FRAMING (AG-4)
+   =================================== */
+.price-framing {
+    margin: 12px 0 16px;
+    padding: 12px 16px;
+    background: rgba(212, 168, 75, 0.06);
+    border: 1px solid rgba(212, 168, 75, 0.12);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.price-framing-title {
+    margin: 0 0 6px;
+    font-weight: 600;
+    color: var(--gold-primary);
+}
+
+.price-framing-body {
+    margin: 0;
+}
+
+/* ===================================
+   FORM REASSURANCE (AG-8)
+   =================================== */
+.form-reassurance {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: -4px 0 16px;
+    line-height: 1.6;
+}
+
+/* ===================================
+   PAYMENT TRUST (AG-14)
+   =================================== */
+.payment-trust-line {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* ===================================
+   GIFT OPTION (AG-16)
+   =================================== */
+.gift-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    background: rgba(212, 168, 75, 0.04);
+    border: 1px solid rgba(212, 168, 75, 0.1);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.gift-option:hover {
+    border-color: rgba(212, 168, 75, 0.25);
+}
+
+.gift-option input[type="checkbox"] {
+    margin-top: 2px;
+    accent-color: var(--gold-primary);
+}
+
+.gift-option-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.gift-option-text strong {
+    color: var(--gold-primary);
+}
+
+.gift-recipient-fields {
+    display: none;
+    margin-top: 12px;
+}
+
+.gift-recipient-fields.visible {
+    display: block;
+}

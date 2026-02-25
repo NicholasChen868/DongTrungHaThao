@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maldalla Duy Đức — Đang Offline</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'Inter','Segoe UI',sans-serif;
+      background:#0f0d0a;
+      color:#e5ddd0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      text-align:center;
+      padding:24px;
+    }
+    .offline-container{max-width:420px}
+    .offline-icon{font-size:4rem;margin-bottom:16px;opacity:.8}
+    h1{
+      font-size:1.5rem;
+      color:#d4a84b;
+      margin-bottom:12px;
+      font-weight:700;
+    }
+    p{
+      font-size:1rem;
+      line-height:1.6;
+      color:rgba(229,221,208,.7);
+      margin-bottom:24px;
+    }
+    .offline-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn{
+      padding:12px 24px;
+      border-radius:10px;
+      font-size:.95rem;
+      font-weight:600;
+      cursor:pointer;
+      border:none;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition:all .2s;
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,#d4a84b,#b8860b);
+      color:#fff;
+    }
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(212,168,75,.3)}
+    .btn-secondary{
+      background:rgba(255,255,255,.06);
+      color:#d4a84b;
+      border:1px solid rgba(212,168,75,.2);
+    }
+    .btn-secondary:hover{border-color:rgba(212,168,75,.4)}
+    .offline-contact{
+      margin-top:32px;
+      font-size:.85rem;
+      color:rgba(229,221,208,.5);
+    }
+    .offline-contact a{color:#d4a84b;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <div class="offline-icon">📡</div>
+    <h1>Bạn đang offline</h1>
+    <p>
+      Không có kết nối mạng. Vui lòng kiểm tra Wi-Fi hoặc dữ liệu di động và thử lại.
+    </p>
+    <div class="offline-actions">
+      <button class="btn btn-primary" onclick="location.reload()">🔄 Thử lại</button>
+      <a href="tel:0903940171" class="btn btn-secondary">📞 Gọi hotline</a>
+    </div>
+    <div class="offline-contact">
+      Hotline: <a href="tel:0903940171">0903 940 171</a>
+      &nbsp;|&nbsp;
+      Zalo: <a href="https://zalo.me/0903940171">Chat ngay</a>
+    </div>
+  </div>
+</body>
+</html>
