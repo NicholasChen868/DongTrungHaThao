@@ -188,12 +188,12 @@
 /* ── Popup hero images ── */
 .popup-hero-img {
     width: 100%;
-    height: 140px;
-    object-fit: cover;
+    max-width: 220px;
+    height: auto;
+    object-fit: contain;
     border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    margin-bottom: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    margin: 0 auto 12px;
+    display: block;
 }
 
 .ctv-popup-header h3 {
