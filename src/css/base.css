@@ -334,6 +334,21 @@ img {
   opacity: 1;
 }
 
+/* Fallback: if JS fails to add .visible, hero content auto-shows after 2s */
+.hero .animate-on-scroll {
+  animation: fallbackShow 0.5s ease 2s forwards;
+}
+
+.hero .animate-on-scroll.visible {
+  animation: none;
+}
+
+@keyframes fallbackShow {
+  to {
+    opacity: 1;
+  }
+}
+
 /* --- Golden Divider — ranh giới vàng gold giữa các section --- */
 .golden-divider {
   width: 100%;
