@@ -465,7 +465,7 @@
         import { supabase } from './src/supabase.js';
         import { escapeHTML } from './src/utils/sanitize.js';
         import './src/utils/tracker.js';
-        import './src/auth.js';
+        import { initAuth } from './src/auth.js'; initAuth();
 
         function showToast(msg, isError = false) {
             const t = document.getElementById('trackToast');
