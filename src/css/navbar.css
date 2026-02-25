@@ -60,6 +60,69 @@
   align-items: center;
 }
 
+/* === Unified nav button system: 32px height, 8px radius, 13px font === */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  background: rgba(184, 134, 11, 0.08);
+}
+
+.nav-link--cta {
+  background: linear-gradient(135deg, var(--gold-primary), #c49540);
+  color: #0A0E1A !important;
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 2px 8px rgba(212, 168, 75, 0.2);
+}
+
+.nav-link--cta:hover {
+  background: linear-gradient(135deg, var(--gold-light), #d4a84b);
+  box-shadow: 0 3px 12px rgba(212, 168, 75, 0.3);
+}
+
+.nav-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 2px;
+  align-self: center;
+}
+
+.nav-link--accent {
+  border-color: rgba(96, 165, 250, 0.35);
+  color: #7db8fc !important;
+}
+
+.nav-link--accent:hover {
+  background: rgba(96, 165, 250, 0.1);
+  border-color: rgba(96, 165, 250, 0.6);
+}
+
+.nav-link--member {
+  border-color: rgba(212, 168, 83, 0.35);
+  color: var(--gold-light) !important;
+}
+
+.nav-link--member:hover {
+  background: rgba(212, 168, 83, 0.1);
+  border-color: rgba(212, 168, 83, 0.6);
+}
+
+
 /* ===================================
    MOBILE NAV — Frosted glass dropdown
    =================================== */
@@ -118,6 +181,7 @@
     justify-content: center;
     text-align: center;
     padding: 14px 20px;
+    height: auto;
     font-size: 1rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.9);
@@ -199,68 +263,6 @@
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
   }
-}
-
-/* === Unified nav button system: 32px height, 8px radius, 13px font === */
-.nav-link {
-  display: inline-flex;
-  align-items: center;
-  height: 32px;
-  padding: 0 14px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  border-radius: 8px;
-  border: 1px solid transparent;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  box-sizing: border-box;
-}
-
-.nav-link:hover {
-  color: var(--text-primary);
-  background: rgba(184, 134, 11, 0.08);
-}
-
-.nav-link--cta {
-  background: linear-gradient(135deg, var(--gold-primary), #c49540);
-  color: #0A0E1A !important;
-  font-weight: 700;
-  border: none;
-  box-shadow: 0 2px 8px rgba(212, 168, 75, 0.2);
-}
-
-.nav-link--cta:hover {
-  background: linear-gradient(135deg, var(--gold-light), #d4a84b);
-  box-shadow: 0 3px 12px rgba(212, 168, 75, 0.3);
-}
-
-.nav-divider {
-  width: 1px;
-  height: 20px;
-  background: rgba(255, 255, 255, 0.08);
-  margin: 0 2px;
-  align-self: center;
-}
-
-.nav-link--accent {
-  border-color: rgba(96, 165, 250, 0.35);
-  color: #7db8fc !important;
-}
-
-.nav-link--accent:hover {
-  background: rgba(96, 165, 250, 0.1);
-  border-color: rgba(96, 165, 250, 0.6);
-}
-
-.nav-link--member {
-  border-color: rgba(212, 168, 83, 0.35);
-  color: var(--gold-light) !important;
-}
-
-.nav-link--member:hover {
-  background: rgba(212, 168, 83, 0.1);
-  border-color: rgba(212, 168, 83, 0.6);
 }
 
 /* === Account button — same 32px height system === */
