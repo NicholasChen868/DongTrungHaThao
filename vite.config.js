@@ -37,15 +37,8 @@ export default defineConfig({
                 },
             },
         },
-        // Minification
-        minify: 'terser',
-        terserOptions: {
-            compress: {
-                drop_console: false,
-                drop_debugger: true,
-                passes: 2,
-            },
-        },
+        // Minification — esbuild (Vite built-in, no extra install)
+        minify: 'esbuild',
     },
     // Optimize dev server
     server: {
