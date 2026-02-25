@@ -1,46 +1,25 @@
 // ===================================
-// MAIN.JS — Entry point (imports + initialization)
-// Refactored from 1131-line monolith → modular architecture
+// MAIN.JS — Entry point
+// 3-phase loading for maximum performance
 // ===================================
 
-import { fetchAllData } from './data.js';
-import { initCTVSystem } from './ctv.js';
+// === CRITICAL PATH ONLY ===
+// Only import what's needed for first paint
 import { supabase } from './supabase.js';
-import { createSubmitGuard } from './utils/ratelimit.js';
 import { initNetworkStatus } from './utils/api.js';
-import './utils/tracker.js';
-import './auth.js';
-
-// Swiper CSS
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/effect-cards';
-
-// --- Modules ---
-import { initHeroParticles, initCountUp, initScrollAnimations } from './modules/animations.js';
+import { initScrollAnimations, initCountUp } from './modules/animations.js';
 import { renderBenefits, renderProcess, renderProduct, renderHealthStories, renderAffiliateSteps, renderAffiliateTiers } from './modules/render-sections.js';
-import { renderTestimonials, initTestimonialsSwiper, initGallerySwiper } from './modules/testimonials.js';
-import { initQuantitySelector, initOrderForm, initPaymentModal, initCtvForm } from './modules/order-form.js';
-import { initReturningCustomer } from './modules/returning-customer.js';
-import { initReorderReminder } from './modules/reorder-reminder.js';
-import { initFloatingOrderBtn, initContactWidget, initCtvPopup } from './modules/floating-buttons.js';
-import { initCtvBanner, saveCtvSession } from './modules/ctv-banner.js';
-import { initLoginPopup, openLoginPopup } from './modules/login-popup.js';
-import { getCurrentUser } from './auth.js';
+
+// Critical CSS (navbar, hero, base layout)
 import './css/bottom-bar.css';
-import { initHeroCTARotator } from './modules/hero-cta-rotator.js';
-import { inject as injectVercelAnalytics } from '@vercel/analytics';
-import { initStickyCTA } from './modules/sticky-cta.js';
 
 // ===================================
-// DYNAMIC PRICING
+// DYNAMIC PRICING (inline, no import needed)
 // ===================================
 let PRICING = {
   unit_price: 1450000,
   discounts: { 1: 0, 2: 0, 3: 5, 5: 10, 10: 15 },
-  free_shipping_min: 3
+  free_shipping_min: 3,
 };
 
 async function loadPricing() {
@@ -51,7 +30,7 @@ async function loadPricing() {
 }
 
 // ===================================
-// NAVBAR
+// NAVBAR (inline — critical for first paint)
 // ===================================
 function initNavbar() {
   const navbar = document.getElementById('navbar');
@@ -60,7 +39,7 @@ function initNavbar() {
 
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
-  });
+  }, { passive: true });
 
   navToggle.addEventListener('click', () => {
     navToggle.classList.toggle('active');
@@ -73,203 +52,65 @@ function initNavbar() {
       navLinks.classList.remove('active');
     });
   });
-
-  document.addEventListener('click', (e) => {
-    if (navLinks.classList.contains('active') &&
-      !navLinks.contains(e.target) &&
-      !navToggle.contains(e.target)) {
-      navToggle.classList.remove('active');
-      navLinks.classList.remove('active');
-    }
-  });
 }
 
 // ===================================
-// TOAST
+// TOAST (inline — used everywhere)
 // ===================================
 function showToast(message, success = true, { html = false, duration = 4000 } = {}) {
   const toast = document.getElementById('toast');
   const toastIcon = toast.querySelector('.toast-icon');
   const toastMessage = document.getElementById('toastMessage');
-
   toastIcon.textContent = success ? '✓' : '!';
-  if (html) {
-    toastMessage.innerHTML = message;
-  } else {
-    toastMessage.textContent = message;
-  }
+  if (html) { toastMessage.innerHTML = message; }
+  else { toastMessage.textContent = message; }
   toast.style.borderColor = success ? 'var(--success)' : 'var(--gold-primary)';
   toast.classList.add('show');
-
   setTimeout(() => toast.classList.remove('show'), duration);
 }
 
 // ===================================
-// INITIALIZATION
-// ===================================
 // requestIdleCallback polyfill (Safari)
+// ===================================
 window.requestIdleCallback = window.requestIdleCallback || ((cb, opts) => {
   const start = Date.now();
-  return setTimeout(() => cb({ didTimeout: false, timeRemaining: () => Math.max(0, 50 - (Date.now() - start)) }), opts?.timeout || 1);
+  return setTimeout(() => cb({
+    didTimeout: false,
+    timeRemaining: () => Math.max(0, 50 - (Date.now() - start)),
+  }), opts?.timeout || 1);
 });
 
+// ===================================
+// INITIALIZATION — 4-phase progressive loading
+// ===================================
 document.addEventListener('DOMContentLoaded', async () => {
-  // Network status monitoring
+  // Network status
   initNetworkStatus(
-    () => showToast('Mất kết nối mạng. Một số tính năng có thể không hoạt động.', false, { duration: 10000 }),
-    () => showToast('Đã kết nối lại!', true, { duration: 3000 })
+    () => showToast('Mất kết nối mạng.', false, { duration: 10000 }),
+    () => showToast('Đã kết nối lại!', true, { duration: 3000 }),
   );
 
-  // Start non-data-dependent init immediately
+  // ══════════════════════════════════════════
+  // PHASE 0: Critical UI — navbar + hero (instant)
+  // ══════════════════════════════════════════
   initNavbar();
-  initHeroCTARotator();
-  initHeroParticles();
   initCountUp();
-  initReturningCustomer();
-  initFloatingOrderBtn();
-  initContactWidget();
-  initCtvPopup(showToast);
-  initCtvBanner(showToast);
-  initLoginPopup(showToast);
-  initReorderReminder();
-  injectVercelAnalytics();
-  initStickyCTA();
+  initScrollAnimations();
 
-  // Auth interceptor — links with data-auth="ctv|customer" require login
-  document.addEventListener('click', (e) => {
-    const authLink = e.target.closest('[data-auth]');
-    if (!authLink) return;
-    const user = getCurrentUser();
-    if (user) return; // Already logged in, let normal navigation proceed
-    e.preventDefault();
-    const role = authLink.dataset.auth || 'ctv';
-    const href = authLink.getAttribute('href');
-    openLoginPopup({
-      role,
-      onSuccess: () => { if (href) window.location.href = href; },
-    });
-  });
-
-  // Nav account card
-  const navAccount = document.getElementById('navAccount');
-  const navLoginBtn = document.getElementById('navLoginBtn');
-  const navDropdown = document.getElementById('navAccountDropdown');
-  if (navLoginBtn && navAccount) {
-    const RANK_LABELS = { bronze: 'Bronze', silver: 'Silver', gold: 'Gold', diamond: 'Diamond' };
-
-    function updateNavAccount() {
-      const user = getCurrentUser();
-      const iconEl = document.getElementById('navAccountIcon');
-      const nameEl = document.getElementById('navAccountName');
-      const infoEl = document.getElementById('navAccountInfo');
-      const badgeEl = document.getElementById('navAccountRoleBadge');
-
-      if (user) {
-        const name = user.display_name || user.name || 'Tài khoản';
-        const shortName = name.length > 8 ? name.substring(0, 8) + '…' : name;
-        const tier = user.tier || 'bronze';
-        const points = user.total_points || 0;
-
-        // Show initials (2 chars) as avatar
-        const initials = name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-        if (iconEl) iconEl.textContent = initials || '👤';
-        if (nameEl) nameEl.textContent = shortName;
-
-        // Add meta line with points
-        let metaEl = infoEl?.querySelector('.nav-account-meta');
-        if (!metaEl && infoEl) {
-          metaEl = document.createElement('span');
-          metaEl.className = 'nav-account-meta';
-          infoEl.appendChild(metaEl);
-        }
-        if (metaEl) metaEl.textContent = `${points} điểm`;
-
-        navAccount.classList.add('logged-in');
-
-        // CTV role badge
-        if (badgeEl) {
-          if (user.role === 'ctv') {
-            badgeEl.textContent = 'CTV';
-            badgeEl.style.display = '';
-          } else {
-            badgeEl.textContent = 'TV';
-            badgeEl.style.background = 'linear-gradient(135deg, #60a5fa, #3b82f6)';
-            badgeEl.style.display = '';
-          }
-        }
-
-        // Update dropdown details
-        const rankEl = document.getElementById('navAccountRank');
-        const fullEl = document.getElementById('navAccountFullname');
-        const ptsEl = document.getElementById('navAccountPoints');
-        if (rankEl) rankEl.textContent = `${RANK_LABELS[tier] || 'Bronze'}`;
-        if (fullEl) fullEl.textContent = name;
-        if (ptsEl) ptsEl.textContent = `${points} điểm thưởng`;
-
-        // Dashboard link based on role
-        const dashEl = document.getElementById('navAccountDashboard');
-        if (dashEl) {
-          if (user.role === 'ctv') {
-            dashEl.href = '/ctv-dashboard.html';
-            dashEl.textContent = 'Dashboard CTV';
-          } else {
-            dashEl.href = '/thanh-vien.html';
-            dashEl.textContent = 'Trang Thành Viên';
-          }
-        }
-      } else {
-        if (iconEl) iconEl.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
-        if (nameEl) nameEl.textContent = 'Đăng Nhập';
-        const metaEl = infoEl?.querySelector('.nav-account-meta');
-        if (metaEl) metaEl.remove();
-        if (badgeEl) badgeEl.style.display = 'none';
-        navAccount.classList.remove('logged-in');
-      }
-    }
-    updateNavAccount();
-
-    // Click handler
-    navLoginBtn.addEventListener('click', () => {
-      const user = getCurrentUser();
-      if (user) {
-        // Toggle dropdown
-        navDropdown?.classList.toggle('open');
-      } else {
-        openLoginPopup({
-          role: 'customer',
-          onSuccess: () => updateNavAccount(),
-        });
-      }
-    });
-
-    // Close dropdown on outside click
-    document.addEventListener('click', (e) => {
-      if (!navAccount.contains(e.target) && navDropdown?.classList.contains('open')) {
-        navDropdown.classList.remove('open');
-      }
-    });
-
-    // Logout button
-    const logoutBtn = document.getElementById('navAccountLogout');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', () => {
-        navDropdown?.classList.remove('open');
-        localStorage.removeItem('maldala_user');
-        sessionStorage.removeItem('maldala_session');
-        updateNavAccount();
-        if (showToast) showToast('Đã đăng xuất. Hẹn gặp lại! 👋', true);
-      });
-    }
-
-    // Re-check state
-    setInterval(updateNavAccount, 2000);
-  }
-
-  // ── PHASE 1: Render immediately with LOCAL data (no network wait) ──
-  const { product: localProduct } = await import('../data/products.js');
-  const { testimonials: localTestimonials } = await import('../data/testimonials.js');
-  const { processSteps: localProcessSteps } = await import('../data/processSteps.js');
-  const { affiliateTiers: localAffiliateTiers, affiliateProgram: localAffiliateProgram } = await import('../data/affiliateTiers.js');
+  // ══════════════════════════════════════════
+  // PHASE 1: Render content with LOCAL data (no network)
+  // ══════════════════════════════════════════
+  const [
+    { product: localProduct },
+    { testimonials: localTestimonials },
+    { processSteps: localProcessSteps },
+    { affiliateTiers: localTiers, affiliateProgram: localProgram },
+  ] = await Promise.all([
+    import('../data/products.js'),
+    import('../data/testimonials.js'),
+    import('../data/processSteps.js'),
+    import('../data/affiliateTiers.js'),
+  ]);
 
   window.__product = localProduct;
   window.__testimonials = localTestimonials;
@@ -277,24 +118,92 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderBenefits(localProduct);
   renderProcess(localProcessSteps);
   renderProduct(localProduct, PRICING);
-  renderTestimonials(localTestimonials);
   renderHealthStories([]);
-  renderAffiliateSteps(localAffiliateProgram.howItWorks);
-  renderAffiliateTiers(localAffiliateTiers);
+  renderAffiliateSteps(localProgram.howItWorks);
+  renderAffiliateTiers(localTiers);
+
+  // Testimonials + Swiper (lazy-load Swiper CSS + JS)
+  const { renderTestimonials, initTestimonialsSwiper, initGallerySwiper } =
+    await import('./modules/testimonials.js');
+  renderTestimonials(localTestimonials);
   initTestimonialsSwiper();
   initGallerySwiper();
-  initQuantitySelector(localProduct, PRICING);
-  initOrderForm(PRICING, showToast);
-  initPaymentModal(showToast);
-  initCtvForm(showToast);
-  initScrollAnimations();
+  initScrollAnimations(); // re-check new elements
 
-  // ── PHASE 2: Async update from Supabase (non-blocking) ──
-  Promise.all([fetchAllData(), loadPricing()]).then(([allData]) => {
-    const { product, testimonials, processSteps, healthStories } = allData;
+  // ══════════════════════════════════════════
+  // PHASE 2: Interactive modules (after content visible)
+  // ══════════════════════════════════════════
+  const loadInteractive = async () => {
+    const [
+      { initQuantitySelector, initOrderForm, initPaymentModal, initCtvForm },
+      { initFloatingOrderBtn, initContactWidget, initCtvPopup },
+      { initLoginPopup, openLoginPopup },
+      { initHeroCTARotator },
+      { initStickyCTA },
+      { initCtvBanner },
+      { initReturningCustomer },
+      { initReorderReminder },
+      authModule,
+    ] = await Promise.all([
+      import('./modules/order-form.js'),
+      import('./modules/floating-buttons.js'),
+      import('./modules/login-popup.js'),
+      import('./modules/hero-cta-rotator.js'),
+      import('./modules/sticky-cta.js'),
+      import('./modules/ctv-banner.js'),
+      import('./modules/returning-customer.js'),
+      import('./modules/reorder-reminder.js'),
+      import('./auth.js'),
+    ]);
+
+    const { getCurrentUser } = authModule;
+
+    initHeroCTARotator();
+    initFloatingOrderBtn();
+    initContactWidget();
+    initCtvPopup(showToast);
+    initCtvBanner(showToast);
+    initLoginPopup(showToast);
+    initReturningCustomer();
+    initReorderReminder();
+    initStickyCTA();
+    initQuantitySelector(localProduct, PRICING);
+    initOrderForm(PRICING, showToast);
+    initPaymentModal(showToast);
+    initCtvForm(showToast);
+
+    // Auth interceptor
+    document.addEventListener('click', (e) => {
+      const authLink = e.target.closest('[data-auth]');
+      if (!authLink) return;
+      const user = getCurrentUser();
+      if (user) return;
+      e.preventDefault();
+      const role = authLink.dataset.auth || 'ctv';
+      const href = authLink.getAttribute('href');
+      openLoginPopup({
+        role,
+        onSuccess: () => { if (href) window.location.href = href; },
+      });
+    });
+
+    // Nav account button
+    initNavAccount(openLoginPopup);
+  };
+
+  // Run interactive init immediately (non-blocking)
+  loadInteractive();
+
+  // ══════════════════════════════════════════
+  // PHASE 3: Supabase data refresh (background)
+  // ══════════════════════════════════════════
+  Promise.all([
+    import('./data.js').then(m => m.fetchAllData()),
+    loadPricing(),
+  ]).then(([allData]) => {
+    const { product, testimonials, healthStories } = allData;
     if (product && product !== localProduct) {
       window.__product = product;
-      // Re-render only if Supabase has different data
       renderProduct(product, PRICING);
     }
     if (testimonials?.length) {
@@ -305,48 +214,105 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (healthStories?.length) {
       renderHealthStories(healthStories);
     }
-    initScrollAnimations(); // re-check new elements
-  }).catch(err => console.warn('Supabase update skipped:', err.message));
+    initScrollAnimations();
+  }).catch(err => console.warn('Supabase refresh skipped:', err.message));
 
-  // ── PHASE 3: Lazy-load non-critical modules ──
+  // ══════════════════════════════════════════
+  // PHASE 4: Non-critical modules (when browser idle)
+  // ══════════════════════════════════════════
   requestIdleCallback(() => {
+    // CTV system
+    import('./ctv.js').then(m => m.initCTVSystem());
+    // Social proof, promo, exit intent, tracking, AB test
     import('./modules/social-proof.js').then(m => m.initSocialProof());
     import('./modules/promo-popup.js').then(m => m.initPromoPopup(showToast));
     import('./modules/exit-intent.js').then(m => m.initExitIntent(showToast));
     import('./modules/event-tracking.js').then(m => m.initEventTracking());
     import('./modules/ab-test.js').then(m => { if (m.isABTestActive()) m.applyABTest(); });
+    // Page view tracker + Vercel Analytics
+    import('./utils/tracker.js');
+    import('@vercel/analytics').then(m => m.inject());
   }, { timeout: 3000 });
 
-  // Init CTV referral tracking + dashboard (deferred)
-  initCTVSystem();
-
-  // ── PWA: Register Service Worker (production only) ──
+  // ══════════════════════════════════════════
+  // PWA Service Worker (deferred)
+  // ══════════════════════════════════════════
   if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
     navigator.serviceWorker
       .register('/sw.js', { scope: '/' })
-      .then((reg) => {
-        console.log('[SW] Registered:', reg.scope);
-
-        // Detect new SW version available
+      .then(reg => {
         reg.onupdatefound = () => {
           const newWorker = reg.installing;
           if (!newWorker) return;
           newWorker.onstatechange = () => {
             if (newWorker.state === 'activated') {
-              showToast('Phiên bản mới đã sẵn sàng! Bấm để cập nhật.', true, {
-                html: false, duration: 8000
-              });
+              showToast('Phiên bản mới đã sẵn sàng!', true, { duration: 8000 });
             }
           };
         };
       })
-      .catch((err) => console.warn('[SW] Registration failed:', err));
-
-    // Listen for SW_UPDATED message from service worker
-    navigator.serviceWorker.addEventListener('message', (event) => {
-      if (event.data?.type === 'SW_UPDATED') {
-        console.log('[SW] Updated to version:', event.data.version);
-      }
-    });
+      .catch(err => console.warn('[SW] Registration failed:', err));
   }
 });
+
+// ===================================
+// NAV ACCOUNT (extracted helper)
+// ===================================
+function initNavAccount(openLoginPopup) {
+  const navAccount = document.getElementById('navAccount');
+  const navDropdown = document.getElementById('navAccountDropdown');
+  if (!navAccount) return;
+
+  function updateNavAccount() {
+    const user = getCurrentUser();
+    const nameEl = document.getElementById('navAccountName');
+    const loginEl = document.getElementById('navAccountLogin');
+    const menuEl = document.getElementById('navAccountMenu');
+
+    if (user) {
+      if (nameEl) { nameEl.textContent = user.name || 'Tài khoản'; nameEl.style.display = ''; }
+      if (loginEl) loginEl.style.display = 'none';
+      if (menuEl) menuEl.style.display = '';
+      const dashLink = document.getElementById('navAccountDashboard');
+      if (dashLink) {
+        dashLink.href = user.referral_code ? '/ctv-dashboard.html' : '/thanh-vien.html';
+        dashLink.textContent = user.referral_code ? 'Dashboard CTV' : 'Tài khoản';
+      }
+    } else {
+      if (nameEl) nameEl.style.display = 'none';
+      if (loginEl) loginEl.style.display = '';
+      if (menuEl) menuEl.style.display = 'none';
+    }
+  }
+
+  updateNavAccount();
+
+  navAccount.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const user = getCurrentUser();
+    if (user) {
+      navDropdown?.classList.toggle('open');
+    } else {
+      openLoginPopup({ role: 'customer', onSuccess: () => updateNavAccount() });
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!navAccount.contains(e.target) && navDropdown?.classList.contains('open')) {
+      navDropdown.classList.remove('open');
+    }
+  });
+
+  const logoutBtn = document.getElementById('navAccountLogout');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      navDropdown?.classList.remove('open');
+      localStorage.removeItem('maldala_user');
+      sessionStorage.removeItem('maldala_session');
+      updateNavAccount();
+      showToast('Đã đăng xuất. Hẹn gặp lại! 👋', true);
+    });
+  }
+
+  setInterval(updateNavAccount, 5000); // check less frequently: 5s instead of 2s
+}

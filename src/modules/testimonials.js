@@ -3,7 +3,13 @@
 // ===================================
 import { escapeHTML } from '../utils/sanitize.js';
 
-// Swiper loaded dynamically to reduce initial bundle (~60KB savings)
+// Swiper CSS — loaded with this module, not in main bundle
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-coverflow';
+
+// Swiper JS loaded dynamically to reduce initial bundle (~60KB savings)
 
 // Customer photos for testimonial visual cards
 const TESTIMONIAL_AVATARS = [

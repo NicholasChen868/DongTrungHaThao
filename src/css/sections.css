@@ -10,3 +10,19 @@
 @import './ctv-affiliate.css';
 @import './forms.css';
 @import './trust-pricing.css';
+
+/* ── Below-fold rendering optimization ──
+   content-visibility: auto → browser skips rendering
+   sections not near viewport until user scrolls there.
+   contain-intrinsic-size provides estimated dimensions
+   to prevent layout shifts. */
+.section-about,
+.section-process,
+.section-product,
+.section-testimonials,
+.section-health-stories,
+.section-affiliate,
+.section-contact {
+   content-visibility: auto;
+   contain-intrinsic-size: auto 600px;
+}
