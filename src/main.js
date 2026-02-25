@@ -319,14 +319,27 @@ function initNavAccount(openLoginPopup, getCurrentUser, getRoleConfig) {
       }
     } else {
       navAccount.classList.remove('logged-in');
-      if (nameEl) { nameEl.textContent = 'Đăng Nhập'; nameEl.style.display = ''; }
+
+      // Check returning customer data (from previous orders)
+      let customerName = null;
+      try {
+        const saved = JSON.parse(localStorage.getItem('mdd_customer'));
+        if (saved?.name) customerName = saved.name;
+      } catch { }
+
+      if (nameEl) {
+        nameEl.textContent = customerName || 'Đăng Nhập';
+        nameEl.style.display = '';
+      }
       if (badgeEl) badgeEl.style.display = 'none';
       if (iconEl) {
-        iconEl.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>`;
+        iconEl.innerHTML = customerName
+          ? `<span style="font-size:20px">👋</span>`
+          : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>`;
       }
     }
   }
