@@ -6,15 +6,16 @@
     inset: 0;
     z-index: 1100;
     display: none;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: 20px;
+    padding: 40px 20px;
     background: rgba(0, 0, 0, 0.6);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s ease;
+    overflow-y: auto;
 }
 
 .promo-popup-overlay.active {
@@ -27,8 +28,7 @@
     position: relative;
     width: 100%;
     max-width: 420px;
-    max-height: 85vh;
-    overflow-y: auto;
+    margin: auto;
     background: rgba(15, 20, 35, 0.96);
     -webkit-backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
@@ -38,7 +38,6 @@
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     transform: translateY(30px) scale(0.95);
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    -webkit-overflow-scrolling: touch;
 }
 
 .promo-popup-overlay.active .promo-popup {

@@ -93,6 +93,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
   font-size: 18px;
   -webkit-font-smoothing: antialiased;
 }

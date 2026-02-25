@@ -6,15 +6,16 @@
     inset: 0;
     z-index: 1200;
     display: none;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: 20px;
+    padding: 40px 20px;
     background: rgba(0, 0, 0, 0.5);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s ease;
+    overflow-y: auto;
 }
 
 .login-popup-overlay.active {
@@ -27,6 +28,7 @@
     position: relative;
     width: 100%;
     max-width: 380px;
+    margin: auto;
     background: linear-gradient(160deg, #fffbf0 0%, #f8f0dd 100%);
     border: 1px solid rgba(212, 168, 83, 0.3);
     border-radius: 20px;
@@ -206,15 +208,16 @@
     inset: 0;
     z-index: 1200;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: 20px;
+    padding: 40px 20px;
     background: rgba(0, 0, 0, 0.7);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s ease;
+    overflow-y: auto;
 }
 
 #exitIntentPopup.active {
@@ -226,6 +229,7 @@
     position: relative;
     width: 100%;
     max-width: 420px;
+    margin: auto;
     background: rgba(15, 20, 35, 0.96);
     -webkit-backdrop-filter: blur(24px);
     backdrop-filter: blur(24px);
