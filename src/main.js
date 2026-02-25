@@ -274,13 +274,35 @@ function initNavAccount(openLoginPopup, getCurrentUser, getRoleConfig) {
     const dashLink = document.getElementById('navAccountDashboard');
     const infoEl = document.getElementById('navAccountInfo');
 
+    // Helper: get best name (mdd_customer has diacritics, prefer it)
+    function getBestName(user) {
+      let customerName = null;
+      try {
+        const saved = JSON.parse(localStorage.getItem('mdd_customer'));
+        if (saved?.name) customerName = saved.name;
+      } catch { }
+      if (user) {
+        // Prefer mdd_customer name if it looks more complete (has diacritics)
+        const authName = user.display_name || user.name || '';
+        if (customerName && customerName.length > authName.length) return customerName;
+        return authName || customerName || 'Tài khoản';
+      }
+      return customerName;
+    }
+
+    const userIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>`;
+
     if (user) {
       const config = getRoleConfig ? getRoleConfig(user.role) : {};
       navAccount.classList.add('logged-in');
 
-      const displayName = user.display_name || user.name || 'Tài khoản';
+      const displayName = getBestName(user);
 
-      // Name — plain text, right side of pill
+      // Name — right side of pill
       if (nameEl) {
         nameEl.textContent = displayName;
         nameEl.style.display = '';
@@ -289,17 +311,22 @@ function initNavAccount(openLoginPopup, getCurrentUser, getRoleConfig) {
 
       // Icon → left pill with role label + role color background
       if (iconEl) {
-        const roleLabel = config.label || '👤';
+        const roleLabel = config.label || '';
         const bg = config.color || '#64748b';
-        iconEl.textContent = roleLabel;
-        iconEl.style.background = bg;
+        if (roleLabel) {
+          iconEl.textContent = roleLabel;
+          iconEl.style.background = bg;
+        } else {
+          iconEl.innerHTML = userIcon;
+          iconEl.style.background = 'none';
+        }
       }
 
       // Hide separate badge
       if (badgeEl) badgeEl.style.display = 'none';
 
       // Update dropdown details
-      if (fullnameEl) fullnameEl.textContent = user.display_name || user.name;
+      if (fullnameEl) fullnameEl.textContent = displayName;
       if (rankEl) rankEl.textContent = `${config.icon || ''} ${config.label || 'Thành viên'}`;
       if (pointsEl) pointsEl.textContent = `${user.total_points || 0} điểm`;
 
@@ -317,13 +344,7 @@ function initNavAccount(openLoginPopup, getCurrentUser, getRoleConfig) {
       }
     } else {
       navAccount.classList.remove('logged-in');
-
-      // Check returning customer data (from previous orders)
-      let customerName = null;
-      try {
-        const saved = JSON.parse(localStorage.getItem('mdd_customer'));
-        if (saved?.name) customerName = saved.name;
-      } catch { }
+      const customerName = getBestName(null);
 
       if (nameEl) {
         nameEl.textContent = customerName || 'Đăng Nhập';
@@ -332,13 +353,7 @@ function initNavAccount(openLoginPopup, getCurrentUser, getRoleConfig) {
       if (badgeEl) badgeEl.style.display = 'none';
       if (iconEl) {
         iconEl.style.background = 'none';
-        iconEl.innerHTML = customerName
-          ? `<span style="font-size:18px">👋</span>`
-          : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>`;
+        iconEl.innerHTML = userIcon;
       }
     }
   }
