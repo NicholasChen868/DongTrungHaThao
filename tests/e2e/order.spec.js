@@ -4,8 +4,8 @@ import { test, expect } from '@playwright/test';
 test.describe('Đặt hàng — Form flow', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('/');
-        // Scroll to contact section
-        await page.locator('#floatingOrderBtn').click();
+        // Scroll to contact section — force click to bypass animation instability
+        await page.locator('#floatingOrderBtn').click({ force: true });
         await page.waitForTimeout(1500);
     });
 

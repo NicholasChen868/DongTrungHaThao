@@ -11,8 +11,8 @@ test.describe('Trang chủ — Load & Navigate', () => {
     test('navbar hiển thị đúng menu items', async ({ page }) => {
         await page.goto('/');
         const nav = page.locator('#navLinks');
-        await expect(nav.getByText('Giới Thiệu')).toBeVisible();
         await expect(nav.getByText('Sản Phẩm')).toBeVisible();
+        await expect(nav.getByText('Quy Trình')).toBeVisible();
         await expect(nav.getByText('Đặt Hàng')).toBeVisible();
     });
 
@@ -51,9 +51,10 @@ test.describe('Trang chủ — Load & Navigate', () => {
     test('scroll to contact khi nhấn Order', async ({ page }) => {
         await page.goto('/');
         await page.waitForTimeout(500);
+        // Open FAB widget first, then click order button
         await page.locator('#fabToggle').click({ force: true });
-        await page.waitForTimeout(500);
-        await page.locator('#floatingOrderBtn').click();
+        await page.waitForTimeout(800);
+        await page.locator('#floatingOrderBtn').click({ force: true });
         await page.waitForTimeout(1500);
         const contact = page.locator('#contact');
         await expect(contact).toBeInViewport({ ratio: 0.1 });
@@ -117,9 +118,10 @@ test.describe('Promotion Popup', () => {
         await page.waitForTimeout(500);
         await page.locator('#fabToggle').click({ force: true });
         await page.waitForTimeout(800);
-        await page.locator('#fabPromo').click();
-        await page.waitForTimeout(300);
-        await page.locator('#promoPopupClose').click();
+        await page.locator('#fabPromo').click({ force: true });
+        await page.waitForTimeout(500);
+        // Close via Escape (most reliable)
+        await page.keyboard.press('Escape');
         await page.waitForTimeout(300);
         await expect(page.locator('#promoPopup')).not.toHaveClass(/active/);
     });

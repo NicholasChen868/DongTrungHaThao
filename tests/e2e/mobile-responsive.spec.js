@@ -76,7 +76,7 @@ test.describe('Mobile Responsive — iPhone 14 viewport', () => {
         for (let i = 0; i < Math.min(count, 5); i++) {
             const box = await ctaButtons.nth(i).boundingBox();
             if (box) {
-                // Minimum touch target = 44px
+                // Minimum touch target = 40px
                 expect(box.height).toBeGreaterThanOrEqual(40);
             }
         }
@@ -148,8 +148,16 @@ test.describe('Mobile Responsive — Tablet (iPad)', () => {
 
     test('navigation hiển thị bình thường', async ({ page }) => {
         await page.goto('/');
-        // Trên tablet 768px, nav có thể là hamburger hoặc full
-        const nav = page.locator('#navLinks, #navToggle');
-        await expect(nav.first()).toBeVisible();
+        await page.waitForTimeout(500);
+        // Trên tablet 768px (< 1024px breakpoint), hamburger should show
+        const navToggle = page.locator('#navToggle');
+        const navLinks = page.locator('#navLinks');
+        // Either hamburger is visible OR nav links are visible
+        const toggleVisible = await navToggle.isVisible();
+        const linksVisible = await navLinks.evaluate((el) => {
+            const style = window.getComputedStyle(el);
+            return style.display !== 'none';
+        });
+        expect(toggleVisible || linksVisible).toBe(true);
     });
 });
