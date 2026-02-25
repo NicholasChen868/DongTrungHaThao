@@ -27,17 +27,12 @@ import { initReturningCustomer } from './modules/returning-customer.js';
 import { initReorderReminder } from './modules/reorder-reminder.js';
 import { initFloatingOrderBtn, initContactWidget, initCtvPopup } from './modules/floating-buttons.js';
 import { initCtvBanner, saveCtvSession } from './modules/ctv-banner.js';
-import { initPromoPopup } from './modules/promo-popup.js';
 import { initLoginPopup, openLoginPopup } from './modules/login-popup.js';
 import { getCurrentUser } from './auth.js';
 import './css/bottom-bar.css';
-import { initSocialProof } from './modules/social-proof.js';
 import { initHeroCTARotator } from './modules/hero-cta-rotator.js';
-import { initExitIntent } from './modules/exit-intent.js';
-import { initEventTracking } from './modules/event-tracking.js';
 import { inject as injectVercelAnalytics } from '@vercel/analytics';
 import { initStickyCTA } from './modules/sticky-cta.js';
-import { applyABTest, isABTestActive } from './modules/ab-test.js';
 
 // ===================================
 // DYNAMIC PRICING
@@ -112,6 +107,12 @@ function showToast(message, success = true, { html = false, duration = 4000 } = 
 // ===================================
 // INITIALIZATION
 // ===================================
+// requestIdleCallback polyfill (Safari)
+window.requestIdleCallback = window.requestIdleCallback || ((cb, opts) => {
+  const start = Date.now();
+  return setTimeout(() => cb({ didTimeout: false, timeRemaining: () => Math.max(0, 50 - (Date.now() - start)) }), opts?.timeout || 1);
+});
+
 document.addEventListener('DOMContentLoaded', async () => {
   // Network status monitoring
   initNetworkStatus(
@@ -129,14 +130,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   initContactWidget();
   initCtvPopup(showToast);
   initCtvBanner(showToast);
-  initPromoPopup(showToast);
   initLoginPopup(showToast);
   initReorderReminder();
-  initExitIntent();
-  initEventTracking();
   injectVercelAnalytics();
   initStickyCTA();
-  if (isABTestActive()) applyABTest();
 
   // Auth interceptor — links with data-auth="ctv|customer" require login
   document.addEventListener('click', (e) => {
@@ -268,33 +265,60 @@ document.addEventListener('DOMContentLoaded', async () => {
     setInterval(updateNavAccount, 2000);
   }
 
-  // Load pricing from backend (parallel with fetchAllData)
-  const [allData] = await Promise.all([fetchAllData(), loadPricing()]);
-  const { product, testimonials, processSteps, affiliateTiers, affiliateSteps, healthStories } = allData;
+  // ── PHASE 1: Render immediately with LOCAL data (no network wait) ──
+  const { product: localProduct } = await import('../data/products.js');
+  const { testimonials: localTestimonials } = await import('../data/testimonials.js');
+  const { processSteps: localProcessSteps } = await import('../data/processSteps.js');
+  const { affiliateTiers: localAffiliateTiers, affiliateProgram: localAffiliateProgram } = await import('../data/affiliateTiers.js');
 
-  // Store globally for quantity selector / order form
-  window.__product = product;
-  window.__testimonials = testimonials;
+  window.__product = localProduct;
+  window.__testimonials = localTestimonials;
 
-  // Render data-dependent sections
-  renderBenefits(product);
-  renderProcess(processSteps);
-  renderProduct(product, PRICING);
-  renderTestimonials(testimonials);
-  renderHealthStories(healthStories);
-  renderAffiliateSteps(affiliateSteps);
-  renderAffiliateTiers(affiliateTiers);
+  renderBenefits(localProduct);
+  renderProcess(localProcessSteps);
+  renderProduct(localProduct, PRICING);
+  renderTestimonials(localTestimonials);
+  renderHealthStories([]);
+  renderAffiliateSteps(localAffiliateProgram.howItWorks);
+  renderAffiliateTiers(localAffiliateTiers);
   initTestimonialsSwiper();
   initGallerySwiper();
-  initQuantitySelector(product, PRICING);
+  initQuantitySelector(localProduct, PRICING);
   initOrderForm(PRICING, showToast);
   initPaymentModal(showToast);
   initCtvForm(showToast);
   initScrollAnimations();
-  initSocialProof();
 
-  // Init CTV referral tracking + dashboard
-  await initCTVSystem();
+  // ── PHASE 2: Async update from Supabase (non-blocking) ──
+  Promise.all([fetchAllData(), loadPricing()]).then(([allData]) => {
+    const { product, testimonials, processSteps, healthStories } = allData;
+    if (product && product !== localProduct) {
+      window.__product = product;
+      // Re-render only if Supabase has different data
+      renderProduct(product, PRICING);
+    }
+    if (testimonials?.length) {
+      window.__testimonials = testimonials;
+      renderTestimonials(testimonials);
+      initTestimonialsSwiper();
+    }
+    if (healthStories?.length) {
+      renderHealthStories(healthStories);
+    }
+    initScrollAnimations(); // re-check new elements
+  }).catch(err => console.warn('Supabase update skipped:', err.message));
+
+  // ── PHASE 3: Lazy-load non-critical modules ──
+  requestIdleCallback(() => {
+    import('./modules/social-proof.js').then(m => m.initSocialProof());
+    import('./modules/promo-popup.js').then(m => m.initPromoPopup(showToast));
+    import('./modules/exit-intent.js').then(m => m.initExitIntent(showToast));
+    import('./modules/event-tracking.js').then(m => m.initEventTracking());
+    import('./modules/ab-test.js').then(m => { if (m.isABTestActive()) m.applyABTest(); });
+  }, { timeout: 3000 });
+
+  // Init CTV referral tracking + dashboard (deferred)
+  initCTVSystem();
 
   // ── PWA: Register Service Worker (production only) ──
   if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
