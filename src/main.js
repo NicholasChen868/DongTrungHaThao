@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Nav account button
-    initNavAccount(openLoginPopup);
+    initNavAccount(openLoginPopup, getCurrentUser, authModule.getRoleConfig);
   };
 
   // Run interactive init immediately (non-blocking)
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ===================================
 // NAV ACCOUNT (extracted helper)
 // ===================================
-function initNavAccount(openLoginPopup) {
+function initNavAccount(openLoginPopup, getCurrentUser, getRoleConfig) {
   const navAccount = document.getElementById('navAccount');
   const navDropdown = document.getElementById('navAccountDropdown');
   if (!navAccount) return;
@@ -266,22 +266,68 @@ function initNavAccount(openLoginPopup) {
   function updateNavAccount() {
     const user = getCurrentUser();
     const nameEl = document.getElementById('navAccountName');
-    const loginEl = document.getElementById('navAccountLogin');
-    const menuEl = document.getElementById('navAccountMenu');
+    const iconEl = document.getElementById('navAccountIcon');
+    const badgeEl = document.getElementById('navAccountRoleBadge');
+    const fullnameEl = document.getElementById('navAccountFullname');
+    const rankEl = document.getElementById('navAccountRank');
+    const pointsEl = document.getElementById('navAccountPoints');
+    const dashLink = document.getElementById('navAccountDashboard');
+    const infoEl = document.getElementById('navAccountInfo');
 
     if (user) {
-      if (nameEl) { nameEl.textContent = user.name || 'Tài khoản'; nameEl.style.display = ''; }
-      if (loginEl) loginEl.style.display = 'none';
-      if (menuEl) menuEl.style.display = '';
-      const dashLink = document.getElementById('navAccountDashboard');
+      const config = getRoleConfig ? getRoleConfig(user.role) : {};
+      navAccount.classList.add('logged-in');
+
+      // Update name (always visible on mobile, hover-visible on desktop)
+      if (nameEl) {
+        nameEl.textContent = user.display_name || user.name || 'Tài khoản';
+        nameEl.style.display = '';
+      }
+      // Show info container on mobile
+      if (infoEl) infoEl.style.display = '';
+
+      // Update icon to role emoji
+      if (iconEl && config.icon) {
+        iconEl.innerHTML = `<span style="font-size:20px">${config.icon}</span>`;
+      }
+
+      // Show role badge
+      if (badgeEl && config.label) {
+        badgeEl.textContent = config.label;
+        badgeEl.style.display = 'block';
+        if (config.gradient && config.gradient !== 'none') {
+          badgeEl.style.background = config.gradient;
+        }
+      }
+
+      // Update dropdown details
+      if (fullnameEl) fullnameEl.textContent = user.display_name || user.name;
+      if (rankEl) rankEl.textContent = `${config.icon || ''} ${config.label || 'Thành viên'}`;
+      if (pointsEl) pointsEl.textContent = `${user.total_points || 0} điểm`;
+
       if (dashLink) {
-        dashLink.href = user.referral_code ? '/ctv-dashboard.html' : '/thanh-vien.html';
-        dashLink.textContent = user.referral_code ? 'Dashboard CTV' : 'Tài khoản';
+        if (user.role === 'admin') {
+          dashLink.href = '/admin.html';
+          dashLink.textContent = '📊 Dashboard Admin';
+        } else if (user.referral_code || user.role === 'ctv') {
+          dashLink.href = '/ctv-dashboard.html';
+          dashLink.textContent = '📊 Dashboard CTV';
+        } else {
+          dashLink.href = '/thanh-vien.html';
+          dashLink.textContent = '👤 Tài khoản';
+        }
       }
     } else {
-      if (nameEl) nameEl.style.display = 'none';
-      if (loginEl) loginEl.style.display = '';
-      if (menuEl) menuEl.style.display = 'none';
+      navAccount.classList.remove('logged-in');
+      if (nameEl) { nameEl.textContent = 'Đăng Nhập'; nameEl.style.display = ''; }
+      if (badgeEl) badgeEl.style.display = 'none';
+      if (iconEl) {
+        iconEl.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>`;
+      }
     }
   }
 
@@ -314,5 +360,5 @@ function initNavAccount(openLoginPopup) {
     });
   }
 
-  setInterval(updateNavAccount, 5000); // check less frequently: 5s instead of 2s
+  setInterval(updateNavAccount, 5000);
 }

@@ -423,9 +423,16 @@ function escapeForHTML(str) {
 }
 
 // --- Auto Init ---
+// NOTE: renderAuthBanner is DISABLED for homepage.
+// main.js uses initNavAccount() with the #navAccount HTML element instead.
+// renderAuthBanner is only used by sub-pages (ctv-dashboard, thanh-vien, etc.)
 export function initAuth() {
     injectAuthStyles();
-    renderAuthBanner();
+    // Only render auth banner on sub-pages, NOT on homepage
+    // Homepage uses #navAccount (managed by main.js)
+    if (!document.getElementById('navAccount')) {
+        renderAuthBanner();
+    }
 }
 
 // Auto-initialize when DOM is ready

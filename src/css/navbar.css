@@ -2,12 +2,10 @@
    NAVBAR — Premium Header Bar
    =================================== */
 .navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 1055;
-  background: rgba(9, 12, 21, 0.88);
+  background: rgba(9, 12, 21, 0.92);
   border-bottom: 1px solid rgba(212, 168, 75, 0.12);
   border-top: 2px solid var(--gold-primary);
   padding: 14px 0;
@@ -267,21 +265,18 @@
   border-color: rgba(212, 168, 83, 0.7);
 }
 
-/* Login / Account — floating left-edge pill (desktop) */
+/* Login / Account — inline in navbar for both mobile & desktop */
 .nav-account {
-  position: fixed;
-  top: 80px;
-  left: 0;
+  position: relative;
+  order: 2;
+  margin-left: auto;
+  margin-right: 12px;
   z-index: 1000;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Mobile: inline in navbar, not floating */
+/* Mobile-specific tweaks */
 @media (max-width: 1024px) {
   .nav-account {
-    position: static;
-    order: 2;
-    margin-left: auto;
     margin-right: 12px;
   }
 
@@ -319,22 +314,19 @@
 .nav-account-btn {
   display: flex;
   align-items: center;
-  gap: 0;
-  padding: 0;
-  width: 42px;
-  height: 42px;
+  gap: 6px;
+  padding: 0 12px 0 0;
+  height: 38px;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-left: none;
-  border-radius: 0 12px 12px 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
   cursor: pointer;
   color: #e0e0e0;
   font-family: inherit;
   font-size: 13px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   overflow: hidden;
-  justify-content: center;
 }
 
 /* Expand on hover — show name */
@@ -369,15 +361,10 @@
   gap: 1px;
   text-align: left;
   white-space: nowrap;
-  max-width: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.nav-account-btn:hover .nav-account-info {
-  max-width: 140px;
+  max-width: 120px;
   opacity: 1;
+  overflow: hidden;
+  transition: all 0.25s ease;
 }
 
 .nav-account-name {
