@@ -102,11 +102,31 @@ export function initLoginPopup(showToast) {
                 if (sub) sub.textContent = 'Đăng nhập để theo dõi đơn hàng & nhận ưu đãi';
                 if (hint) hint.innerHTML = 'Chưa có tài khoản? <a href="#" id="loginSwitchRegister">Đăng ký ngay</a>';
             }
-            bindRegisterSwitch();
+            // removed bindRegisterSwitch();
         });
     });
 
-    bindRegisterSwitch();
+    // Event delegation on stable container
+    const hintContainer = document.getElementById('loginHint');
+    if (hintContainer) {
+        hintContainer.addEventListener('click', (e) => {
+            if (e.target && e.target.id === 'loginSwitchRegister') {
+                e.preventDefault();
+                closeLoginPopup();
+                if (currentRole === 'customer') {
+                    // Khách hàng → chuyển trang Thành Viên để đăng ký
+                    window.location.href = '/thanh-vien.html';
+                } else {
+                    // CTV → mở popup đăng ký CTV
+                    const ctvPopup = document.getElementById('ctvPopup');
+                    if (ctvPopup) {
+                        ctvPopup.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                }
+            }
+        });
+    }
 
     // Form submit — uses existing unified auth (auth.js → loginUser)
     if (form) {
@@ -173,25 +193,3 @@ export function initLoginPopup(showToast) {
     }
 }
 
-function bindRegisterSwitch() {
-    setTimeout(() => {
-        const switchEl = document.getElementById('loginSwitchRegister');
-        if (switchEl) {
-            switchEl.addEventListener('click', (e) => {
-                e.preventDefault();
-                closeLoginPopup();
-                if (currentRole === 'customer') {
-                    // Khách hàng → chuyển trang Thành Viên để đăng ký
-                    window.location.href = '/thanh-vien.html';
-                } else {
-                    // CTV → mở popup đăng ký CTV
-                    const ctvPopup = document.getElementById('ctvPopup');
-                    if (ctvPopup) {
-                        ctvPopup.classList.add('active');
-                        document.body.style.overflow = 'hidden';
-                    }
-                }
-            });
-        }
-    }, 100);
-}
