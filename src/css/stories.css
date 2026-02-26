@@ -139,16 +139,34 @@
 }
 
 .story-quote {
-    font-family: var(--font-quote);
+    font-family: var(--font-quote), Georgia, serif;
     font-style: italic;
     font-size: 1.05rem;
     color: var(--text-secondary);
-    padding: 16px 20px;
-    border-left: 3px solid var(--quote-border);
-    background: var(--quote-bg);
-    border-radius: 0 8px 8px 0;
-    margin-bottom: 16px;
-    line-height: 1.6;
+    padding: 24px 24px 24px 32px;
+    background: linear-gradient(135deg, rgba(212, 168, 75, 0.05), rgba(212, 168, 75, 0.02));
+    border: 1px solid rgba(212, 168, 75, 0.15);
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+}
+
+.story-quote::before {
+    content: '\201C';
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 4rem;
+    color: var(--gold-primary);
+    opacity: 0.25;
+    position: absolute;
+    top: -6px;
+    left: 8px;
+    line-height: 1;
+    -webkit-user-select: none;
+    user-select: none;
+    text-shadow: 0 2px 8px rgba(212, 168, 75, 0.15);
+    z-index: -1;
 }
 
 .story-rating {

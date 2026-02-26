@@ -34,13 +34,17 @@
 
 .testimonial-inner::before {
     content: '\201C';
-    font-family: var(--font-heading);
-    font-size: 6rem;
-    color: rgba(212, 168, 83, 0.25);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 8rem;
+    color: var(--gold-primary);
+    opacity: 0.4;
     position: absolute;
-    top: 10px;
-    left: 30px;
+    top: -16px;
+    left: 20px;
     line-height: 1;
+    text-shadow: 0 4px 12px rgba(212, 168, 75, 0.2);
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .testimonial-stars {
@@ -51,16 +55,13 @@
 }
 
 .testimonial-quote {
-    font-family: var(--font-quote);
+    font-family: var(--font-quote), Georgia, serif;
     font-size: 1.05rem;
     font-style: italic;
     color: #3d3529;
     line-height: 1.8;
     margin-bottom: 24px;
     padding: 16px 20px;
-    background: rgba(212, 168, 83, 0.08);
-    border-left: 3px solid var(--gold-primary);
-    border-radius: 0 8px 8px 0;
     position: relative;
     z-index: 1;
 }

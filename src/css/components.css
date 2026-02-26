@@ -113,45 +113,51 @@
 
 .cta-journey-box {
   text-align: center;
-  padding: 56px 32px;
-  border: 1px solid rgba(184, 134, 11, 0.15);
-  border-radius: 24px;
-  background: linear-gradient(135deg,
-      rgba(212, 168, 83, 0.06) 0%,
-      rgba(245, 243, 239, 0.95) 100%);
+  padding: 64px 32px 56px;
+  border: 1px solid rgba(212, 168, 75, 0.25);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(145deg, rgba(20, 24, 36, 0.95), rgba(9, 12, 21, 0.98));
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(184, 134, 11, 0.06);
 }
 
 .cta-journey-box::before {
-  content: "";
+  content: '\201C';
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 10rem;
+  color: var(--gold-primary);
+  opacity: 0.15;
   position: absolute;
-  top: -1px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 2px;
-  background: linear-gradient(90deg,
-      transparent,
-      var(--gold-primary),
-      transparent);
+  top: -40px;
+  left: 20px;
+  line-height: 1;
+  -webkit-user-select: none;
+  user-select: none;
+  text-shadow: 0 4px 12px rgba(212, 168, 75, 0.2);
 }
 
 
 .cta-journey-title {
-  font-size: 1.6rem;
+  font-family: var(--font-quote), Georgia, serif;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
   color: var(--text-primary);
+  line-height: 1.4;
+  position: relative;
+  z-index: 1;
+  font-style: italic;
 }
 
 .cta-journey-desc {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.85);
   font-size: 15px;
-  max-width: 480px;
-  margin: 0 auto 28px;
-  line-height: 1.7;
+  max-width: 580px;
+  margin: 0 auto 36px;
+  line-height: 1.8;
+  position: relative;
+  z-index: 1;
 }
 
 /* Floating order btn — MOVED to bottom-bar.css */
