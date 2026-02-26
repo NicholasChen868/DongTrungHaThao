@@ -121,7 +121,6 @@ export function renderHealthStories(stories) {
           <div class="story-name">${escapeHTML(s.name)}, ${parseInt(s.age) || ''} tuổi</div>
           <div class="story-location">${escapeHTML(s.location)}</div>
         </div>
-        <div class="story-condition">${escapeHTML(s.condition)}</div>
       </div>
       <h3 class="story-title">${escapeHTML(s.title)}</h3>
       <div class="story-timeline">
