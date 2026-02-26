@@ -149,6 +149,8 @@ img {
   font-weight: 700;
   cursor: pointer;
   border: none;
+  -webkit-appearance: none;
+  appearance: none;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: none;
   letter-spacing: 0.03em;

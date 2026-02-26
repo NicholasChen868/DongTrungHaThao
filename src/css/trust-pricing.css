@@ -126,6 +126,9 @@
 
 .gift-option input[type="checkbox"] {
     margin-top: 2px;
+    width: auto !important;
+    padding: 0 !important;
+    flex-shrink: 0;
     accent-color: var(--gold-primary);
 }
 
