@@ -125,16 +125,20 @@
 .cta-journey-box::before {
   content: '\201C';
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 10rem;
+  font-size: 8rem;
   color: var(--gold-primary);
-  opacity: 0.15;
+  opacity: 0.12;
   position: absolute;
-  top: -40px;
-  left: 20px;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
   line-height: 1;
   -webkit-user-select: none;
   user-select: none;
-  text-shadow: 0 4px 12px rgba(212, 168, 75, 0.2);
+  text-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.06),
+    0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 4px 16px rgba(212, 168, 75, 0.15);
 }
 
 

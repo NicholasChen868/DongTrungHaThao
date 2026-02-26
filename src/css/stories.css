@@ -27,9 +27,10 @@
 
 .story-header {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    align-items: flex-start;
+    gap: 16px;
     margin-bottom: 20px;
+    position: relative;
     flex-wrap: wrap;
 }
 
@@ -52,7 +53,7 @@
     height: 100%;
     display: block;
     object-fit: cover;
-    object-position: center center;
+    object-position: center 20%;
     border-radius: 50%;
 }
 
@@ -143,11 +144,12 @@
     font-style: italic;
     font-size: 1.05rem;
     color: var(--text-secondary);
-    padding: 24px 24px 24px 32px;
+    padding: 28px 24px 20px;
     background: linear-gradient(135deg, rgba(212, 168, 75, 0.05), rgba(212, 168, 75, 0.02));
     border: 1px solid rgba(212, 168, 75, 0.15);
     border-radius: var(--radius-md);
-    margin-bottom: 20px;
+    margin-bottom: 0;
+    text-align: center;
     line-height: 1.7;
     position: relative;
     z-index: 1;
@@ -156,21 +158,28 @@
 .story-quote::before {
     content: '\201C';
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 4rem;
+    font-size: 3rem;
     color: var(--gold-primary);
-    opacity: 0.25;
+    opacity: 0.2;
     position: absolute;
-    top: -6px;
-    left: 8px;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
     line-height: 1;
     -webkit-user-select: none;
     user-select: none;
-    text-shadow: 0 2px 8px rgba(212, 168, 75, 0.15);
+    text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.05),
+        0 -1px 0 rgba(0, 0, 0, 0.2),
+        0 3px 10px rgba(212, 168, 75, 0.1);
     z-index: -1;
 }
 
 .story-rating {
+    position: absolute;
+    top: 0;
+    right: 0;
     color: var(--gold-primary);
-    font-size: 1rem;
+    font-size: 1.1rem;
     letter-spacing: 2px;
 }

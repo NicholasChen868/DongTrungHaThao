@@ -121,6 +121,7 @@ export function renderHealthStories(stories) {
           <div class="story-name">${escapeHTML(s.name)}, ${parseInt(s.age) || ''} tuổi</div>
           <div class="story-location">${escapeHTML(s.location)}</div>
         </div>
+        <div class="story-rating">${'★'.repeat(parseInt(s.rating) || 0)}${'☆'.repeat(5 - (parseInt(s.rating) || 0))}</div>
       </div>
       <h3 class="story-title">${escapeHTML(s.title)}</h3>
       <div class="story-timeline">
@@ -134,8 +135,7 @@ export function renderHealthStories(stories) {
           <p>${escapeHTML(s.after)}</p>
         </div>
       </div>
-      <blockquote class="story-quote">"${escapeHTML(s.quote)}"</blockquote>
-      <div class="story-rating">${'★'.repeat(parseInt(s.rating) || 0)}${'☆'.repeat(5 - (parseInt(s.rating) || 0))}</div>
+      <blockquote class="story-quote">${escapeHTML(s.quote)}</blockquote>
     </div>
   `).join('');
 }
