@@ -16,36 +16,29 @@
 
 /* --- CSS Variables --- */
 :root {
-  /* Nền — tối sâu, huyền bí, sang trọng */
-  --bg-primary: #090c15;
-  --bg-secondary: #0f1322;
-  --bg-card: #141824;
-  --bg-card-hover: #1a1f2e;
-  --bg-glass: rgba(184, 134, 11, 0.06);
-  --bg-glass-hover: rgba(184, 134, 11, 0.12);
+  /* Nền — tối sâu hơn, huyền bí hơn (Pitch Dark Blue) */
+  --bg-primary: #05070a;
+  --bg-secondary: #0a0d14;
+  --bg-card: #0f131c;
+  --bg-card-hover: #151a26;
+  --bg-glass: rgba(212, 168, 75, 0.04);
+  --bg-glass-hover: rgba(212, 168, 75, 0.08);
 
-  /* Vàng Gold — linh hồn viên nhộng, bột vàng cám */
+  /* Vàng Gold — metallic, chân thực */
   --gold-primary: #d4a84b;
-  --gold-light: #e8c06a;
+  --gold-light: #f2ce7e;
   --gold-dark: #b8860b;
-  --gold-gradient: linear-gradient(135deg, #e8c06a, #d4a84b, #b8860b, #d4a84b);
+  --gold-gradient: linear-gradient(135deg, #f2ce7e, #d4a84b, #b8860b, #966b04);
   --gold-text-gradient: linear-gradient(135deg, #e8c06a, #d4a84b, #b8860b);
 
-  /* Đỏ thẫm — điểm nhấn trang trọng */
-  --crimson: #8B2030;
-  --crimson-light: #a8303f;
-  --crimson-dark: #6B1520;
-  --crimson-gradient: linear-gradient(135deg, #6B1520, #8B2030, #a8303f);
+  /* Text — Sáng trong, tăng độ tương phản rõ rệt */
+  --text-primary: #ffffff;
+  --text-secondary: #dcd2bf;
+  --text-muted: #8c7f6b;
 
-  /* Text — sáng kem ấm, dễ đọc trên nền tối */
-  --text-primary: #f5edd7;
-  --text-secondary: #c8b99a;
-  --text-muted: #8f8273;
-  /* bumped from #7a6e5f for WCAG AA contrast (5.1:1 on dark bg) */
-
-  /* Border — sáng nhẹ trên nền tối */
-  --border-color: rgba(255, 255, 255, 0.07);
-  --border-hover: rgba(212, 168, 75, 0.4);
+  /* Border — Siêu mỏng, sắc nét kiểu kính mờ */
+  --border-color: rgba(255, 255, 255, 0.04);
+  --border-hover: rgba(212, 168, 75, 0.3);
 
   --success: #22c55e;
   --error: #ef4444;
@@ -61,24 +54,21 @@
 
   /* Transitions */
   --transition-fast: 0.15s ease;
-  --transition-base: 0.25s ease;
-  --transition-slow: 0.4s ease;
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* Shadows — sâu hơn trên nền tối */
-  --shadow-gold: 0 0 40px rgba(212, 168, 75, 0.12);
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.4);
+  /* Shadows — sâu, đa lớp */
+  --shadow-gold: 0 0 40px rgba(212, 168, 75, 0.15);
+  --shadow-gold-sm: 0 4px 16px rgba(212, 168, 75, 0.1);
+  --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 64px rgba(0, 0, 0, 0.6);
 
-  /* Quote — gold accent */
-  --quote-bg: rgba(212, 168, 75, 0.06);
-  --quote-border: rgba(212, 168, 75, 0.35);
-
-  /* Border Radius — unified across all components */
+  /* Border Radius */
   --radius-xs: 8px;
   --radius-sm: 12px;
   --radius-md: 16px;
   --radius-lg: 20px;
-  --radius-xl: 24px;
+  --radius-xl: 32px;
   --radius-full: 9999px;
 }
 
@@ -181,16 +171,18 @@ img {
   transition-duration: 0.1s;
 }
 
-/* --- Primary Button — Gold Shimmer --- */
 .btn-primary {
-  background: linear-gradient(135deg, #d4a84b 0%, #b8860b 40%, #a0750a 70%, #c9952e 100%);
-  background-size: 200% 200%;
-  color: #ffffff;
+  background: var(--gold-primary);
+  background-image: var(--gold-gradient);
+  background-size: 200% auto;
+  color: #111111;
   box-shadow:
-    0 4px 16px rgba(184, 134, 11, 0.25),
-    0 1px 3px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    0 4px 16px rgba(212, 168, 75, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+  font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-primary::before {
@@ -198,30 +190,31 @@ img {
   position: absolute;
   top: 0;
   left: -100%;
-  width: 100%;
+  width: 50%;
   height: 100%;
   background: linear-gradient(90deg,
       transparent 0%,
-      rgba(255, 255, 255, 0.15) 40%,
-      rgba(255, 255, 255, 0.3) 50%,
-      rgba(255, 255, 255, 0.15) 60%,
+      rgba(255, 255, 255, 0.2) 40%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0.2) 60%,
       transparent 100%);
-  transition: left 0.6s ease;
+  transform: skewX(-25deg);
+  transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 }
 
 .btn-primary:hover::before {
-  left: 100%;
+  left: 200%;
 }
 
 .btn-primary:hover {
+  background-position: right center;
   transform: translateY(-3px) scale(1.02);
   box-shadow:
-    0 8px 32px rgba(184, 134, 11, 0.4),
-    0 2px 8px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  filter: brightness(1.06);
+    0 12px 32px rgba(212, 168, 75, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  color: #000000;
 }
 
 /* --- Glow Ring Animation --- */
@@ -232,29 +225,31 @@ img {
 .btn-glow::after {
   content: '';
   position: absolute;
-  inset: -3px;
+  inset: -4px;
   border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, rgba(212, 168, 83, 0.5), rgba(184, 134, 11, 0.1), rgba(212, 168, 83, 0.5));
+  background: linear-gradient(135deg, rgba(242, 206, 126, 0.6), rgba(212, 168, 75, 0.2), rgba(242, 206, 126, 0.6));
   z-index: -1;
   opacity: 0;
   transition: opacity 0.4s ease;
-  filter: blur(8px);
+  filter: blur(12px);
 }
 
 .btn-glow:hover::after {
   opacity: 1;
-  animation: glowPulse 2s ease-in-out infinite;
+  animation: metallicGlowPulse 2.5s ease-in-out infinite;
 }
 
-@keyframes glowPulse {
+@keyframes metallicGlowPulse {
 
   0%,
   100% {
-    opacity: 0.5;
+    opacity: 0.6;
+    filter: blur(12px);
   }
 
   50% {
     opacity: 1;
+    filter: blur(16px);
   }
 }
 
