@@ -148,19 +148,6 @@
   border-left: 3px solid var(--gold-primary);
 }
 
-.cta-journey-left::before {
-  content: '\201C';
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 6rem;
-  line-height: 0;
-  color: var(--gold-light);
-  position: absolute;
-  top: 10px;
-  left: -20px;
-  opacity: 0.15;
-  -webkit-user-select: none;
-  user-select: none;
-}
 
 .cta-journey-title {
   font-family: var(--font-quote), Georgia, serif;
