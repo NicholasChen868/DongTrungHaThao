@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trở Thành Đại Lý — Maldalla Duy Đức</title>
+    <meta name="description"
+        content="Trở thành đại lý Maldalla Duy Đức. Nhận giá sỉ ưu đãi, hỗ trợ marketing toàn diện, xây dựng mạng lưới của bạn.">
+    <meta property="og:title" content="Trở Thành Đại Lý — Maldalla Duy Đức">
+    <meta property="og:description" content="Chúng tôi không tìm người bán hàng. Chúng tôi tìm đối tác cùng đi.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dong-trung-ha-thao.vercel.app/tuyen-dai-ly.html">
+    <meta property="og:image" content="https://dong-trung-ha-thao.vercel.app/images/og-share.png">
+    <meta property="og:locale" content="vi_VN">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #050505;
+            --bg-card: #0e0e0e;
+            --gold: #d4a853;
+            --gold-light: #e8c97a;
+            --gold-dim: rgba(212, 168, 83, 0.08);
+            --green: #4ade80;
+            --green-dim: rgba(74, 222, 128, 0.1);
+            --text: #f5f0e8;
+            --text-sec: #b0a596;
+            --text-muted: #665e52;
+            --border: rgba(212, 168, 83, 0.12);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Nav */
+        .r-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.9);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .r-nav a {
+            color: var(--text-sec);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .r-nav a:hover {
+            color: var(--green);
+        }
+
+        .r-nav .brand {
+            font-weight: 700;
+            color: var(--green);
+            font-size: 15px;
+        }
+
+        /* Hero */
+        .r-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .r-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 50% at center 30%, rgba(74, 222, 128, 0.06) 0%, transparent 100%);
+        }
+
+        .r-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+        }
+
+        .r-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            background: var(--green-dim);
+            color: var(--green);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        .r-hero h1 {
+            font-family: 'Lora', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            text-wrap: balance;
+        }
+
+        .r-hero h1 .hl {
+            background: linear-gradient(135deg, #22c55e, #4ade80);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .r-hero .lead {
+            font-size: 1.15rem;
+            color: var(--text-sec);
+            max-width: 550px;
+            margin: 0 auto 32px;
+            line-height: 1.8;
+        }
+
+        .r-hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-green {
+            background: linear-gradient(135deg, #22c55e, #4ade80);
+            color: #000;
+        }
+
+        .btn-green:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 222, 128, 0.3);
+        }
+
+        .btn-ghost {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-sec);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        /* Stats Banner */
+        .r-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin: -40px 24px 60px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .r-stat {
+            padding: 28px 20px;
+            text-align: center;
+            background: var(--bg-card);
+        }
+
+        .r-stat .num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .r-stat .label {
+            font-size: 13px;
+            color: var(--text-sec);
+            margin-top: 4px;
+        }
+
+        /* How It Works */
+        .r-section {
+            padding: 80px 24px;
+        }
+
+        .r-section-title {
+            text-align: center;
+            font-family: 'Lora', serif;
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+
+        .r-section-title .hl {
+            color: var(--green);
+        }
+
+        .r-section-sub {
+            text-align: center;
+            color: var(--text-sec);
+            max-width: 500px;
+            margin: 0 auto 48px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: linear-gradient(145deg, rgba(20, 24, 30, 0.4), rgba(10, 12, 15, 0.6));
+            border: 1.5px solid rgba(34, 197, 94, 0.2);
+            border-radius: 24px;
+            padding: 40px 24px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+            box-shadow: 0 0 32px rgba(34, 197, 94, 0.05);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: var(--green);
+            border-radius: 50%;
+            filter: blur(30px);
+            opacity: 0.15;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(34, 197, 94, 0.4);
+            box-shadow: 0 0 48px rgba(34, 197, 94, 0.2);
+        }
+
+        .step-card:hover::before {
+            opacity: 0.4;
+        }
+
+        .step-num {
+            position: relative;
+            z-index: 2;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(20, 24, 30, 0.9), rgba(10, 12, 15, 1));
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            color: var(--green);
+            border-radius: 50%;
+            font-weight: 800;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            box-shadow: inset 0 0 20px rgba(34, 197, 94, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover .step-num {
+            background: linear-gradient(135deg, #22c55e, #4ade80);
+            color: #000;
+            border-color: transparent;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            margin: 16px 0;
+            display: none;
+            /* Hide icon as we use glowing numbers now */
+        }
+
+        .step-title {
+            position: relative;
+            z-index: 2;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            letter-spacing: 0.02em;
+        }
+
+        .step-desc {
+            position: relative;
+            z-index: 2;
+            color: var(--text-sec);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Income Calculator */
+        .calc-section {
+            background: rgba(74, 222, 128, 0.03);
+        }
+
+        .calc-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .calc-label {
+            font-size: 14px;
+            color: var(--text-sec);
+            margin-bottom: 8px;
+        }
+
+        .calc-slider {
+            width: 100%;
+            margin: 8px 0 24px;
+            accent-color: var(--green);
+        }
+
+        .calc-result {
+            text-align: center;
+            padding: 24px;
+            background: var(--green-dim);
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .calc-result .amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .calc-result .period {
+            font-size: 14px;
+            color: var(--text-sec);
+            margin-top: 4px;
+        }
+
+        /* Tiers */
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tier-card {
+            background: linear-gradient(135deg, rgba(20, 24, 36, 0.4), rgba(10, 12, 20, 0.6));
+            border: 1.5px solid rgba(34, 197, 94, 0.2);
+            border-radius: 20px;
+            padding: 36px 28px;
+            text-align: left;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 32px rgba(34, 197, 94, 0.05);
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+        }
+
+        /* Card Chip Effect */
+        .tier-card::before {
+            content: "";
+            position: absolute;
+            top: 32px;
+            right: 28px;
+            width: 42px;
+            height: 32px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        /* Shine overlay */
+        .tier-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg);
+            transition: all 0.7s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 255, 255, 0.05);
+        }
+
+        .tier-card:hover::after {
+            left: 200%;
+        }
+
+        .tier-icon {
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 3;
+            opacity: 0.9;
+            display: none;
+            /* Hide emoji */
+        }
+
+        .tier-name {
+            font-family: 'Lora', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 3;
+        }
+
+        .tier-req {
+            font-size: 0.95rem;
+            color: var(--text-sec);
+            margin-bottom: 24px;
+            font-weight: 500;
+            position: relative;
+            z-index: 3;
+        }
+
+        .tier-pct {
+            font-family: 'Lora', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin: 4px 0 24px;
+            line-height: 1;
+            position: relative;
+            z-index: 3;
+            text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .tier-pct::after {
+            content: 'CHIẾT KHẤU';
+            display: block;
+            font-size: 13px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            color: var(--text-muted);
+            margin-top: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        /* SILVER (Member) */
+        .tier-card:nth-child(1) {
+            background: linear-gradient(135deg, rgba(20, 30, 25, 0.4), rgba(10, 15, 12, 0.6));
+            border: 1.5px solid rgba(134, 239, 172, 0.2);
+        }
+
+        .tier-card:nth-child(1):hover {
+            box-shadow: 0 0 40px rgba(134, 239, 172, 0.15);
+            border-color: rgba(134, 239, 172, 0.4);
+        }
+
+        .tier-card:nth-child(1) .tier-name,
+        .tier-card:nth-child(1) .tier-pct {
+            background: linear-gradient(135deg, #bbf7d0 0%, #4ade80 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tier-card:nth-child(1)::before {
+            border-color: rgba(134, 239, 172, 0.3);
+        }
+
+        /* GOLD */
+        .tier-card:nth-child(2) {
+            background: linear-gradient(135deg, rgba(15, 35, 20, 0.4), rgba(5, 15, 10, 0.6));
+            border: 1.5px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .tier-card:nth-child(2):hover {
+            box-shadow: 0 0 48px rgba(34, 197, 94, 0.25);
+            border-color: rgba(34, 197, 94, 0.6);
+        }
+
+        .tier-card:nth-child(2) .tier-name,
+        .tier-card:nth-child(2) .tier-pct {
+            background: linear-gradient(135deg, #4ade80, #16a34a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tier-card:nth-child(2)::before {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.05));
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        /* DIAMOND */
+        .tier-card:nth-child(3) {
+            background: linear-gradient(135deg, rgba(10, 30, 25, 0.4), rgba(5, 15, 12, 0.6));
+            border: 1.5px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .tier-card:nth-child(3):hover {
+            box-shadow: 0 0 48px rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 0.8);
+        }
+
+        .tier-card:nth-child(3) .tier-name,
+        .tier-card:nth-child(3) .tier-pct {
+            background: linear-gradient(135deg, #6ee7b7 0%, #10b981 50%, #059669 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tier-card:nth-child(3)::before {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05));
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        /* Dual Path */
+        .dual-path {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .path-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+        }
+
+        .path-box h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-sec);
+        }
+
+        .path-box.highlight {
+            border-color: var(--green);
+            background: linear-gradient(170deg, var(--bg-card), rgba(74, 222, 128, 0.04));
+        }
+
+        .path-box.highlight h3 {
+            color: var(--green);
+        }
+
+        .path-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .path-box li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--text-sec);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            line-height: 1.6;
+        }
+
+        .path-box li::before {
+            content: '✗ ';
+            color: #f87171;
+            font-weight: 700;
+        }
+
+        .path-box.highlight li::before {
+            content: '✓ ';
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        /* CTA Bottom */
+        .r-cta-section {
+            text-align: center;
+            padding: 100px 24px;
+            background: radial-gradient(ellipse 60% 40% at center, rgba(74, 222, 128, 0.06) 0%, transparent 100%);
+        }
+
+        .r-cta-section h2 {
+            font-family: 'Lora', serif;
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .r-cta-section .sub {
+            color: var(--text-sec);
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+
+        /* Guarantee */
+        .guarantee {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        .r-footer {
+            text-align: center;
+            padding: 28px;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+
+        .r-footer a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .r-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .r-hero {
+                min-height: 0;
+                padding: 100px 24px 60px;
+            }
+
+            .r-stats {
+                grid-template-columns: repeat(2, 1fr);
+                margin-top: 0;
+            }
+
+            .r-stat .num {
+                font-size: 1.6rem;
+            }
+
+            .steps-grid,
+            .tiers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dual-path {
+                grid-template-columns: 1fr;
+            }
+
+            .r-nav {
+                padding: 12px 16px;
+            }
+
+            .calc-box {
+                padding: 24px;
+            }
+
+            .r-section-title {
+                font-size: 1.8rem;
+            }
+
+            .r-cta-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .ctv-floating-widget {
+                bottom: 16px;
+                right: 16px;
+                padding: 10px;
+                border-radius: 50%;
+                width: 52px;
+                height: 52px;
+            }
+
+            .ctv-floating-widget .ctv-fw-content {
+                display: none;
+            }
+
+            .ctv-floating-widget .ctv-fw-icon {
+                margin-right: 0;
+            }
+        }
+
+        /* Extra safe padding so floating widget doesn't cover content */
+        .r-footer {
+            padding-bottom: 80px;
+        }
+
+        /* Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating Widget */
+        .ctv-floating-widget {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #000;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            padding: 10px 16px 10px 10px;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(212, 168, 83, 0.4);
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 320px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ctv-floating-widget:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(212, 168, 83, 0.6);
+        }
+
+        .ctv-fw-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.25);
+            margin-right: 12px;
+        }
+
+        .ctv-fw-content {
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .ctv-fw-title {
+            font-weight: 800;
+            font-size: 14px;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .ctv-fw-desc {
+            font-size: 11px;
+            font-weight: 500;
+            opacity: 0.85;
+            line-height: 1.2;
+            margin-top: 3px;
+            max-height: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Collapsed state when scrolling */
+        .ctv-floating-widget.collapsed .ctv-fw-desc {
+            max-height: 0;
+            opacity: 0;
+            margin-top: 0;
+        }
+
+        .ctv-floating-widget.collapsed {
+            padding: 12px 18px 12px 12px;
+            bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Nav -->
+    <nav class="r-nav">
+        <a href="/">← Trang chủ</a>
+        <span class="brand">Trở Thành Đại Lý</span>
+        <a href="/ctv-dashboard.html">Đăng Nhập Đại Lý</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="r-hero">
+        <div class="r-hero-content">
+            <div class="r-badge">ĐĂNG KÝ MIỄN PHÍ</div>
+            <h1>Chúng tôi không tìm người bán hàng.<br><span class="hl">Chúng tôi tìm đối tác cùng đi.</span></h1>
+            <p class="lead">
+                Sản phẩm 15 năm uy tín. Giá sỉ cạnh tranh. Hỗ trợ marketing toàn diện.
+                Xây dựng thu nhập bền vững cùng Maldalla Duy Đức.
+            </p>
+            <div class="r-hero-cta">
+                <a href="/ctv-dashboard.html" class="btn-cta btn-green">Đăng ký làm đại lý</a>
+                <a href="#how" class="btn-cta btn-ghost">Tìm hiểu thêm ↓</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="r-stats reveal">
+        <div class="r-stat">
+            <div class="num">500+</div>
+            <div class="label">Đại lý đang hoạt động</div>
+        </div>
+        <div class="r-stat">
+            <div class="num">25%</div>
+            <div class="label">Hoa hồng cao nhất</div>
+        </div>
+        <div class="r-stat">
+            <div class="num">48h</div>
+            <div class="label">Duyệt rút tiền</div>
+        </div>
+        <div class="r-stat">
+            <div class="num">0₫</div>
+            <div class="label">Chi phí tham gia</div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <section class="r-section" id="how">
+        <div class="container">
+            <h2 class="r-section-title reveal">Bạn chỉ cần <span class="hl">3 bước</span></h2>
+            <p class="r-section-sub reveal">Không cần vốn. Không cần kinh nghiệm bán hàng.</p>
+            <div class="steps-grid">
+                <div class="step-card reveal">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Đăng ký</div>
+                    <p class="step-desc">Tạo tài khoản miễn phí. Nhận mã giới thiệu riêng của bạn.
+                    </p>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Chia sẻ</div>
+                    <p class="step-desc">Gửi link cho người bạn nghĩ là cần — qua Zalo, tin nhắn, hay trò chuyện trực
+                        tiếp. Không spam, không ép.</p>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Nhận chiết khấu</div>
+                    <p class="step-desc">Mỗi đơn thành công, chiết khấu tự động cộng vào tài khoản. Minh bạch. Rõ ràng.
+                    </p>
+                </div>
+            </div>
+
+            <div class="dual-path reveal" style="margin-top: 50px;">
+                <div class="path-box">
+                    <h3>Bán hàng thông thường</h3>
+                    <ul>
+                        <li>Cần bỏ vốn nhập sỉ, đóng gói, giao hàng</li>
+                        <li>Lo tồn kho, hạn sử dụng</li>
+                        <li>Tự xử lý đổi trả, khiếu nại</li>
+                        <li>Tốn thời gian vận hành hằng ngày</li>
+                    </ul>
+                </div>
+                <div class="path-box highlight">
+                    <h3>Đại lý Maldalla Duy Đức</h3>
+                    <ul>
+                        <li><strong>0₫ vốn</strong> — bạn chỉ cần chia sẻ</li>
+                        <li>Chúng tôi đóng gói và giao hàng tận tay khách</li>
+                        <li>Chiết khấu tăng tự động theo số đơn tích lũy</li>
+                        <li>Theo dõi mọi đơn minh bạch qua Dashboard</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Income Calculator -->
+    <section class="r-section calc-section" id="calc">
+        <div class="container">
+            <h2 class="r-section-title reveal">Thu Nhập <span class="hl">Ước Tính</span></h2>
+            <p class="r-section-sub reveal">Kéo thanh trượt để xem chiết khấu hàng tháng (mỗi hộp 1.450.000₫)</p>
+            <div class="calc-box reveal">
+                <div class="calc-label">Số đơn hàng bạn có thể mang về mỗi tháng:</div>
+                <input type="range" class="calc-slider" id="calcSlider" min="1" max="50" value="5">
+                <div style="text-align:center;font-size:1.5rem;font-weight:700;color:var(--green);">
+                    <span id="calcOrders">5</span> đơn / tháng
+                </div>
+                <div class="calc-result">
+                    <div class="amount" id="calcAmount">725.000₫</div>
+                    <div class="period">Thu nhập ước tính mỗi tháng (hoa hồng 10%)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tiers -->
+    <section class="r-section" style="background:var(--bg-card);">
+        <div class="container">
+            <h2 class="r-section-title reveal">Chính Sách <span class="hl">Chiết Khấu</span></h2>
+            <p class="r-section-sub reveal">Mức chiết khấu % dựa trên xếp hạng số lượng đơn hàng tích luỹ</p>
+            <div class="tiers-grid">
+                <div class="tier-card reveal">
+                    <div class="tier-name">Hạng Bạc</div>
+                    <div class="tier-pct">10%</div>
+                    <div class="tier-req">Dành cho người mới đăng ký</div>
+                </div>
+                <div class="tier-card tier-vàng reveal">
+                    <div class="tier-name">Hạng Vàng</div>
+                    <div class="tier-pct">15%</div>
+                    <div class="tier-req">Hoàn thành 10 đơn hàng</div>
+                </div>
+                <div class="tier-card tier-kimcuong reveal">
+                    <div class="tier-name">Kim Cương</div>
+                    <div class="tier-pct">25%</div>
+                    <div class="tier-req">Hoàn thành 30 đơn hàng</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dual Path: CTV + BTV -->
+
+    <!-- Bottom CTA -->
+    <section class="r-cta-section">
+        <h2 class="reveal">Sẵn sàng <span class="hl">làm đại lý?</span></h2>
+        <p class="sub reveal">Đăng ký miễn phí. Nhận giá sỉ ưu đãi. Bắt đầu xây dựng mạng lưới của bạn.</p>
+        <a href="/ctv-dashboard.html" class="btn-cta btn-green reveal">Đăng Ký Làm Đại Lý</a>
+        <div class="guarantee reveal">
+            🔒 Không thu phí • Không áp doanh số • Rút tiền bất cứ lúc nào
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="r-footer">
+        <p>© 2026 <a href="/">Maldalla Duy Đức</a> — Đông Trùng Hạ Thảo Nguyên Chất</p>
+        <p style="margin-top: 8px; font-size: 11px; opacity: 0.5;">Sản phẩm là thực phẩm bảo vệ sức khỏe, không phải
+            thuốc, không thay thế thuốc chữa bệnh. Thu nhập đại lý phụ thuộc vào nỗ lực cá nhân, không đảm bảo kết quả
+            cụ
+            thể.</p>
+    </footer>
+
+    <!-- Floating Widget -->
+    <a href="/ctv-dashboard.html?tab=register" class="ctv-floating-widget" id="ctvFloatingWidget">
+        <div class="ctv-fw-icon">🎁</div>
+        <div class="ctv-fw-content">
+            <span class="ctv-fw-title">Đại Lý</span>
+            <span class="ctv-fw-desc">Đăng ký miễn phí</span>
+        </div>
+    </a>
+
+    <script type="module">
+        import './src/ctv-landing.js';
+        import './src/utils/tracker.js';
+        import { initAuth } from './src/auth.js'; initAuth();
+    </script>
+</body>
+
+</html>

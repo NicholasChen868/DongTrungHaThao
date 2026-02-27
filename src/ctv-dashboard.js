@@ -102,7 +102,7 @@ loginForm.addEventListener('submit', async (e) => {
                 loadDashboard(userData.referral_code);
                 loggedIn = true;
             } else if (userData.role === 'member' || userData.role === 'loyal_customer') {
-                window.location.href = '/thanh-vien.html';
+                window.location.href = '/';
                 return;
             }
         }

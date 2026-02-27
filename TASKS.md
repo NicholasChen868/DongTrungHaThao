@@ -1,173 +1,138 @@
 # 📋 TASKS — Đông Trùng Hạ Thảo (maldalladuyduc)
 
-> **Cập nhật**: 2026-02-23 23:21
-> **Trạng thái**: ✅ SPRINT A-D HOÀN THÀNH — Chỉ còn 2 Shadow tasks chờ data
-> **Sprint A tiến độ**: 6/6 tasks ✅
-> **Sprint B tiến độ**: 5/5 tasks ✅
-> **Sprint C tiến độ**: 4/4 tasks ✅
-> **Sprint D tiến độ**: 11/12 tasks ✅ (D7 cần data, D9 cần test)
+> **Cập nhật**: 2026-02-28 00:30
+> **Trạng thái**: 🔴 SPRINT E IN PROGRESS — Business Model Split
+> **Sprint A-D**: ✅ HOÀN THÀNH (31/33)
+> **Sprint E**: 🔵 Frontend ✅ — Backend cần ClaudeCode
 > **Backlog tính năng mới**: Xem `BACKLOG.md`
 
 ---
 
 ## ⚠️ NGUYÊN TẮC HIỆN TẠI
 
-> **SPRINT D HOÀN THÀNH** — Chỉ còn D7 (A/B test — cần 2 tuần data) và D9 (Content Bible test).
-> Build ✅ + 223 tests ✅ tại mỗi commit.
-> Main branch sạch — chỉ 1 branch `main`, 0 worktrees thừa.
+> **BUSINESS MODEL SPLIT** — Website đang chuyển từ bán lẻ → Nhà sản xuất/Phân phối.
+> Frontend đã xong (Antigravity). Backend tasks dưới đây dành cho **ClaudeCode**.
+> Build ✅ tại commit hiện tại.
 
 ---
 
-## 📊 TÌNH TRẠNG DỰ ÁN (23/02/2026 23:21)
+## 🔴 Sprint E: Business Model Split (28/02/2026)
+
+> **Context**: Giấy phép kinh doanh là nhà phân phối/sản xuất, không bán lẻ.
+> Website chính giờ là "Founder/Manufacturer" — kêu gọi hợp tác, mở rộng đại lý.
+> Website đại lý riêng sẽ làm sau (Phase 3).
+
+### E1. Frontend — Website Founder ✅ DONE (Antigravity)
+
+- [x] Homepage: hero, nav, CTA → B2B messaging
+- [x] Removed: order form, qty selector, payment, promo popup, CTV popup
+- [x] Added: partnership contact form (`#partnership`)
+- [x] Added: B2B CTA journey ("Vì sao chọn Maldalla?")
+- [x] Affiliate → Dealer Network section
+- [x] FAB widget: 6 → 3 buttons (Call, Zalo, LiveChat)
+- [x] `tuyen-ctv.html` → `tuyen-dai-ly.html` (renamed + rebranded)
+- [x] `vite.config.js`: removed `tra-cuu`, `thanh-vien`; renamed entry
+- [x] `vercel.json`: 6 redirects (301)
+- [x] `main.js`: removed retail modules, added `initPartnershipForm()`
+- [x] Build passed ✅
+
+### E2. 🔵 Database — Apply Migration (ClaudeCode)
+
+**File**: `supabase/migrations/20260228_create_partnership_inquiries.sql`
+
+- [ ] Apply migration lên Supabase production
+  ```bash
+  # Chạy SQL trong file migration lên Supabase SQL Editor hoặc:
+  curl -X POST 'https://lfwihaamswskmospcqfo.supabase.co/rest/v1/rpc/exec_sql' \
+    -H 'apikey: <SERVICE_ROLE_KEY>' \
+    -H 'Authorization: Bearer <SERVICE_ROLE_KEY>' \
+    -H 'Content-Type: application/json' \
+    -d '{"query": "<SQL from migration file>"}'
+  ```
+- [ ] Verify table `partnership_inquiries` tồn tại
+- [ ] Verify RLS policies hoạt động (anon insert, admin read)
+
+### E3. 🔵 Admin Panel — Partnership Inquiries (ClaudeCode)
+
+**Mục tiêu**: Admin có thể xem và quản lý yêu cầu hợp tác từ website.
+
+- [ ] Thêm tab/section "Yêu Cầu Hợp Tác" vào `admin.html` + `admin.js`
+- [ ] Hiển thị danh sách inquiries: tên, SĐT, loại hình, ngày gửi, status
+- [ ] Filter theo status: `pending` / `contacted` / `approved` / `rejected`
+- [ ] Update status (dropdown → save qua Supabase)
+- [ ] Stats card: "X yêu cầu mới hôm nay"
+
+**DB**: Table `partnership_inquiries` đã có (E2).
+**RLS**: Admin-only SELECT đã setup trong migration.
+**RPC cần tạo**:
+- `get_partnership_inquiries(status_filter, page, limit)` → paginated list
+- `update_partnership_status(inquiry_id, new_status)` → update status
+
+### E4. 🟡 Notification — Yêu Cầu Mới (ClaudeCode, optional)
+
+- [ ] Gửi email/Zalo notification khi có partnership inquiry mới
+- [ ] Options: Supabase Edge Function trigger on INSERT, hoặc pg_notify + webhook
+- [ ] Admin nhận notification real-time (hoặc daily digest)
+
+**Ưu tiên**: 🟡 — nice to have, không blocking
+
+### E5. 🟡 E2E Tests Update (ClaudeCode)
+
+- [ ] Update `homepage.spec.js` — order form tests → partnership form tests
+- [ ] Update navigation tests (removed pages: tra-cuu, thanh-vien)
+- [ ] Add redirect tests (tuyen-ctv → tuyen-dai-ly)
+- [ ] Remove/update CTV popup tests
+
+---
+
+## 📊 TÌNH TRẠNG DỰ ÁN (28/02/2026)
 
 ### Những gì đã xong ✅
 
-- Trang chủ, CTV Dashboard, Admin Dashboard, Thành Viên, Chia Sẻ, Câu Chuyện, Bản Đồ Sức Khỏe
-- Tra cứu đơn hàng, Tuyển CTV landing, Trang pháp lý (3 trang), 404
-- 25 SQL migrations, RLS hardening, CSP headers, rate limiting
+- Trang chủ, CTV Dashboard, Admin Dashboard, Chia Sẻ, Câu Chuyện, Bản Đồ Sức Khỏe
+- **Business Model Split**: Website chuyển sang Founder/Manufacturer focus
+- **Tuyển Đại Lý** landing page (rebranded từ CTV)
+- **Partnership contact form** + Supabase table
+- Trang pháp lý (3 trang), 404
+- 26 SQL migrations, RLS hardening, CSP headers, rate limiting
 - Unified auth system, login modal popup, role-based menu
 - Phase 6 (UX Engagement) Sprint 1→4 hoàn thành
 - SEO (sitemap, schema.org, OG, robots, canonical)
 - CI/CD (GitHub Actions: unit + integration + E2E + Lighthouse)
 - 223 unit/integration tests + 22 E2E tests (Playwright)
-- **Unified FAB widget** với 6 nút orbit + ring pulse + tooltip xoay
-- **Promotion popup** — Multi-promo carousel + auto-schedule + expiry
-- **Quick Login popup** (CTV / Khách hàng — contextual)
+- **FAB widget** 3 nút (Call, Zalo, LiveChat) + ring pulse + tooltip xoay
+- **Quick Login popup** (Đại lý — contextual)
 - **Event Tracking** — page views, CTA clicks, scroll depth → Supabase
 - **Vercel Analytics** — bounce rate, device, traffic sources
-- **Sticky CTA Mobile** — fixed bottom bar trên mobile
 - **Admin Analytics Dashboard** — event stats UI + charts
-- **P1 Features** — social proof, reorder discount, nurturing toast, promo expiry
 - **V3 Content Rewrite** — soften messaging, experience-based language
 - 120+ commits, deploy tự động qua Vercel
 
----
+### Đã xóa / chuyển đi 🗑️
 
-## 🔵 Sprint D: FAB & Feature Polish (Session 23/02/2026)
-
-### D1. FAB Widget — Sắp xếp & Polish ✅ DONE
-
-- [x] Reorder 6 nút bottom→top: Order, Call, CTV, Zalo, LiveChat, Promotion
-- [x] Zalo icon → inline SVG canh giữa hoàn hảo (nền #0068FF)
-- [x] Messenger → LiveChat (teal gradient)
-- [x] FAB main icon ⭐→ dấu **+** rõ ràng, xoay 360° chậm (8s/vòng)
-- [x] Ring pulse sonar tỏa ra liên tục
-- [x] 6th child stagger animation
-
-### D2. Promotion Popup ✅ DONE
-
-- [x] Nút Promo (rose gradient, tag icon) trong FAB orbit
-- [x] Multi-promo carousel (‹ prev / dots / next ›)
-- [x] Auto-schedule + auto-activate via pg_cron
-- [x] Expiry logic: ẩn FAB promo khi hết hạn + DB trống
-
-### D3. Quick Login Popup ✅ DONE
-
-- [x] HTML + CSS + JS module (`login-popup.js`)
-- [x] Tab CTV / Khách Hàng (iOS segment control)
-- [x] SĐT + mật khẩu → login via Supabase RPC
-- [x] Reusable API: `openLoginPopup({ role, subtitle, onSuccess })`
-- [x] Rate limited 5 lần/phút
-
-### D4. Popup Polish ✅ DONE
-
-- [x] Staggered entrance animation cho TẤT CẢ popup
-- [x] Promo badge pop: scale(0)→scale(1) + xoay nhẹ
-- [x] Hero images generated: CTV + Promo
-
-### D5. CI Fix ✅ DONE
-
-- [x] Lighthouse CI `v12` → `v11`
-- [x] E2E tests aligned với FAB widget IDs mới
-- [x] Exclude `.claude/**` worktrees từ Vitest
-
-### D6. Login Integration ✅ DONE
-
-- [x] Auth interceptor `data-auth` → auto `openLoginPopup()`
-- [x] CTV Dashboard có login flow riêng đầy đủ
-- [x] Nav account card: avatar, name, role badge, dropdown
-
-### D7. � A/B Test CTA — Giọng Tây vs Giọng Việt ⏳ CHỜ DATA
-
-**Shadow**: CTA kiểu empowerment có thể quá "Tây" cho segment 40-60 tuổi.
-
-**Tasks**:
-
-- [ ] Chuẩn bị 2 bộ CTA: Bản A (empowerment) vs Bản B (bình dân-thực tế)
-- [ ] Tạo JS module A/B test + Supabase event tracking (infrastructure ĐÃ CÓ)
-- [ ] Chạy A/B test tối thiểu 2 tuần
-- [ ] Quyết định dựa trên data
-
-**Prerequisite**: D11 ✅ (event tracking đã setup) — có thể bắt đầu bất cứ lúc nào.
+- `tra-cuu.html` — Tra cứu đơn hàng (sẽ ở website dealer)
+- `thanh-vien.html` — Thành viên thân thiết (sẽ ở website dealer)
+- Order form / payment / qty selector (sẽ ở website dealer)
+- CTV popup, Promo popup, Payment QR modal
+- Social proof, returning customer, reorder reminder, exit intent, AB test modules
 
 ---
 
-### ~~D8. Soften "Trí Lực" Messaging~~ ✅ DONE (V3 Content Rewrite)
+## 🔵 Sprint D: FAB & Feature Polish ✅ DONE
 
-- [x] Review overclaim risk → Đã soften toàn bộ trong V3
-- [x] Soften thành experience-based language
-- [x] Thêm inline disclaimer (section About)
+*(collapsed — xem git history cho chi tiết)*
 
-### D9. 🟡 Test Content Bible — Real Output ⏳ CẦN TEST
-
-- [ ] Cho Claude Code đọc `.prompts/content-writing-prompt.md` → viết promotion
-- [ ] Review output: giọng văn, CTA style, brand consistency
-- [ ] Nếu fail → iterate prompt (tách file, rút gọn)
-
-**Ưu tiên**: 🟡 — quan trọng cho handoff nhưng không urgent
+- [x] D1-D6: FAB, Promo Popup, Login, Polish, CI, Integration
+- [x] D8: Soften Messaging (V3)
+- [x] D10-D14: Sticky CTA, Analytics, UI Polish, PWA
+- [ ] D7: A/B Test ⏳ (chờ data)
+- [ ] D9: Content Bible ⏳ (cần test)
 
 ---
 
-### ~~D10. Sticky CTA Mobile~~ ✅ DONE
+## ✨ P1 Features ✅ DONE
 
-- [x] Fixed bottom bar "48.000₫/ngày — Đặt Thử Ngay"
-- [x] IntersectionObserver: hiện sau hero, ẩn tại #contact
-- [x] Safe area cho notched phones
-- [x] Auto pushes FAB lên trên khi visible
-
-### ~~D11. Thu Thập Data~~ ✅ DONE
-
-- [x] Event tracking: `event_logs` table + `log_event()` RPC
-- [x] Auto-track: page views, CTA clicks, scroll depth (25/50/75/100%)
-- [x] `get_event_stats()` RPC cho admin
-- [x] Admin Dashboard UI: 4 metric cards + top CTA clicks table
-- [x] Vercel Analytics (@vercel/analytics) bật 1 dòng
-
-### D12. UI Polish — 6 Issues ✅ DONE
-
-- [x] D12a. Promo popup scrollable + compact card layout
-- [x] D12b. Border-radius thống nhất (CSS vars)
-- [x] D12c. Quote/testimonials lighter cards + white quote marks
-- [x] D12d. CTV badge beige/gold + mini dashboard 3-column
-- [x] D12e. Login popup "Đăng ký" điều hướng đúng role
-- [x] D12f. Desktop scroll lock fix (popups display:none mặc định)
-
-
-### D13. UI/UX Audit Polish ✅ DONE
-
-- [x] Nav account pill: `→` arrow → proper user SVG icon (feather icons)
-- [x] Login popup icon: `→` → 🔐 emoji
-- [x] Role badge: `display:none` moved from inline HTML to CSS
-- [x] CSS vendor prefix: `-webkit-backdrop-filter` before `backdrop-filter`
-- [x] Full browser audit: desktop (1440px) + mobile (375px)
-
-### D14. PWA — Installable App + Offline Cache ✅ DONE
-
-- [x] `manifest.json`: standalone dark gold, vi lang, icon 192+512
-- [x] AI-generated golden cordyceps app icon
-- [x] Service Worker: network-first HTML, cache-first static assets
-- [x] `apple-touch-icon` + `apple-mobile-web-app-capable`
-- [x] SW registration in main.js (production only, skip localhost)
-- [x] Cache cleanup on version update
-
----
-
-## ✨ P1 Features (từ Claude Code branch, re-implemented) ✅ DONE
-
-- [x] Form social proof: "X người đã đặt hàng hôm nay" (real từ DB)
-- [x] Reorder discount: +3% khách quen (cộng dồn, cap 20%)
-- [x] Nurturing toast: nhắc cách uống sau khi đặt hàng
-- [x] Promo expiry: ẩn FAB khi promo hết hạn + DB trống
+- [x] Form social proof, reorder discount, nurturing toast, promo expiry
 
 ---
 
@@ -175,40 +140,28 @@
 
 | Sprint | Tasks | Status |
 | ------ | ----- | ------ |
-| **A: Refactor** | 6/6 | ✅ DONE |
-| **B: Testing** | 5/5 | ✅ DONE |
-| **C: Hardening** | 4/4 | ✅ DONE |
-| **D1-D6: FAB & Features** | 6/6 | ✅ DONE |
-| **D7: A/B Test** | 0/1 | ⏳ Chờ data |
-| **D8: Soften Messaging** | 1/1 | ✅ DONE |
-| **D9: Content Bible** | 0/1 | ⏳ Cần test |
-| **D10-D12: Mobile + Analytics + Polish** | 3/3 | ✅ DONE |
-| **D13: UI/UX Audit** | 1/1 | ✅ DONE |
-| **D14: PWA** | 1/1 | ✅ DONE |
+| **A-C: Refactor/Test/Harden** | 15/15 | ✅ DONE |
+| **D: FAB & Features** | 11/13 | ✅ 85% |
 | **P1: Claude Code Features** | 4/4 | ✅ DONE |
-| **Tổng** | **31/33** | **94%** |
-
-### Test Coverage
-
-| Type | Tests | Files |
-| ---- | ----- | ----- |
-| Unit | 130 | 7 |
-| Integration | 93 | 4 |
-| E2E (Playwright) | 22 | 4 |
-| **Tổng** | **245+** | **15** |
+| **E1: Frontend Split** | 1/1 | ✅ DONE |
+| **E2: DB Migration** | 0/1 | 🔵 ClaudeCode |
+| **E3: Admin Panel** | 0/1 | 🔵 ClaudeCode |
+| **E4: Notifications** | 0/1 | 🟡 Optional |
+| **E5: E2E Tests** | 0/1 | 🟡 ClaudeCode |
 
 ---
 
 ## 📝 QUY TẮC LÀM VIỆC
 
-1. **Build verify bắt buộc** — `npx vite build` clean trước khi push
+1. **Build verify bắt buộc** — `npm run build` clean trước khi push
 2. **Test verify** — `npm test` pass trước khi push
 3. **Commit format** — emoji + mô tả tiếng Việt
 4. **Khi phát hiện bug** → fix ngay, đừng ghi TODO
 5. **Khi có ý tưởng mới** → ghi vào `BACKLOG.md`
 6. **Main branch only** — không tạo feature branch trừ khi cần PR review
+7. **Phân công**: Antigravity = Frontend + DB. ClaudeCode = Backend logic.
 
 ---
 
-*Cập nhật bởi Antigravity AI — 24/02/2026 00:42*
-*Sprint D 94% — D7 (A/B ready) + D9 (Content Bible) còn lại*
+*Cập nhật bởi Antigravity AI — 28/02/2026 00:30*
+*Sprint E: Frontend ✅ — Backend tasks chờ ClaudeCode*

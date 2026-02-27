@@ -797,8 +797,8 @@
         <a href="/">← Trang chủ</a>
         <span class="brand">✍️ Sân Chơi Biên Tập</span>
         <div class="nav-right">
-            <a href="/thanh-vien.html">Thành Viên</a>
-            <a href="/thanh-vien.html" class="btn-nav btn-login">Đăng nhập</a>
+            <a href="/">Trang Chủ</a>
+            <a href="/tuyen-dai-ly.html" class="btn-nav btn-login">Đăng nhập</a>
             <button class="btn-nav btn-write" onclick="openWrite()">✏️ Viết bài</button>
         </div>
     </nav>
@@ -1168,8 +1168,8 @@
         window.openWrite = function () {
             const memberId = sessionStorage.getItem('member_id');
             if (!memberId) {
-                showToast('Vui lòng đăng nhập Thành Viên trước!', true);
-                setTimeout(() => { window.location.href = '/thanh-vien.html'; }, 1500);
+                showToast('Vui lòng đăng nhập trước!', true);
+                setTimeout(() => { window.location.href = '/'; }, 1500);
                 return;
             }
             document.getElementById('writeOverlay').classList.add('active');

@@ -38,6 +38,7 @@
             <li><button class="sidebar-item" data-section="orders">📦 Đơn Hàng</button></li>
             <li><button class="sidebar-item" data-section="ctv">👥 CTV</button></li>
             <li><button class="sidebar-item" data-section="testimonials">⭐ Đánh Giá</button></li>
+            <li><button class="sidebar-item" data-section="partnerships">🤝 Hợp Tác</button></li>
             <li><button class="sidebar-item" data-section="products">🧪 Sản Phẩm</button></li>
             <li><button class="sidebar-item" data-section="contacts">📞 Liên Hệ</button></li>
             <li><button class="sidebar-item" data-section="posts">✍️ Bài Viết</button></li>
@@ -174,6 +175,22 @@
                 <div class="admin-panel">
                     <h3>📢 Thông Báo Site</h3>
                     <div id="announcementEditor"></div>
+                </div>
+            </div>
+
+            <!-- PARTNERSHIPS SECTION -->
+            <div class="admin-section" id="section-partnerships">
+                <div class="admin-panel">
+                    <h3>🤝 Yêu Cầu Hợp Tác <button class="btn-refresh" onclick="refreshSection('partnerships')">🔄 Làm
+                            mới</button><button class="btn-refresh" onclick="exportCSV('partnerships')">📄 Xuất
+                            CSV</button>
+                    </h3>
+                    <div id="partnershipStats" style="margin-bottom:16px;font-size:14px;color:var(--text-sec)"></div>
+                    <div id="allPartnerships">
+                        <div class="admin-loading">
+                            <div class="spinner"></div> Đang tải...
+                        </div>
+                    </div>
                 </div>
             </div>
 

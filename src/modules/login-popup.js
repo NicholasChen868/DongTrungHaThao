@@ -115,7 +115,7 @@ export function initLoginPopup(showToast) {
                 closeLoginPopup();
                 if (currentRole === 'customer') {
                     // Khách hàng → chuyển trang Thành Viên để đăng ký
-                    window.location.href = '/thanh-vien.html';
+                    window.location.href = '/tuyen-dai-ly.html';
                 } else {
                     // CTV → mở popup đăng ký CTV
                     const ctvPopup = document.getElementById('ctvPopup');

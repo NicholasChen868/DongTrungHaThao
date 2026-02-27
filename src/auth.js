@@ -58,8 +58,6 @@ const ROLE_CONFIG = {
         color: '#d4a853',
         menuItems: [
             { label: '🏥 Bản Đồ Sức Khỏe', href: '/ban-do-suc-khoe.html' },
-            { label: '⭐ Điểm Thưởng', href: '/thanh-vien.html?tab=points' },
-            { label: '📦 Lịch Sử Đơn Hàng', href: '/thanh-vien.html?tab=orders' },
             { label: '👤 Hồ Sơ Cá Nhân', href: '#profile', action: 'profile' },
         ]
     },
@@ -69,8 +67,6 @@ const ROLE_CONFIG = {
         gradient: 'linear-gradient(135deg, #94a3b8, #64748b)',
         color: '#94a3b8',
         menuItems: [
-            { label: '⭐ Điểm Thưởng', href: '/thanh-vien.html?tab=points' },
-            { label: '📦 Lịch Sử Đơn Hàng', href: '/thanh-vien.html?tab=orders' },
             { label: '👤 Hồ Sơ Cá Nhân', href: '#profile', action: 'profile' },
         ]
     },
@@ -286,7 +282,7 @@ function showLoginModal() {
         if (result.role === 'ctv') dashboardHref = '/ctv-dashboard.html';
         else if (result.role === 'btv') dashboardHref = '/btv-dashboard.html';
         else if (result.role === 'admin') dashboardHref = '/admin-dashboard.html';
-        else if (result.role === 'member' || result.role === 'loyal_customer') dashboardHref = '/thanh-vien.html';
+        else if (result.role === 'member' || result.role === 'loyal_customer') dashboardHref = '/';
 
         const isCurrentPage = window.location.pathname === dashboardHref ||
             (dashboardHref === '/' && (window.location.pathname === '/' || window.location.pathname === '/index.html'));

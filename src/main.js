@@ -13,21 +13,7 @@ import { renderBenefits, renderProcess, renderProduct, renderHealthStories, rend
 // Critical CSS (navbar, hero, base layout)
 import './css/bottom-bar.css';
 
-// ===================================
-// DYNAMIC PRICING (inline, no import needed)
-// ===================================
-let PRICING = {
-  unit_price: 1450000,
-  discounts: { 1: 0, 2: 0, 3: 5, 5: 10, 10: 15 },
-  free_shipping_min: 3,
-};
-
-async function loadPricing() {
-  try {
-    const { data } = await supabase.rpc('get_product_pricing');
-    if (data) PRICING = data;
-  } catch (e) { console.warn('Dùng giá mặc định'); }
-}
+// (Pricing removed — founder site doesn't sell directly)
 
 // ===================================
 // NAVBAR (inline — critical for first paint)
@@ -117,7 +103,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   renderBenefits(localProduct);
   renderProcess(localProcessSteps);
-  renderProduct(localProduct, PRICING);
+  renderProduct(localProduct, null);
   renderHealthStories([]);
   renderAffiliateSteps(localProgram.howItWorks);
   renderAffiliateTiers(localTiers);
@@ -135,42 +121,31 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ══════════════════════════════════════════
   const loadInteractive = async () => {
     const [
-      { initQuantitySelector, initOrderForm, initPaymentModal, initCtvForm },
-      { initFloatingOrderBtn, initContactWidget, initCtvPopup },
+      { initContactWidget },
       { initLoginPopup, openLoginPopup },
       { initHeroCTARotator },
       { initStickyCTA },
       { initCtvBanner },
-      { initReturningCustomer },
-      { initReorderReminder },
       authModule,
     ] = await Promise.all([
-      import('./modules/order-form.js'),
       import('./modules/floating-buttons.js'),
       import('./modules/login-popup.js'),
       import('./modules/hero-cta-rotator.js'),
       import('./modules/sticky-cta.js'),
       import('./modules/ctv-banner.js'),
-      import('./modules/returning-customer.js'),
-      import('./modules/reorder-reminder.js'),
       import('./auth.js'),
     ]);
 
     const { getCurrentUser } = authModule;
 
     initHeroCTARotator();
-    initFloatingOrderBtn();
     initContactWidget();
-    initCtvPopup(showToast);
     initCtvBanner(showToast);
     initLoginPopup(showToast);
-    initReturningCustomer();
-    initReorderReminder();
     initStickyCTA();
-    initQuantitySelector(localProduct, PRICING);
-    initOrderForm(PRICING, showToast);
-    initPaymentModal(showToast);
-    initCtvForm(showToast);
+
+    // Partnership form handler
+    initPartnershipForm(showToast);
 
     // Auth interceptor
     document.addEventListener('click', (e) => {
@@ -199,12 +174,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ══════════════════════════════════════════
   Promise.all([
     import('./data.js').then(m => m.fetchAllData()),
-    loadPricing(),
   ]).then(([allData]) => {
     const { product, testimonials, healthStories } = allData;
     if (product && product !== localProduct) {
       window.__product = product;
-      renderProduct(product, PRICING);
+      renderProduct(product, null);
     }
     if (testimonials?.length) {
       window.__testimonials = testimonials;
@@ -221,14 +195,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   // PHASE 4: Non-critical modules (when browser idle)
   // ══════════════════════════════════════════
   requestIdleCallback(() => {
-    // CTV system
+    // CTV system (still needed for dealer referral tracking)
     import('./ctv.js').then(m => m.initCTVSystem());
-    // Social proof, promo, exit intent, tracking, AB test
-    import('./modules/social-proof.js').then(m => m.initSocialProof());
-    import('./modules/promo-popup.js').then(m => m.initPromoPopup(showToast));
-    import('./modules/exit-intent.js').then(m => m.initExitIntent(showToast));
+    // Event tracking + Vercel Analytics
     import('./modules/event-tracking.js').then(m => m.initEventTracking());
-    import('./modules/ab-test.js').then(m => { if (m.isABTestActive()) m.applyABTest(); });
     // Page view tracker + Vercel Analytics
     import('./utils/tracker.js');
     import('@vercel/analytics').then(m => m.inject());
@@ -254,6 +224,50 @@ document.addEventListener('DOMContentLoaded', async () => {
       .catch(err => console.warn('[SW] Registration failed:', err));
   }
 });
+
+// ===================================
+// PARTNERSHIP FORM (Liên Hệ Hợp Tác)
+// ===================================
+function initPartnershipForm(showToast) {
+  const form = document.getElementById('partnershipForm');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('partnerName')?.value?.trim();
+    const phone = document.getElementById('partnerPhone')?.value?.trim();
+    const email = document.getElementById('partnerEmail')?.value?.trim();
+    const type = document.getElementById('partnerType')?.value;
+    const location = document.getElementById('partnerLocation')?.value?.trim();
+    const note = document.getElementById('partnerNote')?.value?.trim();
+
+    if (!name || !phone) {
+      showToast('Vui lòng nhập họ tên và số điện thoại', false);
+      return;
+    }
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn?.textContent;
+    if (submitBtn) submitBtn.textContent = 'Đang gửi...';
+
+    try {
+      const { error } = await supabase.from('partnership_inquiries').insert({
+        name, phone, email, type, location, note,
+      });
+
+      if (error) throw error;
+
+      showToast('🤝 Cảm ơn! Chúng tôi sẽ liên hệ trong 24 giờ.', true, { duration: 6000 });
+      form.reset();
+    } catch (err) {
+      console.warn('Partnership form error:', err);
+      showToast('Gửi thất bại. Vui lòng gọi 0903.940.171', false);
+    } finally {
+      if (submitBtn) submitBtn.textContent = originalText;
+    }
+  });
+}
 
 // ===================================
 // NAV ACCOUNT (extracted helper)
@@ -338,8 +352,8 @@ function initNavAccount(openLoginPopup, getCurrentUser, getRoleConfig) {
           dashLink.href = '/ctv-dashboard.html';
           dashLink.textContent = '📊 Dashboard CTV';
         } else {
-          dashLink.href = '/thanh-vien.html';
-          dashLink.textContent = '👤 Tài khoản';
+          dashLink.href = '/';
+          dashLink.textContent = '🏠 Trang chủ';
         }
       }
     } else {

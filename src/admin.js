@@ -24,6 +24,7 @@ import {
 } from './admin/admin-posts.js';
 import { loadProductSettings as _loadProductSettings, savePricing, saveHero, saveContact, saveCtvConfig, saveAnnouncement } from './admin/admin-settings.js';
 import { loadAnalytics as _loadAnalytics } from './admin/admin-analytics.js';
+import { loadPartnerships as _loadPartnerships, updatePartnershipStatus as _updatePartnershipStatus } from './admin/admin-partnerships.js';
 
 // --- Config ---
 const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
@@ -72,6 +73,7 @@ async function loadPosts() { await _loadPosts(deps); }
 async function loadAdminWithdrawals() { await _loadAdminWithdrawals(deps); }
 async function loadProductSettings() { await _loadProductSettings(deps); }
 async function loadAnalytics() { await _loadAnalytics(deps); }
+async function loadPartnerships() { await _loadPartnerships(deps); }
 
 // --- Session timeout ---
 let sessionTimer;
@@ -193,6 +195,7 @@ async function loadSection(name) {
         case 'contacts': await loadContacts(); break;
         case 'posts': await loadPosts(); break;
         case 'withdrawals': await loadAdminWithdrawals(); break;
+        case 'partnerships': await loadPartnerships(); break;
         case 'analytics': await loadAnalytics(); break;
     }
 }
@@ -216,3 +219,4 @@ window.saveHero = () => saveHero(deps);
 window.saveContact = () => saveContact(deps);
 window.saveCtvConfig = () => saveCtvConfig(deps);
 window.saveAnnouncement = () => saveAnnouncement(deps);
+window.updatePartnership = (id, newStatus) => _updatePartnershipStatus(id, newStatus, { ...deps, loaded, loadPartnerships });

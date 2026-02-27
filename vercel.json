@@ -42,5 +42,37 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/tuyen-ctv.html",
+      "destination": "/tuyen-dai-ly.html",
+      "permanent": true
+    },
+    {
+      "source": "/tuyen-ctv",
+      "destination": "/tuyen-dai-ly.html",
+      "permanent": true
+    },
+    {
+      "source": "/tra-cuu.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/tra-cuu",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/thanh-vien.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/thanh-vien",
+      "destination": "/",
+      "permanent": true
+    }
   ]
 }

@@ -1,4 +1,4 @@
-// Income calculator for tuyen-ctv.html
+// Income calculator for tuyen-dai-ly.html
 const slider = document.getElementById('calcSlider');
 const ordersEl = document.getElementById('calcOrders');
 const amountEl = document.getElementById('calcAmount');

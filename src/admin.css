@@ -22,9 +22,9 @@
             --error: #dc2626;
             --warning: #d97706;
             --info: #2563eb;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-            --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.1);
             --radius: 12px;
         }
 
@@ -176,7 +176,7 @@
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            box-shadow: 2px 0 8px rgba(0,0,0,0.03);
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
         }
 
         .sidebar-logo {
@@ -534,6 +534,24 @@
             gap: 8px;
         }
 
+        /* Status dropdown */
+        .status-select {
+            padding: 5px 10px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .status-select:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+        }
+
         /* Toast */
         .admin-toast {
             position: fixed;
@@ -811,7 +829,7 @@
             font-size: 13px;
             font-weight: 700;
             color: var(--gold-primary);
-            background: rgba(212,168,75,0.1);
+            background: rgba(212, 168, 75, 0.1);
             padding: 4px 10px;
             border-radius: 6px;
         }
@@ -857,13 +875,31 @@
         }
 
         @media (max-width: 768px) {
-            .admin-sidebar { display: none; }
-            .admin-content { padding: 16px; }
-            .overview-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .overview-card .value { font-size: 1.6rem; }
+            .admin-sidebar {
+                display: none;
+            }
+
+            .admin-content {
+                padding: 16px;
+            }
+
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .overview-card .value {
+                font-size: 1.6rem;
+            }
+
             /* CTV: ẩn table, hiện card */
-            .ctv-table-wrapper { display: none; }
-            .ctv-cards { display: block; }
+            .ctv-table-wrapper {
+                display: none;
+            }
+
+            .ctv-cards {
+                display: block;
+            }
         }
 
         /* Hidden */
