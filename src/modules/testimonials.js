@@ -34,14 +34,18 @@ export function renderTestimonials(testimonials) {
     <div class="swiper-slide">
       <div class="testimonial-card">
         <div class="testimonial-inner">
-          <div class="testimonial-stars">${'★'.repeat(parseInt(t.rating) || 0)}${'☆'.repeat(5 - (parseInt(t.rating) || 0))}</div>
-          <p class="testimonial-quote">${escapeHTML(t.quote)}</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">${avatarHtml}</div>
-            <div class="testimonial-info">
-              <div class="testimonial-name">${escapeHTML(t.name)}${t.age ? `, ${t.age} tuổi` : ''}</div>
-              <div class="testimonial-location">${escapeHTML(t.location)}</div>
+          <div class="testimonial-header">
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">${avatarHtml}</div>
+              <div class="testimonial-info">
+                <div class="testimonial-name">${escapeHTML(t.name)}${t.age ? `, ${t.age} tuổi` : ''}</div>
+                <div class="testimonial-location">${escapeHTML(t.location)}</div>
+              </div>
             </div>
+            <div class="testimonial-stars">${'★'.repeat(parseInt(t.rating) || 0)}${'☆'.repeat(5 - (parseInt(t.rating) || 0))}</div>
+          </div>
+          <div class="testimonial-body">
+            <p class="testimonial-quote">${escapeHTML(t.quote)}</p>
           </div>
         </div>
       </div>
