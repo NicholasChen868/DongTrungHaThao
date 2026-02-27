@@ -9,7 +9,7 @@ export function initStickyCTA() {
     if (window.innerWidth > 768) return;
 
     const hero = document.querySelector('.hero');
-    const contact = document.getElementById('contact');
+    const contact = document.getElementById('partnership') || document.getElementById('contact');
     if (!hero || !contact) return;
 
     // Tạo sticky bar dynamically
@@ -18,10 +18,10 @@ export function initStickyCTA() {
     bar.id = 'stickyCta';
     bar.innerHTML = `
         <div class="sticky-cta-text">
-            <strong>48.000₫/ngày</strong>
-            Rẻ hơn 1 ly cà phê
+            <strong>Trở thành đối tác</strong>
+            Hợp tác phân phối
         </div>
-        <button class="sticky-cta-btn" id="stickyCtaBtn">Đặt Thử Ngay</button>
+        <button class="sticky-cta-btn" id="stickyCtaBtn">Liên Hệ Ngay</button>
     `;
     document.body.appendChild(bar);
 

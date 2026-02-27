@@ -72,7 +72,7 @@ export function renderProcess(processSteps) {
 
   timeline.innerHTML = processSteps.map((step, i) => `
     <div class="process-accordion animate-on-scroll" style="transition-delay: ${i * 0.08}s" data-step="${parseInt(step.step)}">
-      <button class="process-accordion-header" onclick="this.parentElement.classList.toggle('open')" aria-expanded="false">
+      <button class="process-accordion-header" aria-expanded="false">
         <span class="process-step-icon">${escapeHTML(step.icon)}</span>
         <span class="process-step-label">Bước ${parseInt(step.step)}</span>
         <span class="process-step-title">${escapeHTML(step.title)}</span>
@@ -84,6 +84,15 @@ export function renderProcess(processSteps) {
       </div>
     </div>
   `).join('');
+
+  // Event delegation for accordion toggle (CSP-safe)
+  timeline.addEventListener('click', (e) => {
+    const header = e.target.closest('.process-accordion-header');
+    if (!header) return;
+    const accordion = header.parentElement;
+    accordion.classList.toggle('open');
+    header.setAttribute('aria-expanded', accordion.classList.contains('open'));
+  });
 }
 
 export function renderProduct(product, PRICING) {
