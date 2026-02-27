@@ -85,12 +85,12 @@
         }
 
         .r-nav a:hover {
-            color: var(--gold-light);
+            color: var(--green);
         }
 
         .r-nav .brand {
             font-weight: 700;
-            color: var(--gold-light);
+            color: var(--green);
             font-size: 15px;
         }
 
@@ -141,8 +141,9 @@
         }
 
         .r-hero h1 .hl {
-            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            background: linear-gradient(135deg, #22c55e, #4ade80);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -193,8 +194,8 @@
         }
 
         .btn-ghost:hover {
-            border-color: var(--gold);
-            color: var(--gold-light);
+            border-color: var(--green);
+            color: var(--green);
         }
 
         /* Stats Banner */
@@ -223,7 +224,7 @@
         .r-stat .num {
             font-size: 2rem;
             font-weight: 800;
-            color: var(--gold);
+            color: var(--green);
         }
 
         .r-stat .label {
@@ -246,7 +247,7 @@
         }
 
         .r-section-title .hl {
-            color: var(--gold-light);
+            color: var(--green);
         }
 
         .r-section-sub {
@@ -265,49 +266,95 @@
         }
 
         .step-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px 24px;
+            background: linear-gradient(145deg, rgba(20, 24, 30, 0.4), rgba(10, 12, 15, 0.6));
+            border: 1.5px solid rgba(34, 197, 94, 0.2);
+            border-radius: 24px;
+            padding: 40px 24px;
             text-align: center;
             position: relative;
-            transition: transform 0.3s, border-color 0.3s;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+            box-shadow: 0 0 32px rgba(34, 197, 94, 0.05);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: var(--green);
+            border-radius: 50%;
+            filter: blur(30px);
+            opacity: 0.15;
+            transition: opacity 0.4s ease;
+            z-index: -1;
         }
 
         .step-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold);
+            transform: translateY(-8px);
+            border-color: rgba(34, 197, 94, 0.4);
+            box-shadow: 0 0 48px rgba(34, 197, 94, 0.2);
+        }
+
+        .step-card:hover::before {
+            opacity: 0.4;
         }
 
         .step-num {
-            position: absolute;
-            top: -14px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 28px;
-            height: 28px;
-            background: var(--gold);
-            color: #000;
+            position: relative;
+            z-index: 2;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(20, 24, 30, 0.9), rgba(10, 12, 15, 1));
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            color: var(--green);
             border-radius: 50%;
             font-weight: 800;
-            font-size: 14px;
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 24px;
+            box-shadow: inset 0 0 20px rgba(34, 197, 94, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover .step-num {
+            background: linear-gradient(135deg, #22c55e, #4ade80);
+            color: #000;
+            border-color: transparent;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
         }
 
         .step-icon {
             font-size: 2.5rem;
             margin: 16px 0;
+            display: none;
+            /* Hide icon as we use glowing numbers now */
         }
 
         .step-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+            font-family: 'Lora', serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            letter-spacing: 0.02em;
         }
 
         .step-desc {
+            position: relative;
+            z-index: 2;
             color: var(--text-sec);
             font-size: 14px;
             line-height: 1.6;
@@ -336,7 +383,7 @@
         .calc-slider {
             width: 100%;
             margin: 8px 0 24px;
-            accent-color: var(--gold);
+            accent-color: var(--green);
         }
 
         .calc-result {
@@ -369,44 +416,184 @@
         }
 
         .tier-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px 24px;
-            text-align: center;
-            transition: transform 0.3s;
+            background: linear-gradient(135deg, rgba(20, 24, 36, 0.4), rgba(10, 12, 20, 0.6));
+            border: 1.5px solid rgba(34, 197, 94, 0.2);
+            border-radius: 20px;
+            padding: 36px 28px;
+            text-align: left;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 32px rgba(34, 197, 94, 0.05);
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+        }
+
+        /* Card Chip Effect */
+        .tier-card::before {
+            content: "";
+            position: absolute;
+            top: 32px;
+            right: 28px;
+            width: 42px;
+            height: 32px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        /* Shine overlay */
+        .tier-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg);
+            transition: all 0.7s ease;
+            z-index: 2;
+            pointer-events: none;
         }
 
         .tier-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 255, 255, 0.05);
         }
 
-        .tier-card.featured {
-            border-color: var(--gold);
-            background: linear-gradient(170deg, var(--bg-card), rgba(212, 168, 83, 0.06));
+        .tier-card:hover::after {
+            left: 200%;
         }
 
         .tier-icon {
             font-size: 2.5rem;
-            margin-bottom: 12px;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 3;
+            opacity: 0.9;
+            display: none;
+            /* Hide emoji */
         }
 
         .tier-name {
+            font-family: 'Lora', serif;
+            font-size: 1.5rem;
             font-weight: 700;
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-        }
-
-        .tier-pct {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--gold);
-            margin: 8px 0;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 3;
         }
 
         .tier-req {
+            font-size: 0.95rem;
+            color: var(--text-sec);
+            margin-bottom: 24px;
+            font-weight: 500;
+            position: relative;
+            z-index: 3;
+        }
+
+        .tier-pct {
+            font-family: 'Lora', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin: 4px 0 24px;
+            line-height: 1;
+            position: relative;
+            z-index: 3;
+            text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .tier-pct::after {
+            content: 'CHIẾT KHẤU';
+            display: block;
             font-size: 13px;
+            font-family: 'Be Vietnam Pro', sans-serif;
             color: var(--text-muted);
+            margin-top: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        /* SILVER (Member) */
+        .tier-card:nth-child(1) {
+            background: linear-gradient(135deg, rgba(20, 30, 25, 0.4), rgba(10, 15, 12, 0.6));
+            border: 1.5px solid rgba(134, 239, 172, 0.2);
+        }
+
+        .tier-card:nth-child(1):hover {
+            box-shadow: 0 0 40px rgba(134, 239, 172, 0.15);
+            border-color: rgba(134, 239, 172, 0.4);
+        }
+
+        .tier-card:nth-child(1) .tier-name,
+        .tier-card:nth-child(1) .tier-pct {
+            background: linear-gradient(135deg, #bbf7d0 0%, #4ade80 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tier-card:nth-child(1)::before {
+            border-color: rgba(134, 239, 172, 0.3);
+        }
+
+        /* GOLD */
+        .tier-card:nth-child(2) {
+            background: linear-gradient(135deg, rgba(15, 35, 20, 0.4), rgba(5, 15, 10, 0.6));
+            border: 1.5px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .tier-card:nth-child(2):hover {
+            box-shadow: 0 0 48px rgba(34, 197, 94, 0.25);
+            border-color: rgba(34, 197, 94, 0.6);
+        }
+
+        .tier-card:nth-child(2) .tier-name,
+        .tier-card:nth-child(2) .tier-pct {
+            background: linear-gradient(135deg, #4ade80, #16a34a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tier-card:nth-child(2)::before {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.05));
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        /* DIAMOND */
+        .tier-card:nth-child(3) {
+            background: linear-gradient(135deg, rgba(10, 30, 25, 0.4), rgba(5, 15, 12, 0.6));
+            border: 1.5px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .tier-card:nth-child(3):hover {
+            box-shadow: 0 0 48px rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 0.8);
+        }
+
+        .tier-card:nth-child(3) .tier-name,
+        .tier-card:nth-child(3) .tier-pct {
+            background: linear-gradient(135deg, #6ee7b7 0%, #10b981 50%, #059669 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tier-card:nth-child(3)::before {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05));
+            border-color: rgba(16, 185, 129, 0.4);
         }
 
         /* Dual Path */
@@ -433,7 +620,7 @@
         }
 
         .path-box.highlight {
-            border-color: var(--gold);
+            border-color: var(--green);
             background: linear-gradient(170deg, var(--bg-card), rgba(74, 222, 128, 0.04));
         }
 
@@ -506,7 +693,7 @@
         }
 
         .r-footer a {
-            color: var(--gold);
+            color: var(--green);
             text-decoration: none;
         }
 
@@ -595,7 +782,7 @@
             position: fixed;
             bottom: 24px;
             right: 24px;
-            background: linear-gradient(135deg, var(--gold), #c49540);
+            background: linear-gradient(135deg, #22c55e, #16a34a);
             color: #000;
             border-radius: 50px;
             display: flex;
@@ -767,7 +954,7 @@
             <div class="calc-box reveal">
                 <div class="calc-label">Số đơn hàng bạn có thể mang về mỗi tháng:</div>
                 <input type="range" class="calc-slider" id="calcSlider" min="1" max="50" value="5">
-                <div style="text-align:center;font-size:1.5rem;font-weight:700;color:var(--gold);">
+                <div style="text-align:center;font-size:1.5rem;font-weight:700;color:var(--green);">
                     <span id="calcOrders">5</span> đơn / tháng
                 </div>
                 <div class="calc-result">

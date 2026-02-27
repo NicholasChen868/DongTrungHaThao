@@ -71,13 +71,16 @@ export function renderProcess(processSteps) {
   if (!timeline || !processSteps) return;
 
   timeline.innerHTML = processSteps.map((step, i) => `
-    <div class="process-item animate-on-scroll" style="transition-delay: ${i * 0.1}s">
-      <div class="process-dot">${escapeHTML(step.icon)}</div>
-      <div class="process-content">
-        <div class="process-step-num">Bước ${parseInt(step.step)}</div>
-        <h3 class="process-title">${escapeHTML(step.title)}</h3>
+    <div class="process-accordion animate-on-scroll" style="transition-delay: ${i * 0.08}s" data-step="${parseInt(step.step)}">
+      <button class="process-accordion-header" onclick="this.parentElement.classList.toggle('open')" aria-expanded="false">
+        <span class="process-step-icon">${escapeHTML(step.icon)}</span>
+        <span class="process-step-label">Bước ${parseInt(step.step)}</span>
+        <span class="process-step-title">${escapeHTML(step.title)}</span>
+        <span class="process-step-duration">${escapeHTML(step.duration)}</span>
+        <span class="process-chevron">›</span>
+      </button>
+      <div class="process-accordion-body">
         <p class="process-desc">${escapeHTML(step.description)}</p>
-        <span class="process-duration">${escapeHTML(step.duration)}</span>
       </div>
     </div>
   `).join('');
@@ -118,10 +121,9 @@ export function renderHealthStories(stories) {
       <div class="story-header">
         <div class="story-avatar">${s.avatar.startsWith('/') ? `<img src="${escapeHTML(s.avatar)}" alt="${escapeHTML(s.name)}" loading="lazy">` : escapeHTML(s.avatar)}</div>
         <div class="story-meta">
-          <div class="story-name">${escapeHTML(s.name)}, ${parseInt(s.age) || ''} tuổi</div>
+          <div class="story-name">${escapeHTML(s.name)}, ${parseInt(s.age) || ''} tuổi <span class="story-rating">${'★'.repeat(parseInt(s.rating) || 0)}</span></div>
           <div class="story-location">${escapeHTML(s.location)}</div>
         </div>
-        <div class="story-rating">${'★'.repeat(parseInt(s.rating) || 0)}${'☆'.repeat(5 - (parseInt(s.rating) || 0))}</div>
       </div>
       <h3 class="story-title">${escapeHTML(s.title)}</h3>
       <div class="story-timeline">
@@ -129,7 +131,11 @@ export function renderHealthStories(stories) {
           <div class="phase-label">Trước khi dùng</div>
           <p>${escapeHTML(s.before)}</p>
         </div>
-        <div class="story-arrow">Sau ${escapeHTML(s.duration)}</div>
+        <div class="story-divider">
+          <span class="divider-line"></span>
+          <span class="divider-text">${escapeHTML(s.duration)}</span>
+          <span class="divider-line"></span>
+        </div>
         <div class="story-phase story-after">
           <div class="phase-label">Sau khi dùng</div>
           <p>${escapeHTML(s.after)}</p>

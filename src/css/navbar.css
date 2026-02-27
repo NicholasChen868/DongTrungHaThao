@@ -86,12 +86,18 @@
   color: #0A0E1A !important;
   font-weight: 700;
   border: none;
-  box-shadow: 0 2px 8px rgba(212, 168, 75, 0.2);
+  box-shadow: 0 2px 6px rgba(212, 168, 75, 0.12);
+  opacity: 0.85;
 }
 
 .nav-link--cta:hover {
-  background: linear-gradient(135deg, var(--gold-light), #d4a84b);
-  box-shadow: 0 3px 12px rgba(212, 168, 75, 0.3);
+  opacity: 1;
+  background: linear-gradient(135deg, #f2ce7e, var(--gold-primary));
+  box-shadow:
+    0 4px 16px rgba(212, 168, 75, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .nav-divider {
@@ -103,23 +109,21 @@
 }
 
 .nav-link--accent {
-  border-color: rgba(96, 165, 250, 0.35);
-  color: #7db8fc !important;
+  color: #93c5fd !important;
 }
 
 .nav-link--accent:hover {
-  background: rgba(96, 165, 250, 0.1);
-  border-color: rgba(96, 165, 250, 0.6);
+  background: rgba(96, 165, 250, 0.08);
+  color: #bfdbfe !important;
 }
 
 .nav-link--member {
-  border-color: rgba(212, 168, 83, 0.35);
   color: var(--gold-light) !important;
 }
 
 .nav-link--member:hover {
-  background: rgba(212, 168, 83, 0.1);
-  border-color: rgba(212, 168, 83, 0.6);
+  background: rgba(212, 168, 83, 0.08);
+  color: #f5e6b8 !important;
 }
 
 
@@ -206,12 +210,17 @@
     color: #0A0E1A !important;
     font-weight: 700;
     font-size: 1rem;
-    box-shadow: 0 4px 16px rgba(212, 168, 75, 0.25);
+    box-shadow: 0 2px 8px rgba(212, 168, 75, 0.15);
+    opacity: 0.88;
   }
 
   .nav-link--cta:hover {
-    background: linear-gradient(135deg, #f0c960, #d4a84b);
+    opacity: 1;
+    background: linear-gradient(135deg, #f2ce7e, #d4a84b);
     color: #0A0E1A !important;
+    box-shadow:
+      0 4px 16px rgba(212, 168, 75, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
   }
 
   .nav-divider {
@@ -222,16 +231,14 @@
   }
 
   .nav-link--accent {
-    background: rgba(96, 165, 250, 0.08);
-    border: 1px solid rgba(96, 165, 250, 0.2);
-    border-left: 3px solid rgba(96, 165, 250, 0.5);
-    color: #7db8fc !important;
+    background: rgba(96, 165, 250, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: #93c5fd !important;
   }
 
   .nav-link--member {
-    background: rgba(212, 168, 75, 0.08);
-    border: 1px solid rgba(212, 168, 75, 0.2);
-    border-left: 3px solid rgba(212, 168, 75, 0.5);
+    background: rgba(212, 168, 75, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     color: var(--gold-light) !important;
   }
 

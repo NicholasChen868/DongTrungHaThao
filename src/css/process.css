@@ -1,136 +1,169 @@
 /* ===================================
-   PRODUCTION PROCESS
+   PRODUCTION PROCESS — Collapsible Accordion
    =================================== */
 .section-process {
     background: var(--bg-primary);
 }
 
 .process-timeline {
-    position: relative;
-    max-width: 900px;
+    max-width: 700px;
     margin: 0 auto;
-}
-
-.process-timeline::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom,
-            rgba(255, 255, 255, 0.05) 0%,
-            var(--gold-primary) 50%,
-            rgba(255, 255, 255, 0.05) 100%);
-    transform: translateX(-50%);
-    box-shadow: 0 0 16px rgba(212, 168, 75, 0.4);
-}
-
-.process-item {
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 48px;
-    position: relative;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.process-item:last-child {
-    margin-bottom: 0;
+/* --- Accordion Item --- */
+.process-accordion {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    background: rgba(20, 24, 36, 0.4);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-.process-item:nth-child(odd) {
-    flex-direction: row;
-    padding-right: calc(50% + 40px);
-    text-align: right;
+.process-accordion:hover {
+    border-color: rgba(212, 168, 75, 0.2);
 }
 
-.process-item:nth-child(even) {
-    flex-direction: row-reverse;
-    padding-left: calc(50% + 40px);
+.process-accordion.open {
+    border-color: rgba(212, 168, 75, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(212, 168, 75, 0.06);
+    background: rgba(20, 24, 36, 0.6);
+}
+
+/* --- Header (always visible) --- */
+.process-accordion-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 20px 24px;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
     text-align: left;
 }
 
-.process-dot {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
-    background: var(--bg-card);
-    border: 2px solid rgba(212, 168, 75, 0.4);
+.process-accordion-header:hover {
+    background: rgba(212, 168, 75, 0.04);
+}
+
+.process-step-icon {
+    font-size: 1.4rem;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
-    z-index: 2;
-    transition: all 0.4s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 0 0 4px rgba(255, 255, 255, 0.02);
+    background: rgba(212, 168, 75, 0.06);
+    border: 1px solid rgba(212, 168, 75, 0.15);
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
 }
 
-.process-item:hover .process-dot {
-    border-color: var(--gold-primary);
-    background: rgba(212, 168, 75, 0.1);
-    box-shadow: 0 0 24px rgba(212, 168, 75, 0.3), inset 0 0 0 2px rgba(212, 168, 75, 0.2);
+.process-accordion.open .process-step-icon {
+    background: rgba(212, 168, 75, 0.12);
+    border-color: rgba(212, 168, 75, 0.3);
+    box-shadow: 0 0 12px rgba(212, 168, 75, 0.15);
+}
+
+.process-step-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold-primary);
+    white-space: nowrap;
+    min-width: 52px;
+}
+
+.process-step-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+    flex: 1;
     color: var(--text-primary);
 }
 
-.process-content {
-    background: rgba(20, 24, 36, 0.3);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: var(--radius-md);
-    padding: 28px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    position: relative;
-    overflow: hidden;
+.process-step-duration {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--text-muted);
+    white-space: nowrap;
 }
 
-.process-content::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(212, 168, 75, 0.06), transparent 70%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
+.process-chevron {
+    font-size: 1.4rem;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    line-height: 1;
 }
 
-.process-item:hover .process-content {
-    border-color: rgba(212, 168, 75, 0.25);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4), 0 0 24px rgba(212, 168, 75, 0.08);
-}
-
-.process-item:hover .process-content::before {
-    opacity: 1;
-}
-
-.process-step-num {
-    font-size: 1.05rem;
-    font-weight: 700;
+.process-accordion.open .process-chevron {
+    transform: rotate(90deg);
     color: var(--gold-primary);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 6px;
 }
 
-.process-title {
-    font-family: var(--font-heading);
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin-bottom: 8px;
+/* --- Body (expandable) --- */
+.process-accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        padding 0.3s ease;
+    padding: 0 24px;
+}
+
+.process-accordion.open .process-accordion-body {
+    max-height: 300px;
+    padding: 0 24px 24px;
 }
 
 .process-desc {
     font-size: 0.88rem;
     color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 8px;
+    line-height: 1.7;
+    padding-left: 58px;
+    border-left: 2px solid rgba(212, 168, 75, 0.15);
+    margin-left: 0;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
-.process-duration {
-    font-size: 1rem;
-    color: var(--gold-primary);
-    font-weight: 500;
+/* --- Responsive --- */
+@media (max-width: 600px) {
+    .process-accordion-header {
+        padding: 16px 16px;
+        gap: 10px;
+    }
+
+    .process-step-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+    }
+
+    .process-step-title {
+        font-size: 0.95rem;
+    }
+
+    .process-step-duration {
+        display: none;
+    }
+
+    .process-accordion.open .process-accordion-body {
+        padding: 0 16px 20px;
+    }
+
+    .process-desc {
+        padding-left: 46px;
+        font-size: 0.85rem;
+    }
 }
