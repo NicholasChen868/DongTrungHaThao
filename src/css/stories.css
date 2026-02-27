@@ -12,22 +12,31 @@
 }
 
 .story-card {
-    background: linear-gradient(145deg, rgba(20, 24, 36, 0.95), rgba(10, 14, 24, 0.98));
-    border: 1px solid rgba(212, 168, 75, 0.2);
+    background: rgba(20, 24, 36, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-xl);
     padding: 32px 36px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
     position: relative;
     overflow: hidden;
 }
 
+.story-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 0% 100%, rgba(212, 168, 75, 0.06), transparent 60%);
+    pointer-events: none;
+}
+
 .story-card:hover {
-    border-color: rgba(212, 168, 75, 0.4);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 40px rgba(212, 168, 75, 0.08);
+    border-color: rgba(212, 168, 75, 0.3);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 24px rgba(212, 168, 75, 0.08);
     transform: translateY(-4px);
+    background: rgba(20, 24, 36, 0.6);
 }
 
 .story-header {
@@ -46,16 +55,16 @@
     min-height: 68px;
     border-radius: 50%;
     border: 2px solid transparent;
-    background: linear-gradient(135deg, rgba(20, 24, 36, 1), rgba(10, 14, 24, 1)) padding-box,
-        linear-gradient(135deg, #e8c06a, #d4a84b, #b8860b) border-box;
+    background: var(--bg-card) padding-box,
+        var(--gold-gradient) border-box;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 3px;
     position: relative;
     flex-shrink: 0;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), inset 0 0 0 2px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .story-card:hover .story-avatar {
@@ -110,25 +119,27 @@
     display: flex;
     flex-direction: column;
     gap: 0;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
 }
 
 .story-phase {
     padding: 16px 20px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     font-size: 1rem;
     line-height: 1.6;
     color: var(--text-secondary);
+    position: relative;
 }
 
 .story-before {
-    background: rgba(248, 113, 113, 0.06);
-    border-left: 3px solid rgba(248, 113, 113, 0.4);
+    background: linear-gradient(90deg, rgba(248, 113, 113, 0.03) 0%, transparent 100%);
+    border-left: 2px solid rgba(248, 113, 113, 0.3);
 }
 
 .story-after {
-    background: rgba(74, 222, 128, 0.06);
-    border-left: 3px solid rgba(74, 222, 128, 0.4);
+    background: linear-gradient(90deg, rgba(74, 222, 128, 0.03) 0%, transparent 100%);
+    border-left: 2px solid rgba(74, 222, 128, 0.5);
+    box-shadow: -2px 0 12px -2px rgba(74, 222, 128, 0.1);
 }
 
 .phase-label {
@@ -148,45 +159,47 @@
 
 .story-arrow {
     text-align: center;
-    padding: 8px 0;
-    font-size: 1.05rem;
-    color: var(--gold-primary);
-    font-weight: 600;
+    padding: 12px 0;
+    font-size: 0.95rem;
+    color: var(--gold-light);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    background: var(--gold-text-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .story-quote {
     font-family: var(--font-quote), Georgia, serif;
     font-style: italic;
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-    padding: 28px 24px 20px;
-    background: linear-gradient(135deg, rgba(212, 168, 75, 0.05), rgba(212, 168, 75, 0.02));
-    border: 1px solid rgba(212, 168, 75, 0.15);
-    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    padding: 32px 24px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     margin-bottom: 0;
     text-align: center;
     line-height: 1.7;
     position: relative;
     z-index: 1;
+    font-weight: 300;
 }
 
 .story-quote::before {
     content: '\201C';
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 3rem;
-    color: var(--gold-primary);
-    opacity: 0.2;
+    font-size: 4rem;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(212, 168, 75, 0.4);
     position: absolute;
-    top: 6px;
+    top: -12px;
     left: 50%;
     transform: translateX(-50%);
     line-height: 1;
     -webkit-user-select: none;
     user-select: none;
-    text-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.05),
-        0 -1px 0 rgba(0, 0, 0, 0.2),
-        0 3px 10px rgba(212, 168, 75, 0.1);
+    text-shadow: 0 4px 16px rgba(212, 168, 75, 0.1);
     z-index: -1;
 }
 
