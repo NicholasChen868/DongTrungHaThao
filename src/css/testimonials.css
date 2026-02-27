@@ -79,14 +79,14 @@
 .testimonial-body::before {
     content: '\201C';
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 7rem;
-    color: var(--gold-light);
-    opacity: 0.15;
+    font-size: 6.5rem;
+    color: var(--gold-primary);
+    opacity: 0.35;
     position: absolute;
-    top: -24px;
-    left: -12px;
+    top: -16px;
+    left: -8px;
     line-height: 1;
-    text-shadow: 0 2px 0 rgba(255, 255, 255, 0.05), 0 -1px 0 rgba(0, 0, 0, 0.3), 0 4px 16px rgba(212, 168, 75, 0.25);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.4), 0 8px 24px rgba(212, 168, 75, 0.3);
     -webkit-user-select: none;
     user-select: none;
     z-index: -1;
@@ -99,7 +99,7 @@
     color: var(--text-primary);
     line-height: 1.8;
     margin: 0;
-    padding: 0;
+    padding: 0 0 0 44px;
     position: relative;
     z-index: 1;
     font-weight: 300;
@@ -217,7 +217,7 @@
     }
 
     .testimonial-body::before {
-        top: -16px;
+        top: -12px;
         left: -8px;
         font-size: 5rem;
     }
@@ -225,6 +225,7 @@
     .testimonial-quote {
         font-size: 1.05rem;
         margin-bottom: 24px;
+        padding-left: 36px;
     }
 
     .testimonial-avatar {
