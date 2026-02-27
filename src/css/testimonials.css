@@ -8,6 +8,7 @@
 .testimonials-swiper {
     max-width: 800px;
     margin: 0 auto;
+    padding-top: 24px;
     padding-bottom: 56px;
     position: relative;
 }
@@ -21,7 +22,7 @@
     border: 1px solid rgba(212, 168, 75, 0.2);
     border-radius: var(--radius-xl);
     padding: 48px 40px;
-    text-align: center;
+    text-align: left;
     position: relative;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -39,27 +40,27 @@
 .testimonial-inner::before {
     content: '\201C';
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 8rem;
+    font-size: 7rem;
     color: var(--gold-primary);
-    opacity: 0.1;
+    opacity: 0.2;
     position: absolute;
-    top: 24px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 16px;
+    left: 24px;
     line-height: 1;
-    text-shadow: 0 2px 0 rgba(255, 255, 255, 0.05), 0 -1px 0 rgba(0, 0, 0, 0.3), 0 4px 16px rgba(212, 168, 75, 0.15);
+    text-shadow: 0 2px 0 rgba(255, 255, 255, 0.05), 0 -1px 0 rgba(0, 0, 0, 0.3), 0 4px 16px rgba(212, 168, 75, 0.25);
     -webkit-user-select: none;
     user-select: none;
 }
 
 .testimonial-stars {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     font-size: 1.25rem;
     letter-spacing: 4px;
     color: #e8c06a;
     position: relative;
     z-index: 1;
     text-shadow: 0 0 12px rgba(232, 192, 106, 0.4);
+    margin-left: 56px;
 }
 
 .testimonial-quote {
@@ -70,7 +71,7 @@
     line-height: 1.8;
     margin-top: 16px;
     margin-bottom: 32px;
-    padding: 0 20px;
+    padding: 0;
     position: relative;
     z-index: 1;
     font-weight: 300;
@@ -78,12 +79,14 @@
 
 .testimonial-author {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
+    justify-content: flex-start;
+    gap: 16px;
     position: relative;
     z-index: 1;
+    padding-top: 24px;
+    border-top: 1px solid rgba(212, 168, 75, 0.1);
 }
 
 .testimonial-avatar {
@@ -119,7 +122,7 @@
 }
 
 .testimonial-info {
-    text-align: center;
+    text-align: left;
 }
 
 .testimonial-name {
