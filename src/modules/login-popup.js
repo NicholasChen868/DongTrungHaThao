@@ -161,12 +161,31 @@ export function initLoginPopup(showToast) {
                     closeLoginPopup();
 
                     const name = escapeHTML(result.display_name || result.name || phone);
-                    const roleLabel = result.role === 'ctv' ? '💼 CTV' : '👋';
+
+                    // Gender-aware greeting — Vietnamese name heuristic
+                    const femaleKeywords = ['thị', 'ngọc', 'phương', 'hương', 'lan', 'hoa', 'mai', 'linh', 'thu', 'hà', 'trang', 'yến', 'oanh', 'hạnh', 'thảo', 'loan', 'nga', 'hiền', 'nhung', 'dung', 'hằng', 'thư', 'diệu', 'mỹ', 'kim', 'thanh', 'vy', 'nhi', 'uyên', 'trâm', 'châu', 'my', 'thy', 'xuân', 'trinh', 'cúc', 'lệ'];
+                    const nameLower = (result.display_name || result.name || '').toLowerCase();
+                    const isFemale = femaleKeywords.some(k => nameLower.includes(k));
+                    const honorific = isFemale ? 'chị' : 'anh';
+
+                    // Motivational quotes — always positive, always different
+                    const quotes = [
+                        'Mỗi ngày là một cơ hội mới để khỏe hơn! 🌟',
+                        'Sức khỏe là tài sản quý nhất — bạn đang đầu tư đúng chỗ! 💛',
+                        'Hành trình ngàn dặm bắt đầu từ bước chân đầu tiên 🚀',
+                        'Cơ thể bạn xứng đáng được chăm sóc tốt nhất! ✨',
+                        'Kiên trì mỗi ngày — thay đổi sẽ đến từ những điều nhỏ 💪',
+                        'Chúc bạn một ngày thật nhiều năng lượng! ☀️',
+                        'Khỏe từ bên trong, tỏa sáng từ bên ngoài! 🌿',
+                    ];
+                    const quote = quotes[Math.floor(Math.random() * quotes.length)];
+
+                    const roleLabel = result.role === 'ctv' ? ' · CTV' : '';
 
                     showToast(
-                        `Chào mừng, <strong>${name}</strong>! ${roleLabel}`,
+                        `Chào ${honorific} <strong>${name}</strong>${roleLabel}!<br><span style="font-size:13px;opacity:0.9">${quote}</span>`,
                         true,
-                        { html: true, duration: 4000 }
+                        { html: true, duration: 5000 }
                     );
 
                     // If CTV, init banner

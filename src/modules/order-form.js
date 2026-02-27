@@ -70,11 +70,19 @@ export function initOrderForm(PRICING, showToast) {
     initFormSocialProof();
 
     const paymentOptions = document.querySelectorAll('.payment-option');
+    const bankInfoPreview = document.getElementById('bankInfoPreview');
+
     paymentOptions.forEach(opt => {
         opt.addEventListener('click', () => {
             paymentOptions.forEach(o => o.classList.remove('active'));
             opt.classList.add('active');
             opt.querySelector('input[type="radio"]').checked = true;
+
+            // Show/hide bank info preview
+            if (bankInfoPreview) {
+                const method = opt.dataset.method || opt.querySelector('input[type="radio"]')?.value;
+                bankInfoPreview.style.display = method === 'bank_transfer' ? 'block' : 'none';
+            }
         });
     });
 
