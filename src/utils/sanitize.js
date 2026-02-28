@@ -5,7 +5,7 @@
 export function escapeHTML(str) {
     if (str == null) return '';
     return String(str)
-        .replace(/&/g, '&amp;')
+        .replace(/&(?!(amp|lt|gt|quot|#39|#96|nbsp|#8209);)/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
