@@ -16,11 +16,11 @@
     text-align: center;
     padding: 40px 24px;
     background: linear-gradient(145deg, rgba(20, 24, 30, 0.4), rgba(10, 12, 15, 0.6));
-    border: 1.5px solid rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(212, 168, 75, 0.2);
     border-radius: 24px;
     position: relative;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 0 32px rgba(34, 197, 94, 0.05);
+    box-shadow: 0 0 32px rgba(212, 168, 75, 0.05);
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     display: flex;
@@ -38,7 +38,7 @@
     transform: translateX(-50%);
     width: 60px;
     height: 60px;
-    background: var(--green);
+    background: var(--gold-primary);
     border-radius: 50%;
     filter: blur(30px);
     opacity: 0.15;
@@ -48,8 +48,8 @@
 
 .affiliate-step:hover {
     transform: translateY(-8px);
-    border-color: rgba(34, 197, 94, 0.4);
-    box-shadow: 0 0 48px rgba(34, 197, 94, 0.2);
+    border-color: rgba(212, 168, 75, 0.4);
+    box-shadow: 0 0 48px rgba(212, 168, 75, 0.2);
 }
 
 .affiliate-step:hover::before {
@@ -63,8 +63,8 @@
     height: 56px;
     border-radius: 50%;
     background: linear-gradient(135deg, rgba(20, 24, 30, 0.9), rgba(10, 12, 15, 1));
-    border: 1px solid rgba(34, 197, 94, 0.4);
-    color: var(--green);
+    border: 1px solid rgba(212, 168, 75, 0.4);
+    color: var(--gold-primary);
     font-family: var(--font-heading);
     font-size: 1.5rem;
     font-weight: 800;
@@ -72,14 +72,14 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto 24px;
-    box-shadow: inset 0 0 20px rgba(34, 197, 94, 0.1);
+    box-shadow: inset 0 0 20px rgba(212, 168, 75, 0.1);
 }
 
 .affiliate-step:hover .step-number {
-    background: linear-gradient(135deg, #22c55e, #4ade80);
+    background: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
     color: #000;
     border-color: transparent;
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+    box-shadow: 0 0 20px rgba(212, 168, 75, 0.5);
 }
 
 .step-title {
@@ -110,14 +110,14 @@
 
 .tier-card {
     background: linear-gradient(135deg, rgba(20, 24, 36, 0.4), rgba(10, 12, 20, 0.6));
-    border: 1.5px solid rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     padding: 36px 28px;
     text-align: left;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 32px rgba(34, 197, 94, 0.05);
+    box-shadow: 0 0 32px rgba(0, 0, 0, 0.2);
     min-height: 480px;
     display: flex;
     flex-direction: column;
@@ -233,17 +233,11 @@
     font-size: 0.88rem;
     color: var(--text-secondary);
     padding: 8px 0;
-    padding-left: 24px;
+    padding-left: 2px;
     position: relative;
-}
-
-.tier-perks li::before {
-    content: "✦";
-    position: absolute;
-    left: 0;
-    color: inherit;
-    opacity: 0.5;
-    font-size: 0.8rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
 }
 
 /* ===================================
@@ -252,84 +246,75 @@
 
 /* SILVER (Member) */
 .tier-card:nth-child(1) {
-    background: linear-gradient(135deg, rgba(20, 30, 25, 0.4), rgba(10, 15, 12, 0.6));
-    border: 1.5px solid rgba(134, 239, 172, 0.2);
+    background: linear-gradient(135deg, rgba(20, 24, 30, 0.4), rgba(10, 12, 16, 0.6));
+    border: 1px solid rgba(192, 192, 192, 0.2);
 }
 
 .tier-card:nth-child(1):hover {
-    box-shadow: 0 0 40px rgba(134, 239, 172, 0.15);
-    border-color: rgba(134, 239, 172, 0.4);
+    box-shadow: 0 0 40px rgba(192, 192, 192, 0.15);
+    border-color: rgba(192, 192, 192, 0.4);
 }
 
 .tier-card:nth-child(1) .tier-name,
 .tier-card:nth-child(1) .tier-commission {
-    background: linear-gradient(135deg, #bbf7d0 0%, #4ade80 100%);
+    background: linear-gradient(135deg, #f9fafb 0%, #9ca3af 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .tier-card:nth-child(1)::before {
-    border-color: rgba(134, 239, 172, 0.3);
+    border-color: rgba(192, 192, 192, 0.3);
 }
 
 /* GOLD */
 .tier-card:nth-child(2) {
-    background: linear-gradient(135deg, rgba(15, 35, 20, 0.4), rgba(5, 15, 10, 0.6));
-    border: 1.5px solid rgba(34, 197, 94, 0.3);
+    background: linear-gradient(135deg, rgba(35, 28, 15, 0.4), rgba(15, 12, 5, 0.6));
+    border: 1px solid rgba(212, 168, 83, 0.3);
 }
 
 .tier-card:nth-child(2):hover {
-    box-shadow: 0 0 48px rgba(34, 197, 94, 0.25);
-    border-color: rgba(34, 197, 94, 0.6);
+    box-shadow: 0 0 48px rgba(212, 168, 83, 0.25);
+    border-color: rgba(212, 168, 83, 0.6);
 }
 
 .tier-card:nth-child(2) .tier-name,
 .tier-card:nth-child(2) .tier-commission {
-    background: linear-gradient(135deg, #4ade80, #16a34a);
+    background: linear-gradient(135deg, #fef3c7, #d4a853);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .tier-card:nth-child(2)::before {
-    background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.05));
-    border-color: rgba(34, 197, 94, 0.4);
+    background: linear-gradient(135deg, rgba(212, 168, 83, 0.2), rgba(212, 168, 83, 0.05));
+    border-color: rgba(212, 168, 83, 0.4);
 }
 
-.tier-card:nth-child(2) .tier-perks li::before {
-    color: var(--green);
-    opacity: 1;
-}
-
-/* PLATINUM / DIAMOND */
+/* PLATINUM / VIP */
 .tier-card:nth-child(3) {
-    background: linear-gradient(135deg, rgba(10, 30, 25, 0.4), rgba(5, 15, 12, 0.6));
-    border: 1.5px solid rgba(16, 185, 129, 0.4);
+    background: linear-gradient(135deg, rgba(10, 20, 30, 0.4), rgba(5, 10, 15, 0.6));
+    border: 1px solid rgba(14, 165, 233, 0.4);
 }
 
 .tier-card:nth-child(3):hover {
-    box-shadow: 0 0 48px rgba(16, 185, 129, 0.3);
-    border-color: rgba(16, 185, 129, 0.8);
+    box-shadow: 0 0 48px rgba(14, 165, 233, 0.3);
+    border-color: rgba(14, 165, 233, 0.8);
 }
 
 .tier-card:nth-child(3) .tier-name,
 .tier-card:nth-child(3) .tier-commission {
-    background: linear-gradient(135deg, #6ee7b7 0%, #10b981 50%, #059669 100%);
+    background: linear-gradient(135deg, #bae6fd 0%, #0ea5e9 50%, #0369a1 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .tier-card:nth-child(3)::before {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05));
-    border-color: rgba(16, 185, 129, 0.4);
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(14, 165, 233, 0.05));
+    border-color: rgba(14, 165, 233, 0.4);
 }
 
-.tier-card:nth-child(3) .tier-perks li::before {
-    color: #10b981;
-    opacity: 1;
-}
 
 /* CTV Form */
 .affiliate-cta-card {
@@ -528,7 +513,7 @@
         transform: translateX(-50%);
         width: 2px;
         height: 20px;
-        background: linear-gradient(to bottom, rgba(34, 197, 94, 0.4), rgba(34, 197, 94, 0.1));
+        background: linear-gradient(to bottom, rgba(212, 168, 75, 0.4), rgba(212, 168, 75, 0.1));
     }
 
     .affiliate-step:not(:last-child) {
