@@ -33,6 +33,16 @@ textarea {
     outline: none;
 }
 
+input[type="checkbox"],
+input[type="radio"] {
+    width: auto;
+    width: max-content;
+    padding: 0;
+    cursor: pointer;
+    accent-color: var(--gold-primary);
+    flex-shrink: 0;
+}
+
 input::placeholder,
 textarea::placeholder {
     color: var(--text-muted);
