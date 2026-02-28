@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CTV Dashboard — Đông Trùng Hạ Thảo maldalladuyduc</title>
-    <meta name="description" content="Theo dõi điểm, lượt click và thu nhập của Cộng Tác Viên maldalladuyduc" />
+    <title>Đại Lý Dashboard — Đông Trùng Hạ Thảo Maldalla Duy Đức</title>
+    <meta name="description" content="Theo dõi điểm, lượt click và thu nhập của Đại lý Maldalla Duy Đức" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
         href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
@@ -17,79 +17,17 @@
     <!-- Header -->
     <header class="ctv-header">
         <div class="ctv-header-left">
-            <a href="/">maldalladuyduc</a>
-            <span class="ctv-header-badge">CTV Dashboard</span>
+            <a href="/">Maldalla Duy Đức</a>
+            <span class="ctv-header-badge">Đại Lý Dashboard</span>
         </div>
         <div class="ctv-header-right">
             <a href="/">← Về trang chính</a>
         </div>
     </header>
 
-    <!-- Login/Register Screen -->
-    <div id="ctvLoginScreen" class="ctv-login">
-        <h1>Cộng Tác Viên</h1>
-        <p>Đăng nhập hoặc tạo tài khoản CTV mới</p>
-
-        <div class="ctv-auth-tabs">
-            <button class="ctv-auth-tab active" data-tab="login">Đăng Nhập</button>
-            <button class="ctv-auth-tab" data-tab="register">Đăng Ký Mới</button>
-        </div>
-
-        <!-- Login Panel -->
-        <div class="ctv-auth-panel active" id="panelLogin">
-            <form class="ctv-login-form" id="loginForm">
-                <input type="tel" id="loginPhone" placeholder="Số điện thoại" required />
-                <input type="password" id="loginPassword" placeholder="Mật khẩu" required />
-                <button type="submit">Đăng Nhập</button>
-            </form>
-            <div class="ctv-login-error" id="loginError">Sai thông tin đăng nhập</div>
-            <div style="text-align:center;margin-top:12px">
-                <a href="#" id="ctvForgotLink"
-                    style="color:#999;font-size:13px;text-decoration:underline;cursor:pointer">Quên mật
-                    khẩu?</a>
-            </div>
-        </div>
-
-        <!-- Register Panel -->
-        <div class="ctv-auth-panel" id="panelRegister">
-            <form class="ctv-login-form" id="registerForm">
-                <input type="text" id="regName" placeholder="Họ và tên *" required />
-                <input type="tel" id="regPhone" placeholder="Số điện thoại *" required />
-                <div class="field-hint">10 chữ số, bắt đầu bằng 0</div>
-                <input type="email" id="regEmail" placeholder="Email (tùy chọn)" />
-                <input type="password" id="regPassword" placeholder="Mật khẩu * (tối thiểu 6 ký tự)" required
-                    minlength="6" />
-                <input type="text" id="regReferrer" placeholder="Mã giới thiệu (tùy chọn)" />
-                <button type="submit">Tạo Tài Khoản CTV</button>
-            </form>
-            <div class="ctv-login-error" id="registerError"></div>
-        </div>
-
-        <!-- Forgot Password Panel -->
-        <div class="ctv-auth-panel" id="panelForgot">
-            <h3 style="color:#ccc;margin:0 0 8px;font-size:16px;text-align:center">Đặt Lại Mật Khẩu CTV
-            </h3>
-            <p style="font-size:13px;color:#aaa;margin:0 0 16px;text-align:center">Nhập SĐT và Email đã đăng ký để xác
-                thực</p>
-            <form class="ctv-login-form" id="ctvForgotForm">
-                <input type="tel" id="ctvResetPhone" placeholder="Số điện thoại đã đăng ký *" required />
-                <input type="email" id="ctvResetEmail" placeholder="Email đã đăng ký *" required />
-                <input type="password" id="ctvResetNewPw" placeholder="Mật khẩu mới * (tối thiểu 6 ký tự)" required
-                    minlength="6" />
-                <input type="password" id="ctvResetConfirmPw" placeholder="Xác nhận mật khẩu mới *" required
-                    minlength="6" />
-                <button type="submit">Đặt Lại Mật Khẩu</button>
-            </form>
-            <div class="ctv-login-error" id="ctvForgotError"></div>
-            <div style="text-align:center;margin-top:12px">
-                <a href="#" id="ctvBackToLogin" style="color:#aaa;font-size:13px;cursor:pointer">← Quay lại đăng
-                    nhập</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Dashboard (hidden until login) -->
+    <!-- Dashboard Main View -->
     <div id="ctvDashboardPage" class="ctv-dashboard">
+
         <div class="ctv-container">
 
             <!-- Welcome -->
@@ -191,7 +129,7 @@
             <div class="share-center" id="shareCenter">
                 <h3>📲 Trung Tâm Chia Sẻ</h3>
                 <p class="share-center-desc">Chia sẻ link giới thiệu để nhận hoa hồng khi khách đặt hàng. Link tự động
-                    gắn mã CTV — khách không cần nhập gì.</p>
+                    gắn mã Đại Lý — khách không cần nhập gì.</p>
 
                 <!-- Main Link -->
                 <div class="share-link-box">
@@ -240,7 +178,7 @@
                     </div>
                     <div class="share-qr-info">
                         <h4>Mã QR cá nhân</h4>
-                        <p>Cho khách quét mã khi gặp trực tiếp. Tự động dẫn về trang đặt hàng với mã CTV của bạn.</p>
+                        <p>Cho khách quét mã khi gặp trực tiếp. Tự động dẫn về trang đặt hàng với mã Đại Lý của bạn.</p>
                         <button class="share-qr-download" onclick="downloadQR()">⬇ Tải ảnh QR</button>
                     </div>
                 </div>

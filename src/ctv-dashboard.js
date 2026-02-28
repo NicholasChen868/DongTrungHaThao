@@ -171,7 +171,7 @@ document.getElementById('ctvForgotForm').addEventListener('submit', async (e) =>
         if (!data || !data.ok) {
             const errMsg = data?.error || '';
             if (errMsg.toLowerCase().includes('phone') || errMsg.toLowerCase().includes('sdt')) {
-                errEl.textContent = 'Số điện thoại này chưa đăng ký tài khoản CTV. Vui lòng kiểm tra lại.';
+                errEl.textContent = 'Số điện thoại này chưa đăng ký tài khoản Đại Lý. Vui lòng kiểm tra lại.';
             } else if (errMsg.toLowerCase().includes('email')) {
                 errEl.textContent = 'Email không khớp với số điện thoại đã đăng ký.';
             } else {
@@ -238,7 +238,7 @@ registerForm.addEventListener('submit', async (e) => {
         });
 
         if (result?.ok) {
-            showCtvToast(`Đăng ký thành công! Mã CTV: ${result.referral_code} — Bắt đầu chia sẻ tại /chia-se.html`);
+            showCtvToast(`Đăng ký thành công! Mã Đại Lý: ${result.referral_code} — Bắt đầu chia sẻ tại /chia-se.html`);
             registerForm.reset();
             localStorage.setItem('ctv_ref_code', result.referral_code);
             setTimeout(() => loadDashboard(result.referral_code), 2000);
@@ -251,7 +251,7 @@ registerForm.addEventListener('submit', async (e) => {
         registerError.style.display = 'block';
     } finally {
         btn.disabled = false;
-        btn.textContent = 'Tạo Tài Khoản CTV';
+        btn.textContent = 'Tạo Tài Khoản Đại Lý';
     }
 });
 
@@ -283,7 +283,7 @@ async function loadDashboard(refCode) {
         if (error || !data?.ok) {
             loginScreen.style.display = 'block';
             dashboardPage.style.display = 'none';
-            loginError.textContent = 'Mã CTV không hợp lệ. Vui lòng đăng nhập lại.';
+            loginError.textContent = 'Mã Đại Lý không hợp lệ. Vui lòng đăng nhập lại.';
             loginError.style.display = 'block';
             localStorage.removeItem('ctv_ref_code');
             return;
@@ -333,7 +333,7 @@ async function loadTransactions(refCode) {
     const container = document.getElementById('transactionsBody');
 
     try {
-        // Get the CTV account ID first
+        // Get the Đại Lý account ID first
         const { data: acct } = await supabase
             .from('ctv_accounts')
             .select('id')
