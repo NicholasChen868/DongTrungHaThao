@@ -2,7 +2,7 @@ export const affiliateTiers = [
     {
         id: 'silver',
         name: 'Bạc',
-        icon: '🥈',
+        icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.4 12.7 18 22l-6-3.8-6 3.8 2.6-9.3"/></svg>',
         minSales: 1,
         maxSales: 15,
         commission: 10,
@@ -17,7 +17,7 @@ export const affiliateTiers = [
     {
         id: 'gold',
         name: 'Vàng',
-        icon: '🥇',
+        icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.4 12.7 18 22l-6-3.8-6 3.8 2.6-9.3"/></svg>',
         minSales: 16,
         maxSales: 40,
         commission: 15,
@@ -33,7 +33,7 @@ export const affiliateTiers = [
     {
         id: 'vip',
         name: 'VIP',
-        icon: '💎',
+        icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13"/><path d="M13 3l3 6-4 13"/></svg>',
         minSales: 41,
         maxSales: null,
         commission: 22,

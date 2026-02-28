@@ -94,16 +94,16 @@ function createExitPopup() {
           100% con nhộng nguyên chất. Không pha. Không trộn. Không ngoại lệ.
         </p>
         <div class="exit-intent-trust">
-          <span>✅ GMP — WHO</span>
-          <span>✅ Đổi trả 7 ngày</span>
-          <span>✅ 15 năm — một sản phẩm</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:text-bottom;margin-right:4px"><polyline points="20 6 9 17 4 12"/></svg> GMP — WHO</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:text-bottom;margin-right:4px"><polyline points="20 6 9 17 4 12"/></svg> Đổi trả 7 ngày</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:text-bottom;margin-right:4px"><polyline points="20 6 9 17 4 12"/></svg> 15 năm — một sản phẩm</span>
         </div>
         <div class="exit-intent-actions">
           <a href="tel:0903940171" class="btn btn-primary exit-intent-call">
-            📞 Gọi tư vấn miễn phí
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Gọi tư vấn miễn phí
           </a>
           <a href="https://zalo.me/0903940171" target="_blank" rel="noopener" class="btn btn-secondary exit-intent-zalo">
-            💬 Chat Zalo
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg> Chat Zalo
           </a>
         </div>
         <p class="exit-intent-note">
