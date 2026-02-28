@@ -178,7 +178,6 @@ export function renderAffiliateTiers(affiliateTiers) {
 
   container.innerHTML = affiliateTiers.map((tier, i) => `
     <div class="tier-card animate-on-scroll" style="transition-delay: ${i * 0.1}s">
-      <style>.tier-card:nth-child(${i + 1})::before { background: ${escapeCSS(tier.gradient)}; }</style>
       <span class="tier-icon">${tier.icon}</span>
       <h3 class="tier-name" style="color: ${escapeCSS(tier.color)}">${escapeHTML(tier.name)}</h3>
       <div class="tier-range">${parseInt(tier.minSales)} — ${tier.maxSales ? parseInt(tier.maxSales) : '∞'} sản phẩm/tháng</div>

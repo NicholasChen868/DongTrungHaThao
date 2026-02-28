@@ -106,6 +106,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
     margin-bottom: 64px;
+    align-items: stretch;
 }
 
 .tier-card {
@@ -118,26 +119,22 @@
     position: relative;
     overflow: hidden;
     box-shadow: 0 0 32px rgba(0, 0, 0, 0.2);
-    min-height: 480px;
     display: flex;
     flex-direction: column;
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
 }
 
-/* Card Chip Effect */
+/* Top gradient bar indicator */
 .tier-card::before {
     content: "";
     position: absolute;
-    top: 32px;
-    right: 28px;
-    width: 42px;
-    height: 32px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    opacity: 0.5;
-    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 20px 20px 0 0;
+    z-index: 4;
 }
 
 /* Shine overlay */
@@ -168,12 +165,17 @@
 }
 
 .tier-icon {
-    font-size: 2.5rem;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     display: block;
     position: relative;
     z-index: 3;
     opacity: 0.9;
+    line-height: 1;
+}
+
+.tier-icon svg {
+    width: 36px;
+    height: 36px;
 }
 
 .tier-name {
@@ -264,7 +266,7 @@
 }
 
 .tier-card:nth-child(1)::before {
-    border-color: rgba(192, 192, 192, 0.3);
+    background: linear-gradient(90deg, #c0c0c0, #8a8a8a);
 }
 
 /* GOLD */
@@ -287,8 +289,7 @@
 }
 
 .tier-card:nth-child(2)::before {
-    background: linear-gradient(135deg, rgba(212, 168, 83, 0.2), rgba(212, 168, 83, 0.05));
-    border-color: rgba(212, 168, 83, 0.4);
+    background: linear-gradient(90deg, #d4a853, #b8860b);
 }
 
 /* PLATINUM / VIP */
@@ -311,8 +312,7 @@
 }
 
 .tier-card:nth-child(3)::before {
-    background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(14, 165, 233, 0.05));
-    border-color: rgba(14, 165, 233, 0.4);
+    background: linear-gradient(90deg, #00d4ff, #0088cc);
 }
 
 
