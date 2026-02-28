@@ -8,27 +8,22 @@ const HERO_CTAS = [
   {
     text: 'Mỗi viên nang — tôi đều dám cho bố mẹ mình\u00A0uống.',
     shortText: 'Dám cho bố mẹ mình\u00A0uống.',
-    subtitle: 'Đông Trùng Hạ Thảo Maldalla Duy Đức — 100% con nhộng nguyên chất. Không pha trộn. Không phụ gia. Từ vùng nguyên liệu đến viên nang — một đường\u00A0thẳng.'
   },
   {
     text: 'Mười lăm năm chỉ làm một thứ. Và làm cho tới nơi tới\u00A0chốn.',
     shortText: 'Một thứ. Tới nơi tới\u00A0chốn.',
-    subtitle: '100% con nhộng nguyên chất. Không pha. Không trộn. Không ngoại lệ. Mỗi viên nang 500mg — sấy thăng hoa giữ nguyên dưỡng\u00A0chất.'
   },
   {
-    text: 'Hơn 50% khách hàng đến từ lời giới thiệu của người\u00A0thân.',
-    shortText: '50% khách đến từ người\u00A0thân.',
-    subtitle: 'Mười lăm năm, Maldalla lớn lên nhờ một kênh duy nhất: người thật giới thiệu cho người thật. Không có chiến dịch quảng cáo nào mạnh bằng một câu nói của người bạn tin\u00A0tưởng.'
+    text: '100% con nhộng nguyên chất. Không pha. Không\u00A0trộn.',
+    shortText: '100% nguyên chất. Không\u00A0pha.',
   },
   {
-    text: '100% con nhộng nguyên chất. Không pha. Không trộn. Không ngoại\u00A0lệ.',
-    shortText: '100% nguyên chất. Không ngoại\u00A0lệ.',
-    subtitle: 'Từ vùng nguyên liệu Tây Tạng, qua nhà máy Hà Giang, đến tay bạn — một quy trình khép kín mà tôi kiểm soát từ đầu đến\u00A0cuối.'
+    text: 'Từ Tây Tạng đến Sài Gòn — một quy trình khép\u00A0kín.',
+    shortText: 'Tây Tạng → Sài Gòn. Khép\u00A0kín.',
   },
   {
-    text: '48.000đ mỗi ngày — ít hơn một ly cà phê. Cho sức khỏe cả\u00A0tháng.',
-    shortText: '48.000đ/ngày. Cho cả\u00A0tháng.',
-    subtitle: 'Tôi không xin lỗi về giá. Bởi vì giá ấy là giá của sự thật. Và sự thật thì không bao giờ\u00A0rẻ.'
+    text: 'Phần lớn khách hàng đến với chúng tôi qua lời giới thiệu của người\u00A0thân.',
+    shortText: 'Khách đến từ lời người\u00A0thân.',
   }
 ];
 
@@ -75,10 +70,6 @@ export function initHeroCTARotator() {
   // Pick text dựa theo viewport
   const displayText = isMobilePortrait() ? chosen.shortText : chosen.text;
   heroCtaMsg.textContent = displayText;
-
-  if (heroSubtitle) {
-    heroSubtitle.textContent = chosen.subtitle;
-  }
 
   // Random CTA phụ
   if (heroSubCTA) {

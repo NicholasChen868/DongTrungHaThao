@@ -105,12 +105,23 @@
   font-size: clamp(1.05rem, 2vw, 1.25rem);
   font-weight: 400;
   color: var(--text-secondary);
-  margin-bottom: 48px;
+  margin-bottom: 16px;
   max-width: 680px;
   margin-left: auto;
   margin-right: auto;
   letter-spacing: 0.02em;
   line-height: 1.8;
+}
+
+.hero-sub-quote {
+  font-family: var(--font-body);
+  font-size: clamp(0.88rem, 1.5vw, 0.98rem);
+  color: var(--text-muted);
+  max-width: 720px;
+  margin: 0 auto 48px;
+  line-height: 1.9;
+  font-style: italic;
+  opacity: 0.85;
 }
 
 .hero-actions {
