@@ -98,7 +98,7 @@ export function initCtvBanner(showToast) {
             clearCtvSession();
             banner.style.display = 'none';
             banner.classList.remove('open');
-            showToast?.('Đã đăng xuất CTV', true);
+            showToast?.('Đã đăng xuất Đại Lý', true);
         });
     }
 }
