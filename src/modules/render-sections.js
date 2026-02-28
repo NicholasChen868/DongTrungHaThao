@@ -73,7 +73,7 @@ export function renderProcess(processSteps) {
   timeline.innerHTML = processSteps.map((step, i) => `
     <div class="process-accordion animate-on-scroll" style="transition-delay: ${i * 0.08}s" data-step="${parseInt(step.step)}">
       <button class="process-accordion-header" aria-expanded="false">
-        <span class="process-step-icon">${escapeHTML(step.icon)}</span>
+        <span class="process-step-icon">${step.icon}</span>
         <span class="process-step-label">Bước ${parseInt(step.step)}</span>
         <span class="process-step-title">${escapeHTML(step.title)}</span>
         <span class="process-step-duration">${escapeHTML(step.duration)}</span>

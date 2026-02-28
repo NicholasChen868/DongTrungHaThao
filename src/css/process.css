@@ -62,6 +62,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--gold-primary);
     background: rgba(212, 168, 75, 0.06);
     border: 1px solid rgba(212, 168, 75, 0.15);
     border-radius: 4px;
