@@ -80,6 +80,7 @@ export function renderProcess(processSteps) {
         <span class="process-chevron">›</span>
       </button>
       <div class="process-accordion-body">
+        ${step.image ? `<img src="${step.image}" alt="${escapeHTML(step.title)}" class="process-step-image" loading="lazy">` : ''}
         <p class="process-desc">${escapeHTML(step.description)}</p>
       </div>
     </div>
