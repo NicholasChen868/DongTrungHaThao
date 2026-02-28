@@ -62,7 +62,7 @@
    =================================== */
 @media (max-width: 768px) {
   :root {
-    --section-padding: 64px;
+    --section-padding: 80px;
   }
 
   /* Hero mobile */
@@ -284,7 +284,7 @@
    =================================== */
 @media (max-width: 480px) {
   :root {
-    --section-padding: 48px;
+    --section-padding: 56px;
   }
 
   body {

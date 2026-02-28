@@ -9,7 +9,7 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-auto-rows: min-content;
-    gap: 24px;
+    gap: 28px;
 }
 
 /* ── Block Card (frosted glass container) ── */
@@ -17,7 +17,7 @@
     background: rgba(20, 24, 36, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-xl);
-    padding: 36px 40px;
+    padding: 40px 44px;
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -89,7 +89,7 @@
     border: 1px solid rgba(255, 255, 255, 0.02);
     border-left: 3px solid rgba(212, 168, 75, 0.2);
     border-radius: var(--radius-sm);
-    padding: 20px 24px;
+    padding: 24px 28px;
     transition: all 0.3s ease;
 }
 
