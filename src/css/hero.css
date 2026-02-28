@@ -246,6 +246,7 @@
 
 .hero-stat {
   text-align: center;
+  white-space: nowrap;
 }
 
 .hero-stat-number {
@@ -265,6 +266,7 @@
   font-size: 1.05rem;
   color: var(--text-secondary);
   margin-top: 4px;
+  white-space: normal;
 }
 
 .hero-scroll-indicator {

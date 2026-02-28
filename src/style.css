@@ -18,3 +18,5 @@
 /* Media Queries: Tablet + Mobile (745 lines) */
 @import './css/components.css';
 /* Returning Customer, CTA, Floating Buttons, Widgets (1003 lines) */
+@import './css/bottom-bar.css';
+/* Sticky CTA, FAB Widget, Nav links mobile (429 lines) */
