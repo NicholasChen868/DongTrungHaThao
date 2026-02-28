@@ -108,16 +108,19 @@ export function renderProduct(product, PRICING) {
   if (nameEl) nameEl.textContent = product.name;
   if (descEl) descEl.textContent = product.description;
   if (capsulesEl) capsulesEl.textContent = product.capsuleCount + ' ' + product.capsuleUnit;
-  if (priceEl) priceEl.textContent = PRICING.unit_price.toLocaleString('vi-VN') + '₫';
-  if (totalEl) totalEl.textContent = PRICING.unit_price.toLocaleString('vi-VN') + '₫';
+
+  const price = PRICING?.unit_price ?? product.price ?? 0;
+  if (priceEl) priceEl.textContent = price.toLocaleString('vi-VN') + '₫';
+  if (totalEl) totalEl.textContent = price.toLocaleString('vi-VN') + '₫';
 
   if (ingredientsEl) {
     const ul = ingredientsEl.querySelector('ul');
-    ul.innerHTML = product.ingredients.map(i => `<li>${escapeHTML(i)}</li>`).join('');
+    if (ul) ul.innerHTML = product.ingredients.map(i => `<li>${escapeHTML(i)}</li>`).join('');
   }
 
   if (usageEl) {
-    usageEl.querySelector('p').textContent = product.usage;
+    const p = usageEl.querySelector('p');
+    if (p) p.textContent = product.usage;
   }
 }
 

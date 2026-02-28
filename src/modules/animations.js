@@ -41,37 +41,49 @@ function animateCount(el, target) {
     requestAnimationFrame(update);
 }
 
+let _scrollObserver = null;
+
 export function initScrollAnimations() {
     const elements = document.querySelectorAll('.animate-on-scroll');
 
+    // Immediately show elements already in viewport
     const checkVisibility = (el) => {
         const rect = el.getBoundingClientRect();
         const windowHeight = window.innerHeight || document.documentElement.clientHeight;
         return rect.top < windowHeight && rect.bottom > 0;
     };
 
-    requestAnimationFrame(() => {
-        elements.forEach(el => {
-            if (checkVisibility(el)) {
-                el.classList.add('visible');
-            }
-        });
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, {
-        threshold: 0.05,
-        rootMargin: '0px 0px -30px 0px',
-    });
-
     elements.forEach(el => {
-        if (!el.classList.contains('visible')) {
-            observer.observe(el);
+        if (checkVisibility(el)) {
+            el.classList.add('visible');
         }
     });
+
+    // Create observer only once
+    if (!_scrollObserver) {
+        _scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.01,
+            rootMargin: '50px 0px -20px 0px',
+        });
+    }
+
+    // Observe any elements that aren't visible yet
+    elements.forEach(el => {
+        if (!el.classList.contains('visible')) {
+            _scrollObserver.observe(el);
+        }
+    });
+
+    // Safety net: after 4s, force-show everything (catches edge cases)
+    setTimeout(() => {
+        document.querySelectorAll('.animate-on-scroll:not(.visible)').forEach(el => {
+            el.classList.add('visible');
+        });
+    }, 4000);
 }
