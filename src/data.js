@@ -41,19 +41,19 @@ export async function fetchProduct() {
             unit: products.unit,
             capsuleCount: products.capsule_count,
             capsuleUnit: products.capsule_unit,
-            ingredients: products.ingredients || [],
-            benefits: (benefits || []).map(b => {
+            ingredients: (products.ingredients && products.ingredients.length > 0) ? products.ingredients : localProduct?.ingredients || [],
+            benefits: (benefits && benefits.length > 0) ? benefits.map(b => {
                 // Fallback to local image if Supabase image_url is empty
-                const localBenefit = localProduct.benefits.find(lb => lb.title === b.title);
+                const localBenefit = localProduct.benefits?.find(lb => lb.title === b.title);
                 return {
                     icon: b.icon,
                     image: b.image_url || (localBenefit ? localBenefit.image : null),
                     title: b.title,
                     desc: b.description,
                 };
-            }),
-            usage: products.usage_instructions,
-            storage: products.storage,
+            }) : localProduct?.benefits || [],
+            usage: products.usage_instructions || localProduct?.usage || '',
+            storage: products.storage || localProduct?.storage || '',
             certification: products.certification,
             origin: products.origin,
         };
