@@ -1,5 +1,5 @@
 /* ===================================
-   CTV REGISTRATION POPUP
+   Đại Lý REGISTRATION POPUP
    Premium glassmorphism modal
    =================================== */
 
@@ -106,7 +106,7 @@
     animation: badgePop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.25s both;
 }
 
-/* ── CTV Popup Overlay ── */
+/* ── Đại Lý Popup Overlay ── */
 .ctv-popup-overlay {
     position: fixed;
     inset: 0;
@@ -341,7 +341,7 @@
 
 
 /* ===================================
-   CTV INFO BANNER — Glossy black float
+   Đại Lý INFO BANNER — Glossy black float
    =================================== */
 .ctv-banner {
     position: fixed;
