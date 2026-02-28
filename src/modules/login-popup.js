@@ -244,4 +244,4 @@ export function initLoginPopup(showToast) {
             });
         }
     }
-
+}
